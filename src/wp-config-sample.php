@@ -14,15 +14,17 @@
  * @package WordPress
  */
 
+define('DOMAIN_CURRENT_SITE', 'localhost/toquenobrasil');
+
 // ** Configurações do MySQL - Você pode pegar essas informações com o serviço de hospedagem ** //
 /** O nome do banco de dados do WordPress */
-define('DB_NAME', 'nomedoBD');
+define('DB_NAME', 'toquenobrasil');
 
 /** Usuário do banco de dados MySQL */
-define('DB_USER', 'usuarioMySQL');
+define('DB_USER', 'root');
 
 /** Senha do banco de dados MySQL */
-define('DB_PASSWORD', 'senha');
+define('DB_PASSWORD', '');
 
 /** nome do host do MySQL */
 define('DB_HOST', 'localhost');
