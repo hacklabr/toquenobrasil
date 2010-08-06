@@ -6,4 +6,51 @@ Author: hacklab/
 Version: 1.0
 */
 
+/* Blueprint */
+@import url('css/screen.css');
 
+/* Colors
+blue - #5FE0FF
+lightblue - #DFF9FF
+darkblue - #00C0F3
+yellow - #F9ED32
+green - #72BF44
+*/
+
+/* Theme */
+body {background:#DFF9FF;padding-bottom:18px;}
+
+#content {background:white;position:relative;margin-top:18px;padding:72px 0px 0px 0px;-moz-border-radius:36px 0px 0px;-moz-box-shadow:4px 4px 0px #008EAF;}
+
+#nav-main {position:absolute;right:21px;top:-9px;}
+#nav-main ul.menu {list-style:none;margin:0px;padding:0px;}
+#nav-main ul.menu li {display:inline;margin:0px 3px 0px 0px;padding:0px;}
+#nav-main ul.menu li a {color:white;float:left;}
+#nav-main ul.menu li a:hover {text-decoration:none;}
+#nav-main .title h1 {background:#5FE0FF;border-top:9px solid #00C0F3;border-left:none !important;float:left;font-size:1.6em;padding:6px 18px 9px 18px;text-transform:uppercase;-moz-border-radius:0px 0px 9px 9px;}
+#nav-main .title .shadow {background:url(img/shadow-blue-menu.png) no-repeat top right;float:left;height:9px;width:9px;}
+#nav-main .title:hover h1 {border-color:#008EAF;padding-top:12px;}
+
+#video {background:#72BF44;padding:20px;}
+#video object {display:block;line-height:0;}
+
+#footer {height:150px;}
+
+.item {margin:10px 0px 20px 0px;}
+.item .background {margin-top:-65px;padding:70px 20px 20px 20px;}
+.item .background p {border-left:9px solid #FEFEFE;padding-left:12px;}
+.item .background p:last-child {margin-bottom:0px;}
+.item .title h1 {border-left:9px solid #00C0F3;float:left;font-size:1.6em;margin-left:-9px;padding:9px 18px;text-transform:uppercase;-moz-border-radius:0px 9px 9px 0px;}
+.item .title .shadow {height:9px;margin-left:-9px;width:9px;}
+
+.blue .background {background:#DFF9FF;}
+.blue .title h1 {background:#5FE0FF;border-color:#00C0F3;color:#008EAF;}
+.blue .title .shadow {background:url(img/shadow-blue-content.png) no-repeat top right;}
+
+.green .background {background:#CEE8BD;}
+.green .title h1 {background:#72BF44;border-color:#5B9F31;color:#437C3A;}
+.green .title .shadow {background:url(img/shadow-green-content.png) no-repeat top right;}
+
+.yellow .background {background:#FAF6B9;}
+.yellow .title h1 {background:#EFE32C;border-color:#F0C137;color:#D09031;}
+.yellow .title .shadow {background:url(img/shadow-yellow-content.png) no-repeat top right;}
