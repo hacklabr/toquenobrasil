@@ -8,15 +8,13 @@
       <div class="clear"></div>
     </div>
     <div class="background">
-      <div class="signup">
-        <div class="title">
-          <a href=""><h1>CADASTRE-SE</h1></a>
-          <div class="shadow"></div>
-        </div>
+      <div class="signup">        
+        <a href="">Cadastre-se!</a>
+        <div class="shadow"></div>       
       </div>
-      <div class="span-6">
+      
         <p>Ac rhoncus aliquam amet quis pulvinar augue pulvinar augue velit! In? Integer pid auctor enim a nunc ridiculus et massa scelerisque ultricies dictumst arcu porta, ut, etiam pellentesque vut integer, pellentesque amet nisi.</p>        
-      </div>
+      
       <div class="clear"></div>
     </div>
   </div>
