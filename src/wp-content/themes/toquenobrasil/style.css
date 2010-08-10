@@ -18,7 +18,7 @@ green - #72BF44
 */
 
 /* Theme */
-body {background:#DFF9FF -moz-linear-gradient(top, #DFF9FF, #67BBCF 130%) fixed;padding-bottom:18px; font-family: }
+body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:18px; font-family: }
 h1, h2, h3, h4, h5, h6 { font-family: "Arial Rounded MT Bold", Arial, sans-serif; }
 
 #toquenobrasil {position:absolute;top:-85px;}
