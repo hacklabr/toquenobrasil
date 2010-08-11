@@ -2,10 +2,11 @@
 
 define('TNB_URL', get_bloginfo('url') . strstr(dirname(__FILE__), '/wp-content') );
 
-# Includes
+# INCLUDES
 include(TEMPLATEPATH . '/includes/image.php');
 
-# Javascripts
+
+# JAVASCRIPTS
 add_action('wp_print_scripts', 'tnb_load_js');
 function tnb_load_js() {
   if ( !is_admin() ) {
@@ -15,11 +16,25 @@ function tnb_load_js() {
   }
 }
 
-# Registering menus
+
+# REGISTERING MENUS
 register_nav_menus( array(
                           'main' => __('Menu Principal', 'tnb'),
                           'bottom' => __('Menu Inferior', 'tnb'),
                           )
                     );
+
+// REGISTERING WIDGETS
+add_action( 'widgets_init', 'tnb_widgets_init' );
+
+function tnb_widgets_init() {
+  register_sidebar( array(
+                          'name' => __('Sidebar', 'tnb'),
+                          'id' => 'blog',
+                          'descrition' => __('Sidebar das páginas internas'),
+                          'before_title'  => '<div class="title"><div class="shadow"></div><h2 class="widgettitle">',
+                          'after_title'   => '</h2><div class="clear"></div></div>'
+  ) );
+}
 
 ?>
