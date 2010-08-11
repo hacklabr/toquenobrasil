@@ -31,21 +31,25 @@
 </head>
 
 <body <?php body_class(); ?>>
-  <div id="content" class="container">
-    <div class="span-9">
-      <?php theme_image("toquenobrasil2.png", array("id" => "toquenobrasil", "class" => "prepend-1")); ?>
-    </div>
-    <div class="prepend-1 span-14 last">
-      <?php wp_nav_menu(array("theme_location" => "main",
-                              "container" => "div",
-                              "container_id" => "nav-main",
-                              "before" => "<span class='title'>",
-                              "after" => "<span class='shadow'></span></span>",
-                              "link_before" => "<h1>",
-                              "link_after" => "</h1>"
-                             )
-      ) ?>
-      <div class="clear"></div>
-    </div>
+  <div class="stripes-header">
+    <div class="stripes-content">
+      <div id="content" class="container">
+        <div class="span-9">
+          <a href="<?php bloginfo('url'); ?>">
+            <?php theme_image("toquenobrasil2.png", array("id" => "toquenobrasil", "class" => "prepend-1")); ?>
+          </a>
+        </div>
+        <div class="prepend-1 span-14 last">
+          <?php wp_nav_menu(array("theme_location" => "main",
+                                  "container" => "div",
+                                  "container_id" => "nav-main",
+                                  "before" => "<span class='title'>",
+                                  "after" => "<span class='shadow'></span></span>",
+                                  "link_before" => "<h1>",
+                                  "link_after" => "</h1>"
+                                 )
+          ) ?>
+          <div class="clear"></div>
+        </div>
 
-    <div class="clear"></div>
+        <div class="clear"></div>    
