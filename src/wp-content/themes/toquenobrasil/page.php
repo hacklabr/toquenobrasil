@@ -1,5 +1,8 @@
 <?php get_header(); ?>
 
+<div class="clear"></div>
+<div class="prepend-top"></div>
+
 <div class="span-14 prepend-1 right-colborder">
   <?php if ( have_posts() ) : the_post(); ?>
     <div class="item green">
@@ -15,5 +18,6 @@
   <?php endif; ?>  
 </div>
 
+<?php get_sidebar("blog"); ?>
 
 <?php get_footer(); ?>
