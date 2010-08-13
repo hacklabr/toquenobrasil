@@ -18,7 +18,7 @@ green - #72BF44
 */
 
 /* Theme */
-body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px; font-family: }
+body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px; }
 
 .stripes-header {background:url(img/bg-stripes-header.png) no-repeat top center;padding-top:25px;}
 .stripes-content {background:url(img/bg-stripes-content.png) repeat-y top center;}
@@ -45,7 +45,8 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 #nav-bottom-wrapper #nav-bottom ul li {display:inline;}
 #nav-bottom-wrapper #nav-bottom ul li:after {content:"•";font-size:0.6em;padding:0px 6px 0px 8px;}
 #nav-bottom-wrapper #nav-bottom ul li:last-child:after {content:"";}
-#nav-bottom-wrapper #hacklab {font-size:1.6em;margin-top:135px;text-align:right;}
+#nav-bottom-wrapper #hacklab, #nav-bottom-wrapper #wp {font-size:1.6em;text-align:right;}
+#nav-bottom-wrapper #wp { margin-top:95px; }
 
 #footer {background:#179FBF;margin-top:72px;padding-bottom:18px;padding-top:18px;position:relative;}
 #footer input[type=text] {border:none;margin-bottom:18px;padding:6px;width:93%;-moz-border-radius:9px;-moz-box-shadow:4px 4px 0px #11778F;}
@@ -56,16 +57,26 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 #footer #twit {background:url(img/twit.png);color:#9F6513;height:296px;left:90px;position:absolute;top:-36px;width:326px;}
 #footer #twit .content {margin-left:30px;padding:0px 30px;}
 #footer #twit .content span {display:block;}
-#footer #twit .content .author {font-size:2em;font-weight:bold;text-transform:uppercase;}
-#footer #twit .content .twit {font-size:1.2em;}
-#footer #twit .content .twit-meta {font-size:1em;}
+#footer #twit div.tb_tweetlist, #footer #twit  div.tb_tweet { border: none !important; }
+#footer #twit a { border: 1px dotted #9F6513; color:#9F6513; padding: 0 3px; }
+#footer #twit a:hover { border: 1px solid #9F6513; color:#fff; background: #9F6513; text-decoration: none; }
+#footer #twit a.tb_photo { float: none !important; border: none; }
+#footer #twit a.tb_photo:hover { background : none; border: none !important; }
+#footer #twit a.tb_photo img { border: none !important; }
+#footer #twit .tb_author {font-size:2em;font-weight:bold !important;text-transform:uppercase;}
+#footer #twit .tb_msg {font-size:1.2em;}
+#footer #twit .tb_tweet-info {font-size:1em; color:#9F6513; }
 #contato-title {left:460px;position:absolute;top:-11px;}
+
+
 
 #content {background:white url(img/bg-stripes-content.png) repeat-y center center;margin-top:150px;padding:40px 0px 0px 0px;position:relative;-moz-border-radius:36px 0px 0px 0px;-webkit-border-top-left-radius:36px;-moz-box-shadow:6px 6px 0px #11778F;-webkit-box-shadow:6px 6px 0px #11778F;}
 
 .item {margin:6px 0px 20px 0px;position:relative;}
 .item .title {padding-top:20px;}
-.item .title h1 {border-left:9px solid #00C0F3;float:left;font-size:2.5em;margin-left:-9px;padding:9px 18px;text-transform:uppercase;-moz-border-radius:0px 18px 18px 0px;border-radius: 15px;behavior: url(border-radius.htc);}
+.item .title h1, .item .title h3 {border-left:9px solid #00C0F3;float:left;margin-left:-9px;padding:9px 18px;text-transform:uppercase;behavior: url(border-radius.htc);}
+.item .title h1 { font-size:2.5em; -moz-border-radius:0px 18px 18px 0px;border-radius: 15px;}
+.item .title h3 { -moz-border-radius:0px 9px 9px 0px; border-radius: 15px;}
 .item .title .shadow {height:9px;margin-left:-9px;width:9px;}
 .item .background {margin-top:-85px;padding:85px 20px 20px 20px;-moz-border-radius:0px 0px 0px 18px;}
 .item .background p {font-size:1.15em;}
@@ -81,7 +92,7 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 .green .title .shadow {background:url(img/shadow-green.png) no-repeat bottom right;}
 
 .yellow .background {background:#F9ED32;color:#9F6513;-moz-box-shadow:5px 5px 0px #D09031;}
-.yellow .title h1 {background:#F0C137;border-color:#D09031;color:#FFF;}
+.yellow .title h1, .yellow .title h3 {background:#F0C137;border-color:#D09031;color:#FFF;}
 .yellow .title .shadow {background:url(img/shadow-yellow.png) no-repeat bottom right;}
 
 .signup {position:absolute;right:4px;bottom:-14px;background:#EC008C;padding:9px;font-weight:bold;-moz-border-radius:9px 0px 0px 0px}
@@ -95,8 +106,10 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 .post h2 {font-size:2em;line-height:1;margin-bottom:.25em;text-transform:uppercase;}
 .post a {border-bottom:1px dotted #5B9F31;color:#5B9F31;}
 .post a:hover {border-bottom:1px solid #5B9F31;text-decoration:none;}
-.post .post-time {margin-bottom:9px;margin-top:-9px;position:relative;text-align:right;}
-.post .post-time span {background:#5FE0FF;border-top:9px solid #00C0F3;border-left:none !important;color:#11778F;float:right;font-size:1.2em;font-weight:bold;margin-left:-18px;padding:3px 9px 6px 9px;-moz-border-radius:0px 0px 9px 9px;}
+.post .post-time {margin-bottom:9px;margin-top:-9px;position:relative;text-align:center;}
+.post .post-time div.data {background:#5FE0FF;border-top:9px solid #00C0F3;border-left:none !important;color:#11778F;float:right;font-weight:bold;margin-left:-18px;padding:3px 9px 6px 9px;-moz-border-radius:0px 0px 9px 9px;}
+.post .post-time div.dia { font-size: 3em; line-height: 1em; }
+.post .post-time div.mes-ano { font-size:0.9em;}
 .post .post-time .shadow {background:url(img/shadow-blue-menu.png) no-repeat top right;float:right;height:9px;width:9px;}
 .post .post-comments {background:url(img/comments.png) center center no-repeat;height:70px;}
 .post .post-comments span {display:block;font-size:2.5em;height:40px;padding:7px 0px;text-align:center;width:70px;}
@@ -105,6 +118,22 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 .post .post-categories a:hover {background:#EC008C;text-decoration:none;}
 .post .post-tags a {border:1px dotted #EC008C;color:#EC008C;font-weight:bold;line-height:2.25;padding:3px 6px;text-transform:lowercase;}
 .post .post-tags a:hover {background:#8C0052;border:1px solid #8C0052;color:white;text-decoration:none;}
+
+
+/*Comentários
+---------------------------------------------------------------------------------*/
+.comentarios { float: left; }
+.comentarios ul.commentlist { padding-left: 0; margin: 0 0 1.5em 0; }
+.comentarios ul.commentlist li { list-style: none; border-top: 1px solid #00C0F3; padding-top: 1.5em; }
+#respond { margin: 0 0 1.5em 80px; padding: 51px 20px 20px; background:#F9ED32;color:#9F6513;-moz-box-shadow:5px 5px 0px #D09031;-moz-border-radius:0px 0px 0px 9px; }
+#respond .title {float: right; margin-bottom:9px;margin-top:-60px;position:relative;}
+#respond .title span {background:#F0C137;color:#fff; border-top:9px solid #D09031;border-left:none !important;float:right;font-size:1.2em;font-weight:bold;margin-left:-18px;padding:3px 9px 6px 9px;-moz-border-radius:0px 0px 9px 9px;}
+#respond .title span h4 { float: left; }
+#respond .title .shadow {background:url(img/shadow-yellow.png) no-repeat bottom left;float:right;height:9px;width:9px;}
+#cancel-comment-reply-link { float: left; display: block; width: 20px; height: 20px; margin-left: 10px; text-indent: -99999px; background: transparent url(img/cancelar.png) no-repeat center; border: none; }
+#comment, #author, #email, #url { font-family: Arial, Helvetica, sans-serif; font-size: 12px; }
+#comment { width: 258px; }
+#author, #email, #url { padding: 5px; width: 138px; }
 
 ul.widgets {list-style:none;margin:0px;padding:0px;}
 ul.widgets li {margin-bottom:18px;padding:9px 18px 18px 18px;}

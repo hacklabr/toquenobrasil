@@ -7,18 +7,14 @@
             <br>
             <a href=""><?php theme_image("facebook.png") ?></a>
             <br>
-            <a href=""><?php theme_image("wordpress.png") ?></a>
+            <a href=""><?php theme_image("flickr.png") ?></a>
             <br>
             <a href=""><?php theme_image("twitter.png") ?></a>
           </div>
           <div class="span-8 last">
             <div id="twit">
               <div class="content textcenter prepend-top">
-                <img src="http://a2.twimg.com/profile_images/1099073678/0809-TwitterIcon_bigger.png"/>                
-                <br/>
-                <span class="author">threadless</span>
-                <span class="twit">Ac. Sagittis quis facilisis sit ultrices. Porta scelerisque ac mus et hac, vut elementum porta mattis dapibus aenean nisi cras! Sit vut dic.</span>
-                <span class="twit-meta">42 minutes ago via HootSuite</span>
+              <?php if( dynamic_sidebar('rodape') ); ?>                
               </div>
             </div>
           </div>
@@ -57,8 +53,11 @@
     <div id="nav-bottom" class="span-16 textcenter">
       <?php wp_nav_menu(array("theme_location" => "bottom")) ?>
     </div>
-    <div id="hacklab" class="span-8 last">
-      <a href="http://www.hacklab.com.br">hacklab/</a>
+    <div id="wp" class="span-8 last">
+      <a href="http://wordpress.org" title="Powered by WordPress"><?php theme_image("wordpress.png") ?></a>
+    </div>
+    <div id="hacklab" class="span-24 last">      
+      <a href="http://www.hacklab.com.br" title="Desenvolvido pelo hacklab">hacklab/</a>
     </div>
   </div>
 </div>

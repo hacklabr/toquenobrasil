@@ -5,4 +5,5 @@ jQuery(document).ready(function() {
     Cufon.replace('#nav-bottom');
     Cufon.replace('#hacklab');
     Cufon.replace(".post .post-comments span")
+	
 })

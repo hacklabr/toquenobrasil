@@ -33,7 +33,7 @@
       <div class="post">
         <div class="post-time span-14">
           <div class="shadow"></div>
-          <span><?php the_time("d/m/y"); ?></span>
+          <div class="data"><div class="dia"><?php the_time("d"); ?></div><div class="mes-ano"><?php the_time("m/Y");?></div></div>
         </div>
         <div class="span-2 post-comments">
           <span><?php comments_number("0", "1", "%"); ?></span>
