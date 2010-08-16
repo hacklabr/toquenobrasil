@@ -34,12 +34,12 @@
   <div class="stripes-header">
     <div class="stripes-content">
       <div id="content" class="container">
-        <div class="span-9">
+        
           <a href="<?php bloginfo('url'); ?>">
             <?php theme_image("toquenobrasil2.png", array("id" => "toquenobrasil", "class" => "prepend-1")); ?>
           </a>
-        </div>
-        <div class="prepend-1 span-14 last">
+        
+        
           <?php wp_nav_menu(array("theme_location" => "main",
                                   "container" => "div",
                                   "container_id" => "nav-main",
@@ -49,7 +49,13 @@
                                   "link_after" => "</h1>"
                                  )
           ) ?>
-          <div class="clear"></div>
+          
+		<div id="login">
+        	<form>
+            	<h4>Login</h4>
+                <input type="text" name="" value="E-mail" id="user" class="text" />
+                <input type="password" name="senha" value="senha" id="senha" class="text" />
+                <a id="reset-pass" href="#">Perdi a senha</a><input type="image" name="ok" src="<?php echo get_theme_image("ok.png"); ?>" id="ok" />
+            </form>
         </div>
-
         <div class="clear"></div>    

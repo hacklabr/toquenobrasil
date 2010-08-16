@@ -5,6 +5,7 @@ define('TNB_URL', get_bloginfo('url') . strstr(dirname(__FILE__), '/wp-content')
 # INCLUDES
 include(TEMPLATEPATH . '/includes/image.php');
 include(TEMPLATEPATH . '/includes/tnb_comment.php');
+include(TEMPLATEPATH . '/includes/post_types.php');
 
 # JAVASCRIPTS
 add_action('wp_print_scripts', 'tnb_load_js');
@@ -43,5 +44,11 @@ function tnb_widgets_init() {
 						  'after_widget' => ''                         
   ) );
 }
+
+// POST THUMBNAILS
+add_theme_support('post-thumbnails');
+set_post_thumbnail_size( 150, 110, true );
+add_image_size( 'eventos', 150, 110, true );
+
 
 ?>

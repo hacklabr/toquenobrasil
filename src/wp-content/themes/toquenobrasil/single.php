@@ -32,8 +32,8 @@
         <div class="post-tags">
           <p><?php the_tags(" "," "," "); ?></p>
         </div><!-- .post-tags -->
-      </div>
-      <?php comments_template(); ?> 
+      </div>      
+	  <?php comments_template(); ?>     
       <div class="clear"></div>
         <div class="navigation">
             <div class="alignright"><?php next_post_link('%link', 'Próximo post &raquo;', true); ?></div>
