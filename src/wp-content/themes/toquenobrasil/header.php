@@ -33,7 +33,7 @@
     <div class="stripes-content">
       <div id="content" class="container">
         
-          <a href="<?php bloginfo('url'); ?>">
+          <a href="<?php bloginfo('url'); ?>" title='Página inicial''>
             <?php theme_image("toquenobrasil2.png", array("id" => "toquenobrasil", "class" => "prepend-1")); ?>
           </a>
         

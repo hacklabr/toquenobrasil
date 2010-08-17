@@ -4,7 +4,7 @@
 <div class="prepend-top"></div>
 <div class="span-14 prepend-1 right-colborder">
 	<p>Aqui você encontra festivais que estão buscando bandas novas! Inscreva-se clicando em "Quero Tocar!", seus dados serão automaticamente enviados ao produtor do evento.</p>
-    <?php if ( have_posts() ) : the_post(); ?>
+    <?php if ( have_posts() ) : while (have_posts()) : the_post(); ?>
     
     <div class="post">
         <div class="post-time span-14">
@@ -56,6 +56,7 @@
         <!-- .navigation --> 
     </div>
     <!-- .post -->
+	<?php endwhile; ?>
     <?php endif; ?>
 </div>
 <?php get_sidebar("blog"); ?>
