@@ -5,15 +5,11 @@
 <title>
   <?php
     global $page, $paged;
-    wp_title( '|', true, 'right' );
     bloginfo( 'name' );
-
-    $site_description = get_bloginfo( 'description', 'display' );
-    if ( $site_description && ( is_home() || is_front_page() ) )
-      echo " | $site_description";
-
-    if ( $paged >= 2 || $page >= 2 )
-      echo ' | ' . sprintf( __( 'Page %s', 'tnb' ), max( $paged, $page ) );
+	wp_title( '|', true, 'left' );
+    
+  	if ( $paged >= 2 || $page >= 2 )
+ 	echo ' | ' . sprintf( __( 'Page %s', 'tnb' ), max( $paged, $page ) );
   ?>
 </title>
 <link rel="profile" href="http://gmpg.org/xfn/11" />
@@ -22,6 +18,8 @@
 <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo('stylesheet_directory'); ?>/css/ie.css" />
 <![endif]-->
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
+<!-- Icon -->
+<link type="image/x-icon" href="<?php echo get_theme_image('favicon.ico'); ?>" rel="shortcut icon" />
 
 <?php
   if ( is_singular() && get_option( 'thread_comments' ) )

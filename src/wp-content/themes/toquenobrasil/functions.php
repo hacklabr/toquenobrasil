@@ -47,8 +47,8 @@ function tnb_widgets_init() {
 
 // POST THUMBNAILS
 add_theme_support('post-thumbnails');
-set_post_thumbnail_size( 150, 110, true );
-add_image_size( 'eventos', 150, 110, true );
+set_post_thumbnail_size( 150, 130, true );
+add_image_size( 'eventos', 150, 130, true );
 
 
 ?>

@@ -16,7 +16,7 @@ function comment_add_microid($classes)
 add_filter('comment_class','comment_add_microid');
 ?>
 
-<div class="comentarios"> 
+<div id="comentarios"> 
     <!--show the comments-->
     <div class="item yellow">
       <div class="title pull-1">
@@ -25,28 +25,22 @@ add_filter('comment_class','comment_add_microid');
         <div class="clear"></div>
       </div>
       <div class="clear"></div>
-    </div>
-    
+    </div>    
     <?php if(have_comments()) : ?>
-    <h4 class="col-12 prepend-2">
-        <?php comments_number('Nenhum comentário', '1 comentário', '% comentários' );?>
-        | <a href="#respond" title="Comente">Comente &raquo;</a></h4>
+    <h4 class="col-12 prepend-2"><?php comments_number('Nenhum comentário', '1 comentário', '% comentários' );?> | <a href="#respond" title="Comente">Comente &raquo;</a></h4>
     <ul class="commentlist" id="singlecomments">
         <?php wp_list_comments('callback=tnb_comment'); ?>
         <li class="clear"></li>
-    </ul>
-    <?php endif; ?>
-    
+    </ul><!-- .commentlist #singlecomments -->
+    <?php endif; ?>    
     <!--show the form-->
     <?php if('open' == $post-> comment_status) : ?>
-    <div id="respond">
-    	
+    <div id="respond">    	
     	<div class="title">
             <div class="shadow"></div>
             <span><h4 class="no-margin">Comente</h4> <?php cancel_comment_reply_link('Cancelar') ?></span>
             <div class="clear"></div>
-      	</div><!-- .title -->
-        
+      	</div><!-- .title -->        
         <?php if(get_option('comment_registration') && !$user_ID) : ?>
         <p>Você precisa estar <a href="<?php print get_option('siteurl'); ?>/wp-login.php?redirect_to=<?php echo urlencode(get_permalink()); ?>">logado</a> para fazer um comentário.</p>
         <?php else : ?>
@@ -77,6 +71,6 @@ add_filter('comment_class','comment_add_microid');
             <?php do_action('comment_form', $post->ID); ?>
         </form>
         <?php endif; ?>
-    </div>
+    </div><!-- #respond -->
     <?php endif; ?>
-</div>
+</div><!-- #comentarios -->

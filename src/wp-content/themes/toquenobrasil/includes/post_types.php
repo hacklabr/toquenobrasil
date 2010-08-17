@@ -45,7 +45,11 @@ function eventos_meta() {
   $data = get_post_meta($post->ID, "evento_data", true);
   $inscricao_inicio = get_post_meta($post->ID, "eventos_inscricao_inicio", true);
   $inscricao_fim = get_post_meta($post->ID, "eventos_inscricao_fim", true);
+  $local = get_post_meta($post->ID, "eventos_local", true);
+  $site = get_post_meta($post->ID, "eventos_site", true);
+  $vagas = get_post_meta($post->ID, "eventos_vagas", true);
   $recipient = get_post_meta($post->ID, "eventos_recipient", true);
+  
   ?>
 
   <input type="hidden" name="eventos_noncename" id="eventos_noncename" value="<?php echo wp_create_nonce( "eventos_noncename" ); ?>" />
@@ -58,7 +62,13 @@ function eventos_meta() {
   <input type="text" name="eventos_inscricao_inicio" value="<?php echo $inscricao_inicio; ?>" /></p>
   <p><label><strong>Fim:</strong></label><br />
   <input type="text" name="eventos_inscricao_fim" value="<?php echo $inscricao_fim; ?>" /></p>
-  <p><label><strong>E-mail:</strong></label><br />
+  <p><label><strong>Local:</strong></label><br />
+  <input type="text" name="eventos_local" value="<?php echo $local ?>" /></p>
+  <p><label><strong>Site do evento:</strong></label><br />
+  <input type="text" name="eventos_site" value="<?php echo $site ?>" /></p>
+  <p><label><strong>Vagas:</strong></label><br />
+  <input type="text" name="eventos_vagas" value="<?php echo $vagas ?>" /></p>
+  <p><label><strong>E-mail para inscrição:</strong></label><br />
   <input type="text" name="eventos_recipient" value="<?php echo $recipient ?>" /></p>
   <?php
 }
@@ -84,6 +94,9 @@ function save_eventos_meta_box( $post_id ) {
   update_post_meta($post_id, 'evento_data', $_POST['evento_data']);
   update_post_meta($post_id, 'eventos_inscricao_inicio', $_POST['eventos_inscricao_inicio']);
   update_post_meta($post_id, 'eventos_inscricao_fim', $_POST['eventos_inscricao_fim']);
+  update_post_meta($post_id, 'eventos_local', $_POST['eventos_local']);
+  update_post_meta($post_id, 'eventos_site', $_POST['eventos_site']);
+  update_post_meta($post_id, 'eventos_vagas', $_POST['eventos_vagas']);
   update_post_meta($post_id, 'eventos_recipient', $_POST['eventos_recipient']);
 
   return $post_id;
