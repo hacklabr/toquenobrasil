@@ -54,9 +54,15 @@
           </div>
         </div>
         <div class="clear"></div>
-      </div>
+      </div><!-- .post -->
       
-    <?php endwhile; endif; wp_reset_query(); ?>
+    <?php endwhile;?>
+    
+	 	<div id="posts-navigation">
+        	<?php previous_posts_link('<span id="anteriores"><span>Próximos posts</span></span>'); ?>
+            <?php next_posts_link('<span id="proximos"><span>Posts anteriores</span></span>'); ?>            
+        </div><!-- .navigation --> 
+	 <?php endif; wp_reset_query(); ?>
   <?php endif; ?>
 </div>
 

@@ -41,7 +41,7 @@ function eventos_meta_box() {
  
 function eventos_meta() {
   global $post;
-
+  $tipo = get_post_meta($post->ID, "evento_tipo", true);
   $data = get_post_meta($post->ID, "evento_data", true);
   $inscricao_inicio = get_post_meta($post->ID, "eventos_inscricao_inicio", true);
   $inscricao_fim = get_post_meta($post->ID, "eventos_inscricao_fim", true);
@@ -54,13 +54,13 @@ function eventos_meta() {
 
   <input type="hidden" name="eventos_noncename" id="eventos_noncename" value="<?php echo wp_create_nonce( "eventos_noncename" ); ?>" />
 
-
+  <p><label><strong>Tipo de evento:</strong></label><br />
+  <input type="text" name="evento_tipo" value="<?php echo $tipo; ?>" /></p>
   <p><label><strong>Data do evento:</strong></label><br />
   <input type="text" name="evento_data" value="<?php echo $data; ?>" /></p>
-  <h4>Inscrições</h4>
-  <p><label><strong>Início:</strong></label><br />
+  <p><label><strong>Início das inscrições:</strong></label><br />
   <input type="text" name="eventos_inscricao_inicio" value="<?php echo $inscricao_inicio; ?>" /></p>
-  <p><label><strong>Fim:</strong></label><br />
+  <p><label><strong>Fim das inscrições:</strong></label><br />
   <input type="text" name="eventos_inscricao_fim" value="<?php echo $inscricao_fim; ?>" /></p>
   <p><label><strong>Local:</strong></label><br />
   <input type="text" name="eventos_local" value="<?php echo $local ?>" /></p>
@@ -91,6 +91,7 @@ function save_eventos_meta_box( $post_id ) {
        return $post_id;
   }
   
+  update_post_meta($post_id, 'evento_tipo', $_POST['evento_tipo']);
   update_post_meta($post_id, 'evento_data', $_POST['evento_data']);
   update_post_meta($post_id, 'eventos_inscricao_inicio', $_POST['eventos_inscricao_inicio']);
   update_post_meta($post_id, 'eventos_inscricao_fim', $_POST['eventos_inscricao_fim']);

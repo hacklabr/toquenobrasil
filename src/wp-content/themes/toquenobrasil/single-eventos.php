@@ -35,7 +35,8 @@
             <?php endif; ?>
         </div><!-- .thumb -->        
         <div id="dados-do-evento" class="span-10 last">                        	
-            <p><span class="labels">Data do evento:</span> <?php echo get_post_meta(get_the_ID(), "evento_data", true); ?><br />
+            <p><span class="labels">Tipo de evento:</span> <?php echo get_post_meta(get_the_ID(), "evento_tipo", true); ?><br />
+            <span class="labels">Data do evento:</span> <?php echo get_post_meta(get_the_ID(), "evento_data", true); ?><br />
             <span class="labels">Inscrições:</span> <?php echo get_post_meta(get_the_ID(), "eventos_inscricao_inicio", true); ?><br />
             <span class="labels">Fim das inscrições:</span> <?php echo get_post_meta(get_the_ID(), "eventos_inscricao_fim", true); ?><br />
             <span class="labels">Local:</span><?php echo get_post_meta(get_the_ID(), "eventos_local", true); ?><br />

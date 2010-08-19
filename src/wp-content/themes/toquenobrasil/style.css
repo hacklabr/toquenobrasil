@@ -39,9 +39,9 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 #nav-main ul.menu li#menu-item-6 a {background:#5FE0FF url(img/icn-eventos.png) no-repeat 30px 120px !important;}
 
 #login { position: absolute; top: -175px; right: 0px; width: 120px; height: 145px; padding: 10px; background-color: #179FBF; -moz-border-radius:0px 0px 9px 9px;-webkit-border-bottom-left-radius:9px;-webkit-border-bottom-right-radius:9px; }
-#login h6, #login h6 a { color: #fff; }
-#login h6 a { background: #11778F;padding: 2px; -moz-border-radius:3px; -webkit-border-radius:3px; }
-#login h6 a:hover { color: #fff; }
+#login h5, #login h5 a { color: #fff; }
+#login h5 a { background: #11778F;padding: 2px; -moz-border-radius:3px; -webkit-border-radius:3px; }
+#login h5 a:hover { color: #fff; }
 #login #user, #login #senha {border:none;margin: 0 0 18px; padding:6px;width:108px;-moz-border-radius:9px;-moz-box-shadow:4px 4px 0px #11778F;}
 #login input {color:#9A9A9A;font-family:Arial,Sans-Serif;font-size:1em;} 
 #login #ok { float: right; }
@@ -69,7 +69,7 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 #footer #twit div.tb_tweetlist, #footer #twit  div.tb_tweet { border: none !important; }
 #footer #twit a { border: 1px dotted #9F6513; color:#9F6513; padding: 0 3px; }
 #footer #twit a:hover { border: 1px solid #9F6513; color:#fff; background: #9F6513; text-decoration: none; }
-#footer #twit a.tb_photo { float: none !important; border: none; }
+#footer #twit a.tb_photo { float: none !important; border: none; display:inline !important; }
 #footer #twit a.tb_photo:hover { background : none; border: none !important; }
 #footer #twit a.tb_photo img { border: none !important; }
 #footer #twit .tb_author {font-size:2em;font-weight:bold !important;text-transform:uppercase;}
@@ -111,22 +111,22 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 
 .clearfix:after { content:".";display:block;height:0;clear:both;visibility:hidden; }
 
-.post {border-top:1px solid #00C0F3;margin:27px 0px 36px 0px;}
-.custom-post-type-eventos-archive .post { padding-top: 1em; }
+.post {border-top:1px solid #00C0F3;margin:27px 0px 36px 0px; position: relative; }
+.custom-post-type-eventos-archive .post { padding-top: 1em; border-bottom:1px solid #00C0F3; border-top:none; }
 .post h2 {font-size:2em;line-height:1;margin-bottom:1em;text-transform:uppercase;}
 .post a {border-bottom:1px dotted #5B9F31;color:#5B9F31;}
 .post a:hover {border-bottom:1px solid #5B9F31;text-decoration:none;}
-.post .post-time, .post .quero-tocar {margin-bottom:9px;margin-top:-9px;position:relative;text-align:center;}
+.post .post-time {margin-bottom:9px;margin-top:-9px;position:relative;text-align:center;}
 .post .post-time div.data {border-left:none !important;margin-left:-18px;padding:3px 9px 6px 9px;-moz-border-radius:0px 0px 9px 9px;}
 .post .post-time div.data {background:#5FE0FF;border-top:9px solid #00C0F3;color:#11778F;float:right;font-weight:bold;}
-.post .quero-tocar { background:#EC008C; padding:3px 9px 6px 9px;-moz-border-radius:0px 0px 9px 9px; }
-.post .quero-tocar div.link a { color: #fff; border: none; }
-.post .quero-tocar div.link a:hover { border: none; }
+.post .quero-tocar { position: absolute; bottom: -9px; right: 9px; z-index: 1; padding:6px 9px 15px 9px; background:#EC008C; -moz-border-radius:9px 0 0 0; text-align:center; font-size: 1.2em; }
+.post .quero-tocar a { color: #fff; border: none; font-weight: bold; }
+.post .quero-tocar a:hover { border: none; }
+.post .quero-tocar .shadow {height:9px;width:9px; position: absolute; right:-9px; bottom: 0; background:url(img/shadow-magenta.png) no-repeat left top; }
 .post .post-time div.dia { font-size: 3em; line-height: 1em; }
 .post .post-time div.mes-ano { font-size:0.9em;}
-.post .post-time .shadow, .post .quero-tocar .shadow {float:right;height:9px;width:9px;} 
+.post .post-time .shadow {float:right;height:9px;width:9px;} 
 .post .post-time .shadow {background:url(img/shadow-blue-menu.png) no-repeat top right;}
-.post .quero-tocar .shadow {background:url(img/shadow-magenta.png) no-repeat bottom left; margin-top: -9px; }
 .post .post-comments {background:url(img/comments.png) center center no-repeat;height:70px;}
 .post .post-comments span {display:block;font-size:2.5em;height:40px;padding:7px 0px;text-align:center;width:70px;}
 .post .post-categories {margin-bottom:18px;}
@@ -143,6 +143,7 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 #comentarios ul.commentlist li { list-style: none; border-top: 1px solid #00C0F3; padding-top: 1.5em; }
 #comentarios ul.commentlist ul.children { padding-left: 80px; margin: 0 0 1.5em 0; }
 #respond { margin: 0 0 1.5em 80px; padding: 51px 20px 20px; background:#F9ED32;color:#9F6513;-moz-box-shadow:5px 5px 0px #D09031;-moz-border-radius:0px 0px 0px 9px; }
+#comentarios ul.commentlist ul.children #respond { margin-left: 0; }
 #respond .title {float: right; margin-bottom:9px;margin-top:-60px;position:relative;}
 #respond .title span {background:#F0C137;color:#fff; border-top:9px solid #D09031;border-left:none !important;float:right;font-size:1.2em;font-weight:bold;margin-left:-18px;padding:3px 9px 6px 9px;-moz-border-radius:0px 0px 9px 9px;}
 #respond .title span h4 { float: left; }
@@ -151,6 +152,14 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 #comment, #author, #email, #url { font-family: Arial, Helvetica, sans-serif; font-size: 12px; }
 #comment { width: 258px; }
 #author, #email, #url { padding: 5px; width: 138px; }
+#posts-navigation { margin-top: 150px; }
+#posts-navigation #proximo, #posts-navigation #anterior, #posts-navigation #proximos, #posts-navigation #anteriores{ position: absolute; bottom: 239px; z-index: 1; }
+#posts-navigation #proximo, #posts-navigation #anteriores { left: 428px; width: 164px; height: 200px; background: transparent url(img/proximo.png) no-repeat;}
+#posts-navigation #anterior, #posts-navigation #proximos { left: 170px; width: 253px; height: 200px; background: transparent url(img/anterior.png) no-repeat; }
+#posts-navigation a { color: #fff; border: none; font-size: 1.2em; display: block; }
+#posts-navigation #anterior a, #posts-navigation #proximos span { margin: 53px 0 0 5px; }
+#posts-navigation #proximo a, #posts-navigation #anteriores span { margin: 3px 5px 0 0; text-align: right; }
+#posts-navigation #anteriores span, #posts-navigation #proximos span { display: block; }
 
 /*Eventos
 ---------------------------------------------------------------------------------*/

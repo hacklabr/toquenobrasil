@@ -16,7 +16,7 @@ function comment_add_microid($classes)
 add_filter('comment_class','comment_add_microid');
 ?>
 
-<div id="comentarios"> 
+<div id="comentarios" class="span-14"> 
     <!--show the comments-->
     <div class="item yellow">
       <div class="title pull-1">
