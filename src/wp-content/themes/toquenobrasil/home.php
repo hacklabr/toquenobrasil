@@ -26,6 +26,10 @@
       <div class="clear"></div>
     </div>
     <div class="background">
+      <div class="signup">        
+        <a href="">Cadastre-se!</a>
+        <div class="shadow"></div>       
+      </div>
       <p>Quer encontrar bandas?</p>
     </div>
   </div>

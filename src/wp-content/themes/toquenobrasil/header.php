@@ -5,8 +5,9 @@
 <title>
   <?php
     global $page, $paged;
+	wp_title( '|', true, 'right' );
     bloginfo( 'name' );
-	wp_title( '|', true, 'left' );
+	
     
   	if ( $paged >= 2 || $page >= 2 )
  	echo ' | ' . sprintf( __( 'Page %s', 'tnb' ), max( $paged, $page ) );
@@ -50,7 +51,7 @@
           
 		<div id="login">
         	<form>
-            	<h4>Login</h4>
+            	<h6>Login | <a href="">Cadastre-se</a></h6>
                 <input type="text" name="" value="E-mail" id="user" class="text" />
                 <input type="password" name="senha" value="senha" id="senha" class="text" />
                 <a id="reset-pass" href="#">Perdi a senha</a><input type="image" name="ok" src="<?php echo get_theme_image("ok.png"); ?>" id="ok" />

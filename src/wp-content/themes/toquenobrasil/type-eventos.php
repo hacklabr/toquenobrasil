@@ -7,16 +7,13 @@
     <?php if ( have_posts() ) : while (have_posts()) : the_post(); ?>
     
     <div class="post">
-        <div class="post-time span-14">
-            <div class="shadow"></div>
-            <div class="quero-tocar">
-                <a href="#">quero tocar!</a>                
-            </div>
-        </div>
-        <!-- .post-time -->
-        <h2 class="span-10">
+         <h2 class="span-12">
             <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
          </h2>
+         <div class="quero-tocar span-2 last">
+            <a href="#">quero tocar!</a>           
+        </div>
+        <!-- .post-time -->
         <div id="thumb" class="span-4">
             <?php if ( has_post_thumbnail() ) : ?>
             <?php the_post_thumbnail('eventos'); ?>
@@ -33,7 +30,9 @@
                 <span class="labels">Site:</span><?php echo get_post_meta(get_the_ID(), "eventos_site", true); ?><br />
                 <span class="labels">Vagas:</span><?php echo get_post_meta(get_the_ID(), "eventos_vagas", true); ?><br />
                 </p>
-            </div><!-- .dados-do-evento --> 
+            </div><!-- .dados-do-evento -->
+        </div>
+        <div class="span-14"> 
             <?php the_excerpt(); ?>
             <div class="clear"></div>
             <div class="post-tags">

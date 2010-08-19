@@ -39,7 +39,9 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 #nav-main ul.menu li#menu-item-6 a {background:#5FE0FF url(img/icn-eventos.png) no-repeat 30px 120px !important;}
 
 #login { position: absolute; top: -175px; right: 0px; width: 120px; height: 145px; padding: 10px; background-color: #179FBF; -moz-border-radius:0px 0px 9px 9px;-webkit-border-bottom-left-radius:9px;-webkit-border-bottom-right-radius:9px; }
-#login h4 { color: #fff; }
+#login h6, #login h6 a { color: #fff; }
+#login h6 a { background: #11778F;padding: 2px; -moz-border-radius:3px; -webkit-border-radius:3px; }
+#login h6 a:hover { color: #fff; }
 #login #user, #login #senha {border:none;margin: 0 0 18px; padding:6px;width:108px;-moz-border-radius:9px;-moz-box-shadow:4px 4px 0px #11778F;}
 #login input {color:#9A9A9A;font-family:Arial,Sans-Serif;font-size:1em;} 
 #login #ok { float: right; }
@@ -102,7 +104,7 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 .yellow .title h1, .yellow .title h3 {background:#F0C137;border-color:#D09031;color:#FFF;}
 .yellow .title .shadow {background:url(img/shadow-yellow.png) no-repeat bottom right;}
 
-.signup {position:absolute;right:4px;bottom:-14px;background:#EC008C;padding:9px;font-weight:bold;-moz-border-radius:9px 0px 0px 0px}
+.signup {position:absolute;right:9px;bottom:-9px;background:#EC008C;padding:9px;font-weight:bold;-moz-border-radius:9px 0px 0px 0px}
 .signup a {color:white;font-size:1.3em;padding:9px;position:relative;text-decoration:none;text-transform:uppercase;}
 .signup .shadow {background:url(img/shadow-magenta.png) no-repeat;margin-left:0px;position:absolute;right:-9px;width:9px;height:9px;}
 .wrap {position:relative;}
@@ -110,16 +112,21 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 .clearfix:after { content:".";display:block;height:0;clear:both;visibility:hidden; }
 
 .post {border-top:1px solid #00C0F3;margin:27px 0px 36px 0px;}
+.custom-post-type-eventos-archive .post { padding-top: 1em; }
 .post h2 {font-size:2em;line-height:1;margin-bottom:1em;text-transform:uppercase;}
 .post a {border-bottom:1px dotted #5B9F31;color:#5B9F31;}
 .post a:hover {border-bottom:1px solid #5B9F31;text-decoration:none;}
-.post .post-time {margin-bottom:9px;margin-top:-9px;position:relative;text-align:center;}
-.post .post-time div.data, .post .post-time div.quero-tocar {background:#5FE0FF;border-top:9px solid #00C0F3;border-left:none !important;color:#11778F;float:right;font-weight:bold;margin-left:-18px;padding:3px 9px 6px 9px;-moz-border-radius:0px 0px 9px 9px;}
-.post .post-time a { color: #11778F; border: none; }
-.post .post-time a:hover { border: none; }
+.post .post-time, .post .quero-tocar {margin-bottom:9px;margin-top:-9px;position:relative;text-align:center;}
+.post .post-time div.data {border-left:none !important;margin-left:-18px;padding:3px 9px 6px 9px;-moz-border-radius:0px 0px 9px 9px;}
+.post .post-time div.data {background:#5FE0FF;border-top:9px solid #00C0F3;color:#11778F;float:right;font-weight:bold;}
+.post .quero-tocar { background:#EC008C; padding:3px 9px 6px 9px;-moz-border-radius:0px 0px 9px 9px; }
+.post .quero-tocar div.link a { color: #fff; border: none; }
+.post .quero-tocar div.link a:hover { border: none; }
 .post .post-time div.dia { font-size: 3em; line-height: 1em; }
 .post .post-time div.mes-ano { font-size:0.9em;}
-.post .post-time .shadow {background:url(img/shadow-blue-menu.png) no-repeat top right;float:right;height:9px;width:9px;}
+.post .post-time .shadow, .post .quero-tocar .shadow {float:right;height:9px;width:9px;} 
+.post .post-time .shadow {background:url(img/shadow-blue-menu.png) no-repeat top right;}
+.post .quero-tocar .shadow {background:url(img/shadow-magenta.png) no-repeat bottom left; margin-top: -9px; }
 .post .post-comments {background:url(img/comments.png) center center no-repeat;height:70px;}
 .post .post-comments span {display:block;font-size:2.5em;height:40px;padding:7px 0px;text-align:center;width:70px;}
 .post .post-categories {margin-bottom:18px;}

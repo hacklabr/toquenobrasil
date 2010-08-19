@@ -33,8 +33,17 @@
             <?php else : ?>
             <?php theme_image("thumb.png") ?>
             <?php endif; ?>
-        </div><!-- .thumb -->
-        <div class="span-10 last">
+        </div><!-- .thumb -->        
+        <div id="dados-do-evento" class="span-10 last">                        	
+            <p><span class="labels">Data do evento:</span> <?php echo get_post_meta(get_the_ID(), "evento_data", true); ?><br />
+            <span class="labels">Inscrições:</span> <?php echo get_post_meta(get_the_ID(), "eventos_inscricao_inicio", true); ?><br />
+            <span class="labels">Fim das inscrições:</span> <?php echo get_post_meta(get_the_ID(), "eventos_inscricao_fim", true); ?><br />
+            <span class="labels">Local:</span><?php echo get_post_meta(get_the_ID(), "eventos_local", true); ?><br />
+            <span class="labels">Site:</span><?php echo get_post_meta(get_the_ID(), "eventos_site", true); ?><br />
+            <span class="labels">Vagas:</span><?php echo get_post_meta(get_the_ID(), "eventos_vagas", true); ?><br />
+            </p>
+        </div><!-- .dados-do-evento -->
+        <div>
             <?php the_content(); ?>
             <div class="clear"></div>
             <div class="post-tags">
@@ -44,18 +53,7 @@
             </div>
             <!-- .post-tags -->            
         </div>
-        <div id="dados-do-evento">
-                <div class="title">
-                    <div class="shadow"></div>
-                    <span><h4 class="no-margin">Dados do evento</h4></span>
-                    <div class="clear"></div>
-                </div><!-- .title -->			
-                <p><span class="labels">Data do evento:</span> <?php echo get_post_meta(get_the_ID(), "evento_data", true); ?><br />
-                <span class="labels">Início das inscrições:</span> <?php echo get_post_meta(get_the_ID(), "eventos_inscricao_inicio", true); ?><br />
-                <span class="labels">Fim das inscrições:</span> <?php echo get_post_meta(get_the_ID(), "eventos_inscricao_fim", true); ?><br />
-                <span class="labels">Email:</span><?php echo get_post_meta(get_the_ID(), "eventos_recipient", true); ?></p>
                 
-            </div><!-- .dados-do-evento -->         
         <div class="clear"></div>
         <div class="navigation">
             <div class="alignright">
