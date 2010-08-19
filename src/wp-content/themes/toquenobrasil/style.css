@@ -112,7 +112,7 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 .clearfix:after { content:".";display:block;height:0;clear:both;visibility:hidden; }
 
 .post {border-top:1px solid #00C0F3;margin:27px 0px 36px 0px; position: relative; }
-.custom-post-type-eventos-archive .post { padding-top: 1em; border-bottom:1px solid #00C0F3; border-top:none; }
+.custom-post-type-eventos-archive .post { padding: 1em 0 2em; border-bottom:1px solid #00C0F3; border-top:none; }
 .post h2 {font-size:2em;line-height:1;margin-bottom:1em;text-transform:uppercase;}
 .post a {border-bottom:1px dotted #5B9F31;color:#5B9F31;}
 .post a:hover {border-bottom:1px solid #5B9F31;text-decoration:none;}
