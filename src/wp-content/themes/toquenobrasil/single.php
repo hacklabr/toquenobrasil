@@ -40,7 +40,7 @@
     <div id="posts-navigation">
         	<?php previous_post_link('<div id="anterior">%link</div>','Post anterior', true); ?>
             <?php next_post_link('<div id="proximo">%link</div>', 'Próximo post', true); ?>            
-    </div><!-- .navigation -->
+    </div><!-- #posts-navigation -->
   <?php endif; ?>
 </div>
 

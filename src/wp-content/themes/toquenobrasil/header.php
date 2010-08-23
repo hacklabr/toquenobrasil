@@ -51,7 +51,7 @@
           
 		<div id="login">
         	<form>
-            	<h6>Login | <a href="">Cadastre-se</a></h6>
+            	<h5>Login | <a href="<?php bloginfo('url');?>/cadastre-se">Cadastre-se!</a></h5>
                 <input type="text" name="" value="E-mail" id="user" class="text" />
                 <input type="password" name="senha" value="senha" id="senha" class="text" />
                 <a id="reset-pass" href="#">Perdi a senha</a><input type="image" name="ok" src="<?php echo get_theme_image("ok.png"); ?>" id="ok" />

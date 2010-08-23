@@ -42,13 +42,14 @@ function eventos_meta_box() {
 function eventos_meta() {
   global $post;
   $tipo = get_post_meta($post->ID, "evento_tipo", true);
-  $data = get_post_meta($post->ID, "evento_data", true);
-  $inscricao_inicio = get_post_meta($post->ID, "eventos_inscricao_inicio", true);
-  $inscricao_fim = get_post_meta($post->ID, "eventos_inscricao_fim", true);
-  $local = get_post_meta($post->ID, "eventos_local", true);
-  $site = get_post_meta($post->ID, "eventos_site", true);
-  $vagas = get_post_meta($post->ID, "eventos_vagas", true);
-  $recipient = get_post_meta($post->ID, "eventos_recipient", true);
+  $inicio = get_post_meta($post->ID, "evento_inicio", true);
+  $fim = get_post_meta($post->ID, "evento_fim", true);
+  $inscricao_inicio = get_post_meta($post->ID, "evento_inscricao_inicio", true);
+  $inscricao_fim = get_post_meta($post->ID, "evento_inscricao_fim", true);
+  $local = get_post_meta($post->ID, "evento_local", true);
+  $site = get_post_meta($post->ID, "evento_site", true);
+  $vagas = get_post_meta($post->ID, "evento_vagas", true);
+  $recipient = get_post_meta($post->ID, "evento_recipient", true);
   
   ?>
 
@@ -56,20 +57,22 @@ function eventos_meta() {
 
   <p><label><strong>Tipo de evento:</strong></label><br />
   <input type="text" name="evento_tipo" value="<?php echo $tipo; ?>" /></p>
-  <p><label><strong>Data do evento:</strong></label><br />
-  <input type="text" name="evento_data" value="<?php echo $data; ?>" /></p>
+  <p><label><strong>Data do início do evento:</strong></label><br />
+  <input type="text" name="evento_inicio" value="<?php echo $inicio; ?>" /></p>
+  <p><label><strong>Data do fim do evento:</strong></label><br />
+  <input type="text" name="evento_fim" value="<?php echo $fim; ?>" /></p>
   <p><label><strong>Início das inscrições:</strong></label><br />
-  <input type="text" name="eventos_inscricao_inicio" value="<?php echo $inscricao_inicio; ?>" /></p>
+  <input type="text" name="evento_inscricao_inicio" value="<?php echo $inscricao_inicio; ?>" /></p>
   <p><label><strong>Fim das inscrições:</strong></label><br />
-  <input type="text" name="eventos_inscricao_fim" value="<?php echo $inscricao_fim; ?>" /></p>
+  <input type="text" name="evento_inscricao_fim" value="<?php echo $inscricao_fim; ?>" /></p>
   <p><label><strong>Local:</strong></label><br />
-  <input type="text" name="eventos_local" value="<?php echo $local ?>" /></p>
+  <input type="text" name="evento_local" value="<?php echo $local ?>" /></p>
   <p><label><strong>Site do evento:</strong></label><br />
-  <input type="text" name="eventos_site" value="<?php echo $site ?>" /></p>
+  <input type="text" name="evento_site" value="<?php echo $site ?>" /></p>
   <p><label><strong>Vagas:</strong></label><br />
-  <input type="text" name="eventos_vagas" value="<?php echo $vagas ?>" /></p>
+  <input type="text" name="evento_vagas" value="<?php echo $vagas ?>" /></p>
   <p><label><strong>E-mail para inscrição:</strong></label><br />
-  <input type="text" name="eventos_recipient" value="<?php echo $recipient ?>" /></p>
+  <input type="text" name="evento_recipient" value="<?php echo $recipient ?>" /></p>
   <?php
 }
 
@@ -92,13 +95,14 @@ function save_eventos_meta_box( $post_id ) {
   }
   
   update_post_meta($post_id, 'evento_tipo', $_POST['evento_tipo']);
-  update_post_meta($post_id, 'evento_data', $_POST['evento_data']);
-  update_post_meta($post_id, 'eventos_inscricao_inicio', $_POST['eventos_inscricao_inicio']);
-  update_post_meta($post_id, 'eventos_inscricao_fim', $_POST['eventos_inscricao_fim']);
-  update_post_meta($post_id, 'eventos_local', $_POST['eventos_local']);
-  update_post_meta($post_id, 'eventos_site', $_POST['eventos_site']);
-  update_post_meta($post_id, 'eventos_vagas', $_POST['eventos_vagas']);
-  update_post_meta($post_id, 'eventos_recipient', $_POST['eventos_recipient']);
+  update_post_meta($post_id, 'evento_inicio', $_POST['evento_inicio']);
+  update_post_meta($post_id, 'evento_fim', $_POST['evento_fim']);
+  update_post_meta($post_id, 'evento_inscricao_inicio', $_POST['evento_inscricao_inicio']);
+  update_post_meta($post_id, 'evento_inscricao_fim', $_POST['evento_inscricao_fim']);
+  update_post_meta($post_id, 'evento_local', $_POST['evento_local']);
+  update_post_meta($post_id, 'evento_site', $_POST['evento_site']);
+  update_post_meta($post_id, 'evento_vagas', $_POST['evento_vagas']);
+  update_post_meta($post_id, 'evento_recipient', $_POST['evento_recipient']);
 
   return $post_id;
 }

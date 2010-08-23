@@ -22,7 +22,6 @@
           <?php theme_image("contato.png", array("id"=>"contato-title")); ?>
           <form>
             <div class="span-6 prepend-2">
-              <label></label>
               <textarea>Mensagem</textarea>
             </div>
 
@@ -50,7 +49,7 @@
 <div id="nav-bottom-wrapper">
   <div class="container">
     <div id="nav-bottom" class="span-16 textcenter">
-      <?php wp_nav_menu(array("theme_location" => "bottom")) ?>
+      <?php wp_nav_menu(array("theme_location" => "bottom")) ?> contato@toquenobrasil.com.br
     </div>
     <div id="wp" class="span-8 last">
       <a href="http://wordpress.org" title="Powered by WordPress"><?php theme_image("wordpress.png") ?></a>

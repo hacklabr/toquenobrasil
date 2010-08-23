@@ -109,17 +109,15 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 .signup .shadow {background:url(img/shadow-magenta.png) no-repeat;margin-left:0px;position:absolute;right:-9px;width:9px;height:9px;}
 .wrap {position:relative;}
 
-.clearfix:after { content:".";display:block;height:0;clear:both;visibility:hidden; }
-
 .post {border-top:1px solid #00C0F3;margin:27px 0px 36px 0px; position: relative; }
-.custom-post-type-eventos-archive .post { padding: 1em 0 2em; border-bottom:1px solid #00C0F3; border-top:none; }
+.custom-post-type-eventos-archive .post, .single-eventos .post { padding: 1em 0 3.5em; border-bottom:1px solid #00C0F3; border-top:none; }
 .post h2 {font-size:2em;line-height:1;margin-bottom:1em;text-transform:uppercase;}
 .post a {border-bottom:1px dotted #5B9F31;color:#5B9F31;}
 .post a:hover {border-bottom:1px solid #5B9F31;text-decoration:none;}
 .post .post-time {margin-bottom:9px;margin-top:-9px;position:relative;text-align:center;}
 .post .post-time div.data {border-left:none !important;margin-left:-18px;padding:3px 9px 6px 9px;-moz-border-radius:0px 0px 9px 9px;}
 .post .post-time div.data {background:#5FE0FF;border-top:9px solid #00C0F3;color:#11778F;float:right;font-weight:bold;}
-.post .quero-tocar { position: absolute; bottom: -9px; right: 9px; z-index: 1; padding:6px 9px 15px 9px; background:#EC008C; -moz-border-radius:9px 0 0 0; text-align:center; font-size: 1.2em; }
+.post .quero-tocar { position: absolute; bottom: -9px; right: 9px; z-index: 1; padding:9px; background:#EC008C; -moz-border-radius:9px 0 0 0; text-align:center; text-transform:uppercase; font-size: 1.2em; }
 .post .quero-tocar a { color: #fff; border: none; font-weight: bold; }
 .post .quero-tocar a:hover { border: none; }
 .post .quero-tocar .shadow {height:9px;width:9px; position: absolute; right:-9px; bottom: 0; background:url(img/shadow-magenta.png) no-repeat left top; }
@@ -164,7 +162,31 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 /*Eventos
 ---------------------------------------------------------------------------------*/
 .labels { font-weight: bold; }
+#intro { font-size: 1.2em; background: #F9ED32; color: #9F6513; padding: 1em; -moz-border-radius: 0 0 0 9px; }
 
+/*Cadastre-se
+---------------------------------------------------------------------------------*/
+#formularios-de-cadastro { position: relative; }
+#abas {position: absolute; z-index:1; right: 9px; top:-30px; }
+#abas .title {float: right; margin-right: 9px; }
+#abas .title a {color:#fff;float:right;font-size:1.2em;font-weight:bold;padding:3px 9px 6px 9px;-moz-border-radius: 9px 9px 0px 0px;height: 21px; text-transform: uppercase; }
+#abas .title a:hover, #abas .current a {text-decoration: none; border-bottom-width: 15px !important;margin-top: -6px;}
+#abas #aba-artistas a {background:#5B9F31; border-bottom:9px solid #437C3A;}
+#abas #aba-produtores a {background:#179FBF; border-bottom:9px solid #11778F;}
+#abas .title a .shadow {float:right;height:9px;width:9px;margin: 27px -18px 0 0; }
+#abas .title a:hover .shadow, #abas .current a .shadow {margin-top: 33px; }
+#abas #aba-artistas a .shadow {background:url(img/shadow-green.png) no-repeat top left;}
+#abas #aba-produtores a .shadow {background:url(img/shadow-blue.png) no-repeat top left;}
+#formularios-de-cadastro .item .background { margin-top: 0; padding: 35px; }
+#formularios-de-cadastro .submit { margin-left:-30px; }
+#formularios-de-cadastro input[type="text"]{font-family: Arial, Helvetica, sans-serif; font-size: 12px; padding: 5px; margin:0; width: 218px;}
+#formularios-de-cadastro #banda {width: 458px;}
+#formularios-de-cadastro select {margin:0; padding:3px; width: 150px;}
+#formularios-de-cadastro #ddd { width: 20px; }
+#formularios-de-cadastro #telefone {width:100px;}
+#formularios-de-cadastro label { font-size: 0.9em;}
+#artistas input[type="text"], #artistas select {border: 1px solid #437C3A;}
+#produtores input[type="text"], #produtores select {border: 1px solid #11778F;}
 ul.widgets {list-style:none;margin:0px;padding:0px;}
 ul.widgets li {margin-bottom:18px;padding:9px 18px 18px 18px;}
 ul.widgets ul {list-style:none;margin:0px;padding:0px;}
