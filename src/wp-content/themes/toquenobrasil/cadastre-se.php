@@ -15,18 +15,16 @@
 <div class="prepend-top"></div>
 <div class="span-14 prepend-1 right-colborder">
     <?php if ( have_posts() ) : the_post(); ?>
-    <div class="item green">
+      <div class="item green">
         <div class="title pull-1">
-            <div class="shadow"></div>
-            <h1>
-                <?php the_title(); ?>
-            </h1>
-            <div class="clear"></div>
+          <div class="shadow"></div>
+          <h1><?php the_title(); ?></h1>
+          <div class="clear"></div>
         </div>
         <div class="clear"></div>
         <div class="prepend-top"></div>       
-    </div>    
-			<?php the_content(); ?>
+      </div>    
+      <?php the_content(); ?>
             <div id="formularios-de-cadastro">
                 <div id="abas" class="clearfix">                        
                     <div id="aba-produtores" class="title">                    	

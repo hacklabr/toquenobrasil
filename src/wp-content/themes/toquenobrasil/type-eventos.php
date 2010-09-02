@@ -3,7 +3,7 @@
 <div class="clear"></div>
 <div class="prepend-top"></div>
 <div class="span-14 prepend-1 right-colborder">
-	<p id="intro">Aqui você encontra festivais que estão buscando bandas novas! Inscreva-se clicando em "Quero Tocar!", seus dados serão automaticamente enviados ao produtor do evento.</p>
+  <p id="intro">Aqui você encontra festivais que estão buscando bandas novas! Inscreva-se clicando em "Quero Tocar!", seus dados serão automaticamente enviados ao produtor do evento.</p>
     <?php if ( have_posts() ) : while (have_posts()) : the_post(); ?>
     
     <div class="post">
