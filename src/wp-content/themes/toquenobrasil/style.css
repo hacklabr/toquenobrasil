@@ -48,7 +48,7 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 #login #reset-pass { float: left; font-size: 11px; color: #fff; }
 
 #nav-bottom-wrapper {background:url(img/bg-stripes-bottom.png) center bottom;min-height:263px;}
-#nav-bottom-wrapper #nav-bottom {color:white;font-size:1.7em;padding-top:54px;position:relative;text-transform:uppercase;}
+#nav-bottom-wrapper #nav-bottom {color:white;font-size:1.2em;padding-top:60px;position:relative;text-transform:uppercase;}
 #nav-bottom-wrapper #nav-bottom a, #nav-bottom-wrapper #hacklab a {color:white;}
 #nav-bottom-wrapper #nav-bottom ul {list-style:none;margin:0px;padding:0px;}
 #nav-bottom-wrapper #nav-bottom ul li {display:inline;}
@@ -76,8 +76,6 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 #footer #twit .tb_msg {font-size:1.2em;}
 #footer #twit .tb_tweet-info {font-size:1em; color:#9F6513; }
 #contato-title {left:460px;position:absolute;top:-11px;}
-
-
 
 #content {background:white url(img/bg-stripes-content.png) repeat-y center center;margin-top:150px;padding:40px 0px 0px 0px;position:relative;-moz-border-radius:36px 0px 0px 0px;-webkit-border-top-left-radius:36px;-moz-box-shadow:6px 6px 0px #11778F;-webkit-box-shadow:6px 6px 0px #11778F;}
 

@@ -49,7 +49,7 @@
 <div id="nav-bottom-wrapper">
   <div class="container">
     <div id="nav-bottom" class="span-16 textcenter">
-      <?php wp_nav_menu(array("theme_location" => "bottom")) ?> contato@toquenobrasil.com.br
+      <?php wp_nav_menu(array("theme_location" => "bottom")) ?>
     </div>
     <div id="wp" class="span-8 last">
       <a href="http://wordpress.org" title="Powered by WordPress"><?php theme_image("wordpress.png") ?></a>
