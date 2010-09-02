@@ -191,6 +191,33 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 #intro { font-size: 14px; background: #F9ED32; color: #9F6513; padding: 1em; -moz-border-radius: 0 0 0 9px; }
 #intro p {margin-bottom:0;}
 
+/* =Artists
+---------------------------------------------------------------------------------*/
+.artist {border-bottom:1px solid #00C0F3;margin:3.5em 0;padding-bottom:3.5em;}
+.artist h2 {font-size:2em;line-height:1;margin-bottom:0.5em;text-transform:uppercase;}
+.artist a {border-bottom:1px dotted #5B9F31;color:#5B9F31;}
+.artist a:hover {border-bottom:1px solid #5B9F31;text-decoration:none;}
+.artist .thumb img:first-child {border-bottom:1px solid #EEE;padding-bottom:8px;margin-bottom:3px;}
+.post .post-time {margin-bottom:9px;margin-top:-9px;position:relative;text-align:center;}
+.post .post-time div.data {border-left:none !important;margin-left:-18px;padding:3px 9px 6px 9px;-moz-border-radius:0px 0px 9px 9px;}
+.post .post-time div.data {background:#5FE0FF;border-top:9px solid #00C0F3;color:#11778F;float:right;font-weight:bold;}
+.post .quero-tocar { position: absolute; bottom: -9px; right: 9px; z-index: 1; padding:9px; background:#EC008C; -moz-border-radius:9px 0 0 0; text-align:center; text-transform:uppercase; font-size: 1.2em; }
+.post .quero-tocar a { color: #fff; border: none; font-weight: bold; }
+.post .quero-tocar a:hover { border: none; }
+.post .quero-tocar .shadow {height:9px;width:9px; position: absolute; right:-9px; bottom: 0; background:url(img/shadow-magenta.png) no-repeat left top; }
+.post .post-time div.dia { font-size: 3em; line-height: 1em; }
+.post .post-time div.mes-ano { font-size:0.9em;}
+.post .post-time .shadow {float:right;height:9px;width:9px;} 
+.post .post-time .shadow {background:url(img/shadow-blue-menu.png) no-repeat top right;}
+.post .post-comments {background:url(img/comments.png) center center no-repeat;height:70px;}
+.post .post-comments span {display:block;font-size:2.5em;height:40px;padding:7px 0px;text-align:center;width:70px;}
+.post .post-categories {margin-bottom:18px;}
+.post .post-categories a {background:#8C0052;border:none;color:white;font-weight:bold;line-height:2.25;padding:3px 6px;text-transform:uppercase;}
+.post .post-categories a:hover {background:#EC008C;text-decoration:none;}
+.post .post-tags a {border:1px dotted #EC008C;color:#EC008C;font-weight:bold;line-height:2.25;padding:3px 6px;text-transform:lowercase;}
+.post .post-tags a:hover {background:#8C0052;border:1px solid #8C0052;color:white;text-decoration:none;}
+
+
 /* =Sign up form
 ---------------------------------------------------------------------------------*/
 #formularios-de-cadastro { position: relative; }
