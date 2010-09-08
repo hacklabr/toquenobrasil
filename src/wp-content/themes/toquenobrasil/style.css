@@ -32,7 +32,7 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 
 /* =Header:Top Navigation
 ------------------------------------------------------------------*/
-#nav-main {position:absolute;right:40px;text-transform:uppercase;top:-9px;}
+#nav-main {position:absolute;right:76px;text-transform:uppercase;top:-9px;}
 #nav-main ul.menu {list-style:none;margin:0px;padding:0px;}
 #nav-main ul.menu li {display:inline;margin:0 0 0 20px;padding:0px;}
 #nav-main ul.menu li a {background:#5FE0FF;color:white;float:left;height:9px;margin:-168px -9px 0px 0px;padding:168px 9px 0px 0px;}
@@ -253,7 +253,7 @@ ul.widgets h2 {color:white;margin-bottom:0px;}
 .widget {-moz-border-radius:0px 0px 0px 9px;}
 
 .widget .title {margin-left:-18px;}
-.widget .title h2 {border-left:9px solid #00C0F3;color:white;float:left;font-size:2em;margin:0px 0px 9px -9px;padding:3px 18px 6px 9px;text-transform:uppercase;-moz-border-radius:0px 9px 9px 0px;}
+.widget .title h2 {border-left:9px solid #00C0F3;color:white;float:left;font-size:2em;margin:0px 0px 9px -9px;padding:3px 18px 6px 9px;text-transform:uppercase;-moz-border-radius:0px 9px 9px 0px;-webkit-border-top-right-radius:9px;-webkit-border-bottom-right-radius:9px;}
 .widget .title .shadow {height:9px;margin-left:-9px;width:9px;}
 
 .widget_search {background:#F9ED32;}
