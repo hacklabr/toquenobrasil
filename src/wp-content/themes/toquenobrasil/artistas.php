@@ -24,7 +24,7 @@
     <div class="artist clearfix">
       <h2 class="span-14">
         <a href="">Prefuse 73</a>
-      </h2>
+      </h2> 
       <p>
         Responsável: Prefuse 73
         <br/>

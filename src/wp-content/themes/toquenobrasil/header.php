@@ -35,7 +35,7 @@
       <div id="content" class="container">
         
           <a href="<?php bloginfo('url'); ?>" title='Página inicial''>
-            <?php theme_image("toquenobrasil2.png", array("id" => "toquenobrasil", "class" => "prepend-1")); ?>
+            <?php theme_image("toquenobrasil2.png", array("id" => "toquenobrasil", "style" => "height:auto;width:340px;")); ?>
           </a>
         
         
