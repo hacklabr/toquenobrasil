@@ -131,11 +131,6 @@ Template Name: Profile
 			<br/>
 			<input type="file" id="photo" name="photo" value="" class="text span-12" />
 		</p>
-		<p class="clearfix prepend-1">
-			<label for="photo">Foto #3</label>
-			<br/>
-			<input type="file" id="photo" name="photo" value="" class="text span-12" />
-		</p>
 		<p class="clearfix textright">
 			<input type="submit" value="Salvar" />
 			<a href="" class="button">Cancelar</a>
