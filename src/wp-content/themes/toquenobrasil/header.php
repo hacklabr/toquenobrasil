@@ -49,12 +49,54 @@
                                  )
           ) ?>
           
-		<div id="login">
-        	<form>
-            	<h5>Login | <a href="<?php bloginfo('url');?>/cadastre-se">Cadastre-se!</a></h5>
-                <input type="text" name="" value="E-mail" id="user" class="text" />
-                <input type="password" name="senha" value="senha" id="senha" class="text" />
-                <a id="reset-pass" href="#">Perdi a senha</a><input type="image" name="ok" src="<?php echo get_theme_image("ok.png"); ?>" id="ok" />
-            </form>
-        </div>
+        <?php if( is_user_logged_in()):
+                global $current_user;
+                $cap = get_user_option('wp_capabilities', $current_user->ID);
+                $edit_url  = get_bloginfo('url');
+                if(isset($cap['administrator'])){
+                    $edit_url.= '/wp-admin/profile.php';  
+                }elseif(isset($cap['produtor'])){
+                    $edit_url.= '/editar/produtor';
+                }elseif(isset($cap['artista'])){
+                    $edit_url.= '/editar/artista';
+                }
+        ?>
+        	<div id="login">
+        		<a href='<?php echo get_author_posts_url($user->ID)?>'><?php echo get_avatar($user->ID, 70); ?></a><br />
+        		<?php if(current_user_can('delete_users')):?>
+                	<a href="<?php echo get_bloginfo('url')?>/wp-admin"><?php _e('Admin panel', 'itsnoon'); ?></a><br />
+                <?php endif;?>
+                <a href="<?php echo $edit_url; ?>"><?php _e('Edit profile', 'itsnoon'); ?></a><br />
+                <a href="<?php  echo wp_logout_url(get_bloginfo('url')) ; ?>"> <?php _e('Logout', 'itsnoon'); ?></a>
+        	</div> 
+        	 
+        <?php else: ?>  
+    		<div id="login">
+                <?php
+            	    if($_GET['login_error']){
+            	        echo "<div class='error'>" ;
+                            _e('Invalid username or password.','itsnooon');
+                        echo "</div>" ;
+            	    }
+            	    if($_GET['new_pass']){
+            	        echo "<div class='notice'>" ;
+                            _e('Check your e-mail inbox for a confirmation key.','itsnooon');
+                        echo "</div>" ;
+            	    }
+            	?>
+            	<form method="post" action="<?php bloginfo('url'); ?>/wp-login.php" id="signinform">
+            		<input type="hidden" value="<?php echo preg_replace("/(login_error=1)?/", "", $_SERVER['REQUEST_URI']); ?>" name="redirect_to">
+                	<h5>Login | <a href="<?php bloginfo('url');?>/cadastre-se/artista">Cadastre-se!</a></h5>
+                    <input type="text" name="log" value="" id="user_login" class="text" />
+                    <input type="password" name="pwd" value="" id="senha" class="text" />
+                    <a id="lost-pass" href="#">Perdi a senha</a><input type="image" name="ok" src="<?php echo get_theme_image("ok.png"); ?>" id="ok" />
+                </form>
+                <form method="post" action="<?php bloginfo('url'); ?>/wp-login.php?action=lostpassword"  name="lostpasswordform" id="lostpassform">
+                	<h5>recuperar senha | <a href="<?php bloginfo('url');?>/cadastre-se/artista">Cadastre-se!</a></h5>
+                	<input type="text" class="text" id="user_login" name="user_login">
+    	        	<input type="hidden" value="<?php echo $_SERVER['REQUEST_URI']; ?>?new_pass=1" name="redirect_to">
+    	        	<a id="cancel-lost-pass" href="#">Cancelar</a><input type="image" name="ok" src="<?php echo get_theme_image("ok.png"); ?>" id="ok" />
+                </form>
+            </div>
+        <?php endif;?>  
         <div class="clear"></div>    

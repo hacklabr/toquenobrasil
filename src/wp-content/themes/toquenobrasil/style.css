@@ -53,7 +53,7 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 #login h5, #login h5 a {color:#fff;}
 #login h5 a {background:#11778F;padding:2px;-moz-border-radius:3px;-webkit-border-radius:3px;}
 #login h5 a:hover {color:#fff;}
-#login #user, #login #senha {border:none;margin:0 0 18px;padding:6px;width:108px;-moz-border-radius:9px;-moz-box-shadow:4px 4px 0px #11778F;}
+#login #user, #user_login, #senha {border:none;margin:0 0 18px;padding:6px;width:108px;-moz-border-radius:9px;-moz-box-shadow:4px 4px 0px #11778F;}
 #login input {color:#9A9A9A;font-family:Arial,Sans-Serif;font-size:1em;} 
 #login #ok {float:right;}
 #login #reset-pass {float:left;font-size:11px;color:#fff;}
@@ -237,7 +237,7 @@ body {background:#DFF9FF url(img/pattern.png) repeat-x fixed;padding-bottom:0px;
 #formularios-de-cadastro #banda {width:458px;}
 #formularios-de-cadastro select {margin:0;padding:3px;width:150px;}
 #formularios-de-cadastro #ddd {width:20px;}
-#formularios-de-cadastro #telefone {width:100px;}
+#formularios-de-cadastro .telefone {width:100px !important;}
 #formularios-de-cadastro label {font-size:0.9em;}
 #artistas input[type="text"], #artistas select {border:1px solid #437C3A;}
 #produtores input[type="text"], #produtores select {border:1px solid #11778F;}
