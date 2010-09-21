@@ -53,7 +53,35 @@ function theme_post_type_init() {
    'taxonomies' => array('post_tag')
   ));
     
-    
+
+  // RIDER
+  register_post_type('rider', array(
+    'labels' => array(
+                        'name' => _x('Rider', 'post type general name'),
+                        'parent_item_colon' => ''
+                     ),
+   'public' => true,
+   'rewrite' => array('slug' => __('rider')),
+   'capability_type' => 'post',
+   'hierarchical' => false,
+   'menu_position' => 5,
+   'supports' => array('title','editor','author','comments'),   
+  ));
+
+  // RIDER
+  register_post_type('mapa_palco', array(
+    'labels' => array(
+                        'name' => _x('Mapa do Palco', 'post type general name'),
+                        'parent_item_colon' => ''
+                     ),
+   'public' => true,
+   'rewrite' => array('slug' => __('rider')),
+   'capability_type' => 'post',
+   'hierarchical' => false,
+   'menu_position' => 5,
+   'supports' => array('title','editor','author','comments'),   
+  ));  
+  
   // Eventos
   register_post_type('eventos', array(
       'labels' => array(
@@ -100,6 +128,13 @@ function eventos_meta() {
   $vagas = get_post_meta($post->ID, "evento_vagas", true);
   $recipient = get_post_meta($post->ID, "evento_recipient", true);
   
+  
+  $inicio = preg_replace("/([0-9]{2})-([0-9]{2})-([0-9]{4})/","$1/$2/$3", $inicio);
+  $fim = preg_replace("/([0-9]{2})-([0-9]{2})-([0-9]{4})/","$1/$2/$3",$fim);
+  
+  $inscricao_inicio = preg_replace("/([0-9]{2})-([0-9]{2})-([0-9]{4})/","$1/$2/$3", $inscricao_inicio);
+  $inscricao_fim = preg_replace("/([0-9]{2})-([0-9]{2})-([0-9]{4})/","$1/$2/$3",$inscricao_fim);
+  
   ?>
 
   <input type="hidden" name="eventos_noncename" id="eventos_noncename" value="<?php echo wp_create_nonce( "eventos_noncename" ); ?>" />
@@ -107,13 +142,13 @@ function eventos_meta() {
   <p><label><strong>Tipo de evento:</strong></label><br />
   <input type="text" name="evento_tipo" value="<?php echo $tipo; ?>" /></p>
   <p><label><strong>Data do início do evento:</strong></label><br />
-  <input type="text" name="evento_inicio" value="<?php echo $inicio; ?>" /></p>
+  <input type="text"  class='calendar'  name="evento_inicio" value="<?php echo $inicio; ?>" /></p>
   <p><label><strong>Data do fim do evento:</strong></label><br />
-  <input type="text" name="evento_fim" value="<?php echo $fim; ?>" /></p>
+  <input type="text" class='calendar' name="evento_fim" value="<?php echo $fim; ?>" /></p>
   <p><label><strong>Início das inscrições:</strong></label><br />
-  <input type="text" name="evento_inscricao_inicio" value="<?php echo $inscricao_inicio; ?>" /></p>
+  <input type="text"  class='calendar'  name="evento_inscricao_inicio" value="<?php echo $inscricao_inicio; ?>" /></p>
   <p><label><strong>Fim das inscrições:</strong></label><br />
-  <input type="text" name="evento_inscricao_fim" value="<?php echo $inscricao_fim; ?>" /></p>
+  <input type="text" class='calendar'  name="evento_inscricao_fim" value="<?php echo $inscricao_fim; ?>" /></p>
   <p><label><strong>Local:</strong></label><br />
   <input type="text" name="evento_local" value="<?php echo $local ?>" /></p>
   <p><label><strong>Site do evento:</strong></label><br />
@@ -143,11 +178,20 @@ function save_eventos_meta_box( $post_id ) {
        return $post_id;
   }
   
+  $dt_inicio = preg_replace("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/","$1-$2-$3", $_POST['evento_inicio']);
+  $dt_fim = $_POST['evento_fim']!='' ? preg_replace("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/","$1-$2-$3", $_POST['evento_fim']) : $dt_inicio  ;
+  
+  
+  $dt_inscricao_inicio = preg_replace("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/","$1-$2-$3", $_POST['evento_inscricao_inicio']);
+  $dt_inscricao_fim = $_POST['evento_inscricao_fim']!='' ? preg_replace("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/","$1-$2-$3", $_POST['evento_inscricao_fim']) : $dt_inscricao_inicio  ;
+  
+  
+  
   update_post_meta($post_id, 'evento_tipo', $_POST['evento_tipo']);
-  update_post_meta($post_id, 'evento_inicio', $_POST['evento_inicio']);
-  update_post_meta($post_id, 'evento_fim', $_POST['evento_fim']);
-  update_post_meta($post_id, 'evento_inscricao_inicio', $_POST['evento_inscricao_inicio']);
-  update_post_meta($post_id, 'evento_inscricao_fim', $_POST['evento_inscricao_fim']);
+  update_post_meta($post_id, 'evento_inicio', $dt_inicio);
+  update_post_meta($post_id, 'evento_fim', $dt_fim);
+  update_post_meta($post_id, 'evento_inscricao_inicio', $dt_inscricao_inicio);
+  update_post_meta($post_id, 'evento_inscricao_fim', $dt_inscricao_fim);
   update_post_meta($post_id, 'evento_local', $_POST['evento_local']);
   update_post_meta($post_id, 'evento_site', $_POST['evento_site']);
   update_post_meta($post_id, 'evento_vagas', $_POST['evento_vagas']);

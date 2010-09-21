@@ -13,9 +13,18 @@ function tnb_load_js() {
   if ( !is_admin() ) {
     wp_enqueue_script('cufon_yui', TNB_URL . '/js/cufon-yui.js');
     wp_enqueue_script('arista20-font', TNB_URL . '/js/arista20.font.js');
-    wp_enqueue_script('tnb_js', TNB_URL . '/js/tnb.js', array('jquery'));    
+    wp_enqueue_script('tnb_js', TNB_URL . '/js/tnb.js', array('jquery'));
   }
+  
 }
+function add_adm_js(){
+    wp_enqueue_script('jquery');
+    wp_enqueue_script('datepicker_js', TNB_URL . '/js/ui.datepicker.js', array('jquery'));
+    wp_enqueue_script('datepicker_br_js', TNB_URL . '/js/jquery.ui.datepicker-pt-BR.js', array('datepicker_js'));
+    wp_enqueue_style('jquery_ui', TNB_URL . '/css/jquery-ui-css/ui-lightness/jquery-ui-1.7.2.custom.css');
+    wp_enqueue_script('tnb_adm_js', TNB_URL . '/js/tnb_adm.js', array('jquery','datepicker_br_js'), 12);
+}
+add_action('admin_init', 'add_adm_js');
 
 
 # REGISTERING MENUS
@@ -130,7 +139,11 @@ function add_tnb_roles(){
          global $wp_roles;
          
          $wp_roles->add_role( 'artista', 'Artista', array('read','publish_posts'));
-         $wp_roles->add_role( 'produtor', 'Produtor', array('read','publish_posts', 'create_event', 'publish_event'));
+         $wp_roles->add_role( 'produtor', 'Produtor', array('read','publish_posts', 'create_event', 'publish_event', 'select_artists'));
+         
+         $adm = get_role('administrator');
+        
+		 $adm->add_cap( 'select_other_artists' );
          
          update_option('default_role', 'artista');
          
@@ -213,5 +226,35 @@ function get_estados(){
         "to"=>"Tocantins",
     );
     return $estados;   
+}
+
+function print_audio_player($post_id){
+        $fileURL = get_option('siteurl') . '/wp-content/uploads/';
+        $fileURL .= get_post_meta($post_id, "_wp_attached_file", true );
+        $playerURL = get_option('siteurl').'/wp-content/plugins/audio-player/assets';
+    ?>
+    
+    <!-- //PLAYER de áudio-->
+        <script
+        	language="JavaScript" src="<?php echo $playerURL;?>/audio-player.js"></script>
+        <object type="application/x-shockwave-flash"
+        	data="<?php echo $playerURL;?>/player.swf" id="audioplayer1"
+        	class="audioplayer" height="24" width="230" style="visibility: visible">
+        	<param name="movie" value="<?php echo $playerURL;?>/player.swf">
+        	<param name="FlashVars"
+        		value="playerID=1&amp;soundFile=<?php echo $fileURL; ?>">
+        	<param name="quality" value="high">
+        	<param name="menu" value="false">
+        	<param name="wmode" value="transparent">
+        </object>
+    
+    <?php 
+}
+function is_artista(){
+    if( is_user_logged_in() ){
+        global $current_user;
+        return in_array('artista' ,$current_user->roles);
+    }
+    return false;
 }
 ?>

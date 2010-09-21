@@ -19,46 +19,9 @@
     <div class="post">
       <h2 class="span-14"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>        
       
-      <div id="thumb" class="span-4">
-        <?php if ( has_post_thumbnail() ) : ?>
-          <?php the_post_thumbnail('eventos'); ?>
-        <?php else : ?>
-          <?php theme_image("thumb.png") ?>
-        <?php endif; ?>
-      </div><!-- .thumb -->
-
-      <div class="span-10 last">
-        <div id="dados-do-evento">
-          <?php
-	    $inicio = get_post_meta(get_the_ID(), "evento_inicio", true);
-	    $fim = get_post_meta(get_the_ID(), "evento_fim", true);
-	  ?>                        	
-          <p>
-            <span class="labels">Tipo de evento:</span> <?php echo get_post_meta(get_the_ID(), "evento_tipo", true); ?><br />
-            <span class="labels">Data do evento:</span> <?php echo (!$fim ? $inicio : "$inicio - $fim") ;?><br />
-            <span class="labels">Inscrições:</span> <?php echo get_post_meta(get_the_ID(), "eventos_inscricao_inicio", true); ?><br />
-            <span class="labels">Fim das inscrições:</span> <?php echo get_post_meta(get_the_ID(), "eventos_inscricao_fim", true); ?><br />
-            <span class="labels">Local:</span> <?php echo get_post_meta(get_the_ID(), "eventos_local", true); ?><br />
-            <span class="labels">Site:</span> <?php echo get_post_meta(get_the_ID(), "eventos_site", true); ?><br />
-            <span class="labels">Vagas:</span> <?php echo get_post_meta(get_the_ID(), "eventos_vagas", true); ?><br />
-          </p>
-        </div><!-- .dados-do-evento -->
-      </div>
-      <div class="clear"></div>
-
-      <div class="span-14"> 
-        <?php the_excerpt(); ?>
-        <div class="clear"></div>
-        <div class="post-tags">
-          <p><?php the_tags(" "," "," "); ?></p>
-        </div>        
-      </div>
-      <div class="clear"></div>
-      <div class="quero-tocar">
-        <a href="#">Quero<br />tocar!</a>
-        <div class="shadow"></div>
-      </div>
-    </div><!-- .quero-tocar -->
+      <?php get_template_part('type-evento', 'block'); ?>
+      
+    </div>
 
   <?php endwhile; ?>
     <div id="posts-navigation">
