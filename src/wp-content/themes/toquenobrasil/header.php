@@ -75,12 +75,17 @@
                 <?php
             	    if($_GET['login_error']){
             	        echo "<div class='error'>" ;
-                            _e('Invalid username or password.','itsnooon');
+                            _e('Invalid username or password.','tnb');
+                        echo "</div>" ;
+            	    }
+            	    if($_GET['email_confirm']){
+            	        echo "<div class='error'>" ;
+                            _e('Confirme seu e-mail para acessar sua conta.','tnb');
                         echo "</div>" ;
             	    }
             	    if($_GET['new_pass']){
             	        echo "<div class='notice'>" ;
-                            _e('Check your e-mail inbox for a confirmation key.','itsnooon');
+                            _e('Check your e-mail inbox for a confirmation key.','tnb');
                         echo "</div>" ;
             	    }
             	?>

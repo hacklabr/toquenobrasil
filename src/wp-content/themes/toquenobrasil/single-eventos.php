@@ -3,15 +3,34 @@
 global $current_user;
 
 if(isset($_POST['_wpnonce']) &&  wp_verify_nonce($_POST['_wpnonce'], 'join_event' ) ){
-    if(!get_post_meta($_POST['evento_id'], 'inscrito', $_POST['banda_id']))
-        add_post_meta($_POST['evento_id'], 'inscrito', $_POST['banda_id']);    
+    if(!in_postmeta(get_post_meta($_POST['evento_id'], 'inscrito'), $_POST['banda_id'])){
+        add_post_meta($_POST['evento_id'], 'inscrito', $_POST['banda_id']);
+        
+        $to = get_post_meta($_POST['evento_id'] , 'evento_recipient', true);
+        if(!$to)
+            $to  =  get_bloginfo('admin_email');
+                    
+        $banda = get_userdata($_POST['banda_id']);
+        
+        $event = get_post($_POST['evento_id']);
+        $event_name = $event->post_title; 
+    
+        $msg = "A banda {$banda->banda} se inscreveu no evento {$event_name}.\n\n";
+        $msg.= "Acesse o perfil da banda em :\n\n ". get_author_posts_url($banda->ID) . "\n\n";
+        
+        wp_mail($to, 'Nova Incrição - ' . $event_name, $msg );
+        
+        
+    }        
+        
 }elseif(isset($_POST['_wpnonce']) && wp_verify_nonce($_POST['_wpnonce'], 'select_band' ) ){
     delete_post_meta($_POST['evento_id'], 'inscrito', $_POST['banda_id']);
-    if(!get_post_meta($_POST['evento_id'], 'selecionado', $_POST['banda_id']))
+    if(!in_postmeta(get_post_meta($_POST['evento_id']), 'selecionado', $_POST['banda_id']))
         add_post_meta($_POST['evento_id'], 'selecionado', $_POST['banda_id']);
 }
 elseif(isset($_POST['_wpnonce']) && wp_verify_nonce($_POST['_wpnonce'], 'unselect_band' ) ){
     delete_post_meta($_POST['evento_id'], 'selecionado', $_POST['banda_id']);
+    add_post_meta($_POST['evento_id'], 'inscrito', $_POST['banda_id']);    
 }
 
 //var_dump($current_user);

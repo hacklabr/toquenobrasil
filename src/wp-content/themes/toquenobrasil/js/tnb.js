@@ -14,6 +14,20 @@ jQuery(document).ready(function() {
 		timer = setTimeout('remove_feedback_msg()',3000); 
 	} 
 	
+	// Remove default input values of forms
+    jQuery(".auto_clean").each(function() {
+    	
+    	jQuery(this).focus(function() {
+            if(jQuery(this).val() == jQuery(this).attr('title')){
+            	jQuery(this).val('');
+            }
+        }).blur(function() {
+            if (jQuery(this).val() == '') {
+                jQuery(this).val(jQuery(this).attr('title'));
+            };
+        });
+    });
+	
 	// ////////////////////////////// LOST PASS //////////////////////////////
 	jQuery("#lostpassform").hide();
 	jQuery('#lost-pass').click(function(){

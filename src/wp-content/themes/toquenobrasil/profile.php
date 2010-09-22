@@ -39,7 +39,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
         update_user_meta( $profileuser_id, 'banda' , $_POST['banda'] );
         update_user_meta( $profileuser_id, 'responsavel' , $_POST['responsavel'] );
         update_user_meta( $profileuser_id, 'telefone' , $_POST['telefone'] );
-        update_user_meta( $profileuser_id, 'telefone_ddd' , $_POST['ddd'] );
+        update_user_meta( $profileuser_id, 'telefone_ddd' , $_POST['telefone_ddd'] );
         update_user_meta( $profileuser_id, 'site' , $_POST['site'] );
         update_user_meta( $profileuser_id, 'estado' , $_POST['estado'] );
         update_user_meta( $profileuser_id, 'youtube' , $_POST['youtube'] );
@@ -207,7 +207,7 @@ get_header();
 		<p class="clearfix prepend-1">
 			<label for="phone">Telefone</label>
 			<br/>
-			<input type="text" id="ddd" name="ddd" value="<?php echo $profileuser->ddd; ?>" class="text span-1" /> <input type="text" id="telefone" name="telefone" value="<?php echo $profileuser->telefone; ?>" class="text span-5"/>
+			<input type="text" id="telefone_" name="telefone_ddd" value="<?php echo $profileuser->telefone_ddd; ?>" class="text span-1" /> <input type="text" id="telefone" name="telefone" value="<?php echo $profileuser->telefone; ?>" class="text span-5"/>
 		</p>
 		<p class="clearfix prepend-1">
 			<label for="estado">Estado:</label>

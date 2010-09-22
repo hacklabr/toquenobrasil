@@ -1,4 +1,8 @@
-<?php get_header(); ?>
+<?php
+global $in_blog;
+$in_blog = true;
+
+get_header(); ?>
 
 <div class="clear"></div>
 <div class="prepend-top"></div>

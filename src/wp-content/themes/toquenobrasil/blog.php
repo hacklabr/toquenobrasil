@@ -2,6 +2,8 @@
 /*
   Template Name: Home do blog
 */
+global $in_blog;
+$in_blog = true;
 
 ?>
 

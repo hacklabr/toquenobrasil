@@ -46,13 +46,12 @@
                  
       <div class="clear"></div>
     <?php global $current_user;
-        
-        if( is_artista() && get_post_meta(get_the_ID(), 'selecionado', $current_user->ID)): ?>
+        if( is_artista() && in_postmeta(get_post_meta(get_the_ID(), 'selecionado'), $current_user->ID)): ?>
       	  <div class="quero-tocar">
             <a >Já fui<br />selecionado!</a>
             <div class="shadow"></div>
           </div><!-- .quero-tocar -->
-       	<?php  elseif(is_artista() &&  get_post_meta(get_the_ID(), 'inscrito', $current_user->ID)): ?>
+       	<?php  elseif(is_artista() &&  in_postmeta(get_post_meta(get_the_ID(), 'inscrito'), $current_user->ID)): ?>
       	  <div class="quero-tocar">
             <a >Já estou<br />inscrito!</a>
             <div class="shadow"></div>

@@ -11,8 +11,11 @@ include(TEMPLATEPATH . '/includes/post_types.php');
 add_action('wp_print_scripts', 'tnb_load_js');
 function tnb_load_js() {
   if ( !is_admin() ) {
+      
     wp_enqueue_script('cufon_yui', TNB_URL . '/js/cufon-yui.js');
     wp_enqueue_script('arista20-font', TNB_URL . '/js/arista20.font.js');
+    wp_enqueue_script('scrollTo_js', TNB_URL . '/js/jquery.scrollTo-min.js', array('jquery'));
+    
     wp_enqueue_script('tnb_js', TNB_URL . '/js/tnb.js', array('jquery'));
   }
   
@@ -38,9 +41,19 @@ register_nav_menus( array(
 add_action( 'widgets_init', 'tnb_widgets_init' );
 
 function tnb_widgets_init() {
+    // Blog
+  register_sidebar( array(
+    "name" => __( "Blog's sidebar", "tnb" ),
+    "id" => "blog-sidebar",
+    "description" => __( "Sidebar do blog" ),
+    "before_widget" => '<li id="%1$s" class="widget-container %2$s">',
+    "after_widget" => "</li>",
+    "before_title" => "<h3 class='widget-title'>",
+    "after_title" => "</h3>",
+  ) );
   register_sidebar( array(
                           'name' => __('Sidebar', 'tnb'),
-                          'id' => 'blog',
+                          'id' => 'tnb-sidebar',
                           'description' => __('Sidebar das páginas internas'),
                           'before_title'  => '<div class="title"><div class="shadow"></div><h2 class="widgettitle">',
                           'after_title'   => '</h2><div class="clear"></div></div>'
@@ -59,7 +72,7 @@ add_theme_support('post-thumbnails');
 set_post_thumbnail_size( 150, 130, true );
 add_image_size( 'eventos', 150, 130, true );
 
-function itsnoon_url_rewirtes($wp_rewrite) {
+function custom_url_rewrites($wp_rewrite) {
     $new_rules = array(
         // rules for Calls
 		"cadastre-se/(produtor|artista)$" => 'index.php?tpl=register&reg_type=' . $wp_rewrite->preg_index(1),
@@ -68,15 +81,15 @@ function itsnoon_url_rewirtes($wp_rewrite) {
     $wp_rewrite->rules = $new_rules + $wp_rewrite->rules;
 }
 
-add_action('generate_rewrite_rules', 'itsnoon_url_rewirtes');
+add_action('generate_rewrite_rules', 'custom_url_rewrites');
 
-function itsnoon_query_vars($public_query_vars) {
+function custom_query_vars($public_query_vars) {
 	$public_query_vars[] = "tpl";
 	$public_query_vars[] = "reg_type";
 	
 	return $public_query_vars;
 }
-add_filter('query_vars', 'itsnoon_query_vars');
+add_filter('query_vars', 'custom_query_vars');
 
 add_action('template_redirect', 'template_redirect_intercept');
 function template_redirect_intercept(){
@@ -167,6 +180,18 @@ function login_error_redirect($url, $redirect_to, $user){
 }
 add_filter('login_redirect', 'login_error_redirect', 10, 3);
 
+function check_email_confirm($user_login){
+    $user = get_user_by('login', $user_login);
+    if(get_usermeta($user->ID, 'wp_inactive', true)){
+        $er_flag = ( strpos($redirect_to,'?')===FALSE ? "?" : "&" ) . 'email_confirm=false';
+        wp_logout();
+        $site_url = get_bloginfo('url') . $redirect_to . $er_flag;
+        wp_safe_redirect($site_url);
+        die;
+    }
+}
+add_action('wp_login', 'check_email_confirm');
+
 function new_signup_location($url){
     return get_bloginfo('url');
 }
@@ -175,11 +200,10 @@ add_filter('wp_signup_location','new_signup_location');
 
 function send_mail_contact_us(){
     extract($_POST);
-    
     $to = get_bloginfo('admin_email');
-    $subject = __('Contact from site','itsnoon');
+    $subject = __('Contact from site','tnb');
     
-    $message = __(sprintf("%s sent a message to you from Itsnoon potal:
+    $message = __(sprintf("%s enviou uma mensagem para você através do " . get_bloginfo('name') . ":
     Name: %s
     email: %s
     site: %s
@@ -190,9 +214,11 @@ function send_mail_contact_us(){
 
     
 }
-if($_POST['contact_us'])
-    send_mail_contact_us();
-
+function contact_us(){
+    if(isset($_POST['contact_us']))
+        send_mail_contact_us();
+}
+add_action('wp', 'contact_us');
     
 function get_estados(){
     
@@ -257,4 +283,15 @@ function is_artista(){
     }
     return false;
 }
+
+function in_postmeta($meta,$value){
+    if(!is_array($meta))
+        return false;
+    return in_array($value,$meta);
+}
+function is_blog(){
+    global $in_blog;
+    return $in_blog;
+}
+
 ?>

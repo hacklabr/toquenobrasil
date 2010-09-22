@@ -224,12 +224,12 @@ get_header();
                             <p class="span-6">
                                 <label for="senha">Senha:</label>
                                 <br />
-                                <input type="text" id="senha" name="senha" />
+                                <input type="password" id="senha" name="senha" />
                             </p>
                             <p class="span-6">
                                 <label for="senha_confirm">Confirmar Senha:</label>
                                 <br />
-                                <input type="text" id="senha_confirm" name="senha_confirm" />
+                                <input type="password" id="senha_confirm" name="senha_confirm" />
                             </p>
                             <div class="span-2 prepend-10 last">
                                 <input type="image" src="<?php echo get_theme_image("submit-green.png"); ?>" value="Enviar" class="submit" />
@@ -288,12 +288,12 @@ get_header();
                             <p class="span-6">
                                 <label for="produtor_senha">Senha:</label>
                                 <br />
-                                <input type="text" id="produtor_senha" name="senha" />
+                                <input type="password" id="produtor_senha" name="senha" />
                             </p>
                             <p class="span-6">
                                 <label for="produtor_senha_confirm">Confirmar Senha:</label>
                                 <br />
-                                <input type="text" id="produtor_senha_confirm" name="senha_confirm" />
+                                <input type="password" id="produtor_senha_confirm" name="senha_confirm" />
                             </p>
                             <div class="span-2 prepend-10 last">
                                 <input type="image" src="<?php echo get_theme_image("submit.png"); ?>" value="Enviar" class="submit" />
