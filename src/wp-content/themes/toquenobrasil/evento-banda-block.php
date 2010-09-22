@@ -1,6 +1,6 @@
 <div class="artist clearfix">
     <h2><a href="http://www.prefuse73.com" target="_blank"><?php echo $banda->Banda;?></a></h2>
-    <img src="http://localhost/toquenobrasil/wp-content/uploads/2010/09/9k799uxd-150x150.jpg" class="span-3"/>
+    <?php echo get_avatar($banda->ID, 150); ?>
     <p>
       Responsável: <?php echo $banda->responsavel;?> 
       <br/>

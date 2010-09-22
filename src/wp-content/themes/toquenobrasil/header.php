@@ -62,7 +62,7 @@
                 }
         ?>
         	<div id="login">
-        		<a href='<?php echo get_author_posts_url($user->ID)?>'><?php echo get_avatar($user->ID, 70); ?></a><br />
+        		<a href='<?php echo get_author_posts_url($current_user->ID)?>'><?php echo get_avatar($current_user->ID, 70); ?></a><br />
         		<?php if(current_user_can('delete_users')):?>
                 	<a href="<?php echo get_bloginfo('url')?>/wp-admin"><?php _e('Admin panel', 'itsnoon'); ?></a><br />
                 <?php endif;?>

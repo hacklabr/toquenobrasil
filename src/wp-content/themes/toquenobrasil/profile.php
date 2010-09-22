@@ -1,6 +1,7 @@
 <?php
 
-global $current_user, $user_ID;
+global $current_user, $user_ID, $profileuser;
+$profileuser = $current_user; 
 // apenas artistas usam esse tpl
 if(!is_user_logged_in() && !is_artista())
     wp_redirect(get_bloginfo('url'));
@@ -49,13 +50,14 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
     }
     
     if ($_FILES && !$msg['error']) {
+        do_action('tnb_user_update', $profileuser_id);
         if(!$msg['error']){
             require_once(ABSPATH . '/wp-admin/includes/media.php');
             require_once(ABSPATH . '/wp-admin/includes/file.php');
             require_once(ABSPATH . '/wp-admin/includes/image.php');
             $upload_dir = WP_CONTENT_DIR.'/uploads';
             foreach ($_FILES as $index=>$file){
-                if($file['error'] == 4)
+                if($file['error'] == 4 || $index == 'userphoto_image_file')
                     continue;
                 
                 $type = preg_replace('/(_[0-9])/','', $index);
@@ -73,6 +75,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                      
                      
         		$acceptedFormats = array(
+        		    
         			'images' => array('image/gif', 'image/png', 'image/jpeg', 'image/pjpeg', 'image/x-png'),
         			'music' => array('audio/mpeg', 'audio/x-mpeg', 'audio/mp3', 'audio/x-mp3', 'audio/mpeg3', 'audio/x-mpeg3', 'audio/mpg', 'audio/x-mpg', 'audio/x-mpegaudio'),
         			'rider' => array('application/pdf','application/x-pdf','application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ),
@@ -149,7 +152,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
     }
 }
 
-
+do_action('itsnoon_profile_update', $profileuser->ID);
 get_header();
 
 
@@ -173,7 +176,7 @@ get_header();
 <?php print_msgs($msg);?>
 	<div class="clear"></div>
 
-	<form class="background clearfix" method="post" enctype="multipart/form-data">
+	<form class="background clearfix" method="post" enctype="multipart/form-data" id="your-profile" >
 		<input type="hidden" name="action" value="update" />
 	    <?php wp_nonce_field('edit_nonce'); ?>
     	<h2>Informações de login</h2>
@@ -222,6 +225,11 @@ get_header();
 		</p>
 
 		<h2>Informações da banda</h2>
+		
+		<div class="prepend-1 clearfix">
+          <?php do_action('itsnoon_edit_user_profile'); ?>
+        </div>
+		
 		<p class="prepend-1 clearfix">
 			<label for="banda">Nome da banda</label>
 			<br/>

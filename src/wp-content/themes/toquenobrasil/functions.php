@@ -3,9 +3,13 @@
 define('TNB_URL', get_bloginfo('url') . strstr(dirname(__FILE__), '/wp-content') );
 
 # INCLUDES
+include(TEMPLATEPATH . '/includes/user-photo.php');
 include(TEMPLATEPATH . '/includes/image.php');
+include(TEMPLATEPATH . '/includes/list-control.php');
 include(TEMPLATEPATH . '/includes/tnb_comment.php');
 include(TEMPLATEPATH . '/includes/post_types.php');
+include(TEMPLATEPATH . '/widgets/ultimas_bandas.php');
+include(TEMPLATEPATH . '/widgets/ultimos_eventos.php');
 
 # JAVASCRIPTS
 add_action('wp_print_scripts', 'tnb_load_js');
@@ -77,6 +81,7 @@ function custom_url_rewrites($wp_rewrite) {
         // rules for Calls
 		"cadastre-se/(produtor|artista)$" => 'index.php?tpl=register&reg_type=' . $wp_rewrite->preg_index(1),
     	"editar/(produtor|artista)$" => 'index.php?tpl=edit&reg_type=' . $wp_rewrite->preg_index(1),
+        "(artistas|produtores)(/page/?([0-9]{1,}))?/?$" => 'index.php?tpl=list_author&reg_type='. $wp_rewrite->preg_index(1). '&paged=' . $wp_rewrite->preg_index(3),
     );
     $wp_rewrite->rules = $new_rules + $wp_rewrite->rules;
 }
@@ -94,7 +99,7 @@ add_filter('query_vars', 'custom_query_vars');
 add_action('template_redirect', 'template_redirect_intercept');
 function template_redirect_intercept(){
     global $wp_query;
-    
+    $reg_type = $wp_query->get('reg_type');
     switch ( $wp_query->get('tpl') ) {
         case 'register':
             if (file_exists( TEMPLATEPATH . '/register.php' )) {
@@ -107,6 +112,12 @@ function template_redirect_intercept(){
                 include( TEMPLATEPATH . '/profile.php' );
                 exit;
             }
+        break;
+        case 'list_author':
+            if (file_exists( TEMPLATEPATH . "/list-{$reg_type}.php" )) {
+                include( TEMPLATEPATH . "/list-{$reg_type}.php" );
+                exit;
+            }    
         break;
     }
 }
@@ -276,6 +287,30 @@ function print_audio_player($post_id){
     
     <?php 
 }
+
+
+function get_artistas( $limit = false, $order=false) {
+        global $wpdb;
+        
+        if(!$order)
+        	$order = "ID";
+        if(is_numeric($limit))
+            $limit = "LIMIT $limit";
+        elseif(!$limit)
+            $limit = '';
+            	
+        $prefix = $wpdb->prefix;
+        $role = 'artista';
+        
+        $q = "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = '{$prefix}capabilities' AND meta_value LIKE '%\"$role\"%' ORDER BY $order";
+        $not_q = "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = '{$prefix}inactive' AND meta_value = 1";
+        $query = "SELECT * FROM {$wpdb->users} WHERE ID IN($q) AND ID NOT IN ($not_q) ORDER BY $order $limit";
+//        echo $query ;
+        $users = $wpdb->get_results($query);
+        return $users;
+}
+
+
 function is_artista(){
     if( is_user_logged_in() ){
         global $current_user;
