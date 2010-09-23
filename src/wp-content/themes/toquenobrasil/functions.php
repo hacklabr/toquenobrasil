@@ -181,7 +181,10 @@ add_action('init', 'add_tnb_roles', 2);
 
 function login_error_redirect($url, $redirect_to, $user){
 //    var_dump($_POST, $url, $redirect_to, $user);
-    if( ($_POST['user_login']  ||  $_POST['log'] ) &&  is_wp_error($user)){
+    if(strpos($redirect_to, 'wp-admin') > 0)
+        return $url;
+    
+    if( ($_POST['user_login']  ||  $_POST['log'] ) &&  is_wp_error($user) ){
         $er_flag = ( strpos($redirect_to,'?')===FALSE ? "?" : "&" ) . 'login_error=1';
         $site_url = get_bloginfo('url') . $redirect_to . $er_flag;
         wp_safe_redirect($site_url);
