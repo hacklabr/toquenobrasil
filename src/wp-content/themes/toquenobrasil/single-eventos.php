@@ -1,7 +1,7 @@
 <?php 
 
 global $current_user;
-
+$join_success = false;
 if(isset($_POST['_wpnonce']) &&  wp_verify_nonce($_POST['_wpnonce'], 'join_event' ) ){
     if(!in_postmeta(get_post_meta($_POST['evento_id'], 'inscrito'), $_POST['banda_id'])){
         add_post_meta($_POST['evento_id'], 'inscrito', $_POST['banda_id']);
@@ -17,7 +17,7 @@ if(isset($_POST['_wpnonce']) &&  wp_verify_nonce($_POST['_wpnonce'], 'join_event
     
         $msg = "A banda {$banda->banda} se inscreveu no evento {$event_name}.\n\n";
         $msg.= "Acesse o perfil da banda em :\n\n ". get_author_posts_url($banda->ID) . "\n\n";
-        
+        $join_success = true;
         wp_mail($to, 'Nova Incrição - ' . $event_name, $msg );
         
         
@@ -87,6 +87,12 @@ get_header(); ?>
     </div>    
 
     <div class="selected-artists">
+        <?php if($join_success):?>
+          	<div class='success' id='join_success'><?php _e('Inscrição realizada com sucesso.');?></div>
+          	<script>
+          		jQuery.scrollTo('#join_success', 800);
+          	</script>
+          <?php endif;?>
       <?php
           $inscritos = get_post_meta( get_the_ID(), 'inscrito') ;
               
