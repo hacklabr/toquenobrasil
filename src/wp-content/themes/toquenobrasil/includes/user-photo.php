@@ -573,10 +573,10 @@ function userphoto_display_selector_fieldset(){
     <?php endif; ?>
     
     <p id='userphoto_image_file_control'>
-      <label><?php echo _e("Upload image file:", 'user-photo') ?>
-      <input type="file" name="userphoto_image_file" id="userphoto_image_file" />
+      <label><?php echo _e("Avatar", 'user-photo') ?></label>
+      <input class="text" type="file" name="userphoto_image_file" id="userphoto_image_file" />
       <br/>
-      <span class='field-hint'>(<?php printf(__("max upload size %s"),ini_get("upload_max_filesize")); ?>)</span></label>
+      <span class='field-hint small'>(<?php printf(__("max upload size %s"),ini_get("upload_max_filesize")); ?>)</span>
     </p>
     <?php if($current_user->has_cap('edit_users') && ($profileuser->ID != $current_user->ID) && $profileuser->userphoto_image_file): ?>
       <p id="userphoto-approvalstatus-controls" <?php if($profileuser->userphoto_approvalstatus == USERPHOTO_PENDING) echo "class='pending'" ?>>

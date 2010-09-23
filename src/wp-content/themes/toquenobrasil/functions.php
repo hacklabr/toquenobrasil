@@ -19,10 +19,8 @@ function tnb_load_js() {
     wp_enqueue_script('cufon_yui', TNB_URL . '/js/cufon-yui.js');
     wp_enqueue_script('arista20-font', TNB_URL . '/js/arista20.font.js');
     wp_enqueue_script('scrollTo_js', TNB_URL . '/js/jquery.scrollTo-min.js', array('jquery'));
-    
     wp_enqueue_script('tnb_js', TNB_URL . '/js/tnb.js', array('jquery'));
-  }
-  
+  }    
 }
 function add_adm_js(){
     wp_enqueue_script('jquery');

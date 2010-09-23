@@ -181,7 +181,7 @@ get_header();
 	    <?php wp_nonce_field('edit_nonce'); ?>
     	<h2>Informações de login</h2>
     	<p class="clearfix prepend-1">
-      		<label for="username">Nome de usuário</label>
+      		<label for="user_login">Nome de usuário</label>
 		    <br/>
       		<input type="text" id="user_login" name="user_login" value="<?php echo $profileuser->user_login; ?>" class="text span-12" />
     	</p>
@@ -210,10 +210,10 @@ get_header();
 		<p class="clearfix prepend-1">
 			<label for="phone">Telefone</label>
 			<br/>
-			<input type="text" id="telefone_" name="telefone_ddd" value="<?php echo $profileuser->telefone_ddd; ?>" class="text span-1" /> <input type="text" id="telefone" name="telefone" value="<?php echo $profileuser->telefone; ?>" class="text span-5"/>
+			<input type="text" id="telefone_" name="telefone_ddd" value="<?php echo $profileuser->telefone_ddd; ?>" class="text span-1 margin-right" /> <input type="text" id="telefone" name="telefone" value="<?php echo $profileuser->telefone; ?>" class="text span-5"/>
 		</p>
 		<p class="clearfix prepend-1">
-			<label for="estado">Estado:</label>
+			<label for="estado">Estado</label>
 			<br />
 			<select name="estado">                            
 				 <?php 
@@ -247,9 +247,9 @@ get_header();
 		</p>
 		
 		<p class="clearfix prepend-1">
-			<label for="description">Resealse</label>
+			<label for="description">Release</label>
 			<br/>
-			<textarea  id="description" name="description" ><?php echo $profileuser->description; ?></textarea>
+			<textarea  id="description" name="description" class="span-12" ><?php echo $profileuser->description; ?></textarea>
 		</p>
 			
 		

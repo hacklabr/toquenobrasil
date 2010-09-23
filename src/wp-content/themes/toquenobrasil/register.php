@@ -181,7 +181,7 @@ get_header();
                         	<input type="hidden" name="type" value="artista" />
                         	
                             <p>
-                                <label for="banda">Banda:</label>
+                                <label for="banda">Nome do Artista / Banda:</label>
                                 <br />
                                 <input type="text" id="banda" name="banda" value="<?php echo $user->banda; ?>" />
                             </p>

@@ -2,13 +2,13 @@
       <div id="footer" class="span-24">
         <div class="span-11">
           <div id="socialmedia" class="span-3">
-            <a href=""><?php theme_image("rss.png") ?></a>
+            <a href="" target="_blank"><?php theme_image("rss.png") ?></a>
             <br>
-            <a href=""><?php theme_image("facebook.png") ?></a>
+            <a href="" target="_blank"><?php theme_image("facebook.png") ?></a>
             <br>
-            <a href=""><?php theme_image("flickr.png") ?></a>
+            <a href="" target="_blank"><?php theme_image("flickr.png") ?></a>
             <br>
-            <a href=""><?php theme_image("twitter.png") ?></a>
+            <a href="" target="_blank"><?php theme_image("twitter.png") ?></a>
           </div>
           <div class="span-8 last">
             <div id="twit">
@@ -59,10 +59,10 @@
       <?php wp_nav_menu(array("theme_location" => "bottom")) ?>
     </div>
     <div id="wp" class="span-8 last">
-      <a href="http://wordpress.org" title="Powered by WordPress"><?php theme_image("wordpress.png") ?></a>
+      <a href="http://wordpress.org" target="_blank" title="Powered by WordPress"><?php theme_image("wordpress.png") ?></a>
     </div>
     <div id="hacklab" class="span-24 last">      
-      <a href="http://www.hacklab.com.br" title="Desenvolvido pelo hacklab">hacklab/</a>
+      <a href="http://www.hacklab.com.br" target="_blank" title="Desenvolvido pelo hacklab">hacklab/</a>
     </div>
   </div>
 </div>
