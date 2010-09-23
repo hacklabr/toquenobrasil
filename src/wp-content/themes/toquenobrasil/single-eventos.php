@@ -25,12 +25,15 @@ if(isset($_POST['_wpnonce']) &&  wp_verify_nonce($_POST['_wpnonce'], 'join_event
         
 }elseif(isset($_POST['_wpnonce']) && wp_verify_nonce($_POST['_wpnonce'], 'select_band' ) ){
     delete_post_meta($_POST['evento_id'], 'inscrito', $_POST['banda_id']);
-    if(!in_postmeta(get_post_meta($_POST['evento_id']), 'selecionado', $_POST['banda_id']))
+    
+    if(!in_postmeta(get_post_meta($_POST['evento_id'] , 'selecionado'), $_POST['banda_id']))
         add_post_meta($_POST['evento_id'], 'selecionado', $_POST['banda_id']);
+    
 }
 elseif(isset($_POST['_wpnonce']) && wp_verify_nonce($_POST['_wpnonce'], 'unselect_band' ) ){
     delete_post_meta($_POST['evento_id'], 'selecionado', $_POST['banda_id']);
-    add_post_meta($_POST['evento_id'], 'inscrito', $_POST['banda_id']);    
+    if(!in_postmeta(get_post_meta($_POST['evento_id'] , 'inscrito'), $_POST['banda_id']))
+        add_post_meta($_POST['evento_id'], 'inscrito', $_POST['banda_id']);    
 }
 
 //var_dump($current_user);

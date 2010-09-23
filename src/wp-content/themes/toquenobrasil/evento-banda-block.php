@@ -13,24 +13,24 @@
       <?php
       global $authordata, $current_user;
       if(current_user_can('select_other_artists') || $authordata->ID == $current_user->ID):
-          if(!get_post_meta(get_the_ID(), 'selecionado', $banda->ID)):?>
-          	<form action='<?php the_permalink();?>' method="post" id='form_join_event_<?php the_ID(); ?>'>
+          if(!in_postmeta(get_post_meta(get_the_ID(), 'selecionado'), $banda->ID)):?>
+          	<form action='<?php the_permalink();?>' method="post" id='form_select_artist_<?php echo $banda->ID; ?>'>
              	 <?php wp_nonce_field('select_band'); ?>
              	 <input type="hidden" name="banda_id" value='<?php echo $banda->ID; ?>' />
              	 <input type="hidden" name="evento_id" value='<?php the_ID(); ?>' />
             </form>
               <div class="quero-tocar">
-                <a href="#" onclick="jQuery('#form_join_event_<?php the_ID(); ?>').submit();">Selecionar esta<br />Banda!</a>
+                <a href="#" onclick="jQuery('#form_select_artist_<?php echo $banda->ID; ?>').submit();">Selecionar esta<br />Banda!</a>
                 <div class="shadow"></div>
               </div>
-          <?php elseif(get_post_meta(get_the_ID(), 'selecionado', $banda->ID)):?>     
-			<form action='<?php the_permalink();?>' method="post" id='form_join_event_<?php the_ID(); ?>'>
+          <?php elseif(in_postmeta(get_post_meta(get_the_ID(), 'selecionado'), $banda->ID)):?>     
+			<form action='<?php the_permalink();?>' method="post" id='form_unselect_artist_<?php echo $banda->ID; ?>'>
              	 <?php wp_nonce_field('unselect_band'); ?>
              	 <input type="hidden" name="banda_id" value='<?php echo $banda->ID; ?>' />
              	 <input type="hidden" name="evento_id" value='<?php the_ID(); ?>' />
             </form>
               <div class="quero-tocar">
-                <a href="#" onclick="jQuery('#form_join_event_<?php the_ID(); ?>').submit();">Deselecionar esta<br />Banda!</a>
+                <a href="#" onclick="jQuery('#form_unselect_artist_<?php echo $banda->ID; ?>').submit();">Deselecionar esta<br />Banda!</a>
                 <div class="shadow"></div>
               </div><!-- .quero-tocar -->
           <?php endif;?>
