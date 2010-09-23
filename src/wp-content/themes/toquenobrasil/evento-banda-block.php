@@ -1,6 +1,6 @@
 <div class="artist clearfix">
     <h2><a href="http://www.prefuse73.com" target="_blank"><?php echo $banda->Banda;?></a></h2>
-    <?php echo get_avatar($banda->ID, 150); ?>
+    <?php echo get_avatar($banda->ID, get_option('thumbnail_size_w')); ?>
     <p>
       Responsável: <?php echo $banda->responsavel;?> 
       <br/>

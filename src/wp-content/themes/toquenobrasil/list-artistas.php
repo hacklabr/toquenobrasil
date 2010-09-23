@@ -30,7 +30,8 @@
         <div class="post">
           <h2 class="span-14"><a href="<?php echo get_author_posts_url($artista->ID)?>"><?php echo get_user_meta($artista->ID, 'banda', true); ?></a></h2>        
           <div class="thumb span-4">
-            <?php echo get_avatar($artista->ID, 150); ?>
+            <?php echo get_avatar($artista->ID,get_option('thumbnail_size_w')); ?>
+      <p>
           </div>
           <div class="clear"></div>
           

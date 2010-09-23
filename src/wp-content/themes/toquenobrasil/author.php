@@ -1,6 +1,6 @@
 <?php 
 
-global $wp_query;
+global $wp_query, $current_user;
 $curauth = $wp_query->get_queried_object();
 //var_dump($curauth );
 
@@ -26,15 +26,17 @@ $curauth = $wp_query->get_queried_object();
     <div id="intro"><?php echo $curauth->description; ?></div>
 
     <div class="artist clearfix">
-        <?php echo get_avatar($curauth->ID); ?>
+        <?php echo get_avatar($curauth->ID, get_option('thumbnail_size_w')); ?>
       <p>
+      	<?php if(current_user_can('select_artists') || current_user_can('select_other_artists')  || $curauth-ID == $current_user->ID ):?>
         Responsável: <?php echo $curauth->responsavel; ?>
         <br/>
         Telefone: <?php echo $curauth->telefone_ddd; ?> <?php echo $curauth->telefone; ?>
         <br/>
-        <a href="<?php echo $curauth->site; ?>"><?php echo $curauth->site; ?></a>
-        <br/>
         <a href="mailto:<?php echo $curauth->user_email; ?>"><?php echo $curauth->user_email; ?></a>
+        <br/>
+        <?php endif;?>
+        <a href="<?php echo $curauth->site; ?>"><?php echo $curauth->site; ?></a>
       </p>
       <div class="thumb span-4">
         <?php 
@@ -69,7 +71,7 @@ $curauth = $wp_query->get_queried_object();
                 $mediumurl = $images_url . $medium;
                 $largeurl = $images_url . $large;
 	            
-	            echo "<img src='" . $mediumurl ."'>";
+	            echo "<img src='" . $thumburl ."'>";
 	        }
       
         ?>
