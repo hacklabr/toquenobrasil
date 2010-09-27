@@ -275,3 +275,8 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 .widget-yellow li { display:inline; margin:0px !important; padding:0px !important; }
 .widget-yellow label { display:none; }
 .widget-yellow input[type=text] { padding:5px; }
+
+/* =General
+---------------------------------------------------------------------------------*/
+a.button { background:#EC008C; color:#FFFFFF; font-weight:bold; line-height:3; padding:6px 9px; -moz-border-radius:3px; -webkit-border-radius:3px; }
+a.button:hover { background:#8F0056; }
