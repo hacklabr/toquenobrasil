@@ -258,6 +258,7 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 .widget-blue li { display:inline; margin:0px !important; padding:0px !important; }
 .widget-blue label { display:none; }
 .widget-blue input[type=text] { padding:5px; }
+.widget-blue input[type=submit] { background:#179FBF; }
 
 .widget-green { background:#72BF44; color:#204F18; }
 .widget-green li { display:inline; margin:0px !important; padding:0px !important; }
@@ -268,6 +269,7 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 .widget-green li { display:inline; margin:0px !important; padding:0px !important; }
 .widget-green label { display:none; }
 .widget-green input[type=text] { padding:5px; }
+.widget-green input[type=submit] { background:#5B9F31; }
 
 .widget-yellow { background:#F9ED32; }
 .widget-yellow .background { background:#F9ED32; color:#9F6513; -moz-box-shadow:5px 5px 0px #D09031; }
@@ -278,6 +280,7 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 .widget-yellow li { display:inline; margin:0px !important; padding:0px !important; }
 .widget-yellow label { display:none; }
 .widget-yellow input[type=text] { padding:5px; }
+.widget-yellow input[type=submit] { background:#F0C137; }
 
 /* =General
 ---------------------------------------------------------------------------------*/
