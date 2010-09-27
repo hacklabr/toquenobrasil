@@ -2,13 +2,13 @@
       <div id="footer" class="span-24">
         <div class="span-11">
           <div id="socialmedia" class="span-3">
-            <a href="" target="_blank"><?php theme_image("rss.png") ?></a>
+            <a href="<?php bloginfo('url'); ?>/feed" target="_blank"><?php theme_image("rss.png") ?></a>
             <br>
-            <a href="" target="_blank"><?php theme_image("facebook.png") ?></a>
+            <a href="<?php echo get_theme_option('facebook_url'); ?>" target="_blank"><?php theme_image("facebook.png") ?></a>
             <br>
-            <a href="" target="_blank"><?php theme_image("flickr.png") ?></a>
+            <a href="<?php echo get_theme_option('flickr_url'); ?>" target="_blank"><?php theme_image("flickr.png") ?></a>
             <br>
-            <a href="" target="_blank"><?php theme_image("twitter.png") ?></a>
+            <a href="<?php echo get_theme_option('twitter_url'); ?>" target="_blank"><?php theme_image("twitter.png") ?></a>
           </div>
           <div class="span-8 last">
             <div id="twit">

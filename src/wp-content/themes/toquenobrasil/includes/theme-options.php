@@ -61,6 +61,32 @@ function theme_options_page() {
 						<br/>(Texto que aparece no box "Produtores" da home)
 					</td>
 				</tr>
+				<tr valign="top">
+					<th colspan="2">
+						<h3><?php _e('Social Links at footer', 'tnb'); ?></h3>
+					</th>
+				</tr>
+				<tr valign="top">
+					<th scope="row">Facebook</th>
+					<td>
+						<input type="text" name="theme_options[facebook_url]" value="<?php echo htmlspecialchars($options['facebook_url']); ?>"/>
+						<br/>(Link com http://)
+					</td>
+				</tr>
+				<tr valign="top">
+					<th scope="row">Flickr</th>
+					<td>
+						<input type="text" name="theme_options[flickr_url]" value="<?php echo htmlspecialchars($options['flickr_url']); ?>"/>
+						<br/>(Link com http://)
+					</td>
+				</tr>
+				<tr valign="top">
+					<th scope="row">Twitter</th>
+					<td>
+						<input type="text" name="theme_options[twitter_url]" value="<?php echo htmlspecialchars($options['twitter_url']); ?>"/>
+						<br/>(Link com http://)
+					</td>
+				</tr>
 			</table>
 			<p class="submit">
 				<input type="submit" class="button-primary" value="<?php _e('Save Changes'); ?>"
