@@ -196,7 +196,9 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 .event .quero-tocar a { color:#FFFFFF !important; border:none !important; }
 .event .quero-tocar a:hover { border:none; }
 .event .iam-selected { background:#F0C137; }
+.event .iam-selected:hover { background:#F0C137; }
 .event .iam-signed { background:#179FBF; }
+.event .iam-signed:hover { background:#179FBF; }
 .event .i-wanna-play { background:#EC008C; }
 /* =Artists
 ---------------------------------------------------------------------------------*/
