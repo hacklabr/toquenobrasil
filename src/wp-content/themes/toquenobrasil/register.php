@@ -171,7 +171,7 @@ get_header();
                     	
                         <form class="background clearfix" method="POST">
                         	<?php if($regtister_succes['artista']):?>
-                        		Seu cadastro foi realiazdo com sucesso! <br />
+                        		Seu cadastro foi realizado com sucesso! <br />
                         		Você receberá sua senha através do email que nos forneceu.<br />
                         		Acessando sua conta você poderá enviar imagens e musicas para promover sua banda!
                         	<?php elseif($activated):?>
@@ -241,7 +241,7 @@ get_header();
                     <div id="produtores" class="item blue">
                         <form class="background clearfix"  method="POST">
                         	 <?php if($regtister_succes['produtor']):?>
-                        		Seu cadastro foi realiazdo com sucesso! <br />
+                        		Seu cadastro foi realizado com sucesso! <br />
                         		Você receberá sua senha através do email que nos forneceu.<br />
                         		Em breve você poderá criar eventos e confirmar a participação de artistas <br />
                         		Guarde seu acesso em segurança, que dentro em breve iremos contactá-lo. 
