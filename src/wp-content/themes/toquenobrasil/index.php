@@ -44,6 +44,14 @@ get_header(); ?>
         	<?php previous_posts_link('<span id="anteriores"><span>Próximos posts</span></span>'); ?>
             <?php next_posts_link('<span id="proximos"><span>Posts anteriores</span></span>'); ?>            
         </div><!-- .navigation -->
+	
+	<?php else: ?>
+		<div class="span-12 last">
+          <h2 class="span-10">
+            Não encontrado
+          </h2>
+         </div
+	
 	<?php endif; ?>
   
 </div>
