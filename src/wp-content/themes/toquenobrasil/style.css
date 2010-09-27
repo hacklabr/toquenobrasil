@@ -149,12 +149,6 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 .post .post-tags a { border:1px dotted #EC008C; color:#EC008C; font-weight:bold; line-height:2.25; padding:3px 6px; text-transform:lowercase; }
 .post .post-tags a:hover { background:#8C0052; border:1px solid #8C0052; color:white; text-decoration:none; }
 
-/*= Quero tocar: listagem dos eventos */
-.post .quero-tocar { background:#EC008C; padding:9px; font-size:1.2em; position:relative; text-align:center; text-transform:uppercase; -moz-border-radius:9px 9px 9px 0; }
-.post .quero-tocar a { color:#fff; border:none; font-weight:bold; }
-.post .quero-tocar a:hover { border:none; }
-.post .quero-tocar .shadow { background:url(img/shadow-magenta.png) no-repeat left bottom; height:9px; position:absolute; right:-9px; top:0; width:9px; }
-
 /* =Comments
 ---------------------------------------------------------------------------------*/
 #comentarios { float:left; }
@@ -197,6 +191,10 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 .event .artist a.name { border-bottom:1px dotted #5B9F31; color:#5B9F31; font-size:1.25em; margin-bottom:1em; }
 .event .artist a.name:hover { border-bottom-style:solid; }
 .event .artist .avatar img { margin-top:5px; }
+.event .quero-tocar { background:#EC008C; padding:9px; font-size:1.2em; line-height:1.25; position:relative; text-align:center; text-transform:uppercase; -moz-border-radius:9px 9px 9px 0; }
+.event .quero-tocar:hover { background:#8F0056; }
+.event .quero-tocar a { color:#FFFFFF !important; border:none !important; }
+.event .quero-tocar a:hover { border:none; }
 
 /* =Artists
 ---------------------------------------------------------------------------------*/
