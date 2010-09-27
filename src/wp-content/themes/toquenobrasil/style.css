@@ -279,5 +279,8 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 
 /* =General
 ---------------------------------------------------------------------------------*/
-a.button { background:#EC008C; color:#FFFFFF; font-weight:bold; line-height:3; padding:6px 9px; -moz-border-radius:3px; -webkit-border-radius:3px; }
+a.button { background:#EC008C; color:#FFFFFF; font-family:"Helvetica Neue", Arial, Helvetica, sans-serif; font-weight:bold; line-height:3; padding:6px 9px; -moz-border-radius:3px; -webkit-border-radius:3px; }
 a.button:hover { background:#8F0056; }
+
+input[type=submit] { background:#72BF44; border:none; color:#FFFFFF; cursor:pointer; font-family:"Helvetica Neue", Arial, Helvetica, sans-serif; font-size:1em; font-weight:bold; line-height:3; padding:5px 9px; -moz-border-radius:3px; -webkit-border-radius:3px; }
+input[type=submit]:hover { background:#204F18; }

@@ -9,7 +9,7 @@
     </div>
     <div class="background">
       <div class="signup">        
-        <a href="<?php bloginfo('url');?>/cadastre-se">Cadastre-se!</a>
+        <a href="<?php bloginfo('url');?>/cadastre-se/artista">Cadastre-se!</a>
         <div class="shadow"></div>       
       </div>
       
@@ -27,7 +27,7 @@
     </div>
     <div class="background">
       <div class="signup">        
-        <a href="<?php bloginfo('url');?>/cadastre-se">Cadastre-se!</a>
+        <a href="<?php bloginfo('url');?>/cadastre-se/artista">Cadastre-se!</a>
         <div class="shadow"></div>       
       </div>
       <p><?php echo get_theme_option('home_producers_text'); ?></p>
