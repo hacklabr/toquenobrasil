@@ -54,6 +54,10 @@
 		<div class="quero-tocar i-wanna-play">
 			<a href="#" onclick="jQuery('#form_join_event_<?php the_ID(); ?>').submit();">Quero<br />tocar!</a>
 		</div><!-- .quero-tocar -->
+	<?php  else :?>
+		<div class="quero-tocar i-wanna-play">
+			<a href="<?php bloginfo('url');?>/cadastre-se/artista">Quero<br />tocar!</a>
+		</div><!-- .quero-tocar -->
 	<?php endif;?>
 </div>
 
