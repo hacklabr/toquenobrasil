@@ -3,6 +3,7 @@
 define('TNB_URL', get_bloginfo('url') . strstr(dirname(__FILE__), '/wp-content') );
 
 # INCLUDES
+include(TEMPLATEPATH . '/includes/theme-options.php');
 include(TEMPLATEPATH . '/includes/user-photo.php');
 include(TEMPLATEPATH . '/includes/image.php');
 include(TEMPLATEPATH . '/includes/list-control.php');
@@ -45,20 +46,22 @@ add_action( 'widgets_init', 'tnb_widgets_init' );
 function tnb_widgets_init() {
     // Blog
   register_sidebar( array(
-    "name" => __( "Blog's sidebar", "tnb" ),
-    "id" => "blog-sidebar",
-    "description" => __( "Sidebar do blog" ),
-    "before_widget" => '<li id="%1$s" class="widget-container %2$s">',
-    "after_widget" => "</li>",
-    "before_title" => "<h3 class='widget-title'>",
-    "after_title" => "</h3>",
+                          'name' => __( "Blog's sidebar", "tnb" ),
+                          'id' => "blog-sidebar",
+                          'description' => __( "Sidebar do blog" ),
+                          'before_widget' => '<div id="%1$s" class="widget %2$s clearfix">',
+                          'after_widget' => '</div>',
+                          'before_title'  => '<div class="title clearfix"><div class="shadow"></div><h2 class="widgettitle">',
+                          'after_title'   => '</h2></div>'
   ) );
   register_sidebar( array(
                           'name' => __('Sidebar', 'tnb'),
                           'id' => 'tnb-sidebar',
                           'description' => __('Sidebar das páginas internas'),
-                          'before_title'  => '<div class="title"><div class="shadow"></div><h2 class="widgettitle">',
-                          'after_title'   => '</h2><div class="clear"></div></div>'
+                          'before_widget' => '<div id="%1$s" class="widget %2$s clearfix">',
+                          'after_widget' => '</div>',
+                          'before_title'  => '<div class="title clearfix"><div class="shadow"></div><h2 class="widgettitle">',
+                          'after_title'   => '</h2></div>'
   ) );
   register_sidebar( array(
                           'name' => __('Rodapé', 'tnb'),

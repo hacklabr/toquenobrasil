@@ -42,4 +42,17 @@ jQuery(document).ready(function() {
 	
     Cufon.replace('h1, h2, h3, h4, h5, h6, #footer #twit .content .author, #nav-bottom, #hacklab, .post .post-comments span, #anterior, #proximo, .signup, .quero-tocar');
 	
+    /*= COLORIZE WIDGETS */
+    var i = 1;
+    jQuery(".widgets .widget").each(function() {
+         if (i==1) {
+             jQuery(this).addClass("widget-yellow");
+         } else if (i==2) {
+             jQuery(this).addClass("widget-green");
+         } else if (i==3) {
+             jQuery(this).addClass("widget-blue");
+             i = 0;
+         }
+         i++;
+    })
 });

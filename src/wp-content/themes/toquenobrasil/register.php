@@ -180,57 +180,58 @@ get_header();
                         	<input type="hidden" name="action" value="register" />
                         	<input type="hidden" name="type" value="artista" />
                         	
-                            <p>
+                            <div class="span-12">
                                 <label for="banda">Nome do Artista / Banda:</label>
                                 <br />
-                                <input type="text" id="banda" name="banda" value="<?php echo $user->banda; ?>" />
-                            </p>
-                            <p class="span-6">
+                                <input class="span-12 text" type="text" id="banda" name="banda" value="<?php echo $user->banda; ?>" />
+                            </div>
+                            <div class="span-6">
                                 <label for="responsavel">Responsável:</label>
                                 <br />
-                                <input type="text" id="responsavel" name="responsavel" value="<?php echo $user->responsavel; ?>" />
-                            </p>                       
-                            <p class="span-6">
+                                <input class="span-6 text" type="text" id="responsavel" name="responsavel" value="<?php echo $user->responsavel; ?>" />
+                            </div>                       
+                            <div class="span-6">
                                 <label for="site">Site:</label>
                                 <br />
-                                <input type="text" id="site" name="site" value="<?php echo $user->site; ?>" />
-                            </p>
-                            <p class="span-4">
-                                 <label for="estado">Estado:</label>
+                                <input class="span-6 text" type="text" id="site" name="site" value="<?php echo $user->site; ?>" />
+                            </div>
+                            <div class="span-6">
+                                <label for="estado">Estado:</label>
                                 <br />
-                                <select name="estado" id='estado'>                            
+                                <select class="span-6 text" name="estado" id='estado'>
                                     <?php 
                                         foreach($estados as $uf=>$name){
                                             echo "<option " . ($user->estado == $uf ? 'selected':'') . " value='$uf'>$name</option>";    
                                         }
                                     ?>
                                 </select>
-                            </p>
-                            <p class="span-6">
+                            </div>
+                            <div class="span-6">
                                 <label for="telefone">Telefone:</label>
                                 <br />
-                                <input type="text" id="ddd" name="ddd" value="<?php echo $user->ddd; ?>" /> - <input  class='telefone' type="text" id="telefone" name="telefone" value="<?php echo $user->telefone; ?>" />
-                            </p>
-                            <p class="span-6">
-                                <label for="user_email">E-mail:</label>
-                                <br />
-                                <input type="text" id="user_email" name="user_email" value="<?php echo $user->user_email; ?>" />
-                            </p>
-                            <p class="span-7">
+                                <input class="span-1 text" type="text" id="ddd" name="ddd" value="<?php echo $user->ddd; ?>" />
+                                <input class="span-5 text" type="text" id="telefone" name="telefone" value="<?php echo $user->telefone; ?>" />
+                            </div>
+                            <div class="span-6">
                                 <label for=user_login>Nome de usuário:</label>
                                 <br />
-                                <input type="text" id="user_login" name="user_login" value="<?php echo $user->user_login; ?>" />
-                            </p>
-                            <p class="span-6">
+                                <input class="span-6 text" type="text" id="user_login" name="user_login" value="<?php echo $user->user_login; ?>" />
+                            </div>
+                            <div class="span-6">
+                                <label for="user_email">E-mail:</label>
+                                <br />
+                                <input class="span-6 text" type="text" id="user_email" name="user_email" value="<?php echo $user->user_email; ?>" />
+                            </div>
+                            <div class="span-6">
                                 <label for="senha">Senha:</label>
                                 <br />
-                                <input type="password" id="senha" name="senha" />
-                            </p>
-                            <p class="span-6">
+                                <input class="span-6 text" type="password" id="senha" name="senha" />
+                            </div>
+                            <div class="span-6">
                                 <label for="senha_confirm">Confirmar Senha:</label>
                                 <br />
-                                <input type="password" id="senha_confirm" name="senha_confirm" />
-                            </p>
+                                <input class="span-6 text" type="password" id="senha_confirm" name="senha_confirm" />
+                            </div>
                             <div class="span-2 prepend-10 last">
                                 <input type="image" src="<?php echo get_theme_image("submit-green.png"); ?>" value="Enviar" class="submit" />
                             </div>
@@ -249,52 +250,53 @@ get_header();
                         	<?php else:?>
                         	<input type="hidden" name="action" value="register" />
                         	<input type="hidden" name="type" value="produtor" />
-                            <p class="span-6">
+                            <div class="span-6">
                                 <label for="nome">Nome:</label>
                                 <br />
-                                <input type="text" id="nome" name="nome" value='<?php echo $user->nome; ?>' />
-                            </p>                       
-                            <p class="span-6">
+                                <input class="span-6 text" type="text" id="nome" name="nome" value='<?php echo $user->nome; ?>' />
+                            </div>                       
+                            <div class="span-6">
                                 <label for="produtor_site">Site:</label>
                                 <br />
-                                <input type="text" id="produtor_site" name="site" value='<?php echo $user->site; ?>'/>
-                            </p>
-                            <p class="span-4">
-                                 <label for="produtor_estado">Estado:</label>
+                                <input class="span-6 text" type="text" id="produtor_site" name="site" value='<?php echo $user->site; ?>'/>
+                            </div>
+                            <div class="span-6">
+                                <label for="produtor_estado">Estado:</label>
                                 <br />
-                                <select name="estado" id='produtor_estado'>                            
+                                <select class="span-6 text" name="estado" id='produtor_estado'>                            
                                      <?php 
                                         foreach($estados as $uf=>$name){
                                             echo "<option " . ($user->estado == $uf ? 'selected':'') . " value='$uf'>$name</option>";    
                                         }
                                     ?>
                                 </select>
-                            </p>
-                            <p class="span-6">
+                            </div>
+                            <div class="span-6">
                                 <label for="produtor_telefone">Telefone:</label>
                                 <br />
-                                <input type="text" id="ddd" name="ddd" value="<?php echo $user->ddd; ?>" /> - <input type="text" class='telefone' id="produtor_telefone" name="telefone" value="<?php echo $user->telefone; ?>" />
-                            </p>
-                            <p class="span-6">
-                                <label for="produtor_user_email">E-mail:</label>
-                                <br />
-                                <input type="text" id="produtor_user_email" name="user_email" value="<?php echo $user->user_email; ?>" />
-                            </p>
-                            <p class="span-7">
+                                <input class="span-1 text" type="text" id="ddd" name="ddd" value="<?php echo $user->ddd; ?>" />
+                                <input class="span-5 text" type="text" class='telefone' id="produtor_telefone" name="telefone" value="<?php echo $user->telefone; ?>" />
+                            </div>
+                            <div class="span-6">
                                 <label for=produtor_user_login>Nome de usuário:</label>
                                 <br />
-                                <input type="text" id="produtor_user_login" name="user_login" value="<?php echo $user->user_login; ?>" />
-                            </p>
-                            <p class="span-6">
+                                <input class="span-6 text" type="text" id="produtor_user_login" name="user_login" value="<?php echo $user->user_login; ?>" />
+                            </div>
+                            <div class="span-6">
+                                <label for="produtor_user_email">E-mail:</label>
+                                <br />
+                                <input class="span-6 text" type="text" id="produtor_user_email" name="user_email" value="<?php echo $user->user_email; ?>" />
+                            </div>
+                            <div class="span-6">
                                 <label for="produtor_senha">Senha:</label>
                                 <br />
-                                <input type="password" id="produtor_senha" name="senha" />
-                            </p>
-                            <p class="span-6">
+                                <input class="span-6 text" type="password" id="produtor_senha" name="senha" />
+                            </div>
+                            <div class="span-6">
                                 <label for="produtor_senha_confirm">Confirmar Senha:</label>
                                 <br />
-                                <input type="password" id="produtor_senha_confirm" name="senha_confirm" />
-                            </p>
+                                <input class="span-6 text" type="password" id="produtor_senha_confirm" name="senha_confirm" />
+                            </div>
                             <div class="span-2 prepend-10 last">
                                 <input type="image" src="<?php echo get_theme_image("submit.png"); ?>" value="Enviar" class="submit" />
                             </div>

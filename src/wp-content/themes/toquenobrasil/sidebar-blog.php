@@ -1,5 +1,5 @@
 <div class="span-8 last">
-  <ul class="widgets">
+  <div class="widgets">
     <?php
         global $in_blog;
         if(is_blog()){
@@ -8,5 +8,5 @@
             dynamic_sidebar('tnb-sidebar');
         }    
         ?>
-  </ul>
+  </div>
 </div>
