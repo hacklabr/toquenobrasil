@@ -64,13 +64,13 @@
         	<div id="login">
         		<a href='<?php echo get_author_posts_url($current_user->ID)?>'><?php echo get_avatar($current_user->ID, 120); ?></a><br />
         		<?php if(current_user_can('delete_users')):?>
-                	<a href="<?php echo get_bloginfo('url')?>/wp-admin"><?php _e('Admin panel', 'itsnoon'); ?></a><br />
+                	<a href="<?php echo get_bloginfo('url')?>/wp-admin">Painel Admin</a><br />
                 <?php endif;?>
                 <?php if(!current_user_can('delete_users')):?>
-                    <a href='<?php echo get_author_posts_url($current_user->ID)?>'><?php _e('View profile', 'itsnoon'); ?></a><br />
-                    <a href="<?php echo $edit_url; ?>"><?php _e('Edit profile', 'itsnoon'); ?></a><br />
+                    <a href='<?php echo get_author_posts_url($current_user->ID)?>'>Ver Perfil</a><br />
+                    <a href="<?php echo $edit_url; ?>">Editar Perfil</a><br />
                 <?php endif; ?>
-                <a href="<?php  echo wp_logout_url(get_bloginfo('url')) ; ?>"> <?php _e('Logout', 'itsnoon'); ?></a>
+                <a href="<?php  echo wp_logout_url(get_bloginfo('url')) ; ?>">Sair</a>
         	</div> 
         	 
         <?php else: ?>  
@@ -78,7 +78,7 @@
                 <?php
             	    if($_GET['login_error']){
             	        echo "<div class='error'>" ;
-                            _e('Invalid username or password.','tnb');
+                            _e('Nome de usuário ou senha inválidos','tnb');
                         echo "</div>" ;
             	    }
             	    if($_GET['email_confirm']){
@@ -88,7 +88,7 @@
             	    }
             	    if($_GET['new_pass']){
             	        echo "<div class='notice'>" ;
-                            _e('Check your e-mail inbox for a confirmation key.','tnb');
+                            _e('Acesse seu email para o link de ativação.','tnb');
                         echo "</div>" ;
             	    }
             	?>

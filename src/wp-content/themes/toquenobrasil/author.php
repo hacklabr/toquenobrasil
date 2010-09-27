@@ -105,5 +105,5 @@ get_header();
 		</div>
 	</div>
 </div>
-
+<?php get_sidebar("blog"); ?>
 <?php get_footer(); ?>

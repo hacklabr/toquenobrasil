@@ -43,7 +43,7 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 
 /* =Header:Login Box
 ------------------------------------------------------------------*/
-#login { position:absolute; top:-175px; right:0px; width:120px; padding:10px; background-color:#179FBF; -moz-border-radius:0px 0px 9px 9px; -webkit-border-bottom-left-radius:9px; -webkit-border-bottom-right-radius:9px; }
+#login { position:absolute; top:-175px; right:0px; width:120px; padding:10px; background-color:#179FBF; -moz-border-radius:0px 0px 9px 9px; -webkit-border-bottom-left-radius:9px; -webkit-border-bottom-right-radius:9px; z-index: 1000;}
 #login h5, #login h5 a { color:#fff; }
 #login h5 a { background:#11778F; padding:2px; -moz-border-radius:3px; -webkit-border-radius:3px; }
 #login h5 a:hover { color:#fff; }

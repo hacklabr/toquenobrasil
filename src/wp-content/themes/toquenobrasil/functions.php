@@ -223,7 +223,7 @@ function send_mail_contact_us(){
     email: %s
     site: %s
     message: %s
-    ", $contact_name, $contact_name, $contact_email, $contact_site, $contact_message) ,'itsnoon');    
+    ", $contact_name, $contact_name, $contact_email, $contact_site, $contact_message) ,'tnb');    
     
     wp_mail($to, $subject, $message);    
 
@@ -280,7 +280,7 @@ function print_audio_player($post_id){
         	language="JavaScript" src="<?php echo $playerURL;?>/audio-player.js"></script>
         <object type="application/x-shockwave-flash"
         	data="<?php echo $playerURL;?>/player.swf" id="audioplayer1"
-        	class="audioplayer" height="24" width="230" style="visibility: visible">
+        	class="audioplayer" height="24" width="150" style="visibility: visible">
         	<param name="movie" value="<?php echo $playerURL;?>/player.swf">
         	<param name="FlashVars"
         		value="playerID=1&amp;soundFile=<?php echo $fileURL; ?>">
