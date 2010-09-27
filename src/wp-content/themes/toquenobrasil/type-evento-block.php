@@ -19,7 +19,7 @@
 	<?php endif; ?>
 </div><!-- .thumb -->
 
-<div class="span-8">
+<div class="span-7">
 	<div id="dados-do-evento">
 		<p>
 			<span class="labels">Tipo de evento:</span> <?php echo get_post_meta(get_the_ID(), "evento_tipo", true); ?><br />
@@ -32,16 +32,16 @@
 	</div><!-- .dados-do-evento -->
 </div>
 
-<div class="span-2 last">
+<div class="span-3 last">
 	<?php if( is_artista() && in_postmeta(get_post_meta(get_the_ID(), 'selecionado'), $current_user->ID)): ?>
 	
-		<div class="quero-tocar">
-			<a >Já fui<br />selecionado!</a>
+		<div class="quero-tocar iam-selected">
+			<a>Já fui<br />selecionado!</a>
 		</div><!-- .quero-tocar -->
 	
 	<?php  elseif(is_artista() &&  in_postmeta(get_post_meta(get_the_ID(), 'inscrito'), $current_user->ID)): ?>
-		<div class="quero-tocar">
-			<a >Já estou<br />inscrito!</a>
+		<div class="quero-tocar iam-signed">
+			<a>Já estou<br />inscrito!</a>
 		</div><!-- .quero-tocar -->
 	
 	<?php  elseif(strtotime($inscricao_inicio) <= time() && strtotime($inscricao_fim) >= time() && is_artista()):?>
@@ -51,7 +51,7 @@
 			<input type="hidden" name="evento_id" value='<?php the_ID(); ?>' />
 		</form>
 		
-		<div class="quero-tocar">
+		<div class="quero-tocar i-wanna-play">
 			<a href="#" onclick="jQuery('#form_join_event_<?php the_ID(); ?>').submit();">Quero<br />tocar!</a>
 		</div><!-- .quero-tocar -->
 	<?php endif;?>
