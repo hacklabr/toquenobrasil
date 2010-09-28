@@ -37,6 +37,24 @@ get_header();
 			</div>
 		</div>
 
+
+		<div id="artist-<?php echo $curauth->ID; ?>-music">
+			<?php 
+				$medias = get_posts("post_type=music&meta_key=_media_index&author={$curauth->ID}");
+				foreach($medias as $media ){
+					echo '<div class="span-4">';
+					print_audio_player($media->ID);
+                    echo '<br/>';
+					echo $media->post_title;
+					echo '</div>';
+				}
+			?>
+		</div>
+        
+        <div class='clear'></div>
+        <div class="prepend-top"></div>
+		<div class="hr"></div>
+        
 		<div id="artist-<?php echo $curauth->ID; ?>-images" class="thumb span-4">
 			<?php 
 				$medias = get_posts("post_type=images&meta_key=_media_index&author={$curauth->ID}");
@@ -89,20 +107,7 @@ get_header();
 		</div>
 
 		<div class="clear"></div>
-		<div class="prepend-top"></div>
-		<div class="hr"></div>
-
-		<div id="artist-<?php echo $curauth->ID; ?>-music">
-			<?php 
-				$medias = get_posts("post_type=music&meta_key=_media_index&author={$curauth->ID}");
-				foreach($medias as $media ){
-					echo '<div class="span-4">';
-					print_audio_player($media->ID);
-					echo $media->post_title;
-					echo '</div>';
-				}
-			?>
-		</div>
+		
 	</div>
 </div>
 <?php get_sidebar("blog"); ?>

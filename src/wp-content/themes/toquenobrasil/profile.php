@@ -369,5 +369,5 @@ get_header();
 		</p>
 	</form>
 </div>
-
+<?php get_sidebar("blog"); ?>
 <?php get_footer(); ?>
