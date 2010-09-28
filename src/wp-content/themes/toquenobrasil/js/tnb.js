@@ -28,6 +28,18 @@ jQuery(document).ready(function() {
         });
     });
 	
+	// ////////////////////////////// Login handler //////////////////////////////
+    jQuery("#signin_btn").click(function(){
+    	
+    	if(jQuery("#signinform #pw").val() == '' || jQuery("#signinform #log").val() == '')
+    		return false;
+    	
+    	return true;
+    	
+    });
+    
+
+    
 	// ////////////////////////////// LOST PASS //////////////////////////////
 	jQuery("#lostpassform").hide();
 	jQuery('#lost-pass').click(function(){

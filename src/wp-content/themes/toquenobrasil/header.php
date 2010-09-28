@@ -94,9 +94,9 @@
             	<form method="post" action="<?php bloginfo('url'); ?>/wp-login.php" id="signinform">
             		<input type="hidden" value="<?php echo preg_replace("/(login_error=1)?/", "", $_SERVER['REQUEST_URI']); ?>" name="redirect_to">
                 	<h5>Login | <a href="<?php bloginfo('url');?>/cadastre-se/artista">Cadastre-se!</a></h5>
-                    <input type="text" name="log" value="" id="user_login" class="text" />
-                    <input type="password" name="pwd" value="" id="senha" class="text" />
-                    <a id="lost-pass" href="#"><span>Perdi a senha</span></a><input type="image" name="ok" src="<?php echo get_theme_image("ok.png"); ?>" id="ok" />
+                    <input type="text" name="log" value="" id="log" class="text" />
+                    <input type="password" name="pwd" value="" id="pwd" class="text" />
+                    <a id="lost-pass" href="#"><span>Perdi a senha</span></a><input type="image" name="ok" src="<?php echo get_theme_image("ok.png"); ?>" id="signin_btn" />
                 </form>
                 <form method="post" action="<?php bloginfo('url'); ?>/wp-login.php?action=lostpassword"  name="lostpasswordform" id="lostpassform">
                 	<h5>recuperar senha</h5>
