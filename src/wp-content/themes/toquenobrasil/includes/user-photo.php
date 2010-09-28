@@ -121,7 +121,7 @@ function userphoto__get_userphoto($user_id, $photoSize, $before, $after, $attrib
         
 		$img = '';
 		$img .= $before;
-		$img .= '<img src="' . htmlspecialchars($src) . '"';
+		$img .= '<img src="' . htmlspecialchars($src) . '?' . rand() . '"';
 		if(empty($attributes['alt']))
 			$img .= ' alt="' . htmlspecialchars($userdata->display_name) . '"';
 		if(empty($attributes['width']) && !empty($width))
@@ -458,7 +458,7 @@ function userphoto_profile_update($userID){
 		delete_usermeta($userID, "userphoto_error");
 }
 add_action('profile_update', 'userphoto_profile_update');
-add_action('itsnoon_profile_update', 'userphoto_profile_update');
+add_action('custom_profile_update', 'userphoto_profile_update');
 #add_action('personal_options_update', ???);
 
 #QUESTION: Should we store a serialized datastructure in the usermeta...
@@ -597,7 +597,7 @@ function userphoto_display_selector_fieldset(){
 }
 add_action('show_user_profile', 'userphoto_display_selector_fieldset');
 add_action('edit_user_profile', 'userphoto_display_selector_fieldset');
-add_action('itsnoon_edit_user_profile', 'userphoto_display_selector_fieldset');
+add_action('custom_edit_user_profile', 'userphoto_display_selector_fieldset');
 
 /***** ADMIN ******************************************/
 

@@ -16,13 +16,13 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
     $profileuser_id = $user_ID;
     
     if(!filter_var( $_POST['user_email'], FILTER_VALIDATE_EMAIL))
-        $msg['error'][] = __('Invalid email address.','itsnoon');    
+        $msg['error'][] = __('Invalid email address.','tnb');    
     
     if( $_POST['user_email'] != $profileuser->user_email && email_exists($_POST['user_email']))
-         $msg['error'][] =  __('This email address is already registered.', 'itsnoon');
+         $msg['error'][] =  __('This email address is already registered.', 'tnb');
         
     if( strlen($_POST['user_pass'])>0  && $_POST['user_pass'] !=  $_POST['user_pass_confirm'] )
-        $msg['error'][]= __('Password does not match with password confirmation.','itsnoon');
+        $msg['error'][]= __('Password does not match with password confirmation.','tnb');
     
     
     if( !$msg['error']){
@@ -96,7 +96,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                         if ($media_id->errors)
                             $msg['error'][] = implode(' ', $media_id->errors['upload_error']);
                     } else {
-                        $msg['error'][] = __('File type not allowed','itsnoon');
+                        $msg['error'][] = __('File type not allowed','tnb');
                     }
                 } else {
                     $msg['error'][] = $errors[$file['error']];
@@ -106,9 +106,9 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                     $meta = get_post_meta($media_id, '_wp_attached_file');
                     $sizes = get_media_file_sizes($upload_dir ."/". $meta[0]);
                     
-                    $msg['success'][] = __('File','itsnoon') . "
+                    $msg['success'][] = __('File','tnb') . "
                         <span id='videoName' class='cor_rede'> {$media_title}</span> 
-                        " . __('insert with success!','itsnoon') ;
+                        " . __('insert with success!','tnb') ;
                     
                     $update = array(
                         'ID' => $media_id,
@@ -137,13 +137,13 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                     
                 
                 } else {
-                	$feedback = __('ERROR','itsnoon') . ": " . __('files ','itsnoon') . "
+                	$feedback = __('ERROR','tnb') . ": " . __('files ','tnb') . "
                         <span id='videoName' class='cor_rede'> {$media_title}</span> 
-                        " . __('not inserted!','itsnoon');
+                        " . __('not inserted!','tnb');
                 	if ($error) {
-                	    $feedback .= "<br>" . __('Erro','itsnoon') . ": $error";	
+                	    $feedback .= "<br>" . __('Erro','tnb') . ": $error";	
                 	} else {
-                		$feedback .= __(' try again.','itsnoon');
+                		$feedback .= __(' try again.','tnb');
                 	}
                 	$msg['error'][] = $feedback;
                 }
@@ -152,7 +152,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
     }
 }
 
-do_action('itsnoon_profile_update', $profileuser->ID);
+do_action('custom_profile_update', $profileuser->ID);
 get_header();
 
 
@@ -227,7 +227,7 @@ get_header();
 		<h2>Informações da banda</h2>
 		
 		<div class="prepend-1 clearfix">
-          <?php do_action('itsnoon_edit_user_profile'); ?>
+          <?php do_action('custom_edit_user_profile'); ?>
         </div>
 		
 		<p class="prepend-1 clearfix">
