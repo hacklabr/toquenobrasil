@@ -71,7 +71,7 @@
                                     <option value="mg">Minas Gerais</option>
                                     <option value="pa">Pará</option>
                                     <option value="pb">Paraíba</option>
-                                    <option value="pr">Paraná</option>
+                                    <option value="pr">Paraná</otnbption>
                                     <option value="pe">Pernambuco</option>
                                     <option value="pi">Piauí</option>
                                     <option value="rj">Rio de Janeiro</option>
@@ -175,5 +175,9 @@
             <!-- #formularios-de-cadastro -->        
     <?php endif; ?>
 </div>
-<?php get_sidebar("blog"); ?>
+<div class="span-8 last">
+    <div  class='widgets'>
+        <?php dynamic_sidebar("tnb-sidebar");?>
+    </div>
+</div>
 <?php get_footer(); ?>
