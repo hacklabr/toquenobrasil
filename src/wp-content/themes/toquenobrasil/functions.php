@@ -225,10 +225,10 @@ function send_mail_contact_us(){
     $subject = __('Contact from site','tnb');
     
     $message = __(sprintf("%s enviou uma mensagem para você através do " . get_bloginfo('name') . ":
-    Name: %s
-    email: %s
+    Nome: %s
+    e-mail: %s
     site: %s
-    message: %s
+    menssagem: %s
     ", $contact_name, $contact_name, $contact_email, $contact_site, $contact_message) ,'tnb');    
     
     wp_mail($to, $subject, $message);    
