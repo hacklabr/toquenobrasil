@@ -183,17 +183,17 @@ get_header();
     	<p class="clearfix prepend-1">
       		<label for="user_login">Nome de usuário</label>
 		    <br/>
-      		<input type="text" id="user_login" name="user_login" value="<?php echo $profileuser->user_login; ?>" class="text span-12" />
+      		<input type="text" id="user_login" name="user_login" disabled='disabled' value="<?php echo $profileuser->user_login; ?>" class="text span-12" />
     	</p>
     	<p class="clearfix prepend-1">
       		<label for="user_pass">Senha</label>
       		<br/>
-      		<input type="text" id="user_pass" name="user_pass"  class="text span-12" />
+      		<input type="password" id="user_pass" name="user_pass"  class="text span-12" />
     	</p>
     	<p class="clearfix prepend-1">
 			<label for="user_pass_confirm">Confirmação da senha</label>
 			<br/>
-			<input type="text" id="user_pass_confirm" name="user_pass_confirm"  class="text span-12" />
+			<input type="password" id="user_pass_confirm" name="user_pass_confirm"  class="text span-12" />
 		</p>
 
     	<h2>Informações de contato</h2>

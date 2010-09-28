@@ -16,11 +16,11 @@
 		</div>
 	</div>
 
-	<p id="intro">
+	<div id="intro">
         <?php 
           echo get_page_by_path('produtores')->post_content;
         ?>
-    </p>
+    </div>
 </div>
 
 <?php get_sidebar("blog"); ?>

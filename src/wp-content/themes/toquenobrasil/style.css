@@ -51,7 +51,9 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 #login input { color:#9A9A9A; font-family:Arial,Sans-Serif; font-size:1em; } 
 #login #ok { float:right; }
 #login #reset-pass { float:left; font-size:11px; color:#fff; }
-#login a { color:white; }
+#login a { color:white;}
+#login a span {padding: 1px 2px;} 
+#login a:hover span{ background-color:#005264; -moz-border-radius:3px; -webkit-border-radius:3px;}
 
 /* =Footer
 ------------------------------------------------------------------*/
@@ -177,7 +179,7 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 /* =Events
 ---------------------------------------------------------------------------------*/
 .labels { font-weight:bold; }
-#intro { font-size:14px; background:#F9ED32; color:#9F6513; margin-bottom:3.5em; padding:1em; -moz-border-radius:0 0 0 9px; -webkit-border-bottom-left-radius:9px; }
+#intro { font-size:14px; background:#F9ED32; color:#9F6513; margin-bottom:3.5em; padding:1em; -moz-border-radius:0 0 0 9px; -webkit-border-bottom-left-radius:9px; overflow: hidden; }
 #intro p { margin-bottom:0; }
 
 /*= Events List */
@@ -234,6 +236,8 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 #formularios-de-cadastro div { margin-bottom:1.5em; }
 #artistas input[type="text"], #artistas input[type="password"], #artistas select { border:1px solid #437C3A; }
 #produtores input[type="text"], #produtores input[type="password"], #produtores select { border:1px solid #11778F; }
+#produtores input[disabled], #artistas input[disabled] {border: 1px solid #999;background-color: #ddd;}
+}
 
 /* =Widgets
 ---------------------------------------------------------------------------------*/

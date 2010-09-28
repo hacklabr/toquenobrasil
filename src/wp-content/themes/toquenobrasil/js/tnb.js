@@ -2,7 +2,7 @@ var timer = 0;
 
 function remove_feedback_msg(){
 	clearTimeout(timer );
-	jQuery('.success, .error, .notice').slideUp('fast',function(){
+	jQuery('.success, .error, .notice').slideUp('slow',function(){
 		//jQuery(this).remove();
 	});
 	
