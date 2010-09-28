@@ -260,20 +260,17 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 .widget-blue { background:#00C0F3; color:#00404F; }
 .widget-blue .title h2 { background:#179FBF; border-color:#11778F; }
 .widget-blue .shadow { background:url(img/shadow-blue.png) no-repeat bottom right; }
-.widget-blue a { border:1px dotted #00404F; color:#00404F; padding:0px 3px; }
+.widget-blue a { border:1px dotted #00404F; color:#00404F; line-height:2.25; padding:3px 6px; }
 .widget-blue a:hover { background:#00404F; border-style:solid; color:white; text-decoration:none; }
-.widget-blue li { display:inline; margin:0px !important; padding:0px !important; }
 .widget-blue label { display:none; }
 .widget-blue input[type=text] { padding:5px; }
 .widget-blue input[type=submit] { background:#179FBF; }
 
 .widget-green { background:#72BF44; color:#204F18; }
-.widget-green li { display:inline; margin:0px !important; padding:0px !important; }
 .widget-green .title h2 { background:#5B9F31; border-color:#437C3A; }
 .widget-green .shadow { background:url(img/shadow-green.png) no-repeat bottom right; }
 .widget-green a { border:1px dotted #204F18; color:#204F18; line-height:2.25; padding:3px 6px; }
 .widget-green a:hover { background:#204F18; border-style:solid; color:#FFF; text-decoration:none; }
-.widget-green li { display:inline; margin:0px !important; padding:0px !important; }
 .widget-green label { display:none; }
 .widget-green input[type=text] { padding:5px; }
 .widget-green input[type=submit] { background:#5B9F31; }
@@ -284,10 +281,11 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 .widget-yellow .shadow { background:url(img/shadow-yellow.png) no-repeat bottom right; }
 .widget-yellow a { border:1px dotted #9F6513; color:#9F6513; line-height:2.25; padding:3px 6px; }
 .widget-yellow a:hover { background:#9F6513; border-style:solid; color:#FFF; text-decoration:none; }
-.widget-yellow li { display:inline; margin:0px !important; padding:0px !important; }
 .widget-yellow label { display:none; }
 .widget-yellow input[type=text] { padding:5px; }
 .widget-yellow input[type=submit] { background:#F0C137; }
+
+.widget_categories li { display:inline; margin:0; padding:0 !important; }
 
 /* =General
 ---------------------------------------------------------------------------------*/
