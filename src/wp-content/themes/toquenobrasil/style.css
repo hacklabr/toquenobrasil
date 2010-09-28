@@ -188,6 +188,7 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 #events .event h2 { font-size:2em; line-height:1; margin-bottom:1em; text-transform:uppercase; }
 #events .event a { border-bottom:1px dotted #5B9F31; color:#5B9F31; }
 #events .event a:hover { border-bottom:1px solid #5B9F31; text-decoration:none; }
+.event #thumb img {moz-border-radius:9px; -webkit-border-radius:9px;}
 
 .event .artist { border-bottom:1px solid #EEEEEE; margin-bottom:1.5em; padding-bottom:1.5em; }
 .event .artist a.name { border-bottom:1px dotted #5B9F31; color:#5B9F31; font-size:1.25em; margin-bottom:1em; }

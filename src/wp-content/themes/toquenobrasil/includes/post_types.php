@@ -101,7 +101,7 @@ function theme_post_type_init() {
       'capability_type' => 'post',
       'hierarchical' => false,
       'menu_position' => 5,
-      'supports' => array('title', 'editor', 'excerpt', 'author'),      
+      'supports' => array('title', 'editor', 'excerpt', 'author', 'thumbnail'),      
       'register_meta_box_cb' => 'eventos_meta_box'
     )
   );  
