@@ -1,3 +1,7 @@
+<?php
+/* Template Name: Listagem dos eventos */
+?>
+
 <?php get_header(); ?>
 
 <div class="prepend-top"></div>
@@ -10,7 +14,11 @@
 		</div>
 	</div>
 
-	<p id="intro">Aqui você encontra festivais que estão buscando bandas novas! Inscreva-se clicando em "Quero Tocar!", seus dados serão automaticamente enviados ao produtor do evento.</p>
+	<p id="intro">
+        <?php 
+          echo get_page_by_path('eventos')->post_content;
+        ?>
+    </p>
 
 	<?php if ( have_posts() ) : while (have_posts()) : the_post(); ?>
 		<div id="event-<?php echo the_ID(); ?>" class="event">

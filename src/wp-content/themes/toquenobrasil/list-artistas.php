@@ -1,3 +1,7 @@
+<?php
+/* Template Name: Listagem dos artistas */
+?>
+
 <?php get_header(); ?>
 
 <div class="clear"></div>
@@ -12,7 +16,11 @@
 		</div>
 	</div>
 
-	<p id="intro">Aqui você encontra festivais que estão buscando bandas novas! Inscreva-se clicando em "Quero Tocar!", seus dados serão automaticamente enviados ao produtor do evento.</p>
+	<p id="intro">
+        <?php 
+          echo get_page_by_path('artistas')->post_content;
+        ?>
+    </p>
 
 	<?php 
 		global $wp_query;

@@ -66,7 +66,7 @@ get_header();
 					$mediumurl = $images_url . $medium;
 					$largeurl = $images_url . $large;
 	
-					echo "<img src='" . $thumburl ."'>";
+					echo "<a href='". $largeurl."' rel='lightbox-images' ><img src='" . $thumburl ."'/></a>";
 				}
 			?>
 		</div>

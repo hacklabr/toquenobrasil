@@ -187,7 +187,13 @@ function login_error_redirect($url, $redirect_to, $user){
     
     if( ($_POST['user_login']  ||  $_POST['log'] ) &&  is_wp_error($user) ){
         $er_flag = ( strpos($redirect_to,'?')===FALSE ? "?" : "&" ) . 'login_error=1';
-        $site_url = get_bloginfo('url') . $redirect_to . $er_flag;
+        
+        // Aqui achei um erro. Alan, me diga se tem necessidade do get_bloginfo('url');
+        // $site_url = get_bloginfo('url') . $redirect_to . $er_flag;
+        // Esta é a linha nova:
+        $site_url = $redirect_to . $er_flag;
+        
+        
         wp_safe_redirect($site_url);
         die;    
     }
@@ -280,7 +286,7 @@ function print_audio_player($post_id){
         	language="JavaScript" src="<?php echo $playerURL;?>/audio-player.js"></script>
         <object type="application/x-shockwave-flash"
         	data="<?php echo $playerURL;?>/player.swf" id="audioplayer1"
-        	class="audioplayer" height="24" width="150" style="visibility: visible">
+        	class="audioplayer" height="24" width="140" style="visibility: visible">
         	<param name="movie" value="<?php echo $playerURL;?>/player.swf">
         	<param name="FlashVars"
         		value="playerID=1&amp;soundFile=<?php echo $fileURL; ?>">

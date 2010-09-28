@@ -1,7 +1,3 @@
-<?php
-/* Template Name: Listagem dos artistas */
-?>
-
 <?php get_header(); ?>
 
 <div class="clear"></div>

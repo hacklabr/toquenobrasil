@@ -8,16 +8,16 @@ function theme_post_type_init() {
     // IMAGES
   register_post_type('images', array(
     'labels' => array(
-                        'name' => _x('Images', 'post type general name'),
-                        'singular_name' => _x('Image', 'post type singular name'),
-                        'add_new' => _x('Add New', 'image'),
-                        'add_new_item' => __('Add New Image'),
-                        'edit_item' => __('Edit Image'),
-                        'new_item' => __('New Image'),
-                        'view_item' => __('View Image'),
+                        'name' => _x('Imagens', 'post type general name'),
+                        'singular_name' => _x('Imagem', 'post type singular name'),
+                        'add_new' => _x('Adicionar Nova', 'image'),
+                        'add_new_item' => __('Adicionar nova imagem'),
+                        'edit_item' => __('Editar Imagem'),
+                        'new_item' => __('Nova Imagem'),
+                        'view_item' => __('Ver Imagem'),
                         'search_items' => __('Search images'),
-                        'not_found' =>  __('No images found'),
-                        'not_found_in_trash' => __('No images found in Trash'), 
+                        'not_found' =>  __('Nenhuma Imagem Encontrada'),
+                        'not_found_in_trash' => __('Nenhuma Imagem na Lixeira'), 
                         'parent_item_colon' => ''
                      ),
      'public' => true,
