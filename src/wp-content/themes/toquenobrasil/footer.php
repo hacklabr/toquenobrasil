@@ -21,7 +21,7 @@
         <div class="span-13 last">
           <?php theme_image("contato.png", array("id"=>"contato-title")); ?>
           <?php if($_POST['contact_us']):?>
-          	<div class='success' id='scm_contact'><?php _e('sua mensagem foi enviada com sucesso')?></div>
+          	<div class='success span-10' id='scm_contact'><?php _e('sua mensagem foi enviada com sucesso')?></div>
           	<script>
           		jQuery.scrollTo('#scm_contact', 800);
           	</script>
