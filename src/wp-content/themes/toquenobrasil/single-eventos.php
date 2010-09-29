@@ -79,7 +79,7 @@
 
 		<div id="signed-artists-list" class="clearfix">
 			<?php if($join_success):?>
-				<div class='success' id='join_success'><?php _e('Inscrição realizada com sucesso.');?></div>
+				<div class='success' id='join_success'><?php _e('Suas informações foram enviadas ao produtor do evento para curadoria. <br/> Apos encerramento das inscrições você receberá um email com a resposta positiva ou negativa.', 'tnb');?></div>
 				<script type="text/javascript">
 					jQuery.scrollTo('#join_success', 800);
 				</script>

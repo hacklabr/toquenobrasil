@@ -56,20 +56,21 @@
 			<a>Já estou<br />inscrito!</a>
 		</div><!-- .quero-tocar -->
 	
-	<?php  elseif(strtotime($inscricao_inicio) <= time() && strtotime($inscricao_fim) >= time() && is_artista()):?>
+	<?php  elseif(strtotime($inscricao_inicio) <= time() && strtotime($inscricao_fim) >= time()):?>
 		<form action='<?php the_permalink();?>' method="post" id='form_join_event_<?php the_ID(); ?>'>
 			<?php wp_nonce_field('join_event'); ?>
 			<input type="hidden" name="banda_id" value='<?php echo $current_user->ID; ?>' />
 			<input type="hidden" name="evento_id" value='<?php the_ID(); ?>' />
 		</form>
-		
-		<div class="quero-tocar i-wanna-play">
-			<a href="#" onclick="jQuery('#form_join_event_<?php the_ID(); ?>').submit();" title="Participe do evento <?php echo get_the_title();?>">Quero<br />tocar!</a>
-		</div><!-- .quero-tocar -->
-	<?php  else :?>
-		<div class="quero-tocar i-wanna-play">
-			<a href="<?php bloginfo('url');?>/cadastre-se/artista" title='Cadastre-se para poder participar do Toque no Brasil!'>Quero<br />tocar!</a>
-		</div><!-- .quero-tocar -->
+		<?php if( is_artista() ):?>
+    		<div class="quero-tocar i-wanna-play">
+    			<a onclick="jQuery('#form_join_event_<?php the_ID(); ?>').submit();" title="Participe do evento <?php echo get_the_title();?>">Quero<br />tocar!</a>
+    		</div><!-- .quero-tocar -->
+	    <?php  elseif(!is_user_logged_in()) :?>
+    		<div class="quero-tocar i-wanna-play">
+    			<a href="<?php bloginfo('url');?>/cadastre-se/artista" title='Cadastre-se para poder participar do Toque no Brasil!'>Quero<br />tocar!</a>
+    		</div><!-- .quero-tocar -->
+		<?php endif;?>
 	<?php endif;?>
 </div>
 

@@ -31,7 +31,7 @@ jQuery(document).ready(function() {
 	// ////////////////////////////// Login handler //////////////////////////////
     jQuery("#signin_btn").click(function(){
     	
-    	if(jQuery("#signinform #pw").val() == '' || jQuery("#signinform #log").val() == '')
+    	if(jQuery("#signinform #senha").val() == '' || jQuery("#signinform #user_login").val() == '')
     		return false;
     	
     	return true;
