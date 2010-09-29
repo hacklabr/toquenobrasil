@@ -62,12 +62,13 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
             require_once(ABSPATH . '/wp-admin/includes/file.php');
             require_once(ABSPATH . '/wp-admin/includes/image.php');
             $upload_dir = WP_CONTENT_DIR.'/uploads';
+            $i = 0;
             foreach ($_FILES as $index=>$file){
                 if($file['error'] == 4 || $index == 'userphoto_image_file')
                     continue;
                 
                 $type = preg_replace('/(_[0-9])/','', $index);
-                $media_title = $file['name'];
+                $media_title = strlen($_POST["label_music"][$i])>0 ? $_POST["label_music"][$i] : $file['name'];
                 
                 $old_post = 
                 
@@ -153,6 +154,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                 	}
                 	$msg['error'][] = $feedback;
                 }
+                $i++;
             }// end for
         }    
     }
