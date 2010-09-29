@@ -38,7 +38,12 @@ jQuery(document).ready(function() {
     	
     });
     
-
+    jQuery('.evento_tos_modal').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 700,
+        resizable: false
+    });
     
 	// ////////////////////////////// LOST PASS //////////////////////////////
 	jQuery("#lostpassform").hide();

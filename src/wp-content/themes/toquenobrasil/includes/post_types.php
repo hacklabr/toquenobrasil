@@ -127,8 +127,8 @@ function eventos_meta() {
   $site = get_post_meta($post->ID, "evento_site", true);
   $vagas = get_post_meta($post->ID, "evento_vagas", true);
   $recipient = get_post_meta($post->ID, "evento_recipient", true);
-  
-  
+  $tos = get_post_meta($post->ID, "evento_tos", true);
+  $tos = preg_replace('/\<br\/\>/', "", $tos);
   $inicio = preg_replace("/([0-9]{2})-([0-9]{2})-([0-9]{4})/","$1/$2/$3", $inicio);
   $fim = preg_replace("/([0-9]{2})-([0-9]{2})-([0-9]{4})/","$1/$2/$3",$fim);
   
@@ -157,6 +157,13 @@ function eventos_meta() {
   <input type="text" name="evento_vagas" value="<?php echo $vagas ?>" /></p>
   <p><label><strong>E-mail para inscrição:</strong></label><br />
   <input type="text" name="evento_recipient" value="<?php echo $recipient ?>" /></p>
+  
+  
+  <p>
+  	<label><strong>TERMOS:</strong></label>
+  	<br />
+  	<textarea name='tos' rows="10" cols="90"><?php echo $tos; ?></textarea>
+  </p>
   <?php
 }
 
@@ -196,6 +203,7 @@ function save_eventos_meta_box( $post_id ) {
   update_post_meta($post_id, 'evento_site', $_POST['evento_site']);
   update_post_meta($post_id, 'evento_vagas', $_POST['evento_vagas']);
   update_post_meta($post_id, 'evento_recipient', $_POST['evento_recipient']);
+  update_post_meta($post_id, 'evento_tos', preg_replace('/\n/', '<br/>' , $_POST['tos']));
 
   return $post_id;
 }

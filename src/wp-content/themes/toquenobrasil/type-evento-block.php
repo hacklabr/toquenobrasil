@@ -24,6 +24,7 @@
 
 <div class="span-7">
 	<div id="dados-do-evento">
+		
 		<p>
 			<span class="labels"><?php _e('Tipo de evento:', 'tnb');?></span> <?php echo get_post_meta(get_the_ID(), "evento_tipo", true); ?><br />
 			<span class="labels"><?php _e('Data do evento:', 'tnb');?></span> <?php echo ($br_fim==$br_inicio ? $br_inicio : "$br_inicio - $br_fim") ;?><br />
@@ -45,6 +46,18 @@
 </div>
 
 <div class="span-3 last">
+
+	<div class='evento_tos_modal' id='evento_tos_modal_<?php the_ID(); ?>'>
+		<?php echo get_post_meta(get_the_ID(), "evento_tos", true);?>
+		<form action='<?php the_permalink();?>' method="post" id='form_join_event_<?php the_ID(); ?>'>
+			<?php wp_nonce_field('join_event'); ?>
+			<input type="hidden" name="banda_id" value='<?php echo $current_user->ID; ?>' />
+			<input type="hidden" name="evento_id" value='<?php the_ID(); ?>' />
+		</form>
+		<a onclick="jQuery('#form_join_event_<?php the_ID(); ?>').submit();" ><?php _e('Li e aceito <br />tocar', 'tnb');?></a>
+		
+	</div>
+
 	<?php if( is_artista() && in_postmeta(get_post_meta(get_the_ID(), 'selecionado'), $current_user->ID)): ?>
 	
 		<div class="quero-tocar iam-selected">
@@ -57,15 +70,11 @@
 		</div>
 	
 	<?php  elseif(strtotime($inscricao_inicio) <= time() && strtotime($inscricao_fim) >= time()):?>
-		<form action='<?php the_permalink();?>' method="post" id='form_join_event_<?php the_ID(); ?>'>
-			<?php wp_nonce_field('join_event'); ?>
-			<input type="hidden" name="banda_id" value='<?php echo $current_user->ID; ?>' />
-			<input type="hidden" name="evento_id" value='<?php the_ID(); ?>' />
-		</form>
+		
 		<?php if( is_artista() ):?>
     		<div class="quero-tocar i-wanna-play">
-    			<a onclick="jQuery('#form_join_event_<?php the_ID(); ?>').submit();" title="<?php pintf(__('Participe do evento %s', 'tnb'),  get_the_title());?>"><?php _e('Quero <br />tocar!', 'tnb');?></a>
-    		</div><!-- .quero-tocar -->
+    			<a onclick="jQuery('#evento_tos_modal_<?php the_ID(); ?>').dialog('open');" title="<?php printf(__('Participe do evento %s', 'tnb'),  get_the_title());?>"><?php _e('Quero <br />tocar!', 'tnb');?></a>
+    		</div>
 	    <?php  elseif(!is_user_logged_in()) :?>
     		<div class="quero-tocar i-wanna-play">
     			<a href="<?php bloginfo('url');?>/cadastre-se/artista" title='<?php _e('Cadastre-se para poder participar do Toque no Brasil!', 'tnb');?>'><?php _e('Quero <br />tocar!', 'tnb');?></a>

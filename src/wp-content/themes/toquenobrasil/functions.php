@@ -22,7 +22,7 @@ function tnb_load_js() {
     wp_enqueue_script('cufon_yui', TNB_URL . '/js/cufon-yui.js');
     wp_enqueue_script('arista20-font', TNB_URL . '/js/arista20.font.js');
     wp_enqueue_script('scrollTo_js', TNB_URL . '/js/jquery.scrollTo-min.js', array('jquery'));
-    wp_enqueue_script('tnb_js', TNB_URL . '/js/tnb.js', array('jquery'));
+    wp_enqueue_script('tnb_js', TNB_URL . '/js/tnb.js', array('jquery', 'jquery-ui-dialog'));
   }    
 }
 function add_adm_js(){
@@ -33,6 +33,11 @@ function add_adm_js(){
     wp_enqueue_script('tnb_adm_js', TNB_URL . '/js/tnb_adm.js', array('jquery','datepicker_br_js'), 12);
 }
 add_action('admin_init', 'add_adm_js');
+add_action('wp_print_styles', 'custom_load_css');
+
+function custom_load_css() {
+    wp_enqueue_style('jquery-ui', TNB_URL . '/css/jquery-ui-css/ui-lightness/jquery-ui-1.7.2.custom.css');
+}
 
 
 # REGISTERING MENUS
