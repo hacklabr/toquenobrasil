@@ -344,7 +344,7 @@ get_header();
 		
 		<?php for($i = 1; $i<=1; $i++): ?>
 		<p class="clearfix prepend-1">
-			<label for="music">Rider (Formato: PDF, DOC, ODT)</label> 
+			<label for="music">Rider (Formato: PDF, DOC, ODT, JPG, PNG, GIF)</label> 
         		<?php 
         		        $media = get_posts("post_type=rider&meta_key=_media_index&meta_value=rider_{$i}&author={$user_ID}");
         		        
@@ -365,7 +365,7 @@ get_header();
 		
 		<?php for($i = 1; $i<=1; $i++): ?>
 		<p class="clearfix prepend-1">
-			<label for="music">Mapa do palco (Formato: PDF, DOC, ODT)</label> 
+			<label for="music">Mapa do palco (Formato: PDF, DOC, ODT, JPG, PNG, GIF)</label> 
         		<?php 
         		        $media = get_posts("post_type=mapa_palco&meta_key=_media_index&meta_value=mapa_palco_{$i}&author={$user_ID}");
         		        

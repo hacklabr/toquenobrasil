@@ -104,6 +104,31 @@ get_header();
         <embed src='<?php echo $videoUrl; ?>&autoplay=0&border=0&showsearch=0&fs=1' type='application/x-shockwave-flash' wmode='transparent' width='<?php echo $width; ?>' height='<?php echo $height; ?>' allowfullscreen='1'></embed>
       </object>
       <?php } ?>
+      
+      <?php 
+        $medias = get_posts("post_type=mapa_palco&author={$curauth->ID}");
+        		        
+        foreach( $medias as $media ) {
+            echo '<br />';
+            echo "<a href='{$media->guid}'>" , __('Mapa do palco', 'tnb') ,"</a>";
+//            echo '<br />';
+//            echo $media->post_title;
+        }
+      
+      ?>
+      
+      <?php 
+        $medias = get_posts("post_type=rider&author={$curauth->ID}");
+        		        
+        foreach( $medias as $media ) {
+            echo '<br />';
+            echo "<a href='{$media->guid}'>" , __('Rider', 'tnb') ,"</a>";
+//            echo '<br />';
+//            echo $media->post_title;
+        }
+      
+      ?>
+      
     </div>
     <div class="clear"></div>
   </div>
