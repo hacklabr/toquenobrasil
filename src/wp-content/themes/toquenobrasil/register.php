@@ -148,18 +148,19 @@ get_header();
 
 <div class="clear"></div>
 <div class="prepend-top"></div>
+
 <div class="span-14 prepend-1 right-colborder">
     
-      <div class="item green">
-        <div class="title pull-1">
-          <div class="shadow"></div>
-          <h1>Cadastre-se</h1>
-          <div class="clear"></div>
-          <?php print_msgs($msgs);?>
-        </div>
-        <div class="clear"></div>
-        <div class="prepend-top"></div>       
-      </div>    
+  <div class="item green clearfix">
+    <div class="title pull-1 clearfix">
+      <div class="shadow"></div>
+      <h1>Cadastre-se</h1>
+    </div>
+  </div>    
+
+  <?php print_msgs($msgs);?>
+
+
       <?php //the_content(); ?>
             <div id="formularios-de-cadastro">
                 <div id="abas" class="clearfix">                        

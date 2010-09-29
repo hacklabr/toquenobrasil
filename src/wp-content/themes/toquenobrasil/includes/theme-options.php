@@ -74,9 +74,9 @@ function theme_options_page() {
 					</td>
 				</tr>
 				<tr valign="top">
-					<th scope="row">Flickr</th>
+					<th scope="row">YouTube</th>
 					<td>
-						<input type="text" name="theme_options[flickr_url]" value="<?php echo htmlspecialchars($options['flickr_url']); ?>"/>
+						<input type="text" name="theme_options[youtube_url]" value="<?php echo htmlspecialchars($options['youtube_url']); ?>"/>
 						<br/>(Link com http://)
 					</td>
 				</tr>

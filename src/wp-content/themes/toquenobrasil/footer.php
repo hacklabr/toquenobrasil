@@ -6,7 +6,7 @@
             <br>
             <a href="<?php echo get_theme_option('facebook_url'); ?>" target="_blank"><?php theme_image("facebook.png") ?></a>
             <br>
-            <a href="<?php echo get_theme_option('flickr_url'); ?>" target="_blank"><?php theme_image("flickr.png") ?></a>
+            <a href="<?php echo get_theme_option('youtube_url'); ?>" target="_blank"><?php theme_image("youtube.png") ?></a>
             <br>
             <a href="<?php echo get_theme_option('twitter_url'); ?>" target="_blank"><?php theme_image("twitter.png") ?></a>
           </div>

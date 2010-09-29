@@ -59,7 +59,7 @@ jQuery(document).ready(function() {
 	
     Cufon.replace('h1, h2, h3, h4, h5, h6, #footer #twit .content .author, #nav-bottom, #hacklab, .post .post-comments span, #anterior, #proximo, .signup, .quero-tocar');
 	
-    /*= COLORIZE WIDGETS */
+    /* =COLORIZE WIDGETS */
     var i = 1;
     jQuery(".widgets .widget").each(function() {
          if (i==1) {
@@ -72,4 +72,15 @@ jQuery(document).ready(function() {
          }
          i++;
     })
+
+    /* =ADD CLASS TO IMAGES OF THE WIDGETS */
+    jQuery(".widgets img").each(function() {
+        jQuery(this).parent().addClass("widget-image");
+    })
+
+    /* =REMOVE UNDERLINE FROM IMAGES WITH LINKS */
+    jQuery("img").parent("a").each(function() {
+        jQuery(this).css("border","none");
+    })
+
 });
