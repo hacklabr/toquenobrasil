@@ -25,20 +25,20 @@
 <div class="span-7">
 	<div id="dados-do-evento">
 		<p>
-			<span class="labels">Tipo de evento:</span> <?php echo get_post_meta(get_the_ID(), "evento_tipo", true); ?><br />
-			<span class="labels">Data do evento:</span> <?php echo ($br_fim==$br_inicio ? $br_inicio : "$br_inicio - $br_fim") ;?><br />
-			<span class="labels">Inscrições até:</span> <?php echo $br_insc_fim; ?><br />
+			<span class="labels"><?php _e('Tipo de evento:', 'tnb');?></span> <?php echo get_post_meta(get_the_ID(), "evento_tipo", true); ?><br />
+			<span class="labels"><?php _e('Data do evento:', 'tnb');?></span> <?php echo ($br_fim==$br_inicio ? $br_inicio : "$br_inicio - $br_fim") ;?><br />
+			<span class="labels"><?php _e('Inscrições até:', 'tnb');?></span> <?php echo $br_insc_fim; ?><br />
 			
             <?php if($el):?>
-                <span class="labels">Local:</span> <?php echo $el; ?><br />
+                <span class="labels"><?php _e('Local:', 'tnb');?></span> <?php echo $el; ?><br />
             <?php endif; ?>
             
             <?php if($es):?>
-			    <span class="labels">Site:</span> <a href="<?php echo $es; ?>" target="_blank"><?php echo $es; ?></a><br />
+			    <span class="labels"><?php _e('Site:', 'tnb');?></span> <a href="<?php echo $es; ?>" target="_blank"><?php echo $es; ?></a><br />
             <?php endif; ?>
             
             <?php if($ev):?>
-			    <span class="labels">Vagas:</span> <?php echo $ev; ?>
+			    <span class="labels"><?php _e('Vagas:', 'tnb');?></span> <?php echo $ev; ?>
             <?php endif; ?>
 		</p>
 	</div><!-- .dados-do-evento -->
@@ -48,13 +48,13 @@
 	<?php if( is_artista() && in_postmeta(get_post_meta(get_the_ID(), 'selecionado'), $current_user->ID)): ?>
 	
 		<div class="quero-tocar iam-selected">
-			<a>Já fui<br />selecionado!</a>
-		</div><!-- .quero-tocar -->
+			<a><?php _e('Já fui<br />selecionado!', 'tnb');?></a>
+		</div>
 	
 	<?php  elseif(is_artista() &&  in_postmeta(get_post_meta(get_the_ID(), 'inscrito'), $current_user->ID)): ?>
 		<div class="quero-tocar iam-signed">
-			<a>Já estou<br />inscrito!</a>
-		</div><!-- .quero-tocar -->
+			<a><?php _e('Já estou<br />inscrito!', 'tnb');?></a>
+		</div>
 	
 	<?php  elseif(strtotime($inscricao_inicio) <= time() && strtotime($inscricao_fim) >= time()):?>
 		<form action='<?php the_permalink();?>' method="post" id='form_join_event_<?php the_ID(); ?>'>
@@ -64,13 +64,17 @@
 		</form>
 		<?php if( is_artista() ):?>
     		<div class="quero-tocar i-wanna-play">
-    			<a onclick="jQuery('#form_join_event_<?php the_ID(); ?>').submit();" title="Participe do evento <?php echo get_the_title();?>">Quero<br />tocar!</a>
+    			<a onclick="jQuery('#form_join_event_<?php the_ID(); ?>').submit();" title="<?php pintf(__('Participe do evento %s', 'tnb'),  get_the_title());?>"><?php _e('Quero <br />tocar!', 'tnb');?></a>
     		</div><!-- .quero-tocar -->
 	    <?php  elseif(!is_user_logged_in()) :?>
     		<div class="quero-tocar i-wanna-play">
-    			<a href="<?php bloginfo('url');?>/cadastre-se/artista" title='Cadastre-se para poder participar do Toque no Brasil!'>Quero<br />tocar!</a>
-    		</div><!-- .quero-tocar -->
+    			<a href="<?php bloginfo('url');?>/cadastre-se/artista" title='<?php _e('Cadastre-se para poder participar do Toque no Brasil!', 'tnb');?>'><?php _e('Quero <br />tocar!', 'tnb');?></a>
+    		</div>
 		<?php endif;?>
+	 <?php  else :?>	
+		<div class="quero-tocar iam-signed">
+			<a><?php _e('Inscrições <br /> encerradas!', 'tnb');?></a>
+		</div>
 	<?php endif;?>
 </div>
 

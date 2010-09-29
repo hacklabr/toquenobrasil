@@ -1,5 +1,7 @@
 <?php
 
+
+
 global $current_user, $user_ID, $profileuser;
 $profileuser = $current_user; 
 // apenas artistas usam esse tpl
@@ -16,15 +18,19 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
     $profileuser_id = $user_ID;
     
     if(!filter_var( $_POST['user_email'], FILTER_VALIDATE_EMAIL))
-        $msg['error'][] = __('Invalid email address.','tnb');    
+        $msg['error'][] = __('E-mail informado inválido.','tnb');    
     
     if( $_POST['user_email'] != $profileuser->user_email && email_exists($_POST['user_email']))
-         $msg['error'][] =  __('This email address is already registered.', 'tnb');
+         $msg['error'][] =  __('Esse e-mail j[á está sendo utilizado', 'tnb');
         
     if( strlen($_POST['user_pass'])>0  && $_POST['user_pass'] !=  $_POST['user_pass_confirm'] )
-        $msg['error'][]= __('Password does not match with password confirmation.','tnb');
+        $msg['error'][]= __('A senhas fornecidas não conferem.','tnb');
     
     
+    
+    if(strlen($_POST['site'])>0 && !filter_var($_POST['site'], FILTER_VALIDATE_URL))
+        $msg['error'][]= __('O site fornecido não é válido.','tnb'); 
+        
     if( !$msg['error']){
         $userdata['ID'] = $profileuser_id;
         $userdata['user_login'] = $_POST['user_login'];
@@ -239,6 +245,7 @@ get_header();
 			<label for="site">Site</label>
 			<br/>
 			<input type="text" id="site" name="site" value="<?php echo $profileuser->site; ?>" class="text span-12" />
+			<small>Use http://</small>
 		</p>
 		<p class="clearfix prepend-1">
 			<label for="youtube">URL do vídeo no YouTube</label>

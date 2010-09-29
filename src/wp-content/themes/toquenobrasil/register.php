@@ -70,7 +70,11 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
     //  campos obr de produtores        
     if($reg_type == 'produtor' && strlen($_POST['nome'])==0)
         $errors['nome'] =  'Informe o seu nome.';    
+
         
+        
+    if(strlen($_POST['site'])>0 && !filter_var($_POST['site'], FILTER_VALIDATE_URL))
+        $errors['site'] = __('O site fornecido não é válido.','tnb');     
         
     if(!sizeof($errors)>0){
         $user_pass = $_POST['senha'];
@@ -194,6 +198,7 @@ get_header();
                                 <label for="site">Site:</label>
                                 <br />
                                 <input class="span-6 text" type="text" id="site" name="site" value="<?php echo $user->site; ?>" />
+                                <small>Use http://</small>
                             </div>
                             <div class="span-6">
                                 <label for="estado">Estado:</label>

@@ -1,5 +1,7 @@
 <?php
 
+
+
 define('TNB_URL', get_bloginfo('url') . strstr(dirname(__FILE__), '/wp-content') );
 
 # INCLUDES
@@ -338,5 +340,36 @@ function is_blog(){
     global $in_blog;
     return $in_blog;
 }
+
+/////////////  Alow admin chage e-mail verification flag
+function email_confirm_display_selector_fieldset(){
+    global $profileuser;
+    
+    $inactive = get_usermeta($profileuser->ID, 'wp_inactive');
+    $checked = (!$inactive ? 'checked' : '' ); 
+    ?> 
+    <h3>Status do usuário</h3>
+    <p>
+    Ativo: <input type="checkbox"  name='active' <?php echo $checked; ?> />
+    </p>
+    <br /><br /><br />
+    
+    <?php 
+    
+}
+add_action('show_user_profile', 'email_confirm_display_selector_fieldset', 2);
+add_action('edit_user_profile', 'email_confirm_display_selector_fieldset', 2);
+function email_confirm_profile_update($userID){
+    
+    
+    if(!isset($_POST['active'])){
+        add_user_meta($userID, 'wp_inactive' , true);
+    }else{
+        delete_user_meta($userID, 'wp_inactive');    
+    }
+}
+add_action('profile_update', 'email_confirm_profile_update');
+
+
 
 ?>
