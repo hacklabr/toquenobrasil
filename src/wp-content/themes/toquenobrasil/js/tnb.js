@@ -57,8 +57,6 @@ jQuery(document).ready(function() {
 		jQuery('#lostpassform').hide();
 	});
 	
-    Cufon.replace('h1, h2, h3, h4, h5, h6, #footer #twit .content .author, #nav-bottom, #hacklab, .post .post-comments span, #anterior, #proximo, .signup, .quero-tocar');
-	
     /* =COLORIZE WIDGETS */
     var i = 1;
     jQuery(".widgets .widget").each(function() {

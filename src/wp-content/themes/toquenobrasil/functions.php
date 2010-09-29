@@ -18,9 +18,6 @@ include(TEMPLATEPATH . '/widgets/ultimos_eventos.php');
 add_action('wp_print_scripts', 'tnb_load_js');
 function tnb_load_js() {
   if ( !is_admin() ) {
-      
-    wp_enqueue_script('cufon_yui', TNB_URL . '/js/cufon-yui.js');
-    wp_enqueue_script('arista20-font', TNB_URL . '/js/arista20.font.js');
     wp_enqueue_script('scrollTo_js', TNB_URL . '/js/jquery.scrollTo-min.js', array('jquery'));
     wp_enqueue_script('tnb_js', TNB_URL . '/js/tnb.js', array('jquery', 'jquery-ui-dialog'));
   }    

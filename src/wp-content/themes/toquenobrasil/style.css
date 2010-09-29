@@ -65,6 +65,7 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 #footer #socialmedia img { margin-bottom:9px; }
 #footer #twit { background:url(img/twit.png); color:#9F6513; height:296px; left:90px; position:absolute; top:-36px; width:326px; }
 #footer #twit .content { margin-left:30px; padding:0px 30px; }
+#footer #twit .content .tb_author { font-family:Arista; }
 #footer #twit .content span { display:block; }
 #footer #twit div.tb_tweetlist, #footer #twit  div.tb_tweet { border:none !important; }
 #footer #twit a { border:1px dotted #9F6513; color:#9F6513; padding:0 3px; }
@@ -81,13 +82,13 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 /* =Footer:Bottom Navigation
 ------------------------------------------------------------------*/
 #nav-bottom-wrapper { background:url(img/bg-stripes-bottom.png) center bottom; min-height:263px; }
-#nav-bottom-wrapper #nav-bottom { color:white; font-size:1.2em; padding-top:60px; position:relative; text-transform:uppercase; }
+#nav-bottom-wrapper #nav-bottom { color:white; font-family:Arista; font-size:1.2em; padding-top:60px; position:relative; text-transform:uppercase; }
 #nav-bottom-wrapper #nav-bottom a, #nav-bottom-wrapper #hacklab a { color:white; }
 #nav-bottom-wrapper #nav-bottom ul { list-style:none; margin:0px; padding:0px; }
 #nav-bottom-wrapper #nav-bottom ul li { display:inline; }
 #nav-bottom-wrapper #nav-bottom ul li:after { content:"•"; font-size:0.6em; padding:0px 6px 0px 8px; }
 #nav-bottom-wrapper #nav-bottom ul li:last-child:after { content:""; }
-#nav-bottom-wrapper #hacklab, #nav-bottom-wrapper #wp { font-size:1.6em; text-align:right; }
+#nav-bottom-wrapper #hacklab, #nav-bottom-wrapper #wp { font-family:Arista; font-size:1.6em; text-align:right; }
 #nav-bottom-wrapper #wp { margin-top:95px; }
 
 /* =Main Content
@@ -100,7 +101,7 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 /* =Structure */
 .item { margin:6px 0px 20px 0px; position:relative; }
 .item .title { padding-top:20px; }
-.item .title h1, .item .title h3 { border-left:9px solid #00C0F3; float:left; margin-left:-9px; padding:9px 18px; text-transform:uppercase; behavior:url(border-radius.htc); }
+.item .title h1, .item .title h3 { border-left:9px solid #00C0F3; float:left; margin-left:-9px; padding:9px 18px; text-transform:uppercase; }
 .item .title h1 { font-size:2.5em; -moz-border-radius:0px 18px 18px 0px; -webkit-border-top-right-radius:18px; -webkit-border-bottom-right-radius:18px; }
 .item .title h3 { -moz-border-radius:0px 9px 9px 0px; -webkit-border-top-right-radius:9px; -webkit-border-bottom-right-radius:9px; }
 .item .title .shadow { height:9px; margin-left:-9px; width:9px; }
@@ -124,7 +125,7 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 .yellow .title .shadow { background:url(img/shadow-yellow.png) no-repeat bottom right; }
 
 /* =Magenta boxes for signup or another kind of highlight */
-.signup { position:absolute; right:9px; bottom:-9px; background:#EC008C; padding:9px; font-weight:bold; -moz-border-radius:9px 0px 0px 0px; -webkit-border-top-left-radius:9px; }
+.signup { background:#EC008C; bottom:-9px; font-family:Arista; font-weight:bold; padding:9px; position:absolute; right:9px; -moz-border-radius:9px 0px 0px 0px; -webkit-border-top-left-radius:9px; }
 .signup a { color:white; font-size:1.3em; padding:9px; position:relative; text-decoration:none; text-transform:uppercase; }
 .signup .shadow { background:url(img/shadow-magenta.png) no-repeat; margin-left:0px; position:absolute; right:-9px; width:9px; height:9px; }
 
@@ -135,7 +136,7 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 ---------------------------------------------------------------------------------*/
 .post { border-top:1px solid #00C0F3; margin:27px 0px 36px 0px; position:relative; }
 .post h2 { font-size:2em; line-height:1; margin-bottom:1em; text-transform:uppercase; }
-.post a { border-bottom:1px dotted #5B9F31; color:#5B9F31; }
+.post a { border-bottom:1px dotted #5B9F31; color:#5B9F31; text-decoration:none; }
 .post a:hover { border-bottom:1px solid #5B9F31; text-decoration:none; }
 .post .post-time { margin-bottom:9px; margin-top:-9px; position:relative; text-align:center; }
 .post .post-time div.data { border-left:none !important; margin-left:-18px; padding:3px 9px 6px 9px; -moz-border-radius:0px 0px 9px 9px; -webkit-border-bottom-left-radius:9px; -webkit-border-bottom-right-radius:9px; }
@@ -145,7 +146,7 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 .post .post-time .shadow { float:right; height:9px; width:9px; } 
 .post .post-time .shadow { background:url(img/shadow-blue-menu.png) no-repeat top right; }
 .post .post-comments { background:url(img/comments.png) center center no-repeat; height:70px; }
-.post .post-comments span { display:block; font-size:2.5em; height:40px; padding:7px 0px; text-align:center; width:70px; }
+.post .post-comments span { display:block; font-family:Arista; font-size:2.5em; height:40px; padding:7px 0px; text-align:center; width:70px; }
 .post .post-categories { margin-bottom:18px; }
 .post .post-categories a { background:#8C0052; border:none; color:white; font-weight:bold; line-height:2.25; padding:3px 6px; text-transform:uppercase; }
 .post .post-categories a:hover { background:#EC008C; text-decoration:none; }
@@ -168,10 +169,10 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 #comment, #author, #email, #url { font-family:Arial, Helvetica, sans-serif; font-size:12px; }
 #comment { width:258px; }
 #author, #email, #url { padding:5px; width:138px; }
-#posts-navigation { margin-top:150px; }
-#posts-navigation #proximo, #posts-navigation #anterior, #posts-navigation #proximos, #posts-navigation #anteriores{ position:absolute; bottom:239px; z-index:1; }
-#posts-navigation #proximo, #posts-navigation #anteriores { left:428px; width:164px; height:200px; background:transparent url(img/proximo.png) no-repeat; }
-#posts-navigation #anterior, #posts-navigation #proximos { left:170px; width:253px; height:200px; background:transparent url(img/anterior.png) no-repeat; }
+#posts-navigation { margin-top:150px; position:relative; }
+#posts-navigation #proximo, #posts-navigation #anterior, #posts-navigation #proximos, #posts-navigation #anteriores{ bottom:-72px; font-family:Arista; position:absolute; z-index:1; }
+#posts-navigation #proximo, #posts-navigation #anteriores { left:370px; width:164px; height:200px; background:transparent url(img/proximo.png) no-repeat; }
+#posts-navigation #anterior, #posts-navigation #proximos { left:110px; width:253px; height:200px; background:transparent url(img/anterior.png) no-repeat; }
 #posts-navigation a { color:#fff; border:none; font-size:1.2em; display:block; }
 #posts-navigation #anterior a, #posts-navigation #proximos span { margin:53px 0 0 5px; }
 #posts-navigation #proximo a, #posts-navigation #anteriores span { margin:3px 5px 0 0; text-align:right; }
@@ -196,7 +197,7 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 .event .artist a.name { border-bottom:1px dotted #5B9F31; color:#5B9F31; font-size:1.25em; margin-bottom:1em; }
 .event .artist a.name:hover { border-bottom-style:solid; }
 .event .artist .avatar img { margin-top:5px; }
-.event .quero-tocar { background:#EC008C; padding:9px; font-size:1.2em; line-height:1.25; position:relative; text-align:center; text-transform:uppercase; -moz-border-radius:9px 9px 9px 0; -webkit-border-top-left-radius:9px; -webkit-border-top-right-radius:9px; -webkit-border-bottom-right-radius:9px; }
+.event .quero-tocar { background:#EC008C; padding:9px; font-family:Arista; font-size:1.2em; line-height:1.25; position:relative; text-align:center; text-transform:uppercase; -moz-border-radius:9px 9px 9px 0; -webkit-border-top-left-radius:9px; -webkit-border-top-right-radius:9px; -webkit-border-bottom-right-radius:9px; }
 .event .quero-tocar:hover { background:#8F0056; }
 .event .quero-tocar a { color:#FFFFFF !important; border:none !important; }
 .event .quero-tocar a:hover { border:none; }

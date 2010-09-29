@@ -7,18 +7,16 @@ get_header(); ?>
 <div class="clear"></div>
 <div class="prepend-top"></div>
 
-<div id="main" class="span-14 prepend-1 right-colborder">
+<div id="main" class="span-14 prepend-1 right-colborder clearfix">
   <?php if ( have_posts() ) : the_post(); ?>
-    <div class="item green">
-      <div class="title pull-1">
+    <div class="item green clearfix">
+      <div class="title pull-1 clearfix">
         <div class="shadow"></div>
         <h1><?php the_title(); ?></h1>
-        <div class="clear"></div>
       </div>
-      <div class="clear"></div>
     </div>
 
-    <div class="post">
+    <div class="post clearfix">
       <div class="post-time span-14">
         <div class="shadow"></div>
         <div class="data"><div class="dia"><?php the_time("d"); ?></div><div class="mes-ano"><?php the_time("m/Y");?></div></div>
