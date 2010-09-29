@@ -84,8 +84,8 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
         		    
         			'images' => array('image/gif', 'image/png', 'image/jpeg', 'image/pjpeg', 'image/x-png'),
         			'music' => array('audio/mpeg', 'audio/x-mpeg', 'audio/mp3', 'audio/x-mp3', 'audio/mpeg3', 'audio/x-mpeg3', 'audio/mpg', 'audio/x-mpg', 'audio/x-mpegaudio'),
-        			'rider' => array('application/pdf','application/x-pdf','application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ),
-        			'mapa_palco' => array('application/pdf','application/x-pdf','application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ),
+        			'rider' => array('application/pdf','application/x-pdf','application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' , 'image/gif', 'image/png', 'image/jpeg', 'image/pjpeg', 'image/x-png'),
+        			'mapa_palco' => array('application/pdf','application/x-pdf','application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' , 'image/gif', 'image/png', 'image/jpeg', 'image/pjpeg', 'image/x-png' ),
                 );
             
                 $errors = array(1 => __('The file size can not exceed ','tnb') . ini_get('upload_max_filesize') . 'B',
@@ -160,7 +160,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
     // labels
     
     for ( $i = 0; $i < count($_POST["label_music"]); $i++){
-        if(strlen($_POST["label_music"][$i])>0){
+        if(strlen($_POST["label_music"][$i])>0 && $_POST["id_music"][$i]>0 ){
             $post = get_post($_POST["id_music"][$i]);
             wp_update_post( array("ID"=>$_POST["id_music"][$i] , "post_title"=>$_POST["label_music"][$i]));
         }
