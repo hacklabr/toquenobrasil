@@ -153,8 +153,17 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                 	}
                 	$msg['error'][] = $feedback;
                 }
-            }
+            }// end for
         }    
+    }
+    
+    // labels
+    
+    for ( $i = 0; $i < count($_POST["label_music"]); $i++){
+        if(strlen($_POST["label_music"][$i])>0){
+            $post = get_post($_POST["id_music"][$i]);
+            wp_update_post( array("ID"=>$_POST["id_music"][$i] , "post_title"=>$_POST["label_music"][$i]));
+        }
     }
 }
 
@@ -276,7 +285,10 @@ get_header();
     		
     			
     			<br/>
+    			<input type="hidden" name="id_music[]" value="<?php echo $media->ID; ?>" /><br/>
+    			<input type="text" id="music_title" name="label_music[]" value="<?php echo $media->post_title; ?>" class="text span-12" /><br/>
     			<input type="file" id="music" name="music_<?php echo $i;?>" value="" class="text span-12" />
+    			
     		</p>
 		<?php endfor;?>
 		
