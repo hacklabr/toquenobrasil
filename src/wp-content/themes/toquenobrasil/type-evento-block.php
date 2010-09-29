@@ -7,6 +7,9 @@
 	$inscricao_fim = get_post_meta(get_the_ID(), "evento_inscricao_fim", true);
 	$br_insc_inicio = preg_replace("/([0-9]{2})-([0-9]{2})-([0-9]{4})/","$1/$2/$3", $inscricao_inicio);
 	$br_insc_fim = preg_replace("/([0-9]{2})-([0-9]{2})-([0-9]{4})/","$1/$2/$3",$inscricao_fim);
+    $el = get_post_meta(get_the_ID(), "evento_local", true);
+    $es = get_post_meta(get_the_ID(), "evento_site", true);
+    $ev = get_post_meta(get_the_ID(), "evento_vagas", true);
 ?>
 
 <?php global $current_user; ?>
@@ -25,9 +28,18 @@
 			<span class="labels">Tipo de evento:</span> <?php echo get_post_meta(get_the_ID(), "evento_tipo", true); ?><br />
 			<span class="labels">Data do evento:</span> <?php echo ($br_fim==$br_inicio ? $br_inicio : "$br_inicio - $br_fim") ;?><br />
 			<span class="labels">Inscrições até:</span> <?php echo $br_insc_fim; ?><br />
-			<span class="labels">Local:</span> <?php echo get_post_meta(get_the_ID(), "eventos_local", true); ?><br />
-			<span class="labels">Site:</span> <a href="<?php echo get_post_meta(get_the_ID(), "eventos_site", true); ?>" target="_blank"><?php echo get_post_meta(get_the_ID(), "eventos_site", true); ?></a><br />
-			<span class="labels">Vagas:</span> <?php echo get_post_meta(get_the_ID(), "eventos_vagas", true); ?>
+			
+            <?php if($el):?>
+                <span class="labels">Local:</span> <?php echo $el; ?><br />
+            <?php endif; ?>
+            
+            <?php if($es):?>
+			    <span class="labels">Site:</span> <a href="<?php echo $es; ?>" target="_blank"><?php echo $es; ?></a><br />
+            <?php endif; ?>
+            
+            <?php if($ev):?>
+			    <span class="labels">Vagas:</span> <?php echo $ev; ?>
+            <?php endif; ?>
 		</p>
 	</div><!-- .dados-do-evento -->
 </div>
