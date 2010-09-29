@@ -10,6 +10,9 @@
     $el = get_post_meta(get_the_ID(), "evento_local", true);
     $es = get_post_meta(get_the_ID(), "evento_site", true);
     $ev = get_post_meta(get_the_ID(), "evento_vagas", true);
+    
+    $condicoes = get_post_meta($post->ID, "evento_condicoes", true);
+    $restricoes = get_post_meta($post->ID, "evento_restricoes", true);
 ?>
 
 <?php global $current_user; ?>
@@ -97,6 +100,22 @@
 			the_excerpt();
 	?>
 	<div class="clear"></div>
+	    <?php if($restricoes){
+	            echo "<h3>", __('Restrições para participar','tnb'), "</h3>";
+	            echo "<br/>";
+	            echo $restricoes;
+	            echo '<div class="clear"></div>';
+	        }
+	    ?>	
+			
+		<?php if($condicoes){
+	            echo "<h3>", __('Condições para participar','tnb') , "</h3>";
+	            echo "<br/>";
+	            echo $condicoes;
+	            echo '<div class="clear"></div>';
+	        }
+	    ?>	
+	
 	<div class="post-tags">
 		<p><?php the_tags(" "," "," "); ?></p>
 	</div><!-- .post-tags -->

@@ -127,8 +127,18 @@ function eventos_meta() {
   $site = get_post_meta($post->ID, "evento_site", true);
   $vagas = get_post_meta($post->ID, "evento_vagas", true);
   $recipient = get_post_meta($post->ID, "evento_recipient", true);
+  
   $tos = get_post_meta($post->ID, "evento_tos", true);
   $tos = preg_replace('/\<br\/\>/', "", $tos);
+  
+  $condicoes = get_post_meta($post->ID, "evento_condicoes", true);
+  $condicoes = preg_replace('/\<br\/\>/', "", $condicoes);
+  
+  $restricoes = get_post_meta($post->ID, "evento_restricoes", true);
+  $restricoes = preg_replace('/\<br\/\>/', "", $restricoes);
+  
+  
+  
   $inicio = preg_replace("/([0-9]{2})-([0-9]{2})-([0-9]{4})/","$1/$2/$3", $inicio);
   $fim = preg_replace("/([0-9]{2})-([0-9]{2})-([0-9]{4})/","$1/$2/$3",$fim);
   
@@ -158,6 +168,17 @@ function eventos_meta() {
   <p><label><strong>E-mail para inscrição:</strong></label><br />
   <input type="text" name="evento_recipient" value="<?php echo $recipient ?>" /></p>
   
+  <p>
+  	<label><strong>Condições:</strong></label>
+  	<br />
+  	<textarea name='condicoes' rows="10" cols="90"><?php echo $condicoes; ?></textarea>
+  </p>
+  
+  <p>
+  	<label><strong>Restrições:</strong></label>
+  	<br />
+  	<textarea name='restricoes' rows="10" cols="90"><?php echo $restricoes; ?></textarea>
+  </p>
   
   <p>
   	<label><strong>TERMOS:</strong></label>
@@ -204,6 +225,10 @@ function save_eventos_meta_box( $post_id ) {
   update_post_meta($post_id, 'evento_vagas', $_POST['evento_vagas']);
   update_post_meta($post_id, 'evento_recipient', $_POST['evento_recipient']);
   update_post_meta($post_id, 'evento_tos', preg_replace('/\n/', '<br/>' , $_POST['tos']));
+  
+  update_post_meta($post_id, 'evento_condicoes', preg_replace('/\n/', '<br/>' , $_POST['condicoes']));
+  update_post_meta($post_id, 'evento_restricoes', preg_replace('/\n/', '<br/>' , $_POST['restricoes']));
+
 
   return $post_id;
 }
