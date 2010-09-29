@@ -145,13 +145,13 @@ function get_media_file_sizes($filename) {
 	return array('playtime' => $ThisFileInfo['playtime_string'], 'filesize' => $ThisFileInfo['filesize']);
 }
 
-function print_msgs($msg){
+function print_msgs($msg, $extra_class='', $id=''){
     if(!is_array($msg))
         return false;
         
         
     foreach($msg as $type=>$msgs){
-        echo "<div class='$type'><ul>";
+        echo "<div class='$type $extra_class' id='$id'><ul>";
             if(!is_array($msgs)){
                 echo "<li>$msgs</li>";
             }else{    
@@ -231,20 +231,29 @@ function send_mail_contact_us(){
     $to = get_bloginfo('admin_email');
     $subject = __('Contact from site','tnb');
     
-    $message = __(sprintf("%s enviou uma mensagem para você através do " . get_bloginfo('name') . ":
-    Nome: %s
-    e-mail: %s
-    site: %s
-    menssagem: %s
-    ", $contact_name, $contact_name, $contact_email, $contact_site, $contact_message) ,'tnb');    
-    
-    wp_mail($to, $subject, $message);    
+    if(!filter_var( $contact_email, FILTER_VALIDATE_EMAIL))
+        $msg['error'][] = __('E-mail informado inválido.','tnb');    
 
-    
+    if(sizeof($msg['error'])==0){    
+        $message = __(sprintf("%s enviou uma mensagem para você através do " . get_bloginfo('name') . ":
+        Nome: %s
+        e-mail: %s
+        site: %s
+        menssagem: %s
+        ", $contact_name, $contact_name, $contact_email, $contact_site, $contact_message) ,'tnb');    
+        
+        wp_mail($to, $subject, $message);
+        
+        return array('success'=>__('Sua mensagem foi enviada com sucesso','tnb'));
+        
+    }else{
+        return $msg;
+    }
 }
 function contact_us(){
+    global $contact_us_return;
     if(isset($_POST['contact_us']))
-        send_mail_contact_us();
+        $contact_us_return = send_mail_contact_us();
 }
 add_action('wp', 'contact_us');
     

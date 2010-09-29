@@ -20,29 +20,37 @@
         </div>
         <div class="span-13 last">
           <?php theme_image("contato.png", array("id"=>"contato-title")); ?>
-          <?php if($_POST['contact_us']):?>
-          	<div class='success span-10' id='scm_contact'><?php _e('sua mensagem foi enviada com sucesso')?></div>
-          	<script>
-          		jQuery.scrollTo('#scm_contact', 800);
-          	</script>
-          <?php endif;?>
+          
+          <?php
+          global $contact_us_return;
+          if(is_array($contact_us_return)){
+                print_msgs($contact_us_return, 'span-10 stay', 'scm_contact');
+                ?>
+                <script>
+              		jQuery.scrollTo('#scm_contact', 800);
+              	</script>
+                <?php 
+            } 
+              
+          ?>
+          	
           <form method='POST'  name='contact_us' id='contact_us_form' >
           	<input type="hidden" name='contact_us' value='1'>
             <div class="span-6 prepend-2 " >
-              <textarea class='auto_clean' name='contact_message' title='Mensagem'>Mensagem</textarea>
+              <textarea class='auto_clean' name='contact_message' title='<?php _e('Menssagem','tnb');?>'><?php echo isset($_POST['contact_message'])?$_POST['contact_message']: __('Menssagem', 'tnb'); ?></textarea>
             </div>
 
             <div class="span-4 last">
-              <input type="text"  name="contact_name" value="Nome" title='Nome'  class="text auto_clean" />
+              <input type="text"  name="contact_name" value="<?php echo isset($_POST['contact_name'])?$_POST['contact_name']: __('Nome', 'tnb'); ?>" title='<?php _e('Nome','tnb');?>'  class="text auto_clean" />
             </div>
             <div class="span-4 last">
-              <input type="text" name="contact_email" value="E-mail" title='E-mail'  class="text auto_clean" />
+              <input type="text" name="contact_email" value="<?php echo isset($_POST['contact_email'])?$_POST['contact_email']: __('E-mail', 'tnb'); ?>" title='<?php _e('E-mail','tnb');?>'  class="text auto_clean" />
             </div>
             <div class="span-4 last">
-              <input type="text" name="contact_site" value="http://" title='http://' class="text auto_clean" />
+              <input type="text" name="contact_site" value="<?php echo isset($_POST['contact_site'])?$_POST['contact_site']: __('http://', 'tnb'); ?>" title='<?php _e('http://','tnb');?>' class="text auto_clean" />
             </div>
             <div class="span-3 prepend-1 last">
-              <input type="image" src="<?php echo get_theme_image("submit.png"); ?>" value="Enviar" class="submit" />
+              <input type="image" src="<?php echo get_theme_image("submit.png"); ?>" value="<?php _e('Enviar','tnb');?>" class="submit" />
             </div>
             <div class="clear"></div>
           </form>

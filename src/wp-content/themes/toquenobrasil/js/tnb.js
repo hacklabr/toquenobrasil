@@ -2,7 +2,7 @@ var timer = 0;
 
 function remove_feedback_msg(){
 	clearTimeout(timer );
-	jQuery('.success, .notice').slideUp('slow',function(){
+	jQuery('.success:not(.stay), .notice:not(.stay)').slideUp('slow',function(){
 		//jQuery(this).remove();
 	});
 	
@@ -10,7 +10,7 @@ function remove_feedback_msg(){
 
 jQuery(document).ready(function() {
 
-	if(jQuery('.success, .notice')){
+	if(jQuery('.success:not(.stay), .notice:not(.stay)')){
 		timer = setTimeout('remove_feedback_msg()',3000); 
 	} 
 	
