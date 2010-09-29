@@ -24,7 +24,9 @@
           <?php
           global $contact_us_return;
           if(is_array($contact_us_return)){
-                print_msgs($contact_us_return, 'span-10 stay', 'scm_contact');
+                echo "<div class='span-10 prepend-2'>";
+                  print_msgs($contact_us_return, 'stay', 'scm_contact');
+                echo "</div>";  
                 ?>
                 <script>
               		jQuery.scrollTo('#scm_contact', 800);

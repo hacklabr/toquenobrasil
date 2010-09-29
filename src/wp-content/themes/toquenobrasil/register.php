@@ -102,7 +102,13 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
         update_user_meta( $user_id, 'telefone' , $_POST['telefone'] );
         update_user_meta( $user_id, 'telefone_ddd' , $_POST['ddd'] );
         update_user_meta( $user_id, 'site' , $_POST['site'] );
-        update_user_meta( $user_id, 'estado' , $_POST['estado'] );
+        
+        
+        update_user_meta( $user_id, 'origem_estado' , $_POST['origem_estado'] );
+        update_user_meta( $user_id, 'origem_cidade' , $_POST['origem_cidade'] );
+        
+        update_user_meta( $user_id, 'banda_estado' , $_POST['banda_estado'] );
+        update_user_meta( $user_id, 'banda_cidade' , $_POST['banda_cidade'] );
         
         update_user_option($user_id, 'inactive', '1');
         
@@ -165,10 +171,10 @@ get_header();
             <div id="formularios-de-cadastro">
                 <div id="abas" class="clearfix">                        
                     <div id="aba-produtores" class="title <?php echo ($reg_type == 'produtor' ? 'current' : '');?>">                    	
-                    	<a href="#">Produtores<span class="shadow"></span></a>
+                    	<a href="#"><?php _e('Produtores', 'tnb');?><span class="shadow"></span></a>
                     </div>
                     <div id="aba-artistas" class="title <?php echo ($reg_type == 'artista' ? 'current' : '');?>">                    	
-                        <a href="#">Artistas<span class="shadow"></span></a>
+                        <a href="#"><?php _e('Artistas', 'tnb');?><span class="shadow"></span></a>
                     </div>
                 </div><!-- #abas -->
                 <div id="conteudo">
@@ -176,65 +182,98 @@ get_header();
                     	
                         <form class="background clearfix" method="POST">
                         	<?php if($regtister_succes['artista']):?>
-                        		Seu cadastro foi realizado com sucesso! <br />
+                        		<?php _e('Seu cadastro foi realizado com sucesso! <br />
                         		Você receberá sua senha através do email que nos forneceu.<br />
-                        		Acessando sua conta você poderá enviar imagens e musicas para promover sua banda!
+                        		Acessando sua conta você poderá enviar imagens e musicas para promover sua banda!', 'tnb');?>
                         	<?php elseif($activated):?>
-                        		Seu cadastro foi ativado.	
+                        		<?php _e('Seu cadastro foi ativado.', 'tnb');?>	
                         	<?php else:?>
                         	<input type="hidden" name="action" value="register" />
                         	<input type="hidden" name="type" value="artista" />
                         	
                             <div class="span-12">
-                                <label for="banda">Nome do Artista / Banda:</label>
+                                <label for="banda"><?php _e('Nome do Artista / Banda:', 'tnb');?></label>
                                 <br />
                                 <input class="span-12 text" type="text" id="banda" name="banda" value="<?php echo $user->banda; ?>" />
                             </div>
-                            <div class="span-6">
-                                <label for="responsavel">Responsável:</label>
+                            <div class="span-12">
+                                <label for="responsavel"><?php _e('Responsável:', 'tnb');?></label>
                                 <br />
-                                <input class="span-6 text" type="text" id="responsavel" name="responsavel" value="<?php echo $user->responsavel; ?>" />
+                                <input class="span-12 text" type="text" id="responsavel" name="responsavel" value="<?php echo $user->responsavel; ?>" />
                             </div>                       
+                            
+                             <div class="span-12">
+                             	<label><?php _e('Origem da banda', 'tnb');?></label>
+                             </div>
+                            
                             <div class="span-6">
-                                <label for="site">Site:</label>
+                                <label for="origem_estado"><?php _e('Estado:', 'tnb');?></label>
                                 <br />
-                                <input class="span-6 text" type="text" id="site" name="site" value="<?php echo $user->site; ?>" />
-                                <small>Use http://</small>
-                            </div>
-                            <div class="span-6">
-                                <label for="estado">Estado:</label>
-                                <br />
-                                <select class="span-6 text" name="estado" id='estado'>
+                                <select class="span-6 text" name="origem_estado" id='origem_estado'>
                                     <?php 
                                         foreach($estados as $uf=>$name){
-                                            echo "<option " . ($user->estado == $uf ? 'selected':'') . " value='$uf'>$name</option>";    
+                                            echo "<option " . ($user->origem_estado == $uf ? 'selected':'') . " value='$uf'>$name</option>";    
                                         }
                                     ?>
                                 </select>
+                             </div>
+                            <div class="span-6">   
+                                <label for="origem_cidade"><?php _e('Cidade:', 'tnb');?></label>
+                                <br />
+                                <input class="span-6 text" type="text" id="origem_cidade" name="origem_cidade" value="<?php echo $user->origem_cidade; ?>" />
+                            </div>
+                            
+                            
+                            <div class="span-12">
+                             	<label><?php _e('Residência da banda', 'tnb');?></label>
+                             </div>
+                            
+                            <div class="span-6">
+                                <label for="banda_estado"><?php _e('Estado:', 'tnb');?></label>
+                                <br />
+                                <select class="span-6 text" name="banda_estado" id='banda_estado'>
+                                    <?php 
+                                        foreach($estados as $uf=>$name){
+                                            echo "<option " . ($user->banda_estado == $uf ? 'selected':'') . " value='$uf'>$name</option>";    
+                                        }
+                                    ?>
+                                </select>
+                             </div>
+                            <div class="span-6">   
+                                <label for="banda_cidade"><?php _e('Cidade:', 'tnb');?></label>
+                                <br />
+                                <input class="span-6 text" type="text" id="banda_cidade" name="banda_cidade" value="<?php echo $user->banda_cidade; ?>" />
+                            </div>
+                            
+                            <div class="span-6">
+                                <label for="site"><?php _e('Site:', 'tnb');?></label>
+                                <br />
+                                <input class="span-6 text" type="text" id="site" name="site" value="<?php echo $user->site; ?>" />
+                                <small><?php _e('Use http://', 'tnb');?></small>
                             </div>
                             <div class="span-6">
-                                <label for="telefone">Telefone:</label>
+                                <label for="telefone"><?php _e('Telefone:', 'tnb');?></label>
                                 <br />
                                 <input class="span-1 text" type="text" id="ddd" name="ddd" value="<?php echo $user->ddd; ?>" />
                                 <input class="span-5 text" type="text" id="telefone" name="telefone" value="<?php echo $user->telefone; ?>" />
                             </div>
-                            <div class="span-6">
-                                <label for=user_login>Nome de usuário:</label>
+                            <div class="span-6 clear">
+                                <label for=user_login><?php _e('Nome de usuário:', 'tnb');?></label>
                                 <br />
                                 <input class="span-6 text" type="text" id="user_login" name="user_login" value="<?php echo $user->user_login; ?>" />
                             </div>
                             <div class="span-6">
-                                <label for="user_email">E-mail:</label>
+                                <label for="user_email"><?php _e('E-mail:', 'tnb');?></label>
                                 <br />
                                 <input class="span-6 text" type="text" id="user_email" name="user_email" value="<?php echo $user->user_email; ?>" />
                             </div>
                             <div class="span-6">
-                                <label for="senha">Senha:</label>
+                                <label for="senha"><?php _e('Senha:', 'tnb');?></label>
                                 <br />
                                 <input class="span-6 text" type="password" id="senha" name="senha" />
                             </div>
                             <div class="span-6">
-                                <label for="senha_confirm">Confirmar Senha:</label>
+                                <label for="senha_confirm"><?php _e('Confirmar Senha:', 'tnb');?></label>
                                 <br />
                                 <input class="span-6 text" type="password" id="senha_confirm" name="senha_confirm" />
                             </div>
@@ -247,27 +286,27 @@ get_header();
                     <div id="produtores" class="item blue">
                         <form class="background clearfix"  method="POST">
                         	 <?php if($regtister_succes['produtor']):?>
-                        		Seu cadastro foi realizado com sucesso! <br />
+                        		<?php _e('Seu cadastro foi realizado com sucesso! <br />
                         		Você receberá sua senha através do email que nos forneceu.<br />
                         		Em breve você poderá criar eventos e confirmar a participação de artistas <br />
-                        		Guarde seu acesso em segurança, que dentro em breve iremos contactá-lo. 
+                        		Guarde seu acesso em segurança, que dentro em breve iremos contactá-lo. ', 'tnb');?>
                         	<?php elseif($activated):?>
-                        		Seu cadastro foi ativado.	
+                        		<?php _e('Seu cadastro foi ativado.', 'tnb');?>	
                         	<?php else:?>
                         	<input type="hidden" name="action" value="register" />
                         	<input type="hidden" name="type" value="produtor" />
                             <div class="span-6">
-                                <label for="nome">Nome:</label>
+                                <label for="nome"><?php _e('Nome:', 'tnb');?></label>
                                 <br />
                                 <input class="span-6 text" type="text" id="nome" name="nome" value='<?php echo $user->nome; ?>' />
                             </div>                       
                             <div class="span-6">
-                                <label for="produtor_site">Site:</label>
+                                <label for="produtor_site"><?php _e('Site:', 'tnb');?></label>
                                 <br />
                                 <input class="span-6 text" type="text" id="produtor_site" name="site" value='<?php echo $user->site; ?>'/>
                             </div>
                             <div class="span-6">
-                                <label for="produtor_estado">Estado:</label>
+                                <label for="produtor_estado"><?php _e('Estado:', 'tnb');?></label>
                                 <br />
                                 <select class="span-6 text" name="estado" id='produtor_estado'>                            
                                      <?php 
@@ -278,28 +317,28 @@ get_header();
                                 </select>
                             </div>
                             <div class="span-6">
-                                <label for="produtor_telefone">Telefone:</label>
+                                <label for="produtor_telefone"><?php _e('Telefone:', 'tnb');?></label>
                                 <br />
                                 <input class="span-1 text" type="text" id="ddd" name="ddd" value="<?php echo $user->ddd; ?>" />
                                 <input class="span-5 text" type="text" class='telefone' id="produtor_telefone" name="telefone" value="<?php echo $user->telefone; ?>" />
                             </div>
                             <div class="span-6">
-                                <label for=produtor_user_login>Nome de usuário:</label>
+                                <label for=produtor_user_login><?php _e('Nome de usuário:', 'tnb');?></label>
                                 <br />
                                 <input class="span-6 text" type="text" id="produtor_user_login" name="user_login" value="<?php echo $user->user_login; ?>" />
                             </div>
                             <div class="span-6">
-                                <label for="produtor_user_email">E-mail:</label>
+                                <label for="produtor_user_email"><?php _e('E-mail:', 'tnb');?></label>
                                 <br />
                                 <input class="span-6 text" type="text" id="produtor_user_email" name="user_email" value="<?php echo $user->user_email; ?>" />
                             </div>
                             <div class="span-6">
-                                <label for="produtor_senha">Senha:</label>
+                                <label for="produtor_senha"><?php _e('Senha:', 'tnb');?></label>
                                 <br />
                                 <input class="span-6 text" type="password" id="produtor_senha" name="senha" />
                             </div>
                             <div class="span-6">
-                                <label for="produtor_senha_confirm">Confirmar Senha:</label>
+                                <label for="produtor_senha_confirm"><?php _e('Confirmar Senha:', 'tnb');?></label>
                                 <br />
                                 <input class="span-6 text" type="password" id="produtor_senha_confirm" name="senha_confirm" />
                             </div>
