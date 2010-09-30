@@ -203,6 +203,8 @@ get_header();
 	<form class="background clearfix" method="post" enctype="multipart/form-data" id="your-profile" >
 		<input type="hidden" name="action" value="update" />
 	    <?php wp_nonce_field('edit_nonce'); ?>
+	    <i>Campos marcardos com <?php theme_image('lock.png'); ?> não serão exibidos publicamente no site. Apenas os produtores de eventos terão acesso a estes dados</i>
+	    <br/><br/>
     	<h2><?php _e('Informações de login', 'tnb');?></h2>
     	<p class="clearfix prepend-1">
       		<label for="user_login"><?php _e('Nome de usuário', 'tnb');?></label>
@@ -222,33 +224,51 @@ get_header();
 
     	<h2><?php _e('Informações de contato', 'tnb');?></h2>
     	<p class="clearfix prepend-1">
-			<label for="responsable"><?php _e('Responsável', 'tnb');?></label>
+			<label for="responsable"><?php _e('Responsável', 'tnb');?> <?php theme_image('lock.png'); ?></label>
 			<br/>
 			<input type="text" id="responsavel" name="responsavel" value="<?php echo $profileuser->responsavel; ?>" class="text span-12" />
+			<small><?php _e('Nome do responsável pelo agendamento', 'tnb'); ?></small>
 		</p>
 		<p class="clearfix prepend-1">
-			<label for="user_email"><?php _e('E-mail', 'tnb');?></label>
+			<label for="user_email"><?php _e('E-mail', 'tnb');?> <?php theme_image('lock.png'); ?></label>
 			<br/>
 			<input type="text" id="user_email" name="user_email" value="<?php echo $profileuser->user_email; ?>" class="text span-12" />
+			<small><?php _e('Email do responsável pelo agendamento', 'tnb'); ?></small>
 		</p>
 		<p class="clearfix prepend-1">
-			<label for="phone"><?php _e('Telefone', 'tnb');?></label>
+			<label for="phone"><?php _e('Telefone', 'tnb');?> <?php theme_image('lock.png'); ?></label>
 			<br/>
 			<input type="text" id="telefone_" name="telefone_ddd" value="<?php echo $profileuser->telefone_ddd; ?>" class="text span-1 margin-right" /> <input type="text" id="telefone" name="telefone" value="<?php echo $profileuser->telefone; ?>" class="text span-5"/>
+			<small><?php _e('Número do responsável pelo agendamento', 'tnb'); ?></small>
 		</p>
 		
 
 		<h2><?php _e('Informações da banda', 'tnb');?></h2>
-		
-		<div class="prepend-1 clearfix">
-          <?php do_action('custom_edit_user_profile'); ?>
-        </div>
 		
 		<p class="prepend-1 clearfix">
 			<label for="banda"><?php _e('Nome da banda', 'tnb');?></label>
 			<br/>
 			<input type="text" id="banda" name="banda" value="<?php echo $profileuser->banda; ?>" class="text span-12" />
 		</p>
+		
+		<p class="clearfix prepend-1">
+			<label for="description"><?php _e('Release', 'tnb');?></label>
+			<br/>
+			<textarea  id="description" name="description" class="span-12" ><?php echo $profileuser->description; ?></textarea>
+		</p>
+		
+		<div class="prepend-1 clearfix">
+          <?php do_action('custom_edit_user_profile'); ?>
+          
+        </div>
+		
+		<p class="clearfix prepend-1">
+			<label for="site"><?php _e('Link', 'tnb');?></label>
+			<br/>
+			<input type="text" id="site" name="site" value="<?php echo $profileuser->site; ?>" class="text span-12" />
+			<small><?php _e('Coloque o principal link do Artista (Twitter, Facebook, MySpace, etc). Usar http://', 'tnb');?></small>
+		</p>
+		
 		
 		
 		<h4><?php _e('Origem da banda', 'tnb');?></h4>
@@ -271,7 +291,7 @@ get_header();
 		</p>
 		
 		
-		<h4><?php _e('Residência da banda', 'tnb');?></h4>
+		<h4><?php _e('Residência da banda', 'tnb');?> <?php theme_image('lock.png'); ?></h4>
 		<p class="clearfix prepend-1">
 			<label for="banda_estado"><?php _e('Estado', 'tnb');?></label>
 			<br />
@@ -290,24 +310,16 @@ get_header();
 			<input class="span-6 text" type="text" id="banda_cidade" name="banda_cidade" value="<?php echo $profileuser->banda_cidade; ?>" />
 		</p>
 		
+		<h2><?php _e('Mídias', 'tnb');?></h2>
 		
-		<p class="clearfix prepend-1">
-			<label for="site"><?php _e('Site', 'tnb');?></label>
-			<br/>
-			<input type="text" id="site" name="site" value="<?php echo $profileuser->site; ?>" class="text span-12" />
-			<small><?php _e('Use http://', 'tnb');?></small>
-		</p>
 		<p class="clearfix prepend-1">
 			<label for="youtube"><?php _e('URL do vídeo no YouTube', 'tnb');?></label>
 			<br/>
 			<input type="text" id="youtube" name="youtube" value="<?php echo $profileuser->youtube; ?>" class="text span-12" />
+			<small><?php _e('(Exemplo: http://www.youtube.com/watch?v=videoid)', 'tnb'); ?></small>
 		</p>
 		
-		<p class="clearfix prepend-1">
-			<label for="description"><?php _e('Release', 'tnb');?></label>
-			<br/>
-			<textarea  id="description" name="description" class="span-12" ><?php echo $profileuser->description; ?></textarea>
-		</p>
+		
 			
 		
 		<?php for($i = 1; $i<=3; $i++): ?>
@@ -327,8 +339,10 @@ get_header();
     			
     			<br/>
     			<input type="hidden" name="id_music[]" value="<?php echo $media->ID; ?>" /><br/>
-    			<input type="text" id="music_title" name="label_music[]" value="<?php echo $media->post_title; ?>" class="text span-12" /><br/>
     			<input type="file" id="music" name="music_<?php echo $i;?>" value="" class="text span-12" />
+    			<small><?php _e('Nome da música','tnb'); ?></small>
+    			<input type="text" id="music_title" name="label_music[]" value="<?php echo $media->post_title; ?>" class="text span-12" /><br/>
+
     			
     		</p>
 		<?php endfor;?>

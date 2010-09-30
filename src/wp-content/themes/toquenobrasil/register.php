@@ -183,27 +183,66 @@ get_header();
                         <form class="background clearfix" method="POST">
                         	<?php if($regtister_succes['artista']):?>
                         		<?php _e('Seu cadastro foi realizado com sucesso! <br />
-                        		Você receberá sua senha através do email que nos forneceu.<br />
+                        		Você receberá sua senha através do email que nos forneceu. Caso não o encontre em sua caixa de entrada, verifique a caixa de spam.<br />
                         		Acessando sua conta você poderá enviar imagens e musicas para promover sua banda!', 'tnb');?>
                         	<?php elseif($activated):?>
                         		<?php _e('Seu cadastro foi ativado.', 'tnb');?>	
                         	<?php else:?>
                         	<input type="hidden" name="action" value="register" />
                         	<input type="hidden" name="type" value="artista" />
+                        	<i>Campos marcardos com <?php theme_image('lock.png'); ?> não serão exibidos publicamente no site. Apenas os produtores de eventos terão acesso a estes dados</i>
+                        	<br/><br/>
+                        	<div class="span-12">
+								<h3 class='no-margin'><?php _e('Dados cadastrais', 'tnb');?></h3>
+                            </div>
                         	
+                        	<div class="span-6 clear">
+                                <label for=user_login><?php _e('Nome de usuário:', 'tnb');?></label>
+                                <br/>
+                                <input class="span-6 text" type="text" id="user_login" name="user_login" value="<?php echo $user->user_login; ?>" />
+                                <small><?php _e('Este nome será utilizado para se conectar ao TNB e não poderá ser modificado.', 'tnb'); ?></small>
+                            </div>
+                            <div class="span-6">
+                                <label for="user_email"><?php _e('E-mail:', 'tnb');?> <?php theme_image('lock.png'); ?></label>
+                                <br />
+                                <input class="span-6 text" type="text" id="user_email" name="user_email" value="<?php echo $user->user_email; ?>" />
+                                <small><?php _e('Email do responsável pelo agendamento', 'tnb'); ?></small>
+                            </div>
+                            <div class='clear'></div>
+                            <div class="span-6">
+                                <label for="senha"><?php _e('Senha:', 'tnb');?></label>
+                                <br />
+                                <input class="span-6 text" type="password" id="senha" name="senha" />
+                            </div>
+                            <div class="span-6">
+                                <label for="senha_confirm"><?php _e('Confirmar Senha:', 'tnb');?></label>
+                                <br />
+                                <input class="span-6 text" type="password" id="senha_confirm" name="senha_confirm" />
+                            </div>
+                            <div class="span-12">
+								<h3 class='no-margin'><?php _e('Dados do Artista/Banda', 'tnb');?></h3>
+                            </div>
                             <div class="span-12">
                                 <label for="banda"><?php _e('Nome do Artista / Banda:', 'tnb');?></label>
                                 <br />
                                 <input class="span-12 text" type="text" id="banda" name="banda" value="<?php echo $user->banda; ?>" />
                             </div>
-                            <div class="span-12">
-                                <label for="responsavel"><?php _e('Responsável:', 'tnb');?></label>
+                            <div class="span-6">
+                                <label for="responsavel"><?php _e('Responsável:', 'tnb');?> <?php theme_image('lock.png'); ?></label>
                                 <br />
-                                <input class="span-12 text" type="text" id="responsavel" name="responsavel" value="<?php echo $user->responsavel; ?>" />
-                            </div>                       
+                                <input class="span-6 text" type="text" id="responsavel" name="responsavel" value="<?php echo $user->responsavel; ?>" />
+                                <small><?php _e('Nome do responsável pelo agendamento', 'tnb'); ?></small>
+                            </div>    
+                             <div class="span-6">
+                                <label for="telefone"><?php _e('Telefone:', 'tnb');?> <?php theme_image('lock.png'); ?></label>
+                                <br />
+                                <input class="span-1 text" type="text" id="ddd" name="ddd" value="<?php echo $user->ddd; ?>" />
+                                <input class="span-5 text" type="text" id="telefone" name="telefone" value="<?php echo $user->telefone; ?>" />
+                                <small><?php _e('Número do responsável pelo agendamento', 'tnb'); ?></small>
+                            </div>                   
                             
                              <div class="span-12">
-                             	<label><?php _e('Origem da banda', 'tnb');?></label>
+                             	<h5 class='no-margin'><?php _e('Local de origem da banda:', 'tnb');?></h5>
                              </div>
                             
                             <div class="span-6">
@@ -225,7 +264,7 @@ get_header();
                             
                             
                             <div class="span-12">
-                             	<label><?php _e('Residência da banda', 'tnb');?></label>
+                             	<h5 class='no-margin'><?php _e('Local de residência da banda', 'tnb');?> <?php theme_image('lock.png'); ?></h5>
                              </div>
                             
                             <div class="span-6">
@@ -243,40 +282,8 @@ get_header();
                                 <label for="banda_cidade"><?php _e('Cidade:', 'tnb');?></label>
                                 <br />
                                 <input class="span-6 text" type="text" id="banda_cidade" name="banda_cidade" value="<?php echo $user->banda_cidade; ?>" />
-                            </div>
-                            
-                            <div class="span-6">
-                                <label for="site"><?php _e('Site:', 'tnb');?></label>
-                                <br />
-                                <input class="span-6 text" type="text" id="site" name="site" value="<?php echo $user->site; ?>" />
-                                <small><?php _e('Use http://', 'tnb');?></small>
-                            </div>
-                            <div class="span-6">
-                                <label for="telefone"><?php _e('Telefone:', 'tnb');?></label>
-                                <br />
-                                <input class="span-1 text" type="text" id="ddd" name="ddd" value="<?php echo $user->ddd; ?>" />
-                                <input class="span-5 text" type="text" id="telefone" name="telefone" value="<?php echo $user->telefone; ?>" />
-                            </div>
-                            <div class="span-6 clear">
-                                <label for=user_login><?php _e('Nome de usuário:', 'tnb');?></label>
-                                <br />
-                                <input class="span-6 text" type="text" id="user_login" name="user_login" value="<?php echo $user->user_login; ?>" />
-                            </div>
-                            <div class="span-6">
-                                <label for="user_email"><?php _e('E-mail:', 'tnb');?></label>
-                                <br />
-                                <input class="span-6 text" type="text" id="user_email" name="user_email" value="<?php echo $user->user_email; ?>" />
-                            </div>
-                            <div class="span-6">
-                                <label for="senha"><?php _e('Senha:', 'tnb');?></label>
-                                <br />
-                                <input class="span-6 text" type="password" id="senha" name="senha" />
-                            </div>
-                            <div class="span-6">
-                                <label for="senha_confirm"><?php _e('Confirmar Senha:', 'tnb');?></label>
-                                <br />
-                                <input class="span-6 text" type="password" id="senha_confirm" name="senha_confirm" />
-                            </div>
+                            </div>                          
+                           
                             <div class="span-2 prepend-10 last">
                                 <input type="image" src="<?php echo get_theme_image("submit-green.png"); ?>" value="Enviar" class="submit" />
                             </div>
