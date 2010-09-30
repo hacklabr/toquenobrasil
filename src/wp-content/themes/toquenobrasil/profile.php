@@ -56,6 +56,8 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
         
         update_user_meta( $profileuser_id, 'youtube' , $_POST['youtube'] );
         
+        update_user_meta( $profileuser_id, 'integrantes' , $_POST['integrantes'] );
+        
         $msg['success'][] = __('Dados Atualizados', 'tnb');
         $profileuser = get_userdata( $user_ID );
     }
@@ -254,6 +256,12 @@ get_header();
 			<label for="description"><?php _e('Release', 'tnb');?></label>
 			<br/>
 			<textarea  id="description" name="description" class="span-12" ><?php echo $profileuser->description; ?></textarea>
+		</p>
+		
+		<p class="clearfix prepend-1">
+			<label for="integrantes"><?php _e('integrantes', 'tnb');?></label>
+			<br/>
+			<textarea  id="integrantes" name="integrantes" class="span-12" ><?php echo $profileuser->integrantes; ?></textarea>
 		</p>
 		
 		<div class="prepend-1 clearfix">
