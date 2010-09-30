@@ -55,7 +55,7 @@
 		<div id="selected-artists-title" class="item yellow clearfix">
 			<div class="title pull-1 clearfix">
 				<div class="shadow"></div>
-				<h3>Artistas Selecionados</h3>
+				<h3><?php _e('Artistas/Bandas Selecionados','tnb'); ?></h3>
 			</div>
 		</div>
 
@@ -73,7 +73,7 @@
 		<div id="signed-artists-title" class="item yellow clearfix">
 			<div class="title pull-1 clearfix">
 				<div class="shadow"></div>
-				<h3>Artistas Inscritos</h3>
+                                  <h3><?php _e('Artistas/Bandas Inscritos','tnb'); ?></h3>
 			</div>
 		</div>
 

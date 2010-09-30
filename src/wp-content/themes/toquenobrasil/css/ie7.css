@@ -2,7 +2,7 @@
 #posts-navigation #proximo, #posts-navigation #anterior, #posts-navigation #proximos, #posts-navigation #anteriores{ bottom:-172px; }
 
 .item .title h1, .item .title h3 { left:-9px; margin:0; position:relative; }
-.item .background { margin-top:-67px; }
 .item .title .shadow { left:-9px; margin:0; position:absolute; top:11px; }
 
+.signup { bottom:9px; }
 .signup .shadow { bottom:0; margin:0; position:absolute; right:-9px; }

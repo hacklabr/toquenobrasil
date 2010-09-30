@@ -26,7 +26,7 @@ class ultimosEventos extends WP_Widget {
           <div id="thumb" class="span-2">
             <?php if ( has_post_thumbnail() ) : ?>
               <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-                <?php the_post_thumbnail('eventos'); ?>
+                <?php the_post_thumbnail(array(70,70), 'eventos'); ?>
               </a>
             <?php else : ?>
               <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">

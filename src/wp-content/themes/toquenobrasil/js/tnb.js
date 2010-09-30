@@ -81,4 +81,23 @@ jQuery(document).ready(function() {
         jQuery(this).css("border","none");
     })
 
+    /* =TOGGLE RESTRICTIONS AND CONDITIONS OF EVENTS */
+    jQuery(".restrictions h3").toggle(
+        function() {
+            jQuery(this).next().slideDown();
+        },
+        function() {
+            jQuery(this).next().slideUp();
+        }
+    )
+
+    jQuery(".conditions h3").toggle(
+        function() {
+            jQuery(this).next().slideDown();
+        },
+        function() {
+            jQuery(this).next().slideUp();
+        }
+    )
+
 });
