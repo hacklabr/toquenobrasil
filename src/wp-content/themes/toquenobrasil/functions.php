@@ -15,11 +15,10 @@ include(TEMPLATEPATH . '/widgets/ultimas_bandas.php');
 include(TEMPLATEPATH . '/widgets/ultimos_eventos.php');
 
 
-//remetente dos emails:
-add_filter( 'wp_mail_from_name', 'tnb_mail_sender');
+add_filter( 'author_link', 'tnb_author_link', 10, 3);
 
-function tnb_mail_sender($from_name) {
-	return 'Toque no Brasil';
+function tnb_author_link($link, $author_id, $author_nicename) {
+    return get_bloginfo('url') . '/rede/' . $author_nicename;
 }
 
 //header da página de login do wordpress
@@ -116,7 +115,8 @@ add_image_size( 'eventos', 150, 130, true );
 function custom_url_rewrites($wp_rewrite) {
     $new_rules = array(
         // rules for Calls
-		"cadastre-se/(produtor|artista)$" => 'index.php?tpl=register&reg_type=' . $wp_rewrite->preg_index(1),
+        "rede/([^/]+)/?$" => "index.php?author_name=" . $wp_rewrite->preg_index(1),
+    	"cadastre-se/(produtor|artista)$" => 'index.php?tpl=register&reg_type=' . $wp_rewrite->preg_index(1),
     	"editar/(produtor|artista)$" => 'index.php?tpl=edit&reg_type=' . $wp_rewrite->preg_index(1),
         "(artistas|produtores)(/page/?([0-9]{1,}))?/?$" => 'index.php?tpl=list_author&reg_type='. $wp_rewrite->preg_index(1). '&paged=' . $wp_rewrite->preg_index(3),
     );
