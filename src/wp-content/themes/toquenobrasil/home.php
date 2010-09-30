@@ -24,7 +24,7 @@
     </div>
     <div class="background clearfix">
       <div class="signup">        
-        <a href="<?php bloginfo('url');?>/cadastre-se/artista">
+        <a href="<?php bloginfo('url');?>/cadastre-se/produtor">
           <?php _e('Cadastre-se!','tnb'); ?>
         </a>
         <div class="shadow"></div>       
