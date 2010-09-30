@@ -209,30 +209,30 @@ get_header();
     	<p class="clearfix prepend-1">
       		<label for="user_login"><?php _e('Nome de usuário', 'tnb');?></label>
 		    <br/>
-      		<input type="text" id="user_login" name="user_login" disabled='disabled' value="<?php echo $profileuser->user_login; ?>" class="text span-12" />
+      		<input type="text" id="user_login" name="user_login" disabled='disabled' value="<?php echo $profileuser->user_login; ?>" class="text span-13" />
     	</p>
     	<p class="clearfix prepend-1">
       		<label for="user_pass"><?php _e('Senha', 'tnb');?></label>
       		<br/>
-      		<input type="password" id="user_pass" name="user_pass"  class="text span-12" />
+      		<input type="password" id="user_pass" name="user_pass"  class="text span-13" />
     	</p>
     	<p class="clearfix prepend-1">
 			<label for="user_pass_confirm"><?php _e('Confirmação da senha', 'tnb');?></label>
 			<br/>
-			<input type="password" id="user_pass_confirm" name="user_pass_confirm"  class="text span-12" />
+			<input type="password" id="user_pass_confirm" name="user_pass_confirm"  class="text span-13" />
 		</p>
 
     	<h2><?php _e('Informações de contato', 'tnb');?></h2>
     	<p class="clearfix prepend-1">
 			<label for="responsable"><?php _e('Responsável', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
 			<br/>
-			<input type="text" id="responsavel" name="responsavel" value="<?php echo $profileuser->responsavel; ?>" class="text span-12" />
+			<input type="text" id="responsavel" name="responsavel" value="<?php echo $profileuser->responsavel; ?>" class="text span-13" />
 			<small><?php _e('Nome do responsável pelo agendamento', 'tnb'); ?></small>
 		</p>
 		<p class="clearfix prepend-1">
 			<label for="user_email"><?php _e('E-mail', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
 			<br/>
-			<input type="text" id="user_email" name="user_email" value="<?php echo $profileuser->user_email; ?>" class="text span-12" />
+			<input type="text" id="user_email" name="user_email" value="<?php echo $profileuser->user_email; ?>" class="text span-13" />
 			<small><?php _e('Email do responsável pelo agendamento', 'tnb'); ?></small>
 		</p>
 		<p class="clearfix prepend-1">
@@ -248,7 +248,7 @@ get_header();
 		<p class="prepend-1 clearfix">
 			<label for="banda"><?php _e('Nome da banda', 'tnb');?></label>
 			<br/>
-			<input type="text" id="banda" name="banda" value="<?php echo $profileuser->banda; ?>" class="text span-12" />
+			<input type="text" id="banda" name="banda" value="<?php echo $profileuser->banda; ?>" class="text span-13" />
 		</p>
 		
 		<p class="clearfix prepend-1">
@@ -265,7 +265,7 @@ get_header();
 		<p class="clearfix prepend-1">
 			<label for="site"><?php _e('Link', 'tnb');?></label>
 			<br/>
-			<input type="text" id="site" name="site" value="<?php echo $profileuser->site; ?>" class="text span-12" />
+			<input type="text" id="site" name="site" value="<?php echo $profileuser->site; ?>" class="text span-13" />
 			<small><?php _e('Coloque o principal link do Artista (Twitter, Facebook, MySpace, etc). Usar http://', 'tnb');?></small>
 		</p>
 		
@@ -315,7 +315,7 @@ get_header();
 		<p class="clearfix prepend-1">
 			<label for="youtube"><?php _e('URL do vídeo no YouTube', 'tnb');?></label>
 			<br/>
-			<input type="text" id="youtube" name="youtube" value="<?php echo $profileuser->youtube; ?>" class="text span-12" />
+			<input type="text" id="youtube" name="youtube" value="<?php echo $profileuser->youtube; ?>" class="text span-13" />
 			<small><?php _e('(Exemplo: http://www.youtube.com/watch?v=videoid)', 'tnb'); ?></small>
 		</p>
 		
@@ -339,9 +339,9 @@ get_header();
     			
     			<br/>
     			<input type="hidden" name="id_music[]" value="<?php echo $media->ID; ?>" /><br/>
-    			<input type="file" id="music" name="music_<?php echo $i;?>" value="" class="text span-12" />
+    			<input type="file" id="music" name="music_<?php echo $i;?>" value="" class="text span-13" />
     			<small><?php _e('Nome da música','tnb'); ?></small>
-    			<input type="text" id="music_title" name="label_music[]" value="<?php echo $media->post_title; ?>" class="text span-12" /><br/>
+    			<input type="text" id="music_title" name="label_music[]" value="<?php echo $media->post_title; ?>" class="text span-13" /><br/>
 
     			
     		</p>
@@ -391,7 +391,7 @@ get_header();
         		        }
         		?>
     			<br/>
-    			<input type="file" id="images" name="images_<?php echo $i;?>" value="" class="text span-12" />
+    			<input type="file" id="images" name="images_<?php echo $i;?>" value="" class="text span-13" />
     		</p>
 		<?php endfor;?>
 		
@@ -412,7 +412,7 @@ get_header();
     		
     			
     			<br/>
-    			<input type="file" id="rider" name="rider_<?php echo $i;?>" value="" class="text span-12" />
+    			<input type="file" id="rider" name="rider_<?php echo $i;?>" value="" class="text span-13" />
     		</p>
 		<?php endfor;?>
 		
@@ -433,7 +433,7 @@ get_header();
     		
     			
     			<br/>
-    			<input type="file" id="mapa_palco" name="mapa_palco_<?php echo $i;?>" value="" class="text span-12" />
+    			<input type="file" id="mapa_palco" name="mapa_palco_<?php echo $i;?>" value="" class="text span-13" />
     		</p>
 		<?php endfor;?>
 		

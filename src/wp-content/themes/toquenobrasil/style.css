@@ -222,6 +222,9 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 .artist .info p { margin-bottom:0; }
 .artist .info img { margin-top:5px; }
 
+/* Artists Profile */
+#your-profile small { clear:both; display:block; }
+
 /* =Sign up form
 ---------------------------------------------------------------------------------*/
 #formularios-de-cadastro { position:relative; }
