@@ -22,6 +22,20 @@ function tnb_mail_sender($from_name) {
 	return 'Toque no Brasil';
 }
 
+//header da página de login do wordpress
+add_action('login_head', 'tnb_login_head');
+
+function tnb_login_head() {
+    ?>
+    <style>
+        #login {width: 400px;}
+        #login h1 {}
+        #login h1 a {background-image: url(<?php echo get_theme_image('toquenobrasil2.png'); ?> ); height: 133px; width: 400px;}
+    </style>
+    
+    <?php
+}
+
 
 # JAVASCRIPTS
 add_action('wp_print_scripts', 'tnb_load_js');
