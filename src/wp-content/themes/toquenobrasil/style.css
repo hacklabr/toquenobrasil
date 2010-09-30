@@ -48,7 +48,7 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 #login h5 a { background:#11778F; padding:2px; -moz-border-radius:3px; -webkit-border-radius:3px; }
 #login h5 a:hover { color:#fff; }
 #login #user, #login #user_login, #login #senha { border:none; margin:0 0 18px; padding:6px; width:108px; -moz-border-radius:9px; -webkit-border-radius:9px; -moz-box-shadow:4px 4px 0px #11778F; -webkit-box-shadow:4px 4px 0px #11778f}
-#login input { color:#9A9A9A; font-family:Arial,Sans-Serif; font-size:1em; } 
+#login input { color:#9A9A9A; font-family:Arial,Sans-Serif; font-size:1em; vertical-align:middle; } 
 #login #ok { float:right; }
 #login #reset-pass { float:left; font-size:11px; color:#fff; }
 #login a { color:white;}
