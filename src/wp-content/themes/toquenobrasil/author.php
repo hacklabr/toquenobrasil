@@ -51,7 +51,7 @@ get_header();
       ?>
     </div>
         
-    <div class='clear'></div>
+    <div class="clear"></div>
     <div class="prepend-top"></div>
     <div class="hr"></div>
         
@@ -103,34 +103,34 @@ get_header();
         <param name='wmode' value='transparent'></param>
         <embed src='<?php echo $videoUrl; ?>&autoplay=0&border=0&showsearch=0&fs=1' type='application/x-shockwave-flash' wmode='transparent' width='<?php echo $width; ?>' height='<?php echo $height; ?>' allowfullscreen='1'></embed>
       </object>
-      <?php } ?>
+      <?php } ?> 
+    </div>
+
+    <div class="clear"></div>
+    <div class="prepend-top"></div>
+    <div class="hr"></div>
       
+    <div class="span-7">
+      <h3 class="no-margin"><?php _e('Mapa de Palco','tnb'); ?></h3>
       <?php 
         $medias = get_posts("post_type=mapa_palco&author={$curauth->ID}");
-        		        
-        foreach( $medias as $media ) {
-            echo '<br />';
-            echo "<a href='{$media->guid}'>" , __('Mapa do palco', 'tnb') ,"</a>";
-//            echo '<br />';
-//            echo $media->post_title;
-        }
+        foreach( $medias as $media ) : ?>
+          <a href='<?php echo $media->guid; ?>'>
+            <?php theme_image('tnb-map.png'); ?>
+          </a>
+      <?php endforeach; ?>
+    </div>
       
-      ?>
-      
+    <div class="span-7 last">
+      <h3 class="no-margin"><?php _e('Rider','tnb'); ?></h3>
       <?php 
         $medias = get_posts("post_type=rider&author={$curauth->ID}");
-        		        
-        foreach( $medias as $media ) {
-            echo '<br />';
-            echo "<a href='{$media->guid}'>" , __('Rider', 'tnb') ,"</a>";
-//            echo '<br />';
-//            echo $media->post_title;
-        }
-      
-      ?>
-      
+        foreach( $medias as $media ) : ?>
+          <a href='<?php echo $media->guid; ?>'>
+            <?php theme_image('tnb-rider.png'); ?>
+          </a>
+      <?php endforeach; ?>
     </div>
-    <div class="clear"></div>
   </div>
 </div>
 
