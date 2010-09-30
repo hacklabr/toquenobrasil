@@ -76,7 +76,6 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 #footer #twit .tb_author { font-size:2em; font-weight:bold !important; text-transform:uppercase; }
 #footer #twit .tb_msg { font-size:1.2em; }
 #footer #twit .tb_tweet-info { font-size:1em; color:#9F6513; }
-#footer .success {margin-left:80px;}
 #contato-title { left:460px; position:absolute; top:-11px; }
 
 /* =Footer:Bottom Navigation
