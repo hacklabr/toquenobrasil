@@ -53,6 +53,9 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
     
     if(strlen($user_login)==0)
         $errors['user'] =  'Informe um nome de usuário.';
+
+    if(!preg_match('/^([a-z0-9_-]+)$/', $user_login))
+        $errors['user'] =  'Nome de usuário inválido.';        
         
     if(strlen($user_email)==0)
         $errors['email'] =  'Informe o email.';  

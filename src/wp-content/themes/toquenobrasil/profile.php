@@ -33,7 +33,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
         
     if( !$msg['error']){
         $userdata['ID'] = $profileuser_id;
-        $userdata['user_login'] = $_POST['user_login'];
+        $userdata['user_login'] = $profileuser->user_login;
         $userdata['display_name'] = $_POST['banda'];
         $userdata['user_email'] = $_POST['user_email'];
         $userdata['description'] = $_POST['description'];
@@ -42,7 +42,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
             $userdata['user_pass'] = wp_hash_password($_POST['user_pass']); 
         
         $rt = wp_insert_user($userdata);
-        
         update_user_meta( $profileuser_id, 'banda' , $_POST['banda'] );
         update_user_meta( $profileuser_id, 'responsavel' , $_POST['responsavel'] );
         update_user_meta( $profileuser_id, 'telefone' , $_POST['telefone'] );

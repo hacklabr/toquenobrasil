@@ -38,6 +38,37 @@ jQuery(document).ready(function() {
     	
     });
     
+    jQuery("#lostpassform_submit").click(function(){
+    	
+    	if(jQuery("#lostpassform #user_login").val() == '')
+    		return false;
+    	
+    	return true;
+    	
+    });
+    
+    
+    /////////////////////////////////////  INPUT MASKS 
+    
+    
+    jQuery('#user_login').keyup(function(){
+    	var val = jQuery(this).val();
+    	
+    	jQuery(this).val(val.replace(/[^0-9a-z_-]*/gi, ''));
+    });
+    
+    
+    jQuery('#site').keyup(function(){
+    	var val = jQuery(this).val();
+    	
+    	if(!val.match(/^(https?:\/\/)/i)){
+    		jQuery(this).val("http://" + jQuery(this).val());
+    	}
+    });
+    jQuery('#site').blur(function(){
+    	jQuery(this).triger('keyup');
+    });
+    
     jQuery('.evento_tos_modal').dialog({
         autoOpen: false,
         modal: true,

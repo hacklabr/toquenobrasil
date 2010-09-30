@@ -72,7 +72,7 @@
       <a><?php _e('Já estou<br />inscrito!', 'tnb');?></a>
     </div>
 	
-  <?php  elseif(strtotime($inscricao_inicio) <= time() && strtotime($inscricao_fim) >= time()):?>
+  <?php  elseif(strtotime($inscricao_inicio) <= strtotime(date('d-m-Y')) && strtotime($inscricao_fim) >= strtotime(date('d-m-Y'))):?>
 		
     <?php if( is_artista() ):?>
       <div class="quero-tocar i-wanna-play">

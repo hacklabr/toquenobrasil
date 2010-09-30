@@ -59,6 +59,15 @@ function custom_load_css() {
     wp_enqueue_style('jquery-ui', TNB_URL . '/css/jquery-ui-css/ui-lightness/jquery-ui-1.7.2.custom.css');
 }
 
+function tnb_mail_name($from_name){
+    return __('Toque no Brasil', 'tnb');
+}
+function tnb_mail_email($from_email){
+    return __('noreply@bunker.toquenobrasil.com.br', 'tnb');
+}
+add_filter( 'wp_mail_from' , 'tnb_mail_email');
+add_filter( 'wp_mail_from_name', 'tnb_mail_name'  );
+
 
 # REGISTERING MENUS
 register_nav_menus( array(
@@ -230,7 +239,7 @@ add_filter('login_redirect', 'login_error_redirect', 10, 3);
 
 function check_email_confirm($user_login){
     $user = get_user_by('login', $user_login);
-    if(get_usermeta($user->ID, 'wp_inactive', true)){
+    if( get_usermeta($user->ID, 'wp_inactive', true) && !isset($user->wp_capabilities['administrator'])){
         $er_flag = ( strpos($redirect_to,'?')===FALSE ? "?" : "&" ) . 'email_confirm=false';
         wp_logout();
         $site_url = get_bloginfo('url') . $redirect_to . $er_flag;

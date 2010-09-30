@@ -119,7 +119,7 @@
               <a>insira seu nome de usuário</a>
               <input type="text" class="text" id="user_login" name="user_login" />
               <input type="hidden" value="<?php echo $_SERVER['REQUEST_URI']; ?>?new_pass=1" name="redirect_to" />
-              <a id="cancel-lost-pass" href="#"><span>Cancelar</span></a><input type="image" name="ok" src="<?php echo get_theme_image("ok.png"); ?>" id="ok" />
+              <a id="cancel-lost-pass" href="#"><span>Cancelar</span></a><input type="image" name="ok" src="<?php echo get_theme_image("ok.png"); ?>" id="lostpassform_submit" />
             </form>
           </div>
         <?php endif;?>  
