@@ -190,7 +190,7 @@ get_header();
                         	<?php else:?>
                         	<input type="hidden" name="action" value="register" />
                         	<input type="hidden" name="type" value="artista" />
-                        	<i>Campos marcardos com <?php theme_image('lock.png'); ?> não serão exibidos publicamente no site. Apenas os produtores de eventos terão acesso a estes dados</i>
+                        	<i>Campos marcardos com <?php theme_image('lock.png', array('title' => 'teste')); ?> não serão exibidos publicamente no site. Apenas os produtores de eventos terão acesso a estes dados</i>
                         	<br/><br/>
                         	<div class="span-12">
 								<h3 class='no-margin'><?php _e('Dados cadastrais', 'tnb');?></h3>
@@ -203,7 +203,7 @@ get_header();
                                 <small><?php _e('Este nome será utilizado para se conectar ao TNB e não poderá ser modificado.', 'tnb'); ?></small>
                             </div>
                             <div class="span-6">
-                                <label for="user_email"><?php _e('E-mail:', 'tnb');?> <?php theme_image('lock.png'); ?></label>
+                                <label for="user_email"><?php _e('E-mail:', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
                                 <br />
                                 <input class="span-6 text" type="text" id="user_email" name="user_email" value="<?php echo $user->user_email; ?>" />
                                 <small><?php _e('Email do responsável pelo agendamento', 'tnb'); ?></small>
@@ -228,13 +228,13 @@ get_header();
                                 <input class="span-12 text" type="text" id="banda" name="banda" value="<?php echo $user->banda; ?>" />
                             </div>
                             <div class="span-6">
-                                <label for="responsavel"><?php _e('Responsável:', 'tnb');?> <?php theme_image('lock.png'); ?></label>
+                                <label for="responsavel"><?php _e('Responsável:', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
                                 <br />
                                 <input class="span-6 text" type="text" id="responsavel" name="responsavel" value="<?php echo $user->responsavel; ?>" />
                                 <small><?php _e('Nome do responsável pelo agendamento', 'tnb'); ?></small>
                             </div>    
                              <div class="span-6">
-                                <label for="telefone"><?php _e('Telefone:', 'tnb');?> <?php theme_image('lock.png'); ?></label>
+                                <label for="telefone"><?php _e('Telefone:', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
                                 <br />
                                 <input class="span-1 text" type="text" id="ddd" name="ddd" value="<?php echo $user->ddd; ?>" />
                                 <input class="span-5 text" type="text" id="telefone" name="telefone" value="<?php echo $user->telefone; ?>" />
@@ -264,7 +264,7 @@ get_header();
                             
                             
                             <div class="span-12">
-                             	<h5 class='no-margin'><?php _e('Local de residência da banda', 'tnb');?> <?php theme_image('lock.png'); ?></h5>
+                             	<h5 class='no-margin'><?php _e('Local de residência da banda', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></h5>
                              </div>
                             
                             <div class="span-6">

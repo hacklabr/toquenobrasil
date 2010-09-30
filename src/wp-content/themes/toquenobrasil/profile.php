@@ -203,7 +203,7 @@ get_header();
 	<form class="background clearfix" method="post" enctype="multipart/form-data" id="your-profile" >
 		<input type="hidden" name="action" value="update" />
 	    <?php wp_nonce_field('edit_nonce'); ?>
-	    <i>Campos marcardos com <?php theme_image('lock.png'); ?> não serão exibidos publicamente no site. Apenas os produtores de eventos terão acesso a estes dados</i>
+	    <i>Campos marcardos com <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?> não serão exibidos publicamente no site. Apenas os produtores de eventos terão acesso a estes dados</i>
 	    <br/><br/>
     	<h2><?php _e('Informações de login', 'tnb');?></h2>
     	<p class="clearfix prepend-1">
@@ -224,19 +224,19 @@ get_header();
 
     	<h2><?php _e('Informações de contato', 'tnb');?></h2>
     	<p class="clearfix prepend-1">
-			<label for="responsable"><?php _e('Responsável', 'tnb');?> <?php theme_image('lock.png'); ?></label>
+			<label for="responsable"><?php _e('Responsável', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
 			<br/>
 			<input type="text" id="responsavel" name="responsavel" value="<?php echo $profileuser->responsavel; ?>" class="text span-12" />
 			<small><?php _e('Nome do responsável pelo agendamento', 'tnb'); ?></small>
 		</p>
 		<p class="clearfix prepend-1">
-			<label for="user_email"><?php _e('E-mail', 'tnb');?> <?php theme_image('lock.png'); ?></label>
+			<label for="user_email"><?php _e('E-mail', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
 			<br/>
 			<input type="text" id="user_email" name="user_email" value="<?php echo $profileuser->user_email; ?>" class="text span-12" />
 			<small><?php _e('Email do responsável pelo agendamento', 'tnb'); ?></small>
 		</p>
 		<p class="clearfix prepend-1">
-			<label for="phone"><?php _e('Telefone', 'tnb');?> <?php theme_image('lock.png'); ?></label>
+			<label for="phone"><?php _e('Telefone', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
 			<br/>
 			<input type="text" id="telefone_" name="telefone_ddd" value="<?php echo $profileuser->telefone_ddd; ?>" class="text span-1 margin-right" /> <input type="text" id="telefone" name="telefone" value="<?php echo $profileuser->telefone; ?>" class="text span-5"/>
 			<small><?php _e('Número do responsável pelo agendamento', 'tnb'); ?></small>
@@ -291,7 +291,7 @@ get_header();
 		</p>
 		
 		
-		<h4><?php _e('Residência da banda', 'tnb');?> <?php theme_image('lock.png'); ?></h4>
+		<h4><?php _e('Residência da banda', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></h4>
 		<p class="clearfix prepend-1">
 			<label for="banda_estado"><?php _e('Estado', 'tnb');?></label>
 			<br />
