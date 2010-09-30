@@ -21,7 +21,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
         $msg['error'][] = __('E-mail informado inválido.','tnb');    
     
     if( $_POST['user_email'] != $profileuser->user_email && email_exists($_POST['user_email']))
-         $msg['error'][] =  __('Esse e-mail j[á está sendo utilizado', 'tnb');
+         $msg['error'][] =  __('Esse e-mail já está sendo utilizado', 'tnb');
         
     if( strlen($_POST['user_pass'])>0  && $_POST['user_pass'] !=  $_POST['user_pass_confirm'] )
         $msg['error'][]= __('A senhas fornecidas não conferem.','tnb');
