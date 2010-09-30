@@ -110,27 +110,27 @@ get_header();
     <div class="prepend-top"></div>
     <div class="hr"></div>
       
-    <div class="span-7">
-      <h3 class="no-margin"><?php _e('Mapa de Palco','tnb'); ?></h3>
-      <?php 
-        $medias = get_posts("post_type=mapa_palco&author={$curauth->ID}");
-        foreach( $medias as $media ) : ?>
+    <?php 
+      $medias = get_posts("post_type=mapa_palco&author={$curauth->ID}");
+      foreach( $medias as $media ) : ?>
+        <div class="span-5">
+          <h3 class="no-margin"><?php _e('Mapa de Palco','tnb'); ?></h3>
           <a href='<?php echo $media->guid; ?>'>
             <?php theme_image('tnb-map.png'); ?>
           </a>
-      <?php endforeach; ?>
-    </div>
+        </div>
+    <?php endforeach; ?>
       
-    <div class="span-7 last">
-      <h3 class="no-margin"><?php _e('Rider','tnb'); ?></h3>
-      <?php 
-        $medias = get_posts("post_type=rider&author={$curauth->ID}");
-        foreach( $medias as $media ) : ?>
+    <?php 
+      $medias = get_posts("post_type=rider&author={$curauth->ID}");
+      foreach( $medias as $media ) : ?>
+        <div class="span-5">
+          <h3 class="no-margin"><?php _e('Rider','tnb'); ?></h3>
           <a href='<?php echo $media->guid; ?>'>
             <?php theme_image('tnb-rider.png'); ?>
           </a>
-      <?php endforeach; ?>
-    </div>
+        </div>
+    <?php endforeach; ?>
   </div>
 </div>
 
