@@ -49,7 +49,7 @@
 
 <div class="span-3 last">
   <div class='evento_tos_modal' id='evento_tos_modal_<?php the_ID(); ?>'>
-    <h2><?php _e('Termos de Serviço','tnb'); ?></h2>
+    <h2><?php _e('Termos de Responsabilidade','tnb'); ?></h2>
     <?php echo get_post_meta(get_the_ID(), "evento_tos", true); ?>
     <form action='<?php the_permalink();?>' method="post" id='form_join_event_<?php the_ID(); ?>'>
       <?php wp_nonce_field('join_event'); ?>
@@ -57,7 +57,7 @@
       <input type="hidden" name="evento_id" value='<?php the_ID(); ?>' />
     </form>
     <div class="textright">
-      <a onclick="jQuery('#form_join_event_<?php the_ID(); ?>').submit();" class="button"><?php _e('Li e aceito os termos', 'tnb');?></a>
+      <a onclick="jQuery('#form_join_event_<?php the_ID(); ?>').submit();" class="button"><?php _e('Li e aceito o termos', 'tnb');?></a>
     </div>
   </div>
 
