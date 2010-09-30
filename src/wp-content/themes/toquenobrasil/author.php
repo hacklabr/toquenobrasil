@@ -25,7 +25,7 @@ get_header();
         <?php echo $curauth->description; ?>
 
         <p>
-          <?php if(current_user_can('select_artists') || current_user_can('select_other_artists')  || $curauth-ID == $current_user->ID ):?>
+          <?php if(current_user_can('select_artists') || current_user_can('select_other_artists')  || $curauth->ID == $current_user->ID ):?>
             <strong><?php _e('Responsável:','tnb') ?></strong> <?php echo $curauth->responsavel; ?>
             <br/>
             <strong><?php _e('Telefone:','tnb'); ?></strong> <?php echo $curauth->telefone_ddd; ?> <?php echo $curauth->telefone; ?>
