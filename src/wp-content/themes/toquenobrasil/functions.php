@@ -14,6 +14,15 @@ include(TEMPLATEPATH . '/includes/post_types.php');
 include(TEMPLATEPATH . '/widgets/ultimas_bandas.php');
 include(TEMPLATEPATH . '/widgets/ultimos_eventos.php');
 
+
+//remetente dos emails:
+add_filter( 'wp_mail_from_name', 'tnb_mail_sender');
+
+function tnb_mail_sender($from_name) {
+	return 'Toque no Brasil';
+}
+
+
 # JAVASCRIPTS
 add_action('wp_print_scripts', 'tnb_load_js');
 function tnb_load_js() {
