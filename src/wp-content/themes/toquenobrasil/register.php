@@ -308,7 +308,7 @@ get_header();
                                 <input class="span-6 text" type="text" id="nome" name="nome" value='<?php echo $user->nome; ?>' />
                             </div>                       
                             <div class="span-6">
-                                <label for="produtor_site"><?php _e('Site:', 'tnb');?></label>
+                                <label for="produtor_site"><?php _e('Link:', 'tnb');?></label>
                                 <br />
                                 <input class="span-6 text" type="text" id="produtor_site" name="site" value='<?php echo $user->site; ?>'/>
                             </div>
