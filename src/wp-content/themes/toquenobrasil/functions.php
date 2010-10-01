@@ -417,7 +417,7 @@ add_action('profile_update', 'email_confirm_profile_update');
 
 function edit_btn($title, $id){
     
-    if(current_user_can('edit_post')){
+    if(current_user_can('edit_post') && !is_admin()){
         
         $post = get_post($id); 
 //        var_dump($post); 
