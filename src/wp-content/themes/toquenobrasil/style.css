@@ -314,5 +314,5 @@ a.edit-post-link { color:blue; font-size:12px;}
 .ui-dialog-title-dialog { }
 .ui-dialog-titlebar-close { background:#A4C633 !important; height:18px !important; width:18px !important; margin-top:-14px !important; }
 .ui-state-hover { background:#883D97 !important; height:18px !important; width:18px !important; padding:1px !important; }
-.ui-dialog-content { background:#FFF !important; margin-top:-34px !important; }
+.ui-dialog-content { background:#FFF !important; margin-top:-34px !important; min-height:111px !important; }
 .ui-dialog-content h1 { background:#F5A31D; border-radius:9px; color:white; display:block; float:left; font-size:16px !important; font-weight:bold; padding:9px; text-align:left; -moz-border-radius:9px; -webkit-border-radius:9px; }
