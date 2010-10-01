@@ -27,7 +27,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'activate'){
 		return new WP_Error('invalid_key', __('Invalid key'));
 		
 		
-	update_user_option($user->ID, 'inactive', false); //Set up the Password change nag.
+	update_user_option($user->ID, 'tnb_inactive', false); //Set up the Password change nag.
 
 	$activated  = true;
 }
@@ -44,7 +44,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
         $errors['user'] =  'Esse usuário já está sendo usado.';
     }
     if(email_exists($user_email)){
-        $errors['email'] =  'Este emial já está registrado em nosso sistema.';
+        $errors['email'] =  'Este email já está registrado em nosso sistema.';
+    }
+    if(!filter_var( $user_email, FILTER_VALIDATE_EMAIL)){
+        $errors['email'] =  'Email informado é inválido.';
     }
     
     if($_POST['senha'] != $_POST['senha_confirm']){
@@ -113,7 +116,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
         update_user_meta( $user_id, 'banda_estado' , $_POST['banda_estado'] );
         update_user_meta( $user_id, 'banda_cidade' , $_POST['banda_cidade'] );
         
-        update_user_option($user_id, 'inactive', '1');
+        update_user_option($user_id, 'tnb_inactive', '1');
         
         $key = $wpdb->get_var($wpdb->prepare("SELECT user_activation_key FROM $wpdb->users WHERE user_login = %s", $user_login));
     	if ( empty($key) ) {

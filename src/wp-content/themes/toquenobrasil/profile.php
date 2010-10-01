@@ -60,6 +60,11 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
         
         $msg['success'][] = __('Dados Atualizados', 'tnb');
         $profileuser = get_userdata( $user_ID );
+    }else{
+        
+        foreach($_POST as $n=>$v)
+            $profileuser->{$n} = $v; 
+        
     }
     
     if ($_FILES && !$msg['error']) {
@@ -167,11 +172,12 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
     }
     
     // labels
-    
-    for ( $i = 0; $i < count($_POST["label_music"]); $i++){
-        if(strlen($_POST["label_music"][$i])>0 && $_POST["id_music"][$i]>0 ){
-            $post = get_post($_POST["id_music"][$i]);
-            wp_update_post( array("ID"=>$_POST["id_music"][$i] , "post_title"=>$_POST["label_music"][$i]));
+    if (!$msg['error']) {
+        for ( $i = 0; $i < count($_POST["label_music"]); $i++){
+            if(strlen($_POST["label_music"][$i])>0 && $_POST["id_music"][$i]>0 ){
+                $post = get_post($_POST["id_music"][$i]);
+                wp_update_post( array("ID"=>$_POST["id_music"][$i] , "post_title"=>$_POST["label_music"][$i]));
+            }
         }
     }
 }
@@ -341,6 +347,9 @@ get_header();
         		            print_audio_player($media->ID);
         		            echo $media->post_title;
         		        }
+        		        
+        		        if(isset($_POST['label_music'][$i-1]))
+        		            $media->post_title = $_POST['label_music'][$i-1]
         		?>
     		
     			

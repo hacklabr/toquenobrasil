@@ -58,11 +58,18 @@ jQuery(document).ready(function() {
     });
     
     
-    jQuery('#site').keyup(function(){
+    jQuery('#site').keyup(function(event){
     	var val = jQuery(this).val();
-    	
-    	if(!val.match(/^(https?:\/\/)/i)){
-    		jQuery(this).val("http://" + jQuery(this).val());
+    	// backspace and DELETE
+    	if(event.keyCode == 8 || event.keyCode == 46 ){
+    		if(!val.match(/^(https?:\/\/)/i)){
+    			jQuery(this).val("");
+    		}
+    	}else{
+//    		alert(event.keyCode);
+	    	if(!val.match(/^(https?:\/\/)/i) && event.keyCode != 72 /*key:h*/ && event.keyCode != 84 /*key:t*/ && event.keyCode != 80 /*key:p*/ && event.keyCode != 191 /*key:/*/ && event.keyCode != 16 /*key:':'*/&& event.keyCode != 59 /*key:':'*/  ){
+	    		jQuery(this).val("http://" + jQuery(this).val());
+	    	}
     	}
     });
     jQuery('#site').blur(function(){

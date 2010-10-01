@@ -239,7 +239,7 @@ add_filter('login_redirect', 'login_error_redirect', 10, 3);
 
 function check_email_confirm($user_login){
     $user = get_user_by('login', $user_login);
-    if( get_usermeta($user->ID, 'wp_inactive', true) && !isset($user->wp_capabilities['administrator'])){
+    if( get_usermeta($user->ID, 'wp_tnb_inactive', true) && !isset($user->wp_capabilities['administrator'])){
         $er_flag = ( strpos($redirect_to,'?')===FALSE ? "?" : "&" ) . 'email_confirm=false';
         wp_logout();
         $site_url = get_bloginfo('url') . $redirect_to . $er_flag;
@@ -289,7 +289,8 @@ add_action('wp', 'contact_us');
 function get_estados(){
     
     $estados = array(
-        "ac"=>"Acre",
+        ""=>"Selecione",
+    	"ac"=>"Acre",
         "al"=>"Alagoas",
         "ap"=>"Amapá",
         "am"=>"Amazonas",
@@ -358,7 +359,7 @@ function get_artistas( $limit = false, $order=false) {
         $role = 'artista';
         
         $q = "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = '{$prefix}capabilities' AND meta_value LIKE '%\"$role\"%' ORDER BY $order";
-        $not_q = "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = '{$prefix}inactive' AND meta_value = 1";
+        $not_q = "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = '{$prefix}tnb_inactive' AND meta_value = 1";
         $query = "SELECT * FROM {$wpdb->users} WHERE ID IN($q) AND ID NOT IN ($not_q) ORDER BY $order $limit";
 //        echo $query ;
         $users = $wpdb->get_results($query);
@@ -388,7 +389,7 @@ function is_blog(){
 function email_confirm_display_selector_fieldset(){
     global $profileuser;
     
-    $inactive = get_usermeta($profileuser->ID, 'wp_inactive');
+    $inactive = get_usermeta($profileuser->ID, 'tnb_inactive');
     $checked = (!$inactive ? 'checked' : '' ); 
     ?> 
     <h3>Status do usuário</h3>
@@ -404,11 +405,12 @@ add_action('show_user_profile', 'email_confirm_display_selector_fieldset', 2);
 add_action('edit_user_profile', 'email_confirm_display_selector_fieldset', 2);
 function email_confirm_profile_update($userID){
     
-    
-    if(!isset($_POST['active'])){
-        add_user_meta($userID, 'wp_inactive' , true);
-    }else{
-        delete_user_meta($userID, 'wp_inactive');    
+    if(is_admin()){
+        if(!isset($_POST['active'])){
+            add_user_meta($userID, 'tnb_inactive' , true);
+        }else{
+            delete_user_meta($userID, 'tnb_inactive');    
+        }
     }
 }
 add_action('profile_update', 'email_confirm_profile_update');
