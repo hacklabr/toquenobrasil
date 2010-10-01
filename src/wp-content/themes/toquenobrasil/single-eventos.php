@@ -26,7 +26,7 @@
 			//  PARA o organizador e/ou admin  (admin em cópia quando há produtor)
 			
 			$msg = "Você acaba de receber uma nova inscrição para o evento {$event_name}.\n\n";
-			$msg.= "Informações do artista:\n";
+			$msg.= "Informações do artista\n";
 			$msg.= "Nome: {$banda->banda}\n";
 			$msg.= "Perfil: ". get_author_posts_url($banda->ID)."\n";
 			$msg.= "Responsável: {$banda->responsavel}\n";
