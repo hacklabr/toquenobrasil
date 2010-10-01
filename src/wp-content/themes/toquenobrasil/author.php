@@ -23,7 +23,7 @@ get_header();
       </div>
       <div class="span-11 last">
         <?php echo $curauth->description; ?>
-
+		<br/><br/>
         <p>
           <?php if(current_user_can('select_artists') || current_user_can('select_other_artists')  || $curauth->ID == $current_user->ID ):?>
             <strong><?php _e('Responsável:','tnb') ?></strong> <?php echo $curauth->responsavel; ?>
@@ -41,11 +41,11 @@ get_header();
    	      	<strong><?php _e('Local de origem da banda:','tnb'); ?></strong>  <?php echo $estados[$curauth->origem_estado], ' - ', $curauth->origem_cidade ?><br/>
           <?php endif;?>
 			<?php if($curauth->integrantes !=''): $estados = get_estados();?>
-   	      	<strong><?php _e('Integrantes da banda:','tnb'); ?></strong> <br/><?php echo preg_replace("/\n/", '<br/>', $curauth->integrantes);  ?><br/>
+   	      	<strong><?php _e('Integrantes da banda:','tnb'); ?></strong> <br/> <p class='prepend-1'><?php echo preg_replace("/\n/", '<br/>', $curauth->integrantes);  ?></p>
           <?php endif;?>
 		    
           
-          <strong><?php _e('Link:','tnb'); ?></strong> <a href="<?php echo $curauth->site; ?>" target="_blank"><?php echo $curauth->site; ?></a><br/>
+          <p><strong><?php _e('Link:','tnb'); ?></strong> <a href="<?php echo $curauth->site; ?>" target="_blank"><?php echo $curauth->site; ?></a></p>
         </p>
       </div>
     </div>
