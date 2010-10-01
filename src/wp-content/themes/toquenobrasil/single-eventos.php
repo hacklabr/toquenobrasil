@@ -23,6 +23,8 @@
 	
 			
 			
+			//  PARA o organizador e/ou admin  (admin em cópia quando há produtor)
+			
 			$msg = "Você acaba de receber uma nova inscrição para o evento {$event_name}.\n\n";
 			$msg.= "Informações do artista:\n";
 			$msg.= "Nome: {$banda->banda}\n";
@@ -35,11 +37,22 @@
 			$msg.= "Toque No Brasil";
 			
 			$join_success = true;
-			$subject = 'Inscrição TNB | ' . $event_name . $banda->banda;
-			wp_mail($to, $subject, $msg);
+			$subject = 'Inscrição TNB | ' . $event_name . ' | '. $banda->banda;
+			wp_mail($to, $subject, $msg, $header);
 			
-			if($copyAdm)
-			    wp_mail(get_bloginfo('admin_email'), $subject, $msg);    
+			
+			
+			///// PARA O ARTISTA
+			$subject = 'Inscrição TNB | ' . $event_name ;
+					
+			$msg = "Obrigado por se inscrever no {$event_name}.\n\n";
+			$msg.= "Em breve você receberá um e-mail confirmando se você foi selecionado para \"Tocar no Brasil!\"\n\n";
+			$msg.= "Atenciosamente\n";
+			$msg.= "Toque No Brasil";
+			wp_mail($banda->user_email, $subject, $msg);
+			
+			//if($copyAdm)
+			  //  wp_mail(get_bloginfo('admin_email'), $subject, $msg);    
 		}
 
 	} elseif(isset($_POST['_wpnonce']) && wp_verify_nonce($_POST['_wpnonce'], 'select_band' ) ) {

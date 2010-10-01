@@ -126,14 +126,16 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
     		// Now insert the new md5 key into the db
     		$wpdb->update($wpdb->users, array('user_activation_key' => $key), array('user_login' => $user_login));
     	}
-		// Now insert the new md5 key into the db
-    	$message = "Sua conta foi criada com sucesso.\r\n\r\n";
-    	$message .= network_site_url() . "\r\n\r\n";
-    	$message .= sprintf(__('Username: %s'), $user_login) . "\r\n\r\n";
-    	$message .= "Acesse o link abaixo para ativa-lá\r\n\r\n";
-    	$message .=  get_bloginfo('url')."/cadastre-se/$reg_type?action=activate&key=$key&login=" . rawurlencode($user_login) . "\r\n";
 
-        $title = 'Confirme seu cadastro no TNB';   
+    	$message = "Sua conta foi criada com sucesso, atualize seu perfil e aproveite as oportunidades para \"Tocar no Brasil!\"\r\n\r\n";
+    	$message .= "Nome de usuário: " .$user_login . "\r\n";
+    	$message .= "Senha:"  . $user_pass . "\r\n\r\n";
+    	$message .= "Acesse o link abaixo para ativar a conta\r\n";
+    	$message .=  get_bloginfo('url')."/cadastre-se/$reg_type?action=activate&key=$key&login=" . rawurlencode($user_login) . "\r\n";
+        $message.= "Atenciosamente\n";
+		$message.= "Toque No Brasil";
+		
+        $title = 'TNB | Confirmação de Cadastro';   
         if ( $message && !wp_mail($user_email, $title, $message) )
 		    wp_die( __('The e-mail could not be sent.') . "<br />\n" . __('Possible reason: your host may have disabled the mail() function...') );
     	

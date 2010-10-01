@@ -62,9 +62,9 @@ function tnb_mail_name($from_name){
     return __('Toque no Brasil', 'tnb');
 }
 function tnb_mail_email($from_email){
-    return __('noreply@bunker.toquenobrasil.com.br', 'tnb');
+    return __('noreply@toquenobrasil.com.br', 'tnb');
 }
-add_filter( 'wp_mail_from' , 'tnb_mail_email');
+//add_filter( 'wp_mail_from' , 'tnb_mail_email');
 add_filter( 'wp_mail_from_name', 'tnb_mail_name'  );
 
 

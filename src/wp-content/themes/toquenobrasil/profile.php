@@ -1,7 +1,5 @@
 <?php
 
-
-
 global $current_user, $user_ID, $profileuser;
 $profileuser = $current_user; 
 // apenas artistas usam esse tpl
@@ -212,6 +210,12 @@ get_header();
 	    <?php wp_nonce_field('edit_nonce'); ?>
 	    <i>Campos marcardos com <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?> não serão exibidos publicamente no site. Apenas os produtores de eventos terão acesso a estes dados</i>
 	    <br/><br/>
+	    
+	    <p class="clearfix textright">
+			<input type="submit" value="<?php _e('Salvar', 'tnb');?>" />
+			<a href="" class="button"><?php _e('Cancelar', 'tnb');?></a>
+		</p>
+	    
     	<h2><?php _e('Informações de login', 'tnb');?></h2>
     	<p class="clearfix prepend-1">
       		<label for="user_login"><?php _e('Nome de usuário', 'tnb');?></label>
