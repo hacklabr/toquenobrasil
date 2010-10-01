@@ -415,6 +415,22 @@ function email_confirm_profile_update($userID){
 }
 add_action('profile_update', 'email_confirm_profile_update');
 
+function edit_btn($title, $id){
+    
+    if(current_user_can('edit_post')){
+        
+        $post = get_post($id); 
+//        var_dump($post); 
+//        capability_type
+        
+//        var_dump(get_post_type_object( $post->post_type ));
+//        die;
+        if($post->post_type == 'post' || $post->post_type == 'eventos')
+            $title.= " <a class='edit-post-link' href='" . get_edit_post_link( $id ) . "' target='_blank'>editar</a>"; 
+    }    
 
+    return $title;    
+}
+add_filter('the_title', 'edit_btn', 10, 2);
 
 ?>

@@ -303,6 +303,7 @@ input[type=submit] { background:#72BF44; border:none; color:#FFFFFF; cursor:poin
 input[type=submit]:hover { background:#204F18; }
 
 a.avatar { border:none; }
+a.edit-post-link { color:blue; font-size:12px;}
 
 /* =jQuery Modal
 ---------------------------------------------------------------------------------*/

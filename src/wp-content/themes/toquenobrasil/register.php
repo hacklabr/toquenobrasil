@@ -205,7 +205,7 @@ get_header();
                         	<div class="span-6 clear">
                                 <label for=user_login><?php _e('Nome de usuário:', 'tnb');?></label>
                                 <br/>
-                                <input class="span-6 text" type="text" id="user_login" name="user_login" value="<?php echo $user->user_login; ?>" />
+                                <input class="span-6 text user_login" type="text" id="user_login" name="user_login" value="<?php echo $user->user_login; ?>" />
                                 <small><?php _e('Este nome será utilizado para se conectar ao TNB e não poderá ser modificado.', 'tnb'); ?></small>
                             </div>
                             <div class="span-6">

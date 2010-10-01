@@ -51,7 +51,7 @@ jQuery(document).ready(function() {
     /////////////////////////////////////  INPUT MASKS 
     
     
-    jQuery('#user_login').keyup(function(){
+    jQuery('#user_login, .user_login').keyup(function(){
     	var val = jQuery(this).val();
     	
     	jQuery(this).val(val.replace(/[^0-9a-z_-]*/gi, ''));
