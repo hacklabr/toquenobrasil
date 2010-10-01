@@ -2,6 +2,7 @@
 	global $current_user;
 	
 	$join_success = false;
+	
 
 	if(isset($_POST['_wpnonce']) &&  wp_verify_nonce($_POST['_wpnonce'], 'join_event' ) ){
 		if(!in_postmeta(get_post_meta($_POST['evento_id'], 'inscrito'), $_POST['banda_id'])){
@@ -20,14 +21,25 @@
 			$event = get_post($_POST['evento_id']);
 			$event_name = $event->post_title; 
 	
-			$msg = "A banda {$banda->banda} se inscreveu no evento {$event_name}.\n\n";
-			$msg.= "Acesse o perfil da banda em :\n\n ". get_author_posts_url($banda->ID) . "\n\n";
+			
+			
+			$msg = "Você acaba de receber uma nova inscrição para o evento {$event_name}.\n\n";
+			$msg.= "Informações do artista:\n";
+			$msg.= "Nome: {$banda->banda}\n";
+			$msg.= "Perfil: ". get_author_posts_url($banda->ID)."\n";
+			$msg.= "Responsável: {$banda->responsavel}\n";
+			$msg.= "Email: {$banda->user_email}\n";
+			$msg.= "Telefone: {$banda->telefone_ddd} {$banda->telefone}\n";
+			$msg.= "Residência: {$banda->banda_cidade} - {$banda->banda_estado}\n\n";
+			$msg.= "Atenciosamente\n";
+			$msg.= "Toque No Brasil";
+			
 			$join_success = true;
+			$subject = 'Inscrição TNB | ' . $event_name . $banda->banda;
+			wp_mail($to, $subject, $msg);
 			
-			wp_mail($to, 'Nova Incrição - ' . $event_name, $msg, $header );
-			
-//			if($copyAdm)
-//			    wp_mail(get_bloginfo('admin_email'), 'Nova Incrição - ' . $event_name, $msg );    
+			if($copyAdm)
+			    wp_mail(get_bloginfo('admin_email'), $subject, $msg);    
 		}
 
 	} elseif(isset($_POST['_wpnonce']) && wp_verify_nonce($_POST['_wpnonce'], 'select_band' ) ) {
