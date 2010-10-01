@@ -16,10 +16,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
     $profileuser_id = $user_ID;
     
     if(!filter_var( $_POST['user_email'], FILTER_VALIDATE_EMAIL))
-        $msg['error'][] = __('E-mail informado inválido.','tnb');    
+		$msg['error'][] = __('E-mail informado inválido.','tnb');    
     
     if( $_POST['user_email'] != $profileuser->user_email && email_exists($_POST['user_email']))
-         $msg['error'][] =  __('Esse e-mail já está sendo utilizado', 'tnb');
+        $msg['error'][] =  __('Esse e-mail já está sendo utilizado', 'tnb');
         
     if( strlen($_POST['user_pass'])>0  && $_POST['user_pass'] !=  $_POST['user_pass_confirm'] )
         $msg['error'][]= __('A senhas fornecidas não conferem.','tnb');
@@ -283,13 +283,13 @@ get_header();
 			<label for="site"><?php _e('Link', 'tnb');?></label>
 			<br/>
 			<input type="text" id="site" name="site" value="<?php echo $profileuser->site; ?>" class="text span-13" />
-			<small><?php _e('Coloque o principal link do Artista (Twitter, Facebook, MySpace, etc). Usar http://', 'tnb');?></small>
+			<small><?php _e('Coloque o principal link do Artista (Twitter, Facebook, MySpace, etc).', 'tnb');?></small>
 		</p>
 		
 		
 		
-		<h4><?php _e('Origem da banda', 'tnb');?></h4>
-		<p class="clearfix prepend-1">
+		<h4 class='prepend-1'><?php _e('Origem da banda', 'tnb');?></h4>
+		<p class="clearfix prepend-1 span-4">
 			<label for="origem_estado"><?php _e('Estado', 'tnb');?></label>
 			<br />
 			<select name="origem_estado">                            
@@ -304,12 +304,12 @@ get_header();
 		<p class="clearfix prepend-1">	
 			<label for="origem_cidade"><?php _e('Cidade', 'tnb');?></label>
 			<br />
-			<input class="span-6 text" type="text" id="origem_cidade" name="origem_cidade" value="<?php echo $profileuser->origem_cidade; ?>" />
+			<input class="span-9 text" type="text" id="origem_cidade" name="origem_cidade" value="<?php echo $profileuser->origem_cidade; ?>" />
 		</p>
 		
 		
-		<h4><?php _e('Residência da banda', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></h4>
-		<p class="clearfix prepend-1">
+		<h4 class='prepend-1'><?php _e('Residência da banda', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></h4>
+		<p class="clearfix prepend-1 span-4">
 			<label for="banda_estado"><?php _e('Estado', 'tnb');?></label>
 			<br />
 			<select name="banda_estado">                            
@@ -324,7 +324,7 @@ get_header();
 		<p class="clearfix prepend-1">	
 			<label for="banda_cidade"><?php _e('Cidade', 'tnb');?></label>
 			<br />
-			<input class="span-6 text" type="text" id="banda_cidade" name="banda_cidade" value="<?php echo $profileuser->banda_cidade; ?>" />
+			<input class="span-9 text" type="text" id="banda_cidade" name="banda_cidade" value="<?php echo $profileuser->banda_cidade; ?>" />
 		</p>
 		
 		<h2><?php _e('Mídias', 'tnb');?></h2>

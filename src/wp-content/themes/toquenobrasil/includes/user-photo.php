@@ -545,10 +545,11 @@ function userphoto_display_selector_fieldset(){
       <?php
 		$bdir = trailingslashit(get_option('siteurl')) . 'wp-content/uploads/userphoto/';
 	  ?>
-      <p class='image'>
+	  <label><?php echo _e("Avatar", 'user-photo') ?></label>
+      <p class='image no-margin'>
         <img src="<?php echo $bdir . $profileuser->userphoto_image_file . "?" . rand() ?>" alt="Full size image" />
         <?php if($profileuser->userphoto_image_file): ?>
-          <br/><input type="checkbox" name="userphoto_delete" id="userphoto_delete" onclick="userphoto_onclick()" /><label for="userphoto_delete"><?php _e('Delete photo?', 'user-photo')?></label>
+          <br/><input type="checkbox" name="userphoto_delete" id="userphoto_delete" onclick="userphoto_onclick()" /><label for="userphoto_delete"><?php _e('Apagar Avatar?', 'user-photo')?></label>
         <?php endif; ?>
       </p>
 
@@ -573,7 +574,6 @@ function userphoto_display_selector_fieldset(){
     <?php endif; ?>
     
     <p id='userphoto_image_file_control'>
-      <label><?php echo _e("Avatar", 'user-photo') ?></label>
       <input class="text" type="file" name="userphoto_image_file" id="userphoto_image_file" />
       <br/>
       <span class='field-hint small'>(<?php printf(__("max upload size %s"),ini_get("upload_max_filesize")); ?>)</span>
