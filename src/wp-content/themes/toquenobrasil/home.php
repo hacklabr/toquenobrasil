@@ -4,7 +4,7 @@
   <div class="item green clearfix">
     <div class="title clearfix">
       <div class="shadow"></div>
-      <h1><?php _e('Artistas/Bandas','tnb'); ?></h1>
+      <h1><?php _e('Artistas','tnb'); ?></h1>
     </div>
     <div class="background clearfix">
       <div class="signup">        

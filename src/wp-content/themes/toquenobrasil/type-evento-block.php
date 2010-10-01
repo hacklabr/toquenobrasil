@@ -16,14 +16,18 @@
 
 <?php global $current_user; ?>
 
-<div id="thumb" class="span-4">
-  <?php if ( has_post_thumbnail() ) : ?>
-    <?php the_post_thumbnail('eventos'); ?>
-  <?php else : ?>
-    <?php theme_image("thumb.png") ?>
-  <?php endif; ?>
-</div><!-- .thumb -->
-
+<a href="<?php the_permalink(); ?>" title="">
+	<div id="thumb" class="span-4">
+		<?php
+			$event_link_title = __('Visitar página do evento', 'tnb');
+			if ( has_post_thumbnail() ) :
+				the_post_thumbnail('eventos', array('title'=> $event_link_title));
+			else :
+				theme_image("thumb.png", array('title'=> $event_link_title));
+			endif;
+		?>
+	</div><!-- .thumb -->
+</a>
 <div class="span-7">
   <div id="dados-do-evento">
 		

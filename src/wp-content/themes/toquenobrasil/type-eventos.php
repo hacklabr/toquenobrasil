@@ -22,7 +22,7 @@
 
 	<?php if ( have_posts() ) : while (have_posts()) : the_post(); ?>
 		<div id="event-<?php echo the_ID(); ?>" class="event">
-			<h2 class="span-14"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>        
+			<h2 class="span-14"><a href="<?php the_permalink(); ?>" title='<?php _e('Visitar página do evento', 'tnb'); ?>'><?php the_title(); ?></a></h2>        
 			<?php get_template_part('type-evento', 'block'); ?>
 		</div>
 
