@@ -131,7 +131,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
     	$message .= "Nome de usuário: " .$user_login . "\r\n";
     	$message .= "Senha:"  . $user_pass . "\r\n\r\n";
     	$message .= "Acesse o link abaixo para ativar a conta\r\n";
-    	$message .=  get_bloginfo('url')."/cadastre-se/$reg_type?action=activate&key=$key&login=" . rawurlencode($user_login) . "\r\n";
+    	$message .=  get_bloginfo('url')."/cadastre-se/$reg_type?action=activate&key=$key&login=" . rawurlencode($user_login) . "\r\n\r\n";
         $message.= "Atenciosamente\n";
 		$message.= "Toque No Brasil";
 		
