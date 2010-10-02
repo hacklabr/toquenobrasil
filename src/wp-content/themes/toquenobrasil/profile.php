@@ -16,10 +16,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
     $profileuser_id = $user_ID;
     
     if(!filter_var( $_POST['user_email'], FILTER_VALIDATE_EMAIL))
-		$msg['error'][] = __('E-mail informado inválido.','tnb');    
+		$msg['error'][] = __('O email informado é inválido.','tnb');    
     
     if( $_POST['user_email'] != $profileuser->user_email && email_exists($_POST['user_email']))
-        $msg['error'][] =  __('Esse e-mail já está sendo utilizado', 'tnb');
+        $msg['error'][] =  __('Esse email já está sendo utilizado. Por favor verifique se digitou os dados corretamente.', 'tnb');
         
     if( strlen($_POST['user_pass'])>0  && $_POST['user_pass'] !=  $_POST['user_pass_confirm'] )
         $msg['error'][]= __('A senhas fornecidas não conferem.','tnb');
@@ -158,9 +158,9 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                         <span id='videoName' class='cor_rede'> {$media_title}</span> 
                         " . __('não inseridos!','tnb');
                 	if ($error) {
-                	    $feedback .= "<br>" . __('Erro','tnb') . ": $error";	
+                	    $feedback .= "<br>" . __('Erro','tnb') . ": $error ";	
                 	} else {
-                		$feedback .= __(' try again.','tnb');
+                		$feedback .= __('Tente novamente','tnb');
                 	}
                 	$msg['error'][] = $feedback;
                 }
