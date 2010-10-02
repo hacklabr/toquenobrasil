@@ -99,10 +99,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
         			'mapa_palco' => array('application/pdf','application/x-pdf','application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' , 'image/gif', 'image/png', 'image/jpeg', 'image/pjpeg', 'image/x-png' ),
                 );
             
-                $errors = array(1 => __('The file size can not exceed ','tnb') . ini_get('upload_max_filesize') . 'B',
-                2 => __('The file size can not exceed ','tnb') . ini_get('upload_max_filesize') . 'B',
-                3 => __('An error occurred and only part of the file was sent. Please send again.','tnb') ,
-                4 => __('No file sent!','tnb'));    
+                $errors = array(1 => __('O tamanho do arquivo não pode ser maior do que ','tnb') . ini_get('upload_max_filesize') . 'B',
+                2 => __('O tamanho do arquivo não pode ser maior do que ','tnb') . ini_get('upload_max_filesize') . 'B',
+                3 => __('Um erro ocorreu e apenas parte do arquivo foi enviado. Tente novamente.','tnb') ,
+                4 => __('Nenhum arquivo foi enviado!','tnb'));    
             
                 if ($file['error'] == 0) {
                     
@@ -113,7 +113,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                         if ($media_id->errors)
                             $msg['error'][] = implode(' ', $media_id->errors['upload_error']);
                     } else {
-                        $msg['error'][] = __('File type not allowed','tnb');
+                        $msg['error'][] = __('Tipo de arquivo não permitido','tnb');
                     }
                 } else {
                     $msg['error'][] = $errors[$file['error']];
@@ -123,9 +123,9 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                     $meta = get_post_meta($media_id, '_wp_attached_file');
                     $sizes = get_media_file_sizes($upload_dir ."/". $meta[0]);
                     
-                    $msg['success'][] = __('File','tnb') . "
+                    $msg['success'][] = __('Arquivo','tnb') . "
                         <span id='videoName' class='cor_rede'> {$media_title}</span> 
-                        " . __('insert with success!','tnb') ;
+                        " . __('inserido com sucesso','tnb') ;
                     
                     $update = array(
                         'ID' => $media_id,
@@ -154,9 +154,9 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                     
                 
                 } else {
-                	$feedback = __('ERROR','tnb') . ": " . __('files ','tnb') . "
+                	$feedback = __('ERRO','tnb') . ": " . __('Arquivos','tnb') . "
                         <span id='videoName' class='cor_rede'> {$media_title}</span> 
-                        " . __('not inserted!','tnb');
+                        " . __('não inseridos!','tnb');
                 	if ($error) {
                 	    $feedback .= "<br>" . __('Erro','tnb') . ": $error";	
                 	} else {
