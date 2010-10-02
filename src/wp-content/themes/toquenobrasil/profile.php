@@ -278,6 +278,7 @@ get_header();
 			<textarea  id="integrantes" name="integrantes" class="span-12" ><?php echo $profileuser->integrantes; ?></textarea>
 		</p>
 		
+        <h5 class='prepend-1'><?php _e('Avatar', 'tnb');?></h5>
 		<div class="prepend-1 clearfix">
           <?php do_action('custom_edit_user_profile'); ?>
           
@@ -332,7 +333,51 @@ get_header();
 			<br />
 			<input class="span-9 text" type="text" id="banda_cidade" name="banda_cidade" value="<?php echo $profileuser->banda_cidade; ?>" />
 		</p>
+        <h3><?php _e('Rider e Mapa de Palco', 'tnb');?> <?php echo $i;?></h3>
+        <?php for($i = 1; $i<=1; $i++): ?>
+		<p class="clearfix prepend-1">
+			<label for="music"><?php _e('Rider', 'tnb');?></label>
+        		<?php 
+        		        $media = get_posts("post_type=rider&meta_key=_media_index&meta_value=rider_{$i}&author={$user_ID}");
+        		        
+        		        if(isset($media[0])){
+        		            $media  = $media[0];
+                            echo '<br />';
+        		            echo "<a href='{$media->guid}'>ARQUIVO</a>";
+        		            echo '<br />';
+        		            echo $media->post_title;
+        		        }
+        		?>
+    		
+    			
+    			<br/>
+    			<input type="file" id="rider" name="rider_<?php echo $i;?>" value="" class="text span-13" />
+                <small><?php _e('(Formato: PDF, DOC, ODT, JPG, PNG, GIF)', 'tnb'); echo" ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B';?></small>
+    		</p>
+		<?php endfor;?>
 		
+		<?php for($i = 1; $i<=1; $i++): ?>
+		<p class="clearfix prepend-1">
+			<label for="music"><?php _e('Mapa de palco', 'tnb');?></label> 
+        		<?php 
+        		        $media = get_posts("post_type=mapa_palco&meta_key=_media_index&meta_value=mapa_palco_{$i}&author={$user_ID}");
+        		        
+        		        if(isset($media[0])){
+        		            $media  = $media[0];
+        		            echo '<br />';
+        		            echo "<a href='{$media->guid}'>ARQUIVO</a>";
+        		            echo '<br />';
+        		            echo $media->post_title;
+        		        }
+        		?>
+    		
+    			
+    			<br/>
+    			<input type="file" id="mapa_palco" name="mapa_palco_<?php echo $i;?>" value="" class="text span-13" />
+                <small><?php _e('Formato: PDF, DOC, ODT, JPG, PNG, GIF.', 'tnb'); echo" ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B';?></small>
+    		</p>
+		<?php endfor;?>
+		<br/>
 		<h2><?php _e('Mídias', 'tnb');?></h2>
 		<h3><?php _e('Vídeo', 'tnb');?></h3>
 		<p class="clearfix prepend-1">
@@ -426,51 +471,7 @@ get_header();
     			<input type="file" id="images" name="images_<?php echo $i;?>" value="" class="text span-13" />
                 <small><?php _e('(Formato: JPG, PNG, GIF)', 'tnb'); echo" ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B';?></small>
     		</p>
-            <div class='hr'></div>
-		<?php endfor;?>
-		
-		<?php for($i = 1; $i<=1; $i++): ?>
-		<p class="clearfix prepend-1">
-			<label for="music"><?php _e('Rider', 'tnb');?></label> 
-        		<?php 
-        		        $media = get_posts("post_type=rider&meta_key=_media_index&meta_value=rider_{$i}&author={$user_ID}");
-        		        
-        		        if(isset($media[0])){
-        		            $media  = $media[0];
-                            echo '<br />';
-        		            echo "<a href='{$media->guid}'>ARQUIVO</a>";
-        		            echo '<br />';
-        		            echo $media->post_title;
-        		        }
-        		?>
-    		
-    			
-    			<br/>
-    			<input type="file" id="rider" name="rider_<?php echo $i;?>" value="" class="text span-13" />
-                <small><?php _e('(Formato: PDF, DOC, ODT, JPG, PNG, GIF)', 'tnb'); echo" ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B';?></small>
-    		</p>
-		<?php endfor;?>
-		<div class='hr'></div>
-		<?php for($i = 1; $i<=1; $i++): ?>
-		<p class="clearfix prepend-1">
-			<label for="music"><?php _e('Mapa de palco', 'tnb');?></label> 
-        		<?php 
-        		        $media = get_posts("post_type=mapa_palco&meta_key=_media_index&meta_value=mapa_palco_{$i}&author={$user_ID}");
-        		        
-        		        if(isset($media[0])){
-        		            $media  = $media[0];
-        		            echo '<br />';
-        		            echo "<a href='{$media->guid}'>ARQUIVO</a>";
-        		            echo '<br />';
-        		            echo $media->post_title;
-        		        }
-        		?>
-    		
-    			
-    			<br/>
-    			<input type="file" id="mapa_palco" name="mapa_palco_<?php echo $i;?>" value="" class="text span-13" />
-                <small><?php _e('Formato: PDF, DOC, ODT, JPG, PNG, GIF.', 'tnb'); echo" ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B';?></small>
-    		</p>
+            
 		<?php endfor;?>
 		
 		<p class="clearfix textright">
