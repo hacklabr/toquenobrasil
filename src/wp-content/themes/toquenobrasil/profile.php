@@ -283,7 +283,7 @@ get_header();
           <?php do_action('custom_edit_user_profile'); ?>
           
         </div>
-		<div class='hr'></div>
+		
         
 		<p class="clearfix prepend-1">
 			<label for="site"><?php _e('Link', 'tnb');?></label>
@@ -291,7 +291,7 @@ get_header();
 			<input type="text" id="site" name="site" value="<?php echo $profileuser->site; ?>" class="text span-13" />
 			<small><?php _e('Coloque o principal link do Artista (Twitter, Facebook, MySpace, etc).', 'tnb');?></small>
 		</p>
-		<div class='hr'></div>
+		
 		
 		
 		<h4 class='prepend-1'><?php _e('Origem da banda', 'tnb');?></h4>
@@ -313,7 +313,7 @@ get_header();
 			<input class="span-9 text" type="text" id="origem_cidade" name="origem_cidade" value="<?php echo $profileuser->origem_cidade; ?>" />
 		</p>
 		
-		<div class='hr'></div>
+		
         
 		<h4 class='prepend-1'><?php _e('Residência da banda', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></h4>
 		<p class="clearfix prepend-1 span-4">
