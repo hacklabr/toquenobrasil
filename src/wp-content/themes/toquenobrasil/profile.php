@@ -217,24 +217,28 @@ get_header();
 		</p>
 	    
     	<h2><?php _e('Informações de login', 'tnb');?></h2>
-    	<p class="clearfix prepend-1">
+    	
+        <p class="clearfix prepend-1">
       		<label for="user_login"><?php _e('Nome de usuário', 'tnb');?></label>
 		    <br/>
       		<input type="text" id="user_login" name="user_login" disabled='disabled' value="<?php echo $profileuser->user_login; ?>" class="text span-13" />
     	</p>
-    	<p class="clearfix prepend-1">
+    	
+        <p class="clearfix prepend-1">
       		<label for="user_pass"><?php _e('Senha', 'tnb');?></label>
       		<br/>
       		<input type="password" id="user_pass" name="user_pass"  class="text span-13" />
     	</p>
-    	<p class="clearfix prepend-1">
+    	
+        <p class="clearfix prepend-1">
 			<label for="user_pass_confirm"><?php _e('Confirmação da senha', 'tnb');?></label>
 			<br/>
 			<input type="password" id="user_pass_confirm" name="user_pass_confirm"  class="text span-13" />
 		</p>
 
     	<h2><?php _e('Informações de contato', 'tnb');?></h2>
-    	<p class="clearfix prepend-1">
+    	
+        <p class="clearfix prepend-1">
 			<label for="responsable"><?php _e('Responsável', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
 			<br/>
 			<input type="text" id="responsavel" name="responsavel" value="<?php echo $profileuser->responsavel; ?>" class="text span-13" />
@@ -278,14 +282,15 @@ get_header();
           <?php do_action('custom_edit_user_profile'); ?>
           
         </div>
-		
+		<div class='hr'></div>
+        
 		<p class="clearfix prepend-1">
 			<label for="site"><?php _e('Link', 'tnb');?></label>
 			<br/>
 			<input type="text" id="site" name="site" value="<?php echo $profileuser->site; ?>" class="text span-13" />
 			<small><?php _e('Coloque o principal link do Artista (Twitter, Facebook, MySpace, etc).', 'tnb');?></small>
 		</p>
-		
+		<div class='hr'></div>
 		
 		
 		<h4 class='prepend-1'><?php _e('Origem da banda', 'tnb');?></h4>
@@ -307,7 +312,8 @@ get_header();
 			<input class="span-9 text" type="text" id="origem_cidade" name="origem_cidade" value="<?php echo $profileuser->origem_cidade; ?>" />
 		</p>
 		
-		
+		<div class='hr'></div>
+        
 		<h4 class='prepend-1'><?php _e('Residência da banda', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></h4>
 		<p class="clearfix prepend-1 span-4">
 			<label for="banda_estado"><?php _e('Estado', 'tnb');?></label>
@@ -328,9 +334,11 @@ get_header();
 		</p>
 		
 		<h2><?php _e('Mídias', 'tnb');?></h2>
-		
+		<h3><?php _e('Vídeo', 'tnb');?></h3>
 		<p class="clearfix prepend-1">
-			<label for="youtube"><?php _e('URL do vídeo no YouTube', 'tnb');?></label>
+			
+            
+            <label for="youtube"><?php _e('URL de vídeo no YouTube', 'tnb');?></label>
 			<br/>
 			<input type="text" id="youtube" name="youtube" value="<?php echo $profileuser->youtube; ?>" class="text span-13" />
 			<small><?php _e('(Exemplo: http://www.youtube.com/watch?v=videoid)', 'tnb'); ?></small>
@@ -338,11 +346,20 @@ get_header();
 		
 		
 			
-		
+		<h3><?php _e('Músicas', 'tnb');?></h3>
 		<?php for($i = 1; $i<=3; $i++): ?>
-		<p class="clearfix prepend-1">
-			<label for="music"><?php _e('Música', 'tnb');?> #<?php echo $i;?> <?php _e('(Formato: MP3)', 'tnb');?></label> 
-        		<?php 
+		<h4 class='prepend-1'><?php _e('Música', 'tnb');?> <?php echo $i;?></h4>
+        <p class="clearfix prepend-1">
+                
+			    <label for="music_title"><?php _e('Nome','tnb'); ?></label>
+    			<input type="text" id="music_title" name="label_music[]" value="<?php echo $media->post_title; ?>" class="text span-13" /><br/>
+                 
+                <label><?php _e('Arquivo MP3','tnb'); ?></label>
+                
+                <input type="file" id="music" name="music_<?php echo $i;?>" value="" class="text span-13" />
+                <small><?php echo" ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B'; ?></small>
+                
+                <?php 
         		        $media = get_posts("post_type=music&meta_key=_media_index&meta_value=music_{$i}&author={$user_ID}");
         		        
         		        if(isset($media[0])){
@@ -355,22 +372,17 @@ get_header();
         		        if(isset($_POST['label_music'][$i-1]))
         		            $media->post_title = $_POST['label_music'][$i-1]
         		?>
-    		
-    			
     			<br/>
     			<input type="hidden" name="id_music[]" value="<?php echo $media->ID; ?>" /><br/>
-    			<input type="file" id="music" name="music_<?php echo $i;?>" value="" class="text span-13" />
-    			<small><?php _e('Nome da música','tnb'); ?></small>
-    			<input type="text" id="music_title" name="label_music[]" value="<?php echo $media->post_title; ?>" class="text span-13" /><br/>
-
     			
     		</p>
+            
 		<?php endfor;?>
 		
-		
+		<h3><?php _e('Imagens', 'tnb');?></h3>
 		<?php for($i = 1; $i<=2; $i++):?>
         	<p class="clearfix prepend-1">
-    			<label for="photo"><?php _e('Foto', 'tnb');?> #<?php echo $i;?> <?php _e('(Formato: JPG, PNG, GIF)', 'tnb');?></label>
+    			<label for="photo"><?php _e('Imagem', 'tnb');?> <?php echo $i;?></label>
     			<?php 
         		        $media = get_posts("post_type=images&meta_key=_media_index&meta_value=images_{$i}&author={$user_ID}");
         		        
@@ -412,12 +424,14 @@ get_header();
         		?>
     			<br/>
     			<input type="file" id="images" name="images_<?php echo $i;?>" value="" class="text span-13" />
+                <small><?php _e('(Formato: JPG, PNG, GIF)', 'tnb'); echo" ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B';?></small>
     		</p>
+            <div class='hr'></div>
 		<?php endfor;?>
 		
 		<?php for($i = 1; $i<=1; $i++): ?>
 		<p class="clearfix prepend-1">
-			<label for="music"><?php _e('Rider (Formato: PDF, DOC, ODT, JPG, PNG, GIF)', 'tnb');?></label> 
+			<label for="music"><?php _e('Rider', 'tnb');?></label> 
         		<?php 
         		        $media = get_posts("post_type=rider&meta_key=_media_index&meta_value=rider_{$i}&author={$user_ID}");
         		        
@@ -433,12 +447,13 @@ get_header();
     			
     			<br/>
     			<input type="file" id="rider" name="rider_<?php echo $i;?>" value="" class="text span-13" />
+                <small><?php _e('(Formato: PDF, DOC, ODT, JPG, PNG, GIF)', 'tnb'); echo" ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B';?></small>
     		</p>
 		<?php endfor;?>
-		
+		<div class='hr'></div>
 		<?php for($i = 1; $i<=1; $i++): ?>
 		<p class="clearfix prepend-1">
-			<label for="music"><?php _e('Mapa do palco (Formato: PDF, DOC, ODT, JPG, PNG, GIF)', 'tnb');?></label> 
+			<label for="music"><?php _e('Mapa de palco', 'tnb');?></label> 
         		<?php 
         		        $media = get_posts("post_type=mapa_palco&meta_key=_media_index&meta_value=mapa_palco_{$i}&author={$user_ID}");
         		        
@@ -454,6 +469,7 @@ get_header();
     			
     			<br/>
     			<input type="file" id="mapa_palco" name="mapa_palco_<?php echo $i;?>" value="" class="text span-13" />
+                <small><?php _e('Formato: PDF, DOC, ODT, JPG, PNG, GIF.', 'tnb'); echo" ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B';?></small>
     		</p>
 		<?php endfor;?>
 		
