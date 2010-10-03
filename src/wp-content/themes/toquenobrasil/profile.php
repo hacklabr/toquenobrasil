@@ -9,7 +9,7 @@ if(!is_user_logged_in() && !is_artista())
 $profileuser = $current_user->data;
 
 $estados = get_estados();
-
+//var_dump($_POST);
 
 if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_POST['_wpnonce'], 'edit_nonce' )){
     require_once( ABSPATH . WPINC . '/registration.php' );
@@ -64,7 +64,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
             $profileuser->{$n} = $v; 
         
     }
-    
     if ($_FILES && !$msg['error']) {
         do_action('tnb_user_update', $profileuser_id);
         if(!$msg['error']){
@@ -138,7 +137,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
         	            if (!update_post_meta($media_id, '_filesize', $sizes['filesize'], true))
         	            	add_post_meta($media_id, '_filesize', $sizes['filesize'], true); 
         	            if (!update_post_meta($media_id, '_playtime', $sizes['playtime'], true))
-        	            	add_post_meta($media_id, '_playtime', $sizes['playtime'], true); 
+        	            	add_post_meta($media_id, '_playtime', $sizes['playtime'], true);
                     }
                     
                     // remove the file for these position
@@ -278,7 +277,7 @@ get_header();
 			<textarea  id="integrantes" name="integrantes" class="span-12" ><?php echo $profileuser->integrantes; ?></textarea>
 		</p>
 		
-        <h5 class='prepend-1'><?php _e('Avatar', 'tnb');?></h5>
+        <h5 class='prepend-1'><?php _e('Foto do Perfil', 'tnb');?></h5>
 		<div class="prepend-1 clearfix">
           <?php do_action('custom_edit_user_profile'); ?>
           
@@ -333,7 +332,7 @@ get_header();
 			<br />
 			<input class="span-9 text" type="text" id="banda_cidade" name="banda_cidade" value="<?php echo $profileuser->banda_cidade; ?>" />
 		</p>
-        <h3><?php _e('Rider e Mapa de Palco', 'tnb');?> <?php echo $i;?></h3>
+        <h3><?php _e('Rider e Mapa de Palco', 'tnb');?></h3>
         <?php for($i = 1; $i<=1; $i++): ?>
 		<p class="clearfix prepend-1">
 			<label for="music"><?php _e('Rider', 'tnb');?></label>
@@ -391,24 +390,16 @@ get_header();
 		
 		
 			
-		<h3><?php _e('Músicas', 'tnb');?></h3>
+		<h3><?php _e('Músicas', 'tnb'); ?></h3>
 		<?php for($i = 1; $i<=3; $i++): ?>
 		<h4 class='prepend-1'><?php _e('Música', 'tnb');?> <?php echo $i;?></h4>
         <p class="clearfix prepend-1">
                 
-			    <label for="music_title"><?php _e('Nome','tnb'); ?></label>
-    			<input type="text" id="music_title" name="label_music[]" value="<?php echo $media->post_title; ?>" class="text span-13" /><br/>
-                 
-                <label><?php _e('Arquivo MP3','tnb'); ?></label>
+			    <?php 
                 
-                <input type="file" id="music" name="music_<?php echo $i;?>" value="" class="text span-13" />
-                <small><?php echo" ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B'; ?></small>
-                
-                <?php 
         		        $media = get_posts("post_type=music&meta_key=_media_index&meta_value=music_{$i}&author={$user_ID}");
         		        
         		        if(isset($media[0])){
-        		            echo '<br />';
         		            $media  = $media[0];
         		            print_audio_player($media->ID);
         		            echo $media->post_title;
@@ -417,6 +408,16 @@ get_header();
         		        if(isset($_POST['label_music'][$i-1]))
         		            $media->post_title = $_POST['label_music'][$i-1]
         		?>
+                <br/>
+                <label for="music_title"><?php _e('Nome','tnb'); ?></label>
+    			<input type="text" id="music_title" name="label_music[]" value="<?php echo $media->post_title; ?>" class="text span-13" /><br/>
+                 
+                <label><?php _e('Arquivo MP3','tnb'); ?></label>
+                
+                <input type="file" id="music" name="music_<?php echo $i;?>" value="" class="text span-13" />
+                <small><?php echo " ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B'; ?></small>
+                
+                
     			<br/>
     			<input type="hidden" name="id_music[]" value="<?php echo $media->ID; ?>" /><br/>
     			

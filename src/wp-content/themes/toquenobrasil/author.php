@@ -26,26 +26,40 @@ get_header();
 		<br/><br/>
         <p>
           <?php if(current_user_can('select_artists') || current_user_can('select_other_artists')  || $curauth->ID == $current_user->ID ):?>
-            <strong><?php _e('Responsável:','tnb') ?></strong> <?php echo $curauth->responsavel; ?>
-            <br/>
-            <strong><?php _e('E-mail:','tnb'); ?></strong> <a href="mailto:<?php echo $curauth->user_email; ?>"><?php echo $curauth->user_email; ?></a>
-            <br/>
-            <strong><?php _e('Telefone:','tnb'); ?></strong> <?php echo $curauth->telefone_ddd; ?> <?php echo $curauth->telefone; ?>
-            <br/>
-            <?php if($curauth->banda_estado !=''): $estados = get_estados();?>
-   	      		<strong><?php _e('Endereço da banda:','tnb'); ?></strong>  <?php echo $estados[$curauth->banda_estado], ' - ', $curauth->banda_cidade; ?><br/>
+            
+            <?php if ($curauth->responsavel) : ?>
+                <strong><?php _e('Responsável:','tnb') ?></strong> <?php echo $curauth->responsavel; ?>
+                <br/>
             <?php endif;?>
-          <?php endif;?>
+            
+            <?php if ($curauth->user_email) : ?>
+                <strong><?php _e('E-mail:','tnb'); ?></strong> <a href="mailto:<?php echo $curauth->user_email; ?>"><?php echo $curauth->user_email; ?></a>
+                <br/>
+            <?php endif;?>
+            
+            <?php if ($curauth->telefone_ddd) : ?>
+                <strong><?php _e('Telefone:','tnb'); ?></strong> <?php echo $curauth->telefone_ddd; ?> <?php echo $curauth->telefone; ?>
+                <br/>
+            <?php endif;?>
+            
+            <?php if($curauth->banda_estado !=''): $estados = get_estados();?>
+                 <strong><?php _e('Local de residência da banda:','tnb'); ?></strong>  <?php echo $estados[$curauth->banda_estado], ' - ', $curauth->banda_cidade; ?><br/>
+            <?php endif;?>
+        
+          <?php endif; ?>
           
           <?php if($curauth->origem_estado !=''): $estados = get_estados();?>
    	      	<strong><?php _e('Local de origem da banda:','tnb'); ?></strong>  <?php echo $estados[$curauth->origem_estado], ' - ', $curauth->origem_cidade ?><br/>
           <?php endif;?>
-			<?php if($curauth->integrantes !=''): $estados = get_estados();?>
+          
+          <?php if($curauth->integrantes !=''): $estados = get_estados();?>
    	      	<strong><?php _e('Integrantes da banda:','tnb'); ?></strong> <br/> <p class='prepend-1'><?php echo preg_replace("/\n/", '<br/>', $curauth->integrantes);  ?></p>
           <?php endif;?>
 		    
           
-          <p><strong><?php _e('Link:','tnb'); ?></strong> <a href="<?php echo $curauth->site; ?>" target="_blank"><?php echo $curauth->site; ?></a></p>
+          <?php if ($curauth->site) : ?>
+            <p><strong><?php _e('Link:','tnb'); ?></strong> <a href="<?php echo $curauth->site; ?>" target="_blank"><?php echo $curauth->site; ?></a></p>
+          <?php endif; ?>
         </p>
       </div>
     </div>

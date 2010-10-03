@@ -7,9 +7,9 @@
   $inscricao_fim = get_post_meta(get_the_ID(), "evento_inscricao_fim", true);
   $br_insc_inicio = preg_replace("/([0-9]{2})-([0-9]{2})-([0-9]{4})/","$1/$2/$3", $inscricao_inicio);
   $br_insc_fim = preg_replace("/([0-9]{2})-([0-9]{2})-([0-9]{4})/","$1/$2/$3",$inscricao_fim);
-  $el = get_post_meta(get_the_ID(), "evento_local", true);
-  $es = get_post_meta(get_the_ID(), "evento_site", true);
-  $ev = get_post_meta(get_the_ID(), "evento_vagas", true);
+  $local = get_post_meta(get_the_ID(), "evento_local", true);
+  $link = get_post_meta(get_the_ID(), "evento_site", true);
+  $vagas = get_post_meta(get_the_ID(), "evento_vagas", true);
   $condicoes = get_post_meta($post->ID, "evento_condicoes", true);
   $restricoes = get_post_meta($post->ID, "evento_restricoes", true);
   $tos = get_post_meta(get_the_ID(), "evento_tos", true);
@@ -37,16 +37,16 @@
       <span class="labels"><?php _e('Data do evento:', 'tnb');?></span> <?php echo ($br_fim==$br_inicio ? $br_inicio : "$br_inicio - $br_fim") ;?><br />
       <span class="labels"><?php _e('Inscrições até:', 'tnb');?></span> <?php echo $br_insc_fim; ?><br />
 			
-      <?php if($el):?>
-        <span class="labels"><?php _e('Local:', 'tnb');?></span> <?php echo $el; ?><br />
+      <?php if($local):?>
+        <span class="labels"><?php _e('Local:', 'tnb');?></span> <?php echo $local; ?><br />
       <?php endif; ?>
             
-      <?php if($es):?>
-        <span class="labels"><?php _e('Site:', 'tnb');?></span> <a href="<?php echo $es; ?>" target="_blank"><?php echo $es; ?></a><br />
+      <?php if($link):?>
+        <span class="labels"><?php _e('Site:', 'tnb');?></span> <a href="<?php echo $link; ?>" target="_blank"><?php echo $link; ?></a><br />
       <?php endif; ?>
             
-      <?php if($ev):?>
-        <span class="labels"><?php _e('Vagas:', 'tnb');?></span> <?php echo $ev; ?>
+      <?php if($vagas):?>
+        <span class="labels"><?php _e('Vagas:', 'tnb');?></span> <?php echo $vagas; ?>
       <?php endif; ?>
     </p>
   </div><!-- .dados-do-evento -->

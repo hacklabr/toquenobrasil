@@ -298,7 +298,7 @@ function userphoto_profile_update($userID){
 			$thumbpath = $bdir . basename($userdata->userphoto_thumb_file);
 			
 			if(file_exists($imagepath) && !@unlink($imagepath)){
-				update_usermeta($userID, 'userphoto_error', __("Unable to delete photo.", 'user-photo'));
+				update_usermeta($userID, 'userphoto_error', __("Não foi possível apagar a foto.", 'user-photo'));
 			}
 			else {
 				@unlink($thumbpath);
@@ -327,7 +327,7 @@ function userphoto_profile_update($userID){
 				switch($_FILES['userphoto_image_file']['error']){
 					case UPLOAD_ERR_INI_SIZE:
 					case UPLOAD_ERR_FORM_SIZE:
-						$error = __("The uploaded file exceeds the max upload size.", 'user-photo');
+						$error = __("O arquivo da foto do perfil é maior do que o tamanho máximo permitido.", 'user-photo');
 						break;
 					case UPLOAD_ERR_PARTIAL:
 						$error = __("The uploaded file was only partially uploaded.", 'user-photo');
@@ -545,7 +545,7 @@ function userphoto_display_selector_fieldset(){
       <?php
 		$bdir = trailingslashit(get_option('siteurl')) . 'wp-content/uploads/userphoto/';
 	  ?>
-	  <label><?php echo _e("Avatar", 'user-photo') ?></label>
+	  <label><?php echo _e("Foto do Perfil", 'tnb') ?></label>
       <p class='image no-margin'>
         <img src="<?php echo $bdir . $profileuser->userphoto_image_file . "?" . rand() ?>" alt="Full size image" />
         <?php if($profileuser->userphoto_image_file): ?>
@@ -576,7 +576,7 @@ function userphoto_display_selector_fieldset(){
     <p id='userphoto_image_file_control'>
       <input class="text" type="file" name="userphoto_image_file" id="userphoto_image_file" />
       <br/>
-      <span class='field-hint small'>(<?php printf(__("max upload size %s"),ini_get("upload_max_filesize")); ?>)</span>
+      <span class='field-hint small'>(<?php printf(__("Tamanho máximo do arquivo: %s"),ini_get("upload_max_filesize")); ?>)</span>
     </p>
     <?php if($current_user->has_cap('edit_users') && ($profileuser->ID != $current_user->ID) && $profileuser->userphoto_image_file): ?>
       <p id="userphoto-approvalstatus-controls" <?php if($profileuser->userphoto_approvalstatus == USERPHOTO_PENDING) echo "class='pending'" ?>>
@@ -777,7 +777,7 @@ function userphoto_resize_image($filename, $newFilename, $maxdimension, &$error)
 		||
 		!function_exists( 'imagepng' ) && $info[2] == IMAGETYPE_PNG
 	) {
-		$error = __( 'Filetype not supported.', 'user-photo' );
+		$error = __( 'Tipo de arquivo não suportado.', 'user-photo' );
 	}
 	else {
 		// create the initial copy from the original file
@@ -791,7 +791,7 @@ function userphoto_resize_image($filename, $newFilename, $maxdimension, &$error)
 			$image = imagecreatefrompng( $filename );
 		}
 		if(!isset($image)){
-			$error = __("Unrecognized image format.", 'user-photo');
+			$error = __("Formato da imagem não conhecido.", 'user-photo');
 			return false;
 		}
 		if ( function_exists( 'imageantialias' ))
