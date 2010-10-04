@@ -22,7 +22,7 @@ get_header();
         <?php echo get_avatar($curauth->ID, 70); ?>
       </div>
       <div class="span-11 last">
-        <?php echo $curauth->description; ?>
+        <?php echo preg_replace("/\n/", '<br/>', $curauth->description); ?>
 		<br/><br/>
         <p>
           <?php if(current_user_can('select_artists') || current_user_can('select_other_artists')  || $curauth->ID == $current_user->ID ):?>
