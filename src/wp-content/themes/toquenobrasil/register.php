@@ -27,7 +27,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'activate'){
 		return new WP_Error('invalid_key', __('Invalid key'));
 		
 		
-	update_user_option($user->ID, 'tnb_inactive', false); //Set up the Password change nag.
+	add_user_meta($user->ID, 'tnb_inactive', false); //Set up the Password change nag.
 
 	$activated  = true;
 }
@@ -116,7 +116,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
         update_user_meta( $user_id, 'banda_estado' , $_POST['banda_estado'] );
         update_user_meta( $user_id, 'banda_cidade' , $_POST['banda_cidade'] );
         
-        update_user_option($user_id, 'tnb_inactive', '1');
+        update_user_meta($user_id, 'tnb_inactive', '1');
         
         $key = $wpdb->get_var($wpdb->prepare("SELECT user_activation_key FROM $wpdb->users WHERE user_login = %s", $user_login));
     	if ( empty($key) ) {

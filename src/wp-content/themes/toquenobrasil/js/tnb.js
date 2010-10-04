@@ -46,6 +46,11 @@ jQuery(document).ready(function() {
     	return true;
     	
     });
+    /////////////////////////////////////  PROFILE SUBMIT    
+    jQuery('.profile-update-submit').click(function(){
+    	jQuery('#profile-loading-msg').show().insertAfter(jQuery(this).parent());
+    	jQuery('.profile-update-submit').parent().hide();
+    });
     
     /////////////////////////////////////  PROFILE DELETE MEDIAS    
     

@@ -230,7 +230,17 @@ get_header();
 
 <?php print_msgs($msg);?>
 	<div class="clear"></div>
-
+	
+	<div id='profile-loading-msg' class='error stay' style="display:none">
+		<?php _e('Aguarde!', 'tnb');?>
+		<br/>
+		<?php _e('Seus dados estão sendo trasnferidos para nossos servidores.', 'tnb');?>
+		<br/>
+		<?php _e('Não saia desta página, caso contrário irá perder suas alterações.', 'tnb');?>
+		<br/>
+		<?php _e('Esse processo pode demorar alguns minutos, dependendo do tamanho dos arquivos enviados.', 'tnb');?>
+	</div>
+	
 	<form class="background clearfix" method="post" enctype="multipart/form-data" id="your-profile" >
 		<input type="hidden" name="action" value="update" />
 	    <?php wp_nonce_field('edit_nonce'); ?>
@@ -238,8 +248,8 @@ get_header();
 	    <br/><br/>
 	    
 	    <p class="clearfix textright">
-			<input type="submit" value="<?php _e('Salvar', 'tnb');?>" />
-			<a href="" class="button"><?php _e('Cancelar', 'tnb');?></a>
+			<input class='profile-update-submit' type="submit" value="<?php _e('Salvar', 'tnb');?>" />
+			<a href="" class="button cancel-submit"><?php _e('Cancelar', 'tnb');?></a>
 		</p>
 	    
     	<h2><?php _e('Informações de login', 'tnb');?></h2>
@@ -515,8 +525,8 @@ get_header();
 		<?php endfor;?>
 		
 		<p class="clearfix textright">
-			<input type="submit" value="<?php _e('Salvar', 'tnb');?>" />
-			<a href="" class="button"><?php _e('Cancelar', 'tnb');?></a>
+			<input class='profile-update-submit' type="submit" value="<?php _e('Salvar', 'tnb');?>" />
+			<a href="" class="button cancel-submit"><?php _e('Cancelar', 'tnb');?></a>
 		</p>
 	</form>
 </div>
