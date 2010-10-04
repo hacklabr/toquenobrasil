@@ -44,8 +44,12 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
         update_user_meta( $profileuser_id, 'responsavel' , $_POST['responsavel'] );
         update_user_meta( $profileuser_id, 'telefone' , $_POST['telefone'] );
         update_user_meta( $profileuser_id, 'telefone_ddd' , $_POST['telefone_ddd'] );
-        update_user_meta( $profileuser_id, 'site' , $_POST['site'] );
+        if(strlen($_POST['site'])> 0 && $_POST['site']!='http://')
+            update_user_meta( $profileuser_id, 'site' , $_POST['site'] );
+        else
+            delete_user_meta($profileuser_id, 'site');
         
+            
         update_user_meta( $profileuser_id, 'origem_estado' , $_POST['origem_estado'] );
         update_user_meta( $profileuser_id, 'origem_cidade' , $_POST['origem_cidade'] );
         
@@ -170,8 +174,28 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
             }// end for
         }    
     }
-    
-    // labels
+    if(is_array($_POST['delete_media'])){
+        foreach ( $_POST['delete_media'] as $i=>$delete){
+            preg_match("/^(.+)_([0-9]+)$/", $delete, $out);
+            list(,$media_type,$media_id) = $out;
+    //        var_dump($media_id);
+            if($media_type == 'music'){
+//                /$msg['notice'][] = sprintf(__('Musica "%s" excluído com sucesso.', 'tnb'), $_POST["label_music"][$i]);
+                unset($_POST["label_music"][$i]);
+            }
+            $post = get_post($media_id); 
+            $types = array(
+                'mapa_palco' => __('Mapa do palco','tnb'),
+            	'rider' => __('Rider','tnb'),
+            	'images' => __('Imagem','tnb'),
+            	'music' => __('Música','tnb'),
+            );
+            $msg['notice'][] = sprintf(__('%s (%s) excluído com sucesso.', 'tnb'), $types[$media_type],$post->post_title);
+            
+            wp_delete_post($media_id, true);            
+        } 
+    }
+    // music labels
     if (!$msg['error']) {
         for ( $i = 0; $i < count($_POST["label_music"]); $i++){
             if(strlen($_POST["label_music"][$i])>0 && $_POST["id_music"][$i]>0 ){
@@ -348,6 +372,7 @@ get_header();
         		            echo "<a href='{$media->guid}'>ARQUIVO</a>";
         		            echo '<br />';
         		            echo $media->post_title;
+        		            echo "<br/><input type='checkbox'  name='delete_media[]' value='rider_{$media->ID}' class='delete_profile_media' />Deletar arquivo<br/>";
         		        }
         		?>
     		
@@ -370,6 +395,7 @@ get_header();
         		            echo "<a href='{$media->guid}'>ARQUIVO</a>";
         		            echo '<br />';
         		            echo $media->post_title;
+        		            echo "<br/><input type='checkbox'  name='delete_media[]' value='mapa_palco_{$media->ID}' class='delete_profile_media' />Deletar arquivo<br/>";
         		        }
         		?>
     		
@@ -407,10 +433,17 @@ get_header();
         		            print_audio_player($media->ID);
         		            
         		            echo $media->post_excerpt;
+        		            
+        		            echo "<br/><input type='checkbox'  name='delete_media[]' value='music_{$media->ID}' class='delete_profile_media' />Deletar arquivo<br/>";
+
+        		            if(isset($_POST['label_music'][$i-1]) && strlen($_POST['label_music'][$i-1])>0)
+        		                $media->post_title = $_POST['label_music'][$i-1];
+        		                   
         		        }
         		        
-        		        if(isset($_POST['label_music'][$i-1]))
-        		            $media->post_title = $_POST['label_music'][$i-1]
+        		                		            
+        		            
+        		            
         		?>
                 <br/>
                 <label for="music_title"><?php _e('Nome','tnb'); ?></label>
@@ -470,6 +503,8 @@ get_header();
         		            
         		            echo "<img src='" . $mediumurl ."'>";
         		            echo $media->post_title;
+        		            
+        		            echo "<br/><input type='checkbox'  name='delete_media[]' value='images_{$media->ID}' class='delete_profile_media' />Deletar arquivo<br/>";
         		        }
         		?>
     			<br/>

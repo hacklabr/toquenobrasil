@@ -47,6 +47,17 @@ jQuery(document).ready(function() {
     	
     });
     
+    /////////////////////////////////////  PROFILE DELETE MEDIAS    
+    
+    jQuery('.delete_profile_media').click(function(){
+    	
+    	if(jQuery(this).attr('checked')==true){
+    		jQuery(this).parent().find('input[type!=checkbox]').attr('disabled', 'true');
+    	}else{
+    		jQuery(this).parent().find('input[type!=checkbox]').attr('disabled', '');
+    	}
+    	
+    });
     
     /////////////////////////////////////  INPUT MASKS 
     
