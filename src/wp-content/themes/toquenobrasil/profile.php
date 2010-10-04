@@ -80,9 +80,11 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                 if($file['error'] == 4 || $index == 'userphoto_image_file')
                     continue;
                 
+                $index_nr = preg_replace("/([^0-9])/",'', $index );    
+                    
                 $type = preg_replace('/(_[0-9])/','', $index);
                 if ($type == 'music') 
-                    $media_title = strlen($_POST["label_music"][$i])>0 ? $_POST["label_music"][$i] : $file['name'];
+                    $media_title = strlen($_POST["label_music"][$index_nr])>0 ? $_POST["label_music"][$index_nr] : $file['name'];
                 else 
                     $media_title = $file['name'];
                 
@@ -95,7 +97,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                     "post_author" => $user_ID,                    
                      );
                 if($type == 'music' || $type == 'images' )
-                    $post["menu_order"] = preg_replace("/([^0-9])/",'', $index );
+                    $post["menu_order"] = $index_nr;
                      
         		$acceptedFormats = array(
         		    
@@ -139,7 +141,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                         'post_status' => 'publish',
                         'tags_input' => $_POST['media_tags']
                     );
-                    
+                    $_POST["id_music"][$index_nr-1] = $media_id;
                     if ($type == 'music') {
         	            if (!update_post_meta($media_id, '_filesize', $sizes['filesize'], true))
         	            	add_post_meta($media_id, '_filesize', $sizes['filesize'], true); 
