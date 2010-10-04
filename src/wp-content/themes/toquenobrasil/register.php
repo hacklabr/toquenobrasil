@@ -135,8 +135,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
         $message.= "Atenciosamente\n";
 		$message.= "Toque No Brasil";
 		
+		$header = 'cc:' . get_bloginfo('admin_email');
+		
         $title = 'TNB | Confirmação de Cadastro';   
-        if ( $message && !wp_mail($user_email, $title, $message) )
+        if ( $message && !wp_mail($user_email, $title, $message, $header) )
 		    wp_die( __('The e-mail could not be sent.') . "<br />\n" . __('Possible reason: your host may have disabled the mail() function...') );
     	
         
