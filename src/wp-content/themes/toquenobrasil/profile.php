@@ -236,11 +236,11 @@ get_header();
 	<div id='profile-loading-msg' class='error stay' style="display:none">
 		<?php _e('Aguarde!', 'tnb');?>
 		<br/>
-		<?php _e('Seus dados estão sendo trasnferidos para nossos servidores.', 'tnb');?>
+		<?php _e('Seus dados estão sendo transferidos para os servidores do Toque no Brasil.', 'tnb');?>
 		<br/>
 		<?php _e('Não saia desta página, caso contrário irá perder suas alterações.', 'tnb');?>
 		<br/>
-		<?php _e('Esse processo pode demorar alguns minutos, dependendo do tamanho dos arquivos enviados.', 'tnb');?>
+		<?php _e('Esse processo pode demorar alguns minutos dependendo do tamanho dos arquivos enviados.', 'tnb');?>
 	</div>
 	
 	<form class="background clearfix" method="post" enctype="multipart/form-data" id="your-profile" >
