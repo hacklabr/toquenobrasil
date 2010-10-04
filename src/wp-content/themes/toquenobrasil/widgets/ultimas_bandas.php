@@ -27,7 +27,7 @@ class ultimosCadastros extends WP_Widget {
             </div>
             <div class="span-5 last">
               <a href='<?php echo  get_author_posts_url($u->ID); ?>' title="<?php _e('Ver o perfil do artista/banda ','tnb'); echo get_user_meta($u->ID, 'banda', true); ?>">
-                <?php echo $u->display_name; ?>
+                <?php echo get_user_meta($u->ID, 'banda', true); ?>
               </a>
               <br/>
               <small><?php _e('Registrado desde ','tnb'); echo date('j/m/Y', strtotime($u->user_registered)); ?></small>
