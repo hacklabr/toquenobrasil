@@ -82,16 +82,16 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                 else 
                     $media_title = $file['name'];
                 
-                $old_post = 
-                
+                 
+                                     
                 $post = array(
                     "post_title" => $media_title, 
-                    "post_content" => $media_title, 
-                    "post_excerpt" => $media_title,
-                    "post_author" => $user_ID, 
+                    "post_content" => $file['name'], 
+                    "post_excerpt" => $file['name'],
+                    "post_author" => $user_ID,                    
                      );
-                
-                     
+                if($type == 'music' || $type == 'images' )
+                    $post["menu_order"] = preg_replace("/([^0-9])/",'', $index );
                      
         		$acceptedFormats = array(
         		    
@@ -405,7 +405,8 @@ get_header();
         		        if(isset($media[0])){
         		            $media  = $media[0];
         		            print_audio_player($media->ID);
-        		            echo $media->post_title;
+        		            
+        		            echo $media->post_excerpt;
         		        }
         		        
         		        if(isset($_POST['label_music'][$i-1]))
