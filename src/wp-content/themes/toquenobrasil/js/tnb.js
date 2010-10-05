@@ -74,7 +74,7 @@ jQuery(document).ready(function() {
     });
     
     
-    jQuery('#site').keyup(function(event){
+    jQuery('#site, #produtor_site').keyup(function(event){
     	var val = jQuery(this).val();
     	// backspace and DELETE
     	if(event.keyCode == 8 || event.keyCode == 46 ){

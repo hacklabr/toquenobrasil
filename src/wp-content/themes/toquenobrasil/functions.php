@@ -240,7 +240,8 @@ add_filter('login_redirect', 'login_error_redirect', 10, 3);
 function check_email_confirm($user_login){
     $user = get_user_by('login', $user_login);
     if( get_usermeta($user->ID, 'tnb_inactive', true) && !isset($user->wp_capabilities['administrator'])){
-        $er_flag = ( strpos($redirect_to,'?')===FALSE ? "?" : "&" ) . 'email_confirm=false';
+        $type =  isset($user->wp_capabilities['produtor']) ? 'produtor' : 'artista'; 
+        $er_flag = ( strpos($redirect_to,'?')===FALSE ? "?" : "&" ) . 'email_confirm=' . $type ;
         wp_logout();
         $site_url = get_bloginfo('url') . $redirect_to . $er_flag;
         wp_safe_redirect($site_url);

@@ -127,17 +127,28 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
     		// Now insert the new md5 key into the db
     		$wpdb->update($wpdb->users, array('user_activation_key' => $key), array('user_login' => $user_login));
     	}
-
-    	$message = "Sua conta foi criada com sucesso, atualize seu perfil e aproveite as oportunidades para \"Tocar no Brasil!\"\r\n\r\n";
-    	$message .= "Nome de usuário: " .$user_login . "\r\n";
-    	$message .= "Senha:"  . $user_pass . "\r\n\r\n";
-    	$message .= "Acesse o link abaixo para ativar a conta\r\n";
-    	$message .=  get_bloginfo('url')."/cadastre-se/$reg_type?action=activate&key=$key&login=" . rawurlencode($user_login) . "\r\n\r\n";
-        $message.= "Atenciosamente\n";
-		$message.= "Toque No Brasil";
-		
-		$header = 'cc:' . get_bloginfo('admin_email');
-		
+    	if($reg_type == 'artista'){
+        	$message = "Sua conta foi criada com sucesso, atualize seu perfil e aproveite as oportunidades para \"Tocar no Brasil!\"\r\n\r\n";
+        	$message .= "Nome de usuário: " .$user_login . "\r\n";
+        	$message .= "Senha:"  . $user_pass . "\r\n\r\n";
+        	$message .= "Acesse o link abaixo para ativar a conta\r\n";
+        	$message .=  get_bloginfo('url')."/cadastre-se/$reg_type?action=activate&key=$key&login=" . rawurlencode($user_login) . "\r\n\r\n";
+            $message.= "Atenciosamente\n";
+    		$message.= "Toque No Brasil";
+    		
+    		$header = 'cc:' . get_bloginfo('admin_email');
+    	}elseif( $reg_type == 'produtor'){
+            $message = "Sua conta foi criada com sucesso!\r\n";
+    	    $message.= "O Toque no Brasil está em versão beta até dezembro de 2010.\r\n";
+    	    $message.= "Se você quiser cadastrar seu evento no TNB, envie email para eventos@toquenobrasil.com.br e nossa equipe entrará em contato com você para maiores informações.\r\n";
+    	    
+    	    $message.= "Atenciosamente\n";
+    		$message.= "Toque No Brasil";
+//          $message .= "Nome de usuário: " .$user_login . "\r\n";
+//        	$message .= "Senha:"  . $user_pass . "\r\n\r\n";
+//        	$header = 'cc:' . get_bloginfo('admin_email');
+        	   
+        }	
         $title = 'TNB | Confirmação de Cadastro';   
         if ( $message && !wp_mail($user_email, $title, $message, $header) )
 		    wp_die( __('The e-mail could not be sent.') . "<br />\n" . __('Possible reason: your host may have disabled the mail() function...') );

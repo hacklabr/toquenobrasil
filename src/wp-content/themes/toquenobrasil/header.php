@@ -95,8 +95,12 @@
                 echo "</div>" ;
               }
               if($_GET['email_confirm']){
+                  
                 echo "<div class='error'>" ;
-                _e('Confirme seu e-mail para acessar sua conta.','tnb');
+                if($_GET['email_confirm'] == 'artista')
+                    _e('Confirme seu e-mail para acessar sua conta.','tnb');
+                elseif($_GET['email_confirm'] == 'produtor')
+                    _e('Acesso para produtores inativo.','tnb');
                 echo "</div>" ;
               }
               if($_GET['new_pass']){
