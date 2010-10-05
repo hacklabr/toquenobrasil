@@ -133,8 +133,21 @@ function custom_query_vars($public_query_vars) {
 }
 add_filter('query_vars', 'custom_query_vars');
 
+add_filter('init','register_block_redirect');
+function register_block_redirect() {
+    if ( preg_match('/(action=register)/', $_SERVER['REQUEST_URI'] ) )
+        wp_redirect(get_bloginfo('url'));
+}
+
+
 add_action('template_redirect', 'template_redirect_intercept');
 function template_redirect_intercept(){
+    
+    
+    if( $_GET['action'] ==  'register'){
+       die; 
+    }
+    
     global $wp_query;
     $reg_type = $wp_query->get('reg_type');
     switch ( $wp_query->get('tpl') ) {
