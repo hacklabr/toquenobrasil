@@ -103,7 +103,8 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
             update_user_meta( $user_id, 'banda' , $_POST['banda'] );
             update_user_meta( $user_id, 'responsavel' , $_POST['responsavel'] );
         }elseif( $reg_type == 'produtor'){
-           update_user_meta( $user_id, 'nome' , $_POST['nome'] ); 
+           update_user_meta( $user_id, 'nome' , $_POST['nome'] );
+           update_user_meta( $user_id, 'banda' , $_POST['nome'] );
         }
         update_user_meta( $user_id, 'telefone' , $_POST['telefone'] );
         update_user_meta( $user_id, 'telefone_ddd' , $_POST['ddd'] );
