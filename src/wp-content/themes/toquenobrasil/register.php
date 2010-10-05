@@ -222,7 +222,7 @@ get_header();
                                 <label for=user_login><?php _e('Nome de usuário:', 'tnb');?></label>
                                 <br/>
                                 <input class="span-6 text user_login" type="text" id="user_login" name="user_login" value="<?php echo $user->user_login; ?>" />
-                                <small><?php _e('Este nome será utilizado para se conectar ao TNB e não poderá ser modificado.', 'tnb'); ?></small>
+                                <small><?php _e('Este nome será utilizado para se conectar ao TNB e não poderá ser modificado. Usar apenas minúsculas, números, - ou _. ', 'tnb'); ?></small>
                             </div>
                             <div class="span-6">
                                 <label for="user_email"><?php _e('E-mail:', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
@@ -334,6 +334,7 @@ get_header();
                                 <br />
                                 <input class="span-6 text" type="text" id="produtor_site" name="site" value='<?php echo $user->site; ?>'/>
                             </div>
+<div class='clear'></div>
                             <div class="span-6">
                                 <label for="produtor_estado"><?php _e('Estado:', 'tnb');?></label>
                                 <br />
@@ -355,12 +356,14 @@ get_header();
                                 <label for=produtor_user_login><?php _e('Nome de usuário:', 'tnb');?></label>
                                 <br />
                                 <input class="span-6 text" type="text" id="produtor_user_login" name="user_login" value="<?php echo $user->user_login; ?>" />
+				<small><?php _e('Este nome será utilizado para se conectar ao TNB e não poderá ser modificado. Usar apenas minúsculas, números, - ou _. ', 'tnb'); ?></small>
                             </div>
                             <div class="span-6">
                                 <label for="produtor_user_email"><?php _e('E-mail:', 'tnb');?></label>
                                 <br />
                                 <input class="span-6 text" type="text" id="produtor_user_email" name="user_email" value="<?php echo $user->user_email; ?>" />
                             </div>
+<div class='clear'></div>
                             <div class="span-6">
                                 <label for="produtor_senha"><?php _e('Senha:', 'tnb');?></label>
                                 <br />
