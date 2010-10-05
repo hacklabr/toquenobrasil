@@ -27,7 +27,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'activate'){
 		return new WP_Error('invalid_key', __('Invalid key'));
 		
 		
-	add_user_meta($user->ID, 'tnb_inactive', false); //Set up the Password change nag.
+	update_user_meta($user->ID, 'tnb_inactive', false); //Set up the Password change nag.
 
 	$activated  = true;
 }
