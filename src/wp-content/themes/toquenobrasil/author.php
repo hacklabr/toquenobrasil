@@ -21,12 +21,27 @@ get_header();
       <div class="span-2">
         <?php echo get_avatar($curauth->ID, 70); ?>
       </div>
+      
       <div class="span-11 last">
         <?php echo preg_replace("/\n/", '<br/>', $curauth->description); ?>
 		<br/><br/>
         <p>
+          <?php if($curauth->origem_estado !=''): $estados = get_estados();?>
+   	      	<strong><?php _e('Local de origem da banda:','tnb'); ?></strong>  <?php echo $estados[$curauth->origem_estado], ' - ', $curauth->origem_cidade ?><br/>
+          <?php endif;?>
+          
+          <?php if($curauth->integrantes !=''): $estados = get_estados();?>
+   	      	<strong><?php _e('Integrantes da banda:','tnb'); ?></strong> <br/> <p class='prepend-1'><?php echo preg_replace("/\n/", '<br/>', $curauth->integrantes);  ?></p>
+          <?php endif;?>
+		    
+          
+          <?php if ($curauth->site) : ?>
+            <p><strong><?php _e('Link:','tnb'); ?></strong> <a href="<?php echo $curauth->site; ?>" target="_blank"><?php echo $curauth->site; ?></a></p>
+          <?php endif; ?>
+          
           <?php if(current_user_can('select_artists') || current_user_can('select_other_artists')  || $curauth->ID == $current_user->ID ):?>
-            
+            <br/>
+            <h3>Dados Pessoais <?php theme_image('lock.png', array('title' => 'teste')); ?></h3>
             <?php if ($curauth->responsavel) : ?>
                 <strong><?php _e('Responsável:','tnb') ?></strong> <?php echo $curauth->responsavel; ?>
                 <br/>
@@ -48,22 +63,11 @@ get_header();
         
           <?php endif; ?>
           
-          <?php if($curauth->origem_estado !=''): $estados = get_estados();?>
-   	      	<strong><?php _e('Local de origem da banda:','tnb'); ?></strong>  <?php echo $estados[$curauth->origem_estado], ' - ', $curauth->origem_cidade ?><br/>
-          <?php endif;?>
           
-          <?php if($curauth->integrantes !=''): $estados = get_estados();?>
-   	      	<strong><?php _e('Integrantes da banda:','tnb'); ?></strong> <br/> <p class='prepend-1'><?php echo preg_replace("/\n/", '<br/>', $curauth->integrantes);  ?></p>
-          <?php endif;?>
-		    
-          
-          <?php if ($curauth->site) : ?>
-            <p><strong><?php _e('Link:','tnb'); ?></strong> <a href="<?php echo $curauth->site; ?>" target="_blank"><?php echo $curauth->site; ?></a></p>
-          <?php endif; ?>
         </p>
       </div>
     </div>
-
+<h3>Músicas</h3>
     <div id="artist-<?php echo $curauth->ID; ?>-music">
       <?php 
         $medias = get_posts("post_type=music&author={$curauth->ID}&meta_key=_media_index&orderby=menu_order&order=ASC");
@@ -141,7 +145,7 @@ get_header();
       $medias = get_posts("post_type=rider&author={$curauth->ID}");
       foreach( $medias as $media ) : ?>
         <div class="span-5">
-          <h3 class="no-margin"><?php _e('Rider','tnb'); ?></h3>
+          <h3 class="no-margin"><?php _e('Rider','tnb'); ?></h3><br/>
           <a href='<?php echo $media->guid; ?>' target='_blank'>
             <?php theme_image('tnb-rider.png'); ?>
           </a>
@@ -152,7 +156,7 @@ get_header();
       $medias = get_posts("post_type=mapa_palco&author={$curauth->ID}");
       foreach( $medias as $media ) : ?>
         <div class="span-5">
-          <h3 class="no-margin"><?php _e('Mapa de Palco','tnb'); ?></h3>
+          <h3 class="no-margin"><?php _e('Mapa de Palco','tnb'); ?></h3><br/>
           <a href='<?php echo $media->guid; ?>' target='_blank' >
             <?php theme_image('tnb-map.png'); ?>
           </a>

@@ -83,12 +83,8 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                 $index_nr = preg_replace("/([^0-9])/",'', $index );    
                     
                 $type = preg_replace('/(_[0-9])/','', $index);
-                if ($type == 'music') 
-                    $media_title = strlen($_POST["label_music"][$index_nr])>0 ? $_POST["label_music"][$index_nr] : $file['name'];
-                else 
-                    $media_title = $file['name'];
-                
-                 
+
+                $media_title = $file['name'];
                                      
                 $post = array(
                     "post_title" => $media_title, 
