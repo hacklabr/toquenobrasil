@@ -11,7 +11,7 @@ function remove_feedback_msg(){
 jQuery(document).ready(function() {
 
 	if(jQuery('.success:not(.stay), .notice:not(.stay)')){
-		timer = setTimeout('remove_feedback_msg()',3000); 
+		timer = setTimeout('remove_feedback_msg()',6000); 
 	} 
 	
 	// Remove default input values of forms

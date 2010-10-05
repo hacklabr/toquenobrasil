@@ -69,7 +69,7 @@ get_header();
         $medias = get_posts("post_type=music&author={$curauth->ID}&meta_key=_media_index&orderby=menu_order&order=ASC");
         foreach( $medias as $media ) {
           echo '<div class="span-4">';
-          echo get_post_meta($media->ID, '_media_index', true);
+          //echo get_post_meta($media->ID, '_media_index', true);
           print_audio_player($media->ID);
           echo '<br/>';
           echo $media->post_title;
