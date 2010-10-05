@@ -133,6 +133,7 @@ function custom_query_vars($public_query_vars) {
 }
 add_filter('query_vars', 'custom_query_vars');
 
+//evitando usuario de se registrar pelo wp-login
 add_filter('init','register_block_redirect');
 function register_block_redirect() {
     if ( preg_match('/(action=register)/', $_SERVER['REQUEST_URI'] ) )
