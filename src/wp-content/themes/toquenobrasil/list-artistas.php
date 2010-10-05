@@ -11,7 +11,7 @@
   <div id="artists-title" class="item green clearfix">
     <div class="title pull-1 clearfix">
       <div class="shadow"></div>
-      <h1><?php _e('Artistas/Bandas','tnb'); ?></h1>
+      <h1><?php _e('Artistas','tnb'); ?></h1>
     </div>
   </div>
 
