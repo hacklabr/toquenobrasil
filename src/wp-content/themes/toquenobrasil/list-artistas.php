@@ -50,19 +50,19 @@
 
       <?php endforeach; ?>
 
-      <div id="posts-navigation_">
-        <?php $pagination->previous_link() ;?>
-        <?php $pagination->next_link() ;?>
-      </div><!-- #posts-navigation --> 
-
     <?php endif; ?>
 
-  </div>
+  <div id="posts-navigation">
+    <?php $pagination->next_link('<span id="anteriores"><span>Próximos</span></span>'); ?>            
+    <?php $pagination->previous_link('<span id="proximos"><span>Anteriores</span></span>'); ?>
+  </div><!-- #posts-navigation -->
 
-  <div class="span-8 last">
-    <div  class='widgets'>
-      <?php dynamic_sidebar("tnb-sidebar");?>
-    </div>
+</div>
+  
+<div class="span-8 last">
+  <div  class='widgets'>
+    <?php dynamic_sidebar("tnb-sidebar");?>
   </div>
+</div>
 
 <?php get_footer(); ?>

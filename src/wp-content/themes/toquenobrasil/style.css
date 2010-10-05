@@ -168,7 +168,7 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 #comment, #author, #email, #url { font-family:Arial, Helvetica, sans-serif; font-size:12px; }
 #comment { width:258px; }
 #author, #email, #url { padding:5px; width:138px; }
-#posts-navigation { margin-top:150px; position:relative; }
+#posts-navigation { bottom:312px; clear:both; height:200px; margin-top:150px; position:absolute; }
 #posts-navigation #proximo, #posts-navigation #anterior, #posts-navigation #proximos, #posts-navigation #anteriores{ bottom:-72px; font-family:Arista; position:absolute; z-index:1; }
 #posts-navigation #proximo, #posts-navigation #anteriores { left:370px; width:164px; height:200px; background:transparent url(img/proximo.png) no-repeat; }
 #posts-navigation #anterior, #posts-navigation #proximos { left:110px; width:253px; height:200px; background:transparent url(img/anterior.png) no-repeat; }
@@ -184,6 +184,7 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 #intro p { margin-bottom:0; }
 
 /*= Events List */
+#events { margin-bottom:200px; }
 #events .event { border-top:1px solid #00C0F3; margin:27px 0px 36px 0px; position:relative; }
 #events .event, #events .event { padding:1em 0 3.5em; border-bottom:1px solid #00C0F3; border-top:none; }
 #events .event h2 { font-size:2em; line-height:1; margin-bottom:1em; text-transform:uppercase; }
@@ -212,6 +213,7 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 /* =Artists
 ---------------------------------------------------------------------------------*/
 /*= Artists List */
+#artists { margin-bottom:200px; }
 #artists .artist { border-bottom:1px solid #EEEEEE; margin-bottom:1.5em; padding-bottom:1.5em; }
 #artists .artist a.name { border-bottom:1px dotted #5B9F31; color:#5B9F31; font-size:1.25em; margin-bottom:1em; }
 #artists .artist a.name:hover { border-bottom-style:solid; }
