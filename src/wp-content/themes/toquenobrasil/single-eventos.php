@@ -75,6 +75,14 @@
 <div class="prepend-top"></div>
 
 <?php if ( have_posts() ) : the_post(); ?>
+	
+	<?php 
+		$selecionados = get_post_meta( get_the_ID(), 'selecionado') ;
+		$inscritos = get_post_meta( get_the_ID(), 'inscrito') ;
+		
+		$num_selecionados = count($selecionados);
+		$num_inscritos = count($inscritos);
+	?>
 	<div id="event-<?php echo the_ID(); ?>" class="event span-14 prepend-1 right-colborder">
 		<div id="event-<?php echo the_ID(); ?>-title" class="item green clearfix">
 			<div class="title pull-1 clearfix">
@@ -90,15 +98,19 @@
 		<div id="selected-artists-title" class="item yellow clearfix">
 			<div class="title pull-1 clearfix">
 				<div class="shadow"></div>
-				<h3><?php _e('Artistas/Bandas Selecionados','tnb'); ?></h3>
+				<h3>
+					<?php _e('Artistas/Bandas Selecionados','tnb'); ?>
+					<?php
+						if(current_user_can('select_artists') || current_user_can('select_other_artists')) : 
+						echo "($num_selecionados)";
+					endif; ?>
+				</h3>
 			</div>
 		</div>
 
 		<div id="selected-artists-list" class="clearfix">
 			<?php
-				$inscritos = get_post_meta( get_the_ID(), 'selecionado') ;
-
-				foreach($inscritos as $banda_id){
+				foreach($selecionados as $banda_id){
 					if($banda = get_userdata($banda_id))
 					    include('evento-banda-block.php'); 
 				}
@@ -108,7 +120,13 @@
 		<div id="signed-artists-title" class="item yellow clearfix">
 			<div class="title pull-1 clearfix">
 				<div class="shadow"></div>
-                                  <h3><?php _e('Artistas/Bandas Inscritos','tnb'); ?></h3>
+                <h3>
+					<?php _e('Artistas/Bandas Inscritos','tnb'); ?>
+					<?php
+						if(current_user_can('select_artists') || current_user_can('select_other_artists')) : 
+						echo "($num_inscritos)";
+					endif; ?>
+                </h3>
 			</div>
 		</div>
 
@@ -121,8 +139,6 @@
 			<?php endif;?>
 
 			<?php
-				$inscritos = get_post_meta( get_the_ID(), 'inscrito') ;
-
 				foreach($inscritos as $banda_id){
 					if($banda = get_userdata($banda_id))
 					    include('evento-banda-block.php'); 
