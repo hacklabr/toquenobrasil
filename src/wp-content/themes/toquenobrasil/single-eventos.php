@@ -99,8 +99,8 @@
 				$inscritos = get_post_meta( get_the_ID(), 'selecionado') ;
 
 				foreach($inscritos as $banda_id){
-					$banda = get_userdata($banda_id);
-					include('evento-banda-block.php'); 
+					if($banda = get_userdata($banda_id))
+					    include('evento-banda-block.php'); 
 				}
 			?>
 		</div>
@@ -124,8 +124,8 @@
 				$inscritos = get_post_meta( get_the_ID(), 'inscrito') ;
 
 				foreach($inscritos as $banda_id){
-					$banda = get_userdata($banda_id);
-					include('evento-banda-block.php'); 
+					if($banda = get_userdata($banda_id))
+					    include('evento-banda-block.php'); 
 				}
 			?>
 		</div>

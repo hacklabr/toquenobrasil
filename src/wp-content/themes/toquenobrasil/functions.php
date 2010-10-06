@@ -446,6 +446,12 @@ function edit_btn($title, $id){
 
     return $title;    
 }
-add_filter('the_title', 'edit_btn', 10, 2);
 
+add_filter('the_title', 'edit_btn', 10, 2);
+function delete_user_from_events($user_id){
+    global $wpdb;
+    $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_value = {$user_id} AND meta_key='inscrito'");
+    $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_value = {$user_id} AND meta_key='selecionado'");
+}
+add_action('delete_user', 'delete_user_from_events');
 ?>
