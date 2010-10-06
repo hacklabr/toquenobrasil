@@ -67,29 +67,33 @@ get_header();
         </p>
       </div>
     </div>
-<h3>Músicas</h3>
-    <div id="artist-<?php echo $curauth->ID; ?>-music">
-      <?php 
+	<?php 
         $medias = get_posts("post_type=music&author={$curauth->ID}&meta_key=_media_index&orderby=menu_order&order=ASC");
-        foreach( $medias as $media ) {
-          echo '<div class="span-4">';
-          //echo get_post_meta($media->ID, '_media_index', true);
-          print_audio_player($media->ID);
-          echo '<br/>';
-          echo $media->post_title;
-          echo '</div>';
-        }
-      ?>
-    </div>
-        
-    <div class="clear"></div>
-    <div class="prepend-top"></div>
-    <div class="hr"></div>
-        
+		if ($medias) : ?>
+			<h3>Músicas</h3>
+	
+			<div id="artist-<?php echo $curauth->ID; ?>-music">
+			  <?php
+				foreach( $medias as $media ) {
+				  echo '<div class="span-4">';
+				  //echo get_post_meta($media->ID, '_media_index', true);
+				  print_audio_player($media->ID);
+				  echo '<br/>';
+				  echo $media->post_title;
+				  echo '</div>';
+				}
+			  ?>
+			</div>
+				
+			<div class="clear"></div>
+			<div class="prepend-top"></div>
+			<div class="hr"></div>
+    <?php endif;?>  
+    
     <div id="artist-<?php echo $curauth->ID; ?>-images" class="thumb span-4">
       <?php 
-	$medias = get_posts("post_type=images&meta_key=_media_index&author={$curauth->ID}&orderby=menu_order&order=ASC");
-	foreach ($medias as $media) {	        
+		$medias = get_posts("post_type=images&meta_key=_media_index&author={$curauth->ID}&orderby=menu_order&order=ASC");
+		foreach ($medias as $media) {	        
           $meta = get_post_meta($media->ID, '_wp_attachment_metadata');
           preg_match('/(\d{4}\/\d\d\/).+/', $meta[0]['file'], $folder);
           $images_url = get_option('siteurl') . '/wp-content/uploads/';
