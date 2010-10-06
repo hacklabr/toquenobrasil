@@ -1,13 +1,13 @@
 <div id="artist-<?php echo $banda->ID; ?>" class="artist span-6">
   <div id="artist-<?php echo $banda->ID; ?>-content" class="content clearfix">
     <div id="artist-<?php echo $banda->ID; ?>-avatar" class="avatar span-2">
-      <a href="<?php echo get_user_meta($banda->ID, 'banda', true); ?>" class="avatar" title="<?php _e('Ver o perfil do artista/banda','tnb'); echo get_user_meta($banda->ID, 'banda', true); ?>">
+      <a href="<?php echo get_author_posts_url($banda->ID)?>" class="avatar" title="<?php _e('Ver o perfil do artista/banda','tnb'); echo ' ', get_user_meta($banda->ID, 'banda', true); ?>">
         <?php echo get_avatar($banda->ID, 70); ?>
       </a>
     </div>
 	
     <div id="artist-<?php echo $banda->ID; ?>-name" class=" span-3">
-      <a href="<?php echo get_author_posts_url($banda->ID)?>" class="name" title="<?php _e('Ver o perfil do artista/banda','tnb'); echo get_user_meta($banda->ID, 'banda', true); ?>">
+      <a href="<?php echo get_author_posts_url($banda->ID)?>" class="name" title="<?php _e('Ver o perfil do artista/banda','tnb'); echo ' ', get_user_meta($banda->ID, 'banda', true); ?>">
         <?php echo get_user_meta($banda->ID, 'banda', true); ?>
       </a>
     </div>
