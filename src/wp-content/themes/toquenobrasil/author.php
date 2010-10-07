@@ -126,7 +126,7 @@ get_header();
 
     <div id="artist-<?php echo $curauth->ID; ?>-video" class="span-10 last">
       <?php 
-          if(strlen($curauth->youtube)>0) {
+          if(strlen($curauth->youtube)>0 && preg_match("/\/watch\?v=/", $curauth->youtube) ) {
             $width = 390;
             $height = 317;
             $videoUrl = preg_replace("/\/watch\?v=/", "/v/" ,$curauth->youtube);

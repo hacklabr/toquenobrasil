@@ -454,4 +454,32 @@ function delete_user_from_events($user_id){
     $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_value = {$user_id} AND meta_key='selecionado'");
 }
 add_action('delete_user', 'delete_user_from_events');
+
+
+
+
+
+function toquenobrasil_sanitize_file_name($filename) {
+    #return $filename;
+    $ext = substr(strrchr($filename,'.'),1);
+    $filename = substr($filename, 0, strlen($filename) -4);
+	$filename = sanitize_title(remove_accents($filename));
+    $filename = str_replace('%', '', $filename);
+    return $filename . '.' . $ext;    
+}
+
+
+function toquenobrasil_delete_item($itemId, $postType) {
+	global $wpdb;
+
+	// Preparamos o post para a função wp_delete_post()
+	// Nela, se um post tiver o type attachment, ela apaga também o arquivo no sistema de arquivos
+	// não adianta chamar a função wp_delete_attachment direto porque ela verifica o post_type
+	if ($postType == 'music' || $postType == 'rider' || $postType == 'images' || $postType == 'mapa_palco') {
+
+		$wpdb->query($wpdb->prepare("UPDATE {$wpdb->posts} SET post_type = 'attachment' WHERE ID = %d", $itemId));
+	}
+    
+	wp_delete_post((int) $itemId);
+}
 ?>

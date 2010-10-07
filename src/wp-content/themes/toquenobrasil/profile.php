@@ -24,10 +24,11 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
     if( strlen($_POST['user_pass'])>0  && $_POST['user_pass'] !=  $_POST['user_pass_confirm'] )
         $msg['error'][]= __('A senhas fornecidas não conferem.','tnb');
     
-    
+    if( strlen($_POST['youtube'])>0  && !preg_match("/\/watch\?v=/", $_POST['youtube']) )
+        $msg['error'][]= __('URL de vídeo no Youtube inválida.','tnb');
     
     if(strlen($_POST['site'])>0 &&  $_POST['site'] != 'http://' && !filter_var($_POST['site'], FILTER_VALIDATE_URL))
-        $msg['error'][]= __('O site fornecido não é válido.','tnb'); 
+        $msg['error'][]= __('O link fornecido não é válido.','tnb'); 
         
     if( !$msg['error']){
         $userdata['ID'] = $profileuser_id;
@@ -85,7 +86,12 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                 $type = preg_replace('/(_[0-9])/','', $index);
 
                 $media_title = $file['name'];
-                                     
+                
+                #echo $file['name'];
+                $file['name'] = toquenobrasil_sanitize_file_name($file['name']);
+                $_FILES[$index]['name'] = $file['name'];
+                #echo ' ', $file['name']; die;
+                
                 $post = array(
                     "post_title" => $media_title, 
                     "post_content" => $file['name'], 
@@ -110,8 +116,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
             
                 if ($file['error'] == 0) {
                     
-                	$file['name'] = sanitize_file_name($file['name']);
-                	
                 	if (in_array($file['type'], $acceptedFormats[$type])) {
                         $media_id = media_handle_upload($index, '', $post);
                         if ($media_id->errors)
@@ -149,7 +153,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                     $old_entrie = get_posts("post_type={$type}&meta_key=_media_index&meta_value={$index}&author={$user_ID}");
                 	if(sizeof($old_entrie)>0){
                 	    foreach($old_entrie as $p)
-                	        wp_delete_post($p->ID);    
+                            toquenobrasil_delete_item($p->ID, $type);
                 	}
                     
                     add_post_meta($media_id, '_media_index', $index);
@@ -190,7 +194,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
             );
             $msg['notice'][] = sprintf(__('%s (%s) excluído com sucesso.', 'tnb'), $types[$media_type],$post->post_title);
             
-            wp_delete_post($media_id, true);            
+            toquenobrasil_delete_item($media_id, $media_type);
         } 
     }
     // music labels
