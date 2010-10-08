@@ -87,9 +87,17 @@ function theme_options_page() {
 						<br/>(Link com http://)
 					</td>
 				</tr>
+				
+				
+				<tr valign="top">
+					<th scope="row">Email do contato</th>
+					<td>
+						<input type="text" name="theme_options[email_contato]" value="<?php echo htmlspecialchars($options['email_contato']); ?>"/>						
+					</td>
+				</tr>
 			</table>
 			<p class="submit">
-				<input type="submit" class="button-primary" value="<?php _e('Save Changes'); ?>"
+				<input type="submit" class="button-primary" value="<?php _e('Save Changes'); ?>" />
 			</p>
 		</form>
 	</div>

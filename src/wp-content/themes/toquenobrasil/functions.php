@@ -272,7 +272,10 @@ add_filter('wp_signup_location','new_signup_location');
 
 function send_mail_contact_us(){
     extract($_POST);
-    $to = get_bloginfo('admin_email');
+    
+    
+    $to = ( !filter_var($v = get_theme_option('email_contato'), FILTER_VALIDATE_EMAIL) ? get_bloginfo('admin_email') : $v);
+    
     $subject = __('Contact from site','tnb');
     
     if(!filter_var( $contact_email, FILTER_VALIDATE_EMAIL))
@@ -283,8 +286,21 @@ function send_mail_contact_us(){
         Nome: %s
         e-mail: %s
         site: %s
-        menssagem: %s
-        ", $contact_name, $contact_name, $contact_email, $contact_site, $contact_message) ,'tnb');    
+        menssagem: %s \r\r", $contact_name, $contact_name, $contact_email, $contact_site, $contact_message) ,'tnb');    
+        
+        if(is_user_logged_in()){
+            global $current_user;
+            $link = get_author_posts_url($current_user->ID); 
+$message.=" - Usuário que enviou esta mensagem -
+	Banda: {$current_user->banda}
+	email: {$current_user->user_email}
+	Responsável: {$current_user->responsavel}
+	link: {$link}            
+\r\r";
+        }
+        
+        $message.="Página de onde foi enviada a mensagem: \r\r" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] . "\n";
+        
         
         wp_mail($to, $subject, $message);
         

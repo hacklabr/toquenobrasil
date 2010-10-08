@@ -37,19 +37,22 @@
           ?>
           	
           <form method='POST'  name='contact_us' id='contact_us_form' >
+          	<?php
+              	global $current_user;
+            ?>
           	<input type="hidden" name='contact_us' value='1'>
             <div class="span-6 prepend-2 " >
               <textarea class='auto_clean' name='contact_message' title='<?php _e('Menssagem','tnb');?>'><?php echo isset($_POST['contact_message'])?$_POST['contact_message']: __('Menssagem', 'tnb'); ?></textarea>
             </div>
 
             <div class="span-4 last">
-              <input type="text"  name="contact_name" value="<?php echo isset($_POST['contact_name'])?$_POST['contact_name']: __('Nome', 'tnb'); ?>" title='<?php _e('Nome','tnb');?>'  class="text auto_clean" />
+              <input type="text"  name="contact_name" value="<?php echo isset($_POST['contact_name'])?$_POST['contact_name']: (is_string($v = $current_user->banda) ? $v : __('Nome', 'tnb')); ?>" title='<?php _e('Nome','tnb');?>'  class="text auto_clean" />
             </div>
             <div class="span-4 last">
-              <input type="text" name="contact_email" value="<?php echo isset($_POST['contact_email'])?$_POST['contact_email']: __('E-mail', 'tnb'); ?>" title='<?php _e('E-mail','tnb');?>'  class="text auto_clean" />
+              <input type="text" name="contact_email" value="<?php echo isset($_POST['contact_email'])?$_POST['contact_email']:  (is_string($v = $current_user->user_email) ? $v : __('E-mail', 'tnb')); ?>" title='<?php _e('E-mail','tnb');?>'  class="text auto_clean" />
             </div>
             <div class="span-4 last">
-              <input type="text" name="contact_site" value="<?php echo isset($_POST['contact_site'])?$_POST['contact_site']: __('http://', 'tnb'); ?>" title='<?php _e('http://','tnb');?>' class="text auto_clean" />
+              <input type="text" name="contact_site" value="<?php echo isset($_POST['contact_site'])?$_POST['contact_site']: (is_string($v = $current_user->site) ? $v : __('E-mail', 'tnb')); ?>" title='<?php _e('http://','tnb');?>' class="text auto_clean" />
             </div>
             <div class="span-3 prepend-1 last">
               <input type="image" src="<?php echo get_theme_image("submit.png"); ?>" value="<?php _e('Enviar','tnb');?>" class="submit" />
