@@ -65,7 +65,7 @@
       <a><?php _e('Já estou<br />inscrito!', 'tnb');?></a>
     </div>
 	
-  <?php  elseif(strtotime($inscricao_inicio) <= strtotime(date('d-m-Y')) && strtotime($inscricao_fim) >= strtotime(date('d-m-Y'))):?>
+  <?php  elseif(strtotime($inscricao_inicio) <= strtotime(date('Y-m-d')) && strtotime($inscricao_fim) >= strtotime(date('Y-m-d'))):?>
 		
     <?php if( is_artista() ):?>
     	<form action='<?php the_permalink();?>' method="post" id='form_join_event_<?php the_ID(); ?>'>

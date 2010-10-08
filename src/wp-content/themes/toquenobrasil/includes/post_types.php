@@ -139,11 +139,11 @@ function eventos_meta() {
   
   
   
-  $inicio = preg_replace("/([0-9]{2})-([0-9]{2})-([0-9]{4})/","$1/$2/$3", $inicio);
-  $fim = preg_replace("/([0-9]{2})-([0-9]{2})-([0-9]{4})/","$1/$2/$3",$fim);
+  $inicio = preg_replace("/([0-9]{4})-([0-9]{2})-([0-9]{2})/","$3/$2/$1", $inicio);
+  $fim = preg_replace("/([0-9]{4})-([0-9]{2})-([0-9]{2})/","$3/$2/$1",$fim);
   
-  $inscricao_inicio = preg_replace("/([0-9]{2})-([0-9]{2})-([0-9]{4})/","$1/$2/$3", $inscricao_inicio);
-  $inscricao_fim = preg_replace("/([0-9]{2})-([0-9]{2})-([0-9]{4})/","$1/$2/$3",$inscricao_fim);
+  $inscricao_inicio = preg_replace("/([0-9]{4})-([0-9]{2})-([0-9]{2})/","$3/$2/$1", $inscricao_inicio);
+  $inscricao_fim = preg_replace("/([0-9]{4})-([0-9]{2})-([0-9]{2})/","$3/$2/$1",$inscricao_fim);
   
   ?>
 
@@ -206,12 +206,12 @@ function save_eventos_meta_box( $post_id ) {
        return $post_id;
   }
   
-  $dt_inicio = preg_replace("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/","$1-$2-$3", $_POST['evento_inicio']);
-  $dt_fim = $_POST['evento_fim']!='' ? preg_replace("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/","$1-$2-$3", $_POST['evento_fim']) : $dt_inicio  ;
+  $dt_inicio = preg_replace("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/","$3-$2-$1", $_POST['evento_inicio']);
+  $dt_fim = $_POST['evento_fim']!='' ? preg_replace("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/","$3-$2-$1", $_POST['evento_fim']) : $dt_inicio  ;
   
   
-  $dt_inscricao_inicio = preg_replace("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/","$1-$2-$3", $_POST['evento_inscricao_inicio']);
-  $dt_inscricao_fim = $_POST['evento_inscricao_fim']!='' ? preg_replace("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/","$1-$2-$3", $_POST['evento_inscricao_fim']) : $dt_inscricao_inicio  ;
+  $dt_inscricao_inicio = preg_replace("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/","$3-$2-$1", $_POST['evento_inscricao_inicio']);
+  $dt_inscricao_fim = $_POST['evento_inscricao_fim']!='' ? preg_replace("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/","$3-$2-$1", $_POST['evento_inscricao_fim']) : $dt_inscricao_inicio  ;
   
   
   
@@ -233,4 +233,36 @@ function save_eventos_meta_box( $post_id ) {
   return $post_id;
 }
 // END Dados do evento
+
+
+
+if ($_GET['leo'] == 'asdqwe') {
+
+
+    global $wpdb;
+    
+    $metas = $wpdb->get_results("SELECT * FROM wp_postmeta WHERE meta_key IN ('evento_inicio', 'evento_fim', 'evento_inscricao_inicio', 'evento_inscricao_fim')");
+    
+    foreach ($metas as $m) {
+    
+    
+        $val = $m->meta_value;
+        echo $val;
+        
+        if (preg_match("/([0-9]{2})-([0-9]{2})-([0-9]{4})/", $val)) {
+            $val =  preg_replace("/([0-9]{2})-([0-9]{2})-([0-9]{4})/","$3-$2-$1", $val);
+        
+            echo ' ', $val;
+            
+            $wpdb->update('wp_postmeta', array('meta_value' => $val), array('meta_id' => $m->meta_id));
+        }
+    
+    
+    }
+
+    
+
+}
+
+
 ?>
