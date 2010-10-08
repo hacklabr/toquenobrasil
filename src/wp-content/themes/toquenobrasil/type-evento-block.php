@@ -5,8 +5,8 @@
   $br_fim = preg_replace("/([0-9]{4})-([0-9]{2})-([0-9]{2})/","$3/$2/$1",$fim);
   $inscricao_inicio = get_post_meta(get_the_ID(), "evento_inscricao_inicio", true);
   $inscricao_fim = get_post_meta(get_the_ID(), "evento_inscricao_fim", true);
-  $br_insc_inicio = preg_replace("/([0-9]{2})-([0-9]{2})-([0-9]{4})/","$1/$2/$3", $inscricao_inicio);
-  $br_insc_fim = preg_replace("/([0-9]{2})-([0-9]{2})-([0-9]{4})/","$1/$2/$3",$inscricao_fim);
+  $br_insc_inicio = preg_replace("/([0-9]{4})-([0-9]{2})-([0-9]{2})/","$3/$2/$1", $inscricao_inicio);
+  $br_insc_fim = preg_replace("/([0-9]{4})-([0-9]{2})-([0-9]{2})/","$3/$2/$1",$inscricao_fim);
   $local = get_post_meta(get_the_ID(), "evento_local", true);
   $link = get_post_meta(get_the_ID(), "evento_site", true);
   $vagas = get_post_meta(get_the_ID(), "evento_vagas", true);
