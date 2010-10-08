@@ -14,61 +14,62 @@ $estados = get_estados();
 if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_POST['_wpnonce'], 'edit_nonce' )){
     require_once( ABSPATH . WPINC . '/registration.php' );
     $profileuser_id = $user_ID;
-    
-    if(!filter_var( $_POST['user_email'], FILTER_VALIDATE_EMAIL))
-		$msg['error'][] = __('O email informado é inválido.','tnb');    
-    
-    if( $_POST['user_email'] != $profileuser->user_email && email_exists($_POST['user_email']))
-        $msg['error'][] =  __('Esse email já está sendo utilizado. Por favor verifique se digitou os dados corretamente.', 'tnb');
+    if(isset($_POST['action_user']) && $_POST['action_user']=='user_data'){
+        if(!filter_var( $_POST['user_email'], FILTER_VALIDATE_EMAIL))
+    		$msg['error'][] = __('O email informado é inválido.','tnb');    
         
-    if( strlen($_POST['user_pass'])>0  && $_POST['user_pass'] !=  $_POST['user_pass_confirm'] )
-        $msg['error'][]= __('A senhas fornecidas não conferem.','tnb');
-    
-    if( strlen($_POST['youtube'])>0  && !preg_match("/\/watch\?v=/", $_POST['youtube']) )
-        $msg['error'][]= __('URL de vídeo no Youtube inválida.','tnb');
-    
-    if(strlen($_POST['site'])>0 &&  $_POST['site'] != 'http://' && !filter_var($_POST['site'], FILTER_VALIDATE_URL))
-        $msg['error'][]= __('O link fornecido não é válido.','tnb'); 
-        
-    if( !$msg['error']){
-        $userdata['ID'] = $profileuser_id;
-        $userdata['user_login'] = $profileuser->user_login;
-        $userdata['display_name'] = $_POST['banda'];
-        $userdata['user_email'] = $_POST['user_email'];
-        $userdata['description'] = $_POST['description'];
-        
-        if(strlen($_POST['user_pass'])>0)
-            $userdata['user_pass'] = wp_hash_password($_POST['user_pass']); 
-        
-        $rt = wp_insert_user($userdata);
-        update_user_meta( $profileuser_id, 'banda' , $_POST['banda'] );
-        update_user_meta( $profileuser_id, 'responsavel' , $_POST['responsavel'] );
-        update_user_meta( $profileuser_id, 'telefone' , $_POST['telefone'] );
-        update_user_meta( $profileuser_id, 'telefone_ddd' , $_POST['telefone_ddd'] );
-        if(strlen($_POST['site'])> 0 && $_POST['site']!='http://')
-            update_user_meta( $profileuser_id, 'site' , $_POST['site'] );
-        else
-            delete_user_meta($profileuser_id, 'site');
-        
+        if( $_POST['user_email'] != $profileuser->user_email && email_exists($_POST['user_email']))
+            $msg['error'][] =  __('Esse email já está sendo utilizado. Por favor verifique se digitou os dados corretamente.', 'tnb');
             
-        update_user_meta( $profileuser_id, 'origem_estado' , $_POST['origem_estado'] );
-        update_user_meta( $profileuser_id, 'origem_cidade' , $_POST['origem_cidade'] );
+        if( strlen($_POST['user_pass'])>0  && $_POST['user_pass'] !=  $_POST['user_pass_confirm'] )
+            $msg['error'][]= __('A senhas fornecidas não conferem.','tnb');
         
-        update_user_meta( $profileuser_id, 'banda_estado' , $_POST['banda_estado'] );
-        update_user_meta( $profileuser_id, 'banda_cidade' , $_POST['banda_cidade'] );
+        if( strlen($_POST['youtube'])>0  && !preg_match("/\/watch\?v=/", $_POST['youtube']) )
+            $msg['error'][]= __('URL de vídeo no Youtube inválida.','tnb');
         
-        update_user_meta( $profileuser_id, 'youtube' , $_POST['youtube'] );
-        
-        update_user_meta( $profileuser_id, 'integrantes' , $_POST['integrantes'] );
-        
-        $msg['success'][] = __('Dados Atualizados', 'tnb');
-        $profileuser = get_userdata( $user_ID );
-    }else{
-        
-        foreach($_POST as $n=>$v)
-            $profileuser->{$n} = $v; 
-        
-    }
+        if(strlen($_POST['site'])>0 &&  $_POST['site'] != 'http://' && !filter_var($_POST['site'], FILTER_VALIDATE_URL))
+            $msg['error'][]= __('O link fornecido não é válido.','tnb'); 
+            
+        if( !$msg['error']){
+            $userdata['ID'] = $profileuser_id;
+            $userdata['user_login'] = $profileuser->user_login;
+            $userdata['display_name'] = $_POST['banda'];
+            $userdata['user_email'] = $_POST['user_email'];
+            $userdata['description'] = $_POST['description'];
+            
+            if(strlen($_POST['user_pass'])>0)
+                $userdata['user_pass'] = wp_hash_password($_POST['user_pass']); 
+            
+            $rt = wp_insert_user($userdata);
+            update_user_meta( $profileuser_id, 'banda' , $_POST['banda'] );
+            update_user_meta( $profileuser_id, 'responsavel' , $_POST['responsavel'] );
+            update_user_meta( $profileuser_id, 'telefone' , $_POST['telefone'] );
+            update_user_meta( $profileuser_id, 'telefone_ddd' , $_POST['telefone_ddd'] );
+            if(strlen($_POST['site'])> 0 && $_POST['site']!='http://')
+                update_user_meta( $profileuser_id, 'site' , $_POST['site'] );
+            else
+                delete_user_meta($profileuser_id, 'site');
+            
+                
+            update_user_meta( $profileuser_id, 'origem_estado' , $_POST['origem_estado'] );
+            update_user_meta( $profileuser_id, 'origem_cidade' , $_POST['origem_cidade'] );
+            
+            update_user_meta( $profileuser_id, 'banda_estado' , $_POST['banda_estado'] );
+            update_user_meta( $profileuser_id, 'banda_cidade' , $_POST['banda_cidade'] );
+            
+            update_user_meta( $profileuser_id, 'youtube' , $_POST['youtube'] );
+            
+            update_user_meta( $profileuser_id, 'integrantes' , $_POST['integrantes'] );
+            
+            $msg['success'][] = __('Dados Atualizados', 'tnb');
+            $profileuser = get_userdata( $user_ID );
+        }else{
+            
+            foreach($_POST as $n=>$v)
+                $profileuser->{$n} = $v; 
+            
+        }
+    }    
     if ($_FILES && !$msg['error']) {
         do_action('tnb_user_update', $profileuser_id);
         if(!$msg['error']){
@@ -111,7 +112,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
             
                 $errors = array(1 => __('O tamanho do arquivo não pode ser maior do que ','tnb') . ini_get('upload_max_filesize') . 'B',
                 2 => __('O tamanho do arquivo não pode ser maior do que ','tnb') . ini_get('upload_max_filesize') . 'B',
-                3 => __('Um erro ocorreu e apenas parte do arquivo foi enviado. Tente novamente.','tnb') ,
+                3 => __('Um erro ocorreu e apenas padatarte do arquivo foi enviado. Tente novamente.','tnb') ,
                 4 => __('Nenhum arquivo foi enviado!','tnb'));    
             
                 if ($file['error'] == 0) {
@@ -141,7 +142,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                         'post_status' => 'publish',
                         'tags_input' => $_POST['media_tags']
                     );
-                    $_POST["id_music"][$index_nr-1] = $media_id;
+                    $_POST["id_music"] = $media_id;
                     if ($type == 'music') {
         	            if (!update_post_meta($media_id, '_filesize', $sizes['filesize'], true))
         	            	add_post_meta($media_id, '_filesize', $sizes['filesize'], true); 
@@ -199,12 +200,17 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
     }
     // music labels
     if (!$msg['error']) {
-        for ( $i = 0; $i < count($_POST["label_music"]); $i++){
+        if(isset($_POST["label_music"]) && $_POST["id_music"]>0){
+            $post = get_post($_POST["id_music"]);
+            $msg['success'][]= sprintf(__('"%s" atualizado com sucesso para "%s".','tnb'), $post->post_title, $_POST["label_music"] );
+            wp_update_post( array("ID"=>$_POST["id_music"] , "post_title"=>$_POST["label_music"]));
+        }
+        /*for ( $i = 0; $i < count($_POST["label_music"]); $i++){
             if(strlen($_POST["label_music"][$i])>0 && $_POST["id_music"][$i]>0 ){
                 $post = get_post($_POST["id_music"][$i]);
                 wp_update_post( array("ID"=>$_POST["id_music"][$i] , "post_title"=>$_POST["label_music"][$i]));
             }
-        }
+        }*/
     }
 }
 
@@ -245,6 +251,8 @@ get_header();
 	
 	<form class="background clearfix" method="post" enctype="multipart/form-data" id="your-profile" >
 		<input type="hidden" name="action" value="update" />
+		<input type="hidden" name="action_user" value="user_data" />
+		
 	    <?php wp_nonce_field('edit_nonce'); ?>
 	    <i>Campos marcardos com <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?> não serão exibidos publicamente no site. Apenas os produtores de eventos terão acesso a estes dados</i>
 	    <br/><br/>
@@ -374,7 +382,7 @@ get_header();
         <h3><?php _e('Rider e Mapa de Palco', 'tnb');?></h3>
         <?php for($i = 1; $i<=1; $i++): ?>
 		<p class="clearfix prepend-1">
-			<label for="music"><?php _e('Rider', 'tnb');?></label>
+			<label for="rider"><?php _e('Rider', 'tnb');?></label>
         		<?php 
         		        $media = get_posts("post_type=rider&meta_key=_media_index&meta_value=rider_{$i}&author={$user_ID}");
         		        
@@ -397,7 +405,7 @@ get_header();
 		
 		<?php for($i = 1; $i<=1; $i++): ?>
 		<p class="clearfix prepend-1">
-			<label for="music"><?php _e('Mapa de palco', 'tnb');?></label> 
+			<label for="mapa_palco"><?php _e('Mapa de palco', 'tnb');?></label> 
         		<?php 
         		        $media = get_posts("post_type=mapa_palco&meta_key=_media_index&meta_value=mapa_palco_{$i}&author={$user_ID}");
         		        
@@ -429,50 +437,6 @@ get_header();
 			<small><?php _e('(Exemplo: http://www.youtube.com/watch?v=videoid)', 'tnb'); ?></small>
 		</p>
 		
-		
-			
-		<h3><?php _e('Músicas', 'tnb'); ?></h3>
-		<?php for($i = 1; $i<=3; $i++): ?>
-		<h4 class='prepend-1'><?php _e('Música', 'tnb');?> <?php echo $i;?></h4>
-        <p class="clearfix prepend-1">
-                
-			    <?php 
-                
-        		        $media = get_posts("post_type=music&meta_key=_media_index&meta_value=music_{$i}&author={$user_ID}");
-        		        
-        		        if(isset($media[0])){
-        		            $media  = $media[0];
-        		            print_audio_player($media->ID);
-        		            
-        		            echo $media->post_excerpt;
-        		            
-        		            echo "<br/><input type='checkbox'  name='delete_media[]' value='music_{$media->ID}' class='delete_profile_media' />Deletar arquivo<br/>";
-
-        		            if(isset($_POST['label_music'][$i-1]) && strlen($_POST['label_music'][$i-1])>0)
-        		                $media->post_title = $_POST['label_music'][$i-1];
-        		                   
-        		        }
-        		        
-        		                		            
-        		            
-        		            
-        		?>
-                <br/>
-                <label for="music_title"><?php _e('Nome','tnb'); ?></label>
-    			<input type="text" id="music_title" name="label_music[]" value="<?php echo $media->post_title; ?>" class="text span-13" /><br/>
-                 
-                <label><?php _e('Arquivo MP3','tnb'); ?></label>
-                
-                <input type="file" id="music" name="music_<?php echo $i;?>" value="" class="text span-13" />
-                <small><?php echo " ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B'; ?></small>
-                
-                
-    			<br/>
-    			<input type="hidden" name="id_music[]" value="<?php echo $media->ID; ?>" /><br/>
-    			
-    		</p>
-            
-		<?php endfor;?>
 		
 		<h3><?php _e('Imagens', 'tnb');?></h3>
 		<?php for($i = 1; $i<=2; $i++):?>
@@ -531,6 +495,51 @@ get_header();
 			<a href="" class="button cancel-submit"><?php _e('Cancelar', 'tnb');?></a>
 		</p>
 	</form>
+	
+	
+	
+	<h3><?php _e('Upload de Músicas', 'tnb'); ?></h3>
+		<?php for($i = 1; $i<=3; $i++): ?>
+		<div class='upload_music'>
+		<form class="background clearfix" method="post" enctype="multipart/form-data" id="your-profile" >
+    		<input type="hidden" name="action" value="update" />
+    	    <?php wp_nonce_field('edit_nonce'); ?>
+    		<h4 class='prepend-1'><?php _e('Música', 'tnb');?> <?php echo $i;?></h4>
+            <p class="clearfix prepend-1">
+                
+			    <?php 
+                
+        		        $media = get_posts("post_type=music&meta_key=_media_index&meta_value=music_{$i}&author={$user_ID}");
+        		        
+        		        if(isset($media[0])){
+        		            $media  = $media[0];
+        		            print_audio_player($media->ID);
+        		            
+        		            echo $media->post_excerpt;
+        		            
+        		            echo "<br/><input type='checkbox'  name='delete_media[]' value='music_{$media->ID}' class='delete_profile_media' />Deletar arquivo<br/>";
+        		        }
+        		            
+        		?>
+                <br/>
+                <label for="music_title"><?php _e('Nome','tnb'); ?></label>
+    			<input type="text" id="music_title" name="label_music" value="<?php echo $media->post_title; ?>" class="text span-12" /><br/>
+                 
+                <label><?php _e('Arquivo MP3','tnb'); ?></label>
+                
+                <input type="file" id="music" name="music_<?php echo $i;?>" value="" class="text span-13" />
+                <small><?php echo " ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B'; ?></small>
+    			<input type="hidden" name="id_music" value="<?php echo $media->ID; ?>" />    			
+    		</p>
+    		<p class="clearfix textright">
+    			<input class='profile-update-submit' type="submit" value="<?php _e('Salvar esta música', 'tnb');?>" />
+    		</p>
+        </form>
+        </div>    
+		<?php endfor;?>
+	
+	
+	
 </div>
 <div class="span-8 last">
     <div  class='widgets'>

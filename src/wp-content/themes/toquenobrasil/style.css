@@ -227,6 +227,7 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 /* Artists Profile */
 #your-profile small { clear:both; display:block; }
 #your-profile label { font-family:Arista; text-transform:uppercase; font-weight:normal;}
+.upload_music{border:1px solid #CCCCCC; margin-bottom:20px; padding:15px 10px 0px 0px;}
 /* =Sign up form
 ---------------------------------------------------------------------------------*/
 #formularios-de-cadastro { position:relative; }
