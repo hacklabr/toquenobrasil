@@ -153,7 +153,10 @@ function template_redirect_intercept(){
     $reg_type = $wp_query->get('reg_type');
     switch ( $wp_query->get('tpl') ) {
         case 'register':
-            if (file_exists( TEMPLATEPATH . '/register.php' )) {
+            if (file_exists( STYLESHEETPATH . '/register.php' )) {
+                include( STYLESHEETPATH . '/register.php' );
+                exit;
+            } elseif (file_exists( TEMPLATEPATH . '/register.php' )) {
                 include( TEMPLATEPATH . '/register.php' );
                 exit;
             }
