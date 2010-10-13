@@ -1,22 +1,7 @@
       <div class="clear"></div>
       <div id="footer" class="span-24">
-        <div class="span-11">
-          <div id="socialmedia" class="span-3">
-            <a href="<?php bloginfo('url'); ?>/feed" target="_blank"><?php theme_image("rss.png") ?></a>
-            <br>
-            <a href="<?php echo get_theme_option('facebook_url'); ?>" target="_blank"><?php theme_image("facebook.png") ?></a>
-            <br>
-            <a href="<?php echo get_theme_option('youtube_url'); ?>" target="_blank"><?php theme_image("youtube.png") ?></a>
-            <br>
-            <a href="<?php echo get_theme_option('twitter_url'); ?>" target="_blank"><?php theme_image("twitter.png") ?></a>
-          </div>
-          <div class="span-8 last">
-            <div id="twit">
-              <div class="content textcenter prepend-top">
-              <?php if( dynamic_sidebar('rodape') ); ?>                
-              </div>
-            </div>
-          </div>
+        <div id="nav-bottom" class="span-10 prepend-1">
+            <?php wp_nav_menu(array("theme_location" => "bottom")) ?>        
         </div>
         <div class="span-13 last">
           <?php theme_image("contato.png", array("id"=>"contato-title")); ?>
@@ -68,10 +53,7 @@
 
 <div id="nav-bottom-wrapper">
   <div class="container">
-    <div id="nav-bottom" class="span-16 textcenter">
-      <?php wp_nav_menu(array("theme_location" => "bottom")) ?>
-    </div>
-    <div id="wp" class="span-8 last">
+    <div id="wp">
       <p><a href="http://www.hacklab.com.br" target="_blank" title="Desenvolvido pelo hacklab">hacklab/</a> <a href="http://wordpress.org" target="_blank" title="Powered by WordPress"><?php theme_image("wordpress.png") ?></a></p>
     </div>
   </div>
