@@ -223,13 +223,13 @@ get_header();
                                 <div class="span-6 clear">
                                     <label for=user_login><?php _e('Nome de usuário:', 'tnb');?></label>
                                     <br/>
-                                    <input class="span-6 text user_login" type="text" id="user_login" name="user_login" value="<?php echo $user->user_login; ?>" />
+                                    <input class="span-6 text user_login" type="text" id="user_login" name="user_login" value="<?php echo htmlspecialchars($user->user_login); ?>" />
                                     <small><?php _e('Este nome será utilizado para se conectar ao TNB e não poderá ser modificado. Usar apenas minúsculas, números, - ou _. ', 'tnb'); ?></small>
                                 </div>
                                 <div class="span-6">
                                     <label for="user_email"><?php _e('E-mail:', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
                                     <br />
-                                    <input class="span-6 text" type="text" id="user_email" name="user_email" value="<?php echo $user->user_email; ?>" />
+                                    <input class="span-6 text" type="text" id="user_email" name="user_email" value="<?php echo htmlspecialchars($user->user_email); ?>" />
                                     <small><?php _e('Email do responsável pelo agendamento', 'tnb'); ?></small>
                                 </div>
                                 <div class='clear'></div>
@@ -249,19 +249,19 @@ get_header();
                                 <div class="span-12">
                                     <label for="banda"><?php _e('Nome do Artista / Banda:', 'tnb');?></label>
                                     <br />
-                                    <input class="span-12 text" type="text" id="banda" name="banda" value="<?php echo $user->banda; ?>" />
+                                    <input class="span-12 text" type="text" id="banda" name="banda" value="<?php echo htmlspecialchars($user->banda); ?>" />
                                 </div>
                                 <div class="span-6">
                                     <label for="responsavel"><?php _e('Responsável:', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
                                     <br />
-                                    <input class="span-6 text" type="text" id="responsavel" name="responsavel" value="<?php echo $user->responsavel; ?>" />
+                                    <input class="span-6 text" type="text" id="responsavel" name="responsavel" value="<?php echo htmlspecialchars($user->responsavel); ?>" />
                                     <small><?php _e('Nome do responsável pelo agendamento', 'tnb'); ?></small>
                                 </div>    
                                  <div class="span-6">
                                     <label for="telefone"><?php _e('Telefone:', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
                                     <br />
-                                    <input class="span-1 text" type="text" id="ddd" name="ddd" value="<?php echo $user->ddd; ?>" />
-                                    <input class="span-5 text" type="text" id="telefone" name="telefone" value="<?php echo $user->telefone; ?>" />
+                                    <input class="span-1 text" type="text" id="ddd" name="ddd" value="<?php echo htmlspecialchars($user->ddd); ?>" />
+                                    <input class="span-5 text" type="text" id="telefone" name="telefone" value="<?php echo htmlspecialchars($user->telefone); ?>" />
                                     <small><?php _e('Número do responsável pelo agendamento', 'tnb'); ?></small>
                                 </div>                   
                                 
@@ -283,7 +283,7 @@ get_header();
                                 <div class="span-6">   
                                     <label for="origem_cidade"><?php _e('Cidade:', 'tnb');?></label>
                                     <br />
-                                    <input class="span-6 text" type="text" id="origem_cidade" name="origem_cidade" value="<?php echo $user->origem_cidade; ?>" />
+                                    <input class="span-6 text" type="text" id="origem_cidade" name="origem_cidade" value="<?php echo htmlspecialchars($user->origem_cidade); ?>" />
                                 </div>
                                 
                                 
@@ -305,7 +305,7 @@ get_header();
                                 <div class="span-6">   
                                     <label for="banda_cidade"><?php _e('Cidade:', 'tnb');?></label>
                                     <br />
-                                    <input class="span-6 text" type="text" id="banda_cidade" name="banda_cidade" value="<?php echo $user->banda_cidade; ?>" />
+                                    <input class="span-6 text" type="text" id="banda_cidade" name="banda_cidade" value="<?php echo htmlspecialchars($user->banda_cidade); ?>" />
                                 </div>
                                 
                                 <div class="span-12">
