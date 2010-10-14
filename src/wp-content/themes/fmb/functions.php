@@ -1,5 +1,18 @@
 <?php
 
+global $fmb_categorias, $fmb_subcategorias;
+
+$fmb_categorias = array(
+    'popular' => '1. Música popular',
+    'erudito' => '2. Música erudita'
+);
+
+$fmb_subcategorias = array(
+    'revelacao' => 'a. Revelação',
+    'destaque' => 'b. Destaque',
+    'renome' => 'c. Renome',
+    'dj' => 'd. DJ'
+);
 
 function tnb_login_head() {
     ?>

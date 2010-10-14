@@ -163,10 +163,14 @@ function template_redirect_intercept(){
             }
         break;
         case 'edit':
-            if (file_exists( TEMPLATEPATH . '/profile.php' )) {
+            if (file_exists( STYLESHEETPATH . '/profile.php' )) {
+                include( STYLESHEETPATH . '/profile.php' );
+                exit;
+            } elseif (file_exists( TEMPLATEPATH . '/profile.php' )) {
                 include( TEMPLATEPATH . '/profile.php' );
                 exit;
             }
+
         break;
         case 'list_author':
             if (file_exists( TEMPLATEPATH . "/list-{$reg_type}.php" )) {
