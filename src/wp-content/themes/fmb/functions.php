@@ -25,4 +25,9 @@ function tnb_login_head() {
     <?php
 }
 
+function tnb_mail_name($from_name) {
+    return __('Feira Música Brasil [inscrições]', 'tnb');
+}
+
+
 ?>

@@ -133,7 +133,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
     		$wpdb->update($wpdb->users, array('user_activation_key' => $key), array('user_login' => $user_login));
     	}
     	if($reg_type == 'artista'){
-        	$message = "Sua conta foi criada com sucesso, atualize seu perfil com mais informações!\"\r\n\r\n";
+        	$message = "Sua conta foi criada com sucesso, atualize seu perfil com mais informações!\r\n\r\n";
         	$message .= "Nome de usuário: " .$user_login . "\r\n";
         	$message .= "Senha:"  . $user_pass . "\r\n\r\n";
         	$message .= "Acesse o link abaixo para ativar a conta\r\n";

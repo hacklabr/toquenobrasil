@@ -59,9 +59,13 @@ function custom_load_css() {
     wp_enqueue_style('jquery-ui', TNB_URL . '/css/jquery-ui-css/ui-lightness/jquery-ui-1.7.2.custom.css');
 }
 
-function tnb_mail_name($from_name){
-    return __('Toque no Brasil', 'tnb');
+if (!function_exists('tnb_mail_name')) {
+    function tnb_mail_name($from_name){
+        return __('Toque no Brasil', 'tnb');
+    }
 }
+    
+    
 function tnb_mail_email($from_email){
     return get_bloginfo('admin_email');
 }

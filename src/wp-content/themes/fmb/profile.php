@@ -270,7 +270,7 @@ get_header();
         <p class="clearfix prepend-1">
       		<label for="user_login"><?php _e('Nome de usuário', 'tnb');?></label>
 		    <br/>
-      		<input type="text" id="user_login" name="user_login" disabled='disabled' value="<?php echo $profileuser->user_login; ?>" class="text span-13" />
+      		<input type="text" id="user_login" name="user_login" disabled='disabled' value="<?php echo htmlspecialchars($profileuser->user_login); ?>" class="text span-13" />
     	</p>
     	
         <p class="clearfix prepend-1">
@@ -290,19 +290,19 @@ get_header();
         <p class="clearfix prepend-1">
 			<label for="responsable"><?php _e('Responsável', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
 			<br/>
-			<input type="text" id="responsavel" name="responsavel" value="<?php echo $profileuser->responsavel; ?>" class="text span-13" />
+			<input type="text" id="responsavel" name="responsavel" value="<?php echo htmlspecialchars($profileuser->responsavel); ?>" class="text span-13" />
 			<small><?php _e('Nome do responsável pelo agendamento', 'tnb'); ?></small>
 		</p>
 		<p class="clearfix prepend-1">
 			<label for="user_email"><?php _e('E-mail', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
 			<br/>
-			<input type="text" id="user_email" name="user_email" value="<?php echo $profileuser->user_email; ?>" class="text span-13" />
+			<input type="text" id="user_email" name="user_email" value="<?php echo htmlspecialchars($profileuser->user_email); ?>" class="text span-13" />
 			<small><?php _e('Email do responsável pelo agendamento', 'tnb'); ?></small>
 		</p>
 		<p class="clearfix prepend-1">
 			<label for="phone"><?php _e('Telefone', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
 			<br/>
-			<input type="text" id="telefone_" name="telefone_ddd" value="<?php echo $profileuser->telefone_ddd; ?>" class="text span-1 margin-right" /> <input type="text" id="telefone" name="telefone" value="<?php echo $profileuser->telefone; ?>" class="text span-5"/>
+			<input type="text" id="telefone_" name="telefone_ddd" value="<?php echo htmlspecialchars($profileuser->telefone_ddd); ?>" class="text span-1 margin-right" /> <input type="text" id="telefone" name="telefone" value="<?php echo $profileuser->telefone; ?>" class="text span-5"/>
 			<small><?php _e('Número do responsável pelo agendamento', 'tnb'); ?></small>
 		</p>
 		
@@ -312,19 +312,19 @@ get_header();
 		<p class="prepend-1 clearfix">
 			<label for="banda"><?php _e('Nome da banda', 'tnb');?></label>
 			<br/>
-			<input type="text" id="banda" name="banda" value="<?php echo $profileuser->banda; ?>" class="text span-13" />
+			<input type="text" id="banda" name="banda" value="<?php echo htmlspecialchars($profileuser->banda); ?>" class="text span-13" />
 		</p>
 		
 		<p class="clearfix prepend-1">
 			<label for="description"><?php _e('Release', 'tnb');?></label>
 			<br/>
-			<textarea  id="description" name="description" class="span-12" ><?php echo $profileuser->description; ?></textarea>
+			<textarea  id="description" name="description" class="span-12" ><?php echo htmlspecialchars($profileuser->description); ?></textarea>
 		</p>
 		
 		<p class="clearfix prepend-1">
 			<label for="integrantes"><?php _e('integrantes', 'tnb');?></label>
 			<br/>
-			<textarea  id="integrantes" name="integrantes" class="span-12" ><?php echo $profileuser->integrantes; ?></textarea>
+			<textarea  id="integrantes" name="integrantes" class="span-12" ><?php echo htmlspecialchars($profileuser->integrantes); ?></textarea>
 		</p>
 		
         <h5 class='prepend-1'><?php _e('Foto do Perfil', 'tnb');?></h5>
@@ -359,7 +359,7 @@ get_header();
 		<p class="clearfix prepend-1">	
 			<label for="origem_cidade"><?php _e('Cidade', 'tnb');?></label>
 			<br />
-			<input class="span-9 text" type="text" id="origem_cidade" name="origem_cidade" value="<?php echo $profileuser->origem_cidade; ?>" />
+			<input class="span-9 text" type="text" id="origem_cidade" name="origem_cidade" value="<?php echo htmlspecialchars($profileuser->origem_cidade); ?>" />
 		</p>
 		
 		
@@ -384,7 +384,7 @@ get_header();
 		<p class="clearfix prepend-1">	
 			<label for="banda_cidade"><?php _e('Cidade', 'tnb');?></label>
 			<br />
-			<input class="span-9 text" type="text" id="banda_cidade" name="banda_cidade" value="<?php echo $profileuser->banda_cidade; ?>" />
+			<input class="span-9 text" type="text" id="banda_cidade" name="banda_cidade" value="<?php echo htmlspecialchars($profileuser->banda_cidade); ?>" />
 		</p>
         
         <h4 class='prepend-1'><?php _e('Categoria', 'tnb');?> </h4>
@@ -472,7 +472,7 @@ get_header();
             
             <label for="youtube"><?php _e('URL de vídeo no YouTube', 'tnb');?></label>
 			<br/>
-			<input type="text" id="youtube" name="youtube" value="<?php echo $profileuser->youtube; ?>" class="text span-13" />
+			<input type="text" id="youtube" name="youtube" value="<?php echo htmlspecialchars($profileuser->youtube); ?>" class="text span-13" />
 			<small><?php _e('(Exemplo: http://www.youtube.com/watch?v=videoid)', 'tnb'); ?></small>
 		</p>
 		
@@ -562,7 +562,7 @@ get_header();
         		?>
                 <br/>
                 <label for="music_title"><?php _e('Nome','tnb'); ?></label>
-    			<input type="text" id="music_title" name="label_music" value="<?php echo $media->post_title; ?>" class="text span-12" /><br/>
+    			<input type="text" id="music_title" name="label_music" value="<?php echo htmlspecialchars($media->post_title); ?>" class="text span-12" /><br/>
                  
                 <label><?php _e('Arquivo MP3','tnb'); ?></label>
                 
