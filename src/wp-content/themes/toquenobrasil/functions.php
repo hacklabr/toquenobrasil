@@ -365,9 +365,16 @@ function get_estados(){
 }
 
 function print_audio_player($post_id){
+        global $TanTanWordPressS3Plugin;
+        
         $fileURL = get_option('siteurl') . '/wp-content/uploads/';
         $fileURL .= get_post_meta($post_id, "_wp_attached_file", true );
+        
+        if (is_object($TanTanWordPressS3Plugin))
+            $fileURL = $TanTanWordPressS3Plugin->wp_get_attachment_url($fileURL, $post_id);
+        
         $playerURL = get_option('siteurl').'/wp-content/plugins/audio-player/assets';
+
     ?>
     
     <!-- //PLAYER de áudio-->
