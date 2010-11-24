@@ -54,7 +54,7 @@
 <div id="nav-bottom-wrapper">
   <div class="container">
     <div id="wp">
-      <p><a href="http://www.toquenobrasil.com.br" target="_blank" title="Toque no Brasil">toque no brasil</a> | <a href="http://www.hacklab.com.br" target="_blank" title="Desenvolvido pelo hacklab">hacklab/</a> <a href="http://wordpress.org" target="_blank" title="Powered by WordPress"><?php theme_image("wordpress.png") ?></a></p>
+      <p><a href="http://www.toquenobrasil.com.br" target="_blank" title="Toque no Brasil"><?php theme_image("tnb.png") ?></a> <a href="http://www.hacklab.com.br" target="_blank" title="Desenvolvido pelo hacklab"><?php theme_image("hacklab.png") ?></a> <a href="http://wordpress.org" target="_blank" title="Powered by WordPress"><?php theme_image("wordpress.png") ?></a></p>
     </div>
   </div>
 </div>

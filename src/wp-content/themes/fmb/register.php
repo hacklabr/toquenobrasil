@@ -40,6 +40,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
     $user_login = sanitize_user($_POST['user_login']);
     $user_email = $_POST['user_email'];
     $errors = array();
+    
+    if(!isset($_POST['tos_acepted']))
+        $errors['tos'] =  'Você precisa aceitar os termos antes de realizar o cadastro.';
+        
     if(username_exists($user_login)){
         $errors['user'] =  'Esse usuário já está sendo usado.';
     }
@@ -68,7 +72,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
 
     //  campos obr de banda    
     if($reg_type == 'artista' && strlen($_POST['banda'])==0)
-        $errors['banda'] =  'Informe o nome da banda.';    
+        $errors['banda'] =  'Informe o nome do artista.';    
 
     if($reg_type == 'artista' && strlen($_POST['responsavel'])==0)
         $errors['responsavel'] =  'Informe o nome do responsável.';
@@ -171,8 +175,8 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
 
 
 
+wp_enqueue_script('cadastre-se', get_stylesheet_directory_uri(). '/js/cadastro_perfil.js',array('jquery')); 
 
-#wp_enqueue_script('cadastre-se', get_stylesheet_directory_uri(). '/js/cadastre-se.js',array('jquery')); 
 get_header();
 
 
@@ -192,6 +196,7 @@ get_header();
 
   <?php print_msgs($msgs);?>
 
+    <?php global $atividadesEncerradas; if (!$atividadesEncerradas): ?>
 
       <?php //the_content(); ?>
             <div id="formularios-de-cadastro">
@@ -206,11 +211,11 @@ get_header();
                     	
                         <form class="background clearfix" method="POST">
                         	<?php if($regtister_succes['artista']):?>
-                        		<?php _e('Seu cadastro foi realizado com sucesso! <br />
-                        		Você receberá sua senha através do email que nos forneceu. Caso não o encontre em sua caixa de entrada, verifique a caixa de spam.<br />
-                        		Acessando sua conta você poderá enviar imagens e musicas para promover sua banda!', 'tnb');?>
+                        		<?php _e('Seu cadastro foi realizado com sucesso. <br />
+                        		Você receberá um link de ativação do seu perfil no e-mail que nos forneceu no cadastro. Caso não o encontre em sua caixa de entrada, verifique em sua caixa de spam ou lixeira. <br />
+                        		Acessando a sua conta você poderá postar imagens, músicas e os demais dados para completar a sua inscrição.', 'tnb');?>
                         	<?php elseif($activated):?>
-                        		<?php _e('Seu cadastro foi ativado.', 'tnb');?>	
+                        		<?php _e('Seu cadastro foi ativado. Para incrementar o seu perfil, faça o login.', 'tnb');?>	
                         	<?php else:?>
                                 <input type="hidden" name="action" value="register" />
                                 <input type="hidden" name="type" value="artista" />
@@ -224,13 +229,13 @@ get_header();
                                     <label for=user_login><?php _e('Nome de usuário:', 'tnb');?></label>
                                     <br/>
                                     <input class="span-6 text user_login" type="text" id="user_login" name="user_login" value="<?php echo htmlspecialchars($user->user_login); ?>" />
-                                    <small><?php _e('Este nome será utilizado para se conectar ao TNB e não poderá ser modificado. Usar apenas minúsculas, números, - ou _. ', 'tnb'); ?></small>
+                                    <small><?php _e('Este nome será utilizado para se conectar ao FMB e não poderá ser modificado. Usar apenas minúsculas, números, - ou _. ', 'tnb'); ?></small>
                                 </div>
                                 <div class="span-6">
                                     <label for="user_email"><?php _e('E-mail:', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
                                     <br />
                                     <input class="span-6 text" type="text" id="user_email" name="user_email" value="<?php echo htmlspecialchars($user->user_email); ?>" />
-                                    <small><?php _e('Email do responsável pelo agendamento', 'tnb'); ?></small>
+                                    <small><?php _e('Email do responsável pela inscrição', 'tnb'); ?></small>
                                 </div>
                                 <div class='clear'></div>
                                 <div class="span-6">
@@ -244,10 +249,10 @@ get_header();
                                     <input class="span-6 text" type="password" id="senha_confirm" name="senha_confirm" />
                                 </div>
                                 <div class="span-12">
-                                    <h3 class='no-margin'><?php _e('Dados do Artista/Banda', 'tnb');?></h3>
+                                    <h3 class='no-margin'><?php _e('Dados do Artista/Grupo/Dj/Conjunto', 'tnb');?></h3>
                                 </div>
                                 <div class="span-12">
-                                    <label for="banda"><?php _e('Nome do Artista / Banda:', 'tnb');?></label>
+                                    <label for="banda"><?php _e('Nome do Artista:', 'tnb');?></label>
                                     <br />
                                     <input class="span-12 text" type="text" id="banda" name="banda" value="<?php echo htmlspecialchars($user->banda); ?>" />
                                 </div>
@@ -255,18 +260,18 @@ get_header();
                                     <label for="responsavel"><?php _e('Responsável:', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
                                     <br />
                                     <input class="span-6 text" type="text" id="responsavel" name="responsavel" value="<?php echo htmlspecialchars($user->responsavel); ?>" />
-                                    <small><?php _e('Nome do responsável pelo agendamento', 'tnb'); ?></small>
+                                    <small><?php _e('Nome do responsável pela inscrição', 'tnb'); ?></small>
                                 </div>    
                                  <div class="span-6">
                                     <label for="telefone"><?php _e('Telefone:', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
                                     <br />
                                     <input class="span-1 text" type="text" id="ddd" name="ddd" value="<?php echo htmlspecialchars($user->ddd); ?>" />
                                     <input class="span-5 text" type="text" id="telefone" name="telefone" value="<?php echo htmlspecialchars($user->telefone); ?>" />
-                                    <small><?php _e('Número do responsável pelo agendamento', 'tnb'); ?></small>
+                                    <small><?php _e('Número do responsável pela inscrição', 'tnb'); ?></small>
                                 </div>                   
                                 
                                  <div class="span-12">
-                                    <h5 class='no-margin'><?php _e('Local de origem da banda:', 'tnb');?></h5>
+                                    <h5 class='no-margin'><?php _e('Local de origem do artista:', 'tnb');?></h5>
                                  </div>
                                 
                                 <div class="span-6">
@@ -288,7 +293,7 @@ get_header();
                                 
                                 
                                 <div class="span-12">
-                                    <h5 class='no-margin'><?php _e('Local de residência da banda', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></h5>
+                                    <h5 class='no-margin'><?php _e('Local de residência do artista', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></h5>
                                  </div>
                                 
                                 <div class="span-6">
@@ -319,7 +324,7 @@ get_header();
                                 
                                 
                                 <div class="span-12">
-                                    <h5 class='no-margin'><?php _e('Categoria', 'tnb');?> </h5>
+                                    <h5 class='no-margin'><?php _e('Categoria', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></h5>
                                  </div>
                                 
                                 <div class="span-12">
@@ -335,27 +340,42 @@ get_header();
                                     
                                     <?php foreach($fmb_categorias as $cat_value => $cat_name) : ?>
                                         
-                                        <input type="radio" name="categoria" id="categoria_<?php echo $cat_value; ?>" value="<?php echo $cat_value; ?>" <?php echo $selectedCat[$cat_value]; ?>> <label for="categoria_<?php echo $cat_value; ?>"><?php echo $cat_name; ?></label>
+                                        <input type="radio" class="categoria" name="categoria" id="categoria_<?php echo $cat_value; ?>" value="<?php echo $cat_value; ?>" <?php echo $selectedCat[$cat_value]; ?>> <label for="categoria_<?php echo $cat_value; ?>"><?php echo $cat_name; ?></label>
                                         &nbsp;&nbsp;&nbsp;
                                         
                                     <?php endforeach; ?>
                                     
                                     <br/><br/>
-                                    
+                                    <div style="display:none" id="subcategorias_div">
                                     <?php foreach($fmb_subcategorias as $cat_value => $cat_name) : ?>
                                         
-                                        <input type="radio" name="subcategoria" id="subcategoria_<?php echo $cat_value; ?>" value="<?php echo $cat_value; ?>" <?php echo $selectedSubCat[$cat_value]; ?>> <label for="subcategoria_<?php echo $cat_value; ?>"><?php echo $cat_name; ?></label>
+                                        <input type="radio" class="subcategorias" name="subcategoria" id="subcategoria_<?php echo $cat_value; ?>" value="<?php echo $cat_value; ?>" <?php echo $selectedSubCat[$cat_value]; ?>> <label for="subcategoria_<?php echo $cat_value; ?>"><?php echo $cat_name; ?></label>
                                         <br/>
                                         
                                     <?php endforeach; ?>
+                                    </div>
                                     
                                 </div>
                                 
-
+								<div class="span-12" id='register_tos_unique'>
+									<?php 
+									  query_posts('post_type=eventos');
+									  if ( have_posts() ) : the_post(); 
+                                          echo get_post_meta(get_the_ID(),'evento_tos', true);
+                                      endif;
+									?>
+								</div>
+                                
+                                <div class="span-12 last">
+                                    <input type="checkbox" name='tos_acepted' value="1" id='tos_acepted'/>
+                                    <label for='tos_acepted'> Li e aceito os termos do edital</label>
+                                </div>
                                 
                                 <div class="span-2 prepend-10 last">
                                     <input type="image" src="<?php echo get_theme_image("submit-green.png"); ?>" value="Enviar" class="submit" />
                                 </div>
+                                
+                                
                                 
                             <?php endif;?>
                         </form>
@@ -363,7 +383,12 @@ get_header();
                     
                 </div><!-- #content -->
             </div>
-            <!-- #formularios-de-cadastro -->        
+            <!-- #formularios-de-cadastro -->     
+    <?php else: // atividades encerradas ?>
+    
+        Inscrições encerradas
+    
+    <?php endif; ?>
 </div>
 <div class="span-8 last">
     <div  class='widgets'>

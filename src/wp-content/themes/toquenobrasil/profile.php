@@ -97,7 +97,8 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                     "post_title" => $media_title, 
                     "post_content" => $file['name'], 
                     "post_excerpt" => $file['name'],
-                    "post_author" => $user_ID,                    
+                    "post_author" => $user_ID,
+                	                    
                      );
                 if($type == 'music' || $type == 'images' )
                     $post["menu_order"] = $index_nr;
@@ -118,6 +119,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                 if ($file['error'] == 0) {
                     
                 	if (in_array($file['type'], $acceptedFormats[$type])) {
+                	    unset($GLOBALS['post']);
                         $media_id = media_handle_upload($index, '', $post);
                         if ($media_id->errors)
                             $msg['error'][] = implode(' ', $media_id->errors['upload_error']);

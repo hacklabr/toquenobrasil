@@ -121,6 +121,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
                 if ($file['error'] == 0) {
                     
                 	if (in_array($file['type'], $acceptedFormats[$type])) {
+                	    unset($GLOBALS['post']);
                         $media_id = media_handle_upload($index, '', $post);
                         if ($media_id->errors)
                             $msg['error'][] = implode(' ', $media_id->errors['upload_error']);
@@ -217,6 +218,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
     }
 }
 
+wp_enqueue_script('cadastre-se', get_stylesheet_directory_uri(). '/js/cadastro_perfil.js',array('jquery')); 
 
 do_action('custom_profile_update', $profileuser->ID);
 get_header();
@@ -242,342 +244,350 @@ get_header();
 <?php print_msgs($msg);?>
 	<div class="clear"></div>
 	
-	<div id='profile-loading-msg' class='error stay' style="display:none">
-		<?php _e('Aguarde!', 'tnb');?>
-		<br/>
-		<?php _e('Seus dados estão sendo transferidos para os servidores do Toque no Brasil.', 'tnb');?>
-		<br/>
-		<?php _e('Não saia desta página, caso contrário irá perder suas alterações.', 'tnb');?>
-		<br/>
-		<?php _e('Esse processo pode demorar alguns minutos dependendo do tamanho dos arquivos enviados.', 'tnb');?>
-	</div>
-	
-	<form class="background clearfix" method="post" enctype="multipart/form-data" id="your-profile" >
-		<input type="hidden" name="action" value="update" />
-		<input type="hidden" name="action_user" value="user_data" />
-		
-	    <?php wp_nonce_field('edit_nonce'); ?>
-	    <i>Campos marcardos com <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?> não serão exibidos publicamente no site. Apenas os produtores de eventos terão acesso a estes dados</i>
-	    <br/><br/>
-	    
-	    <p class="clearfix textright">
-			<input class='profile-update-submit' type="submit" value="<?php _e('Salvar', 'tnb');?>" />
-			<a href="" class="button cancel-submit"><?php _e('Cancelar', 'tnb');?></a>
-		</p>
-	    
-    	<h2><?php _e('Informações de login', 'tnb');?></h2>
-    	
-        <p class="clearfix prepend-1">
-      		<label for="user_login"><?php _e('Nome de usuário', 'tnb');?></label>
-		    <br/>
-      		<input type="text" id="user_login" name="user_login" disabled='disabled' value="<?php echo htmlspecialchars($profileuser->user_login); ?>" class="text span-13" />
-    	</p>
-    	
-        <p class="clearfix prepend-1">
-      		<label for="user_pass"><?php _e('Senha', 'tnb');?></label>
-      		<br/>
-      		<input type="password" id="user_pass" name="user_pass"  class="text span-13" />
-    	</p>
-    	
-        <p class="clearfix prepend-1">
-			<label for="user_pass_confirm"><?php _e('Confirmação da senha', 'tnb');?></label>
-			<br/>
-			<input type="password" id="user_pass_confirm" name="user_pass_confirm"  class="text span-13" />
-		</p>
-
-    	<h2><?php _e('Informações de contato', 'tnb');?></h2>
-    	
-        <p class="clearfix prepend-1">
-			<label for="responsable"><?php _e('Responsável', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
-			<br/>
-			<input type="text" id="responsavel" name="responsavel" value="<?php echo htmlspecialchars($profileuser->responsavel); ?>" class="text span-13" />
-			<small><?php _e('Nome do responsável pelo agendamento', 'tnb'); ?></small>
-		</p>
-		<p class="clearfix prepend-1">
-			<label for="user_email"><?php _e('E-mail', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
-			<br/>
-			<input type="text" id="user_email" name="user_email" value="<?php echo htmlspecialchars($profileuser->user_email); ?>" class="text span-13" />
-			<small><?php _e('Email do responsável pelo agendamento', 'tnb'); ?></small>
-		</p>
-		<p class="clearfix prepend-1">
-			<label for="phone"><?php _e('Telefone', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
-			<br/>
-			<input type="text" id="telefone_" name="telefone_ddd" value="<?php echo htmlspecialchars($profileuser->telefone_ddd); ?>" class="text span-1 margin-right" /> <input type="text" id="telefone" name="telefone" value="<?php echo $profileuser->telefone; ?>" class="text span-5"/>
-			<small><?php _e('Número do responsável pelo agendamento', 'tnb'); ?></small>
-		</p>
-		
-
-		<h2><?php _e('Informações da banda', 'tnb');?></h2>
-		
-		<p class="prepend-1 clearfix">
-			<label for="banda"><?php _e('Nome da banda', 'tnb');?></label>
-			<br/>
-			<input type="text" id="banda" name="banda" value="<?php echo htmlspecialchars($profileuser->banda); ?>" class="text span-13" />
-		</p>
-		
-		<p class="clearfix prepend-1">
-			<label for="description"><?php _e('Release', 'tnb');?></label>
-			<br/>
-			<textarea  id="description" name="description" class="span-12" ><?php echo htmlspecialchars($profileuser->description); ?></textarea>
-		</p>
-		
-		<p class="clearfix prepend-1">
-			<label for="integrantes"><?php _e('integrantes', 'tnb');?></label>
-			<br/>
-			<textarea  id="integrantes" name="integrantes" class="span-12" ><?php echo htmlspecialchars($profileuser->integrantes); ?></textarea>
-		</p>
-		
-        <h5 class='prepend-1'><?php _e('Foto do Perfil', 'tnb');?></h5>
-		<div class="prepend-1 clearfix">
-          <?php do_action('custom_edit_user_profile'); ?>
-          
+    
+    <?php global $atividadesEncerradas; if (!$atividadesEncerradas): ?>
+    
+        <div id='profile-loading-msg' class='error stay' style="display:none">
+            <?php _e('Aguarde!', 'tnb');?>
+            <br/>
+            <?php _e('Seus dados estão sendo transferidos para os servidores do Toque no Brasil.', 'tnb');?>
+            <br/>
+            <?php _e('Não saia desta página, caso contrário irá perder suas alterações.', 'tnb');?>
+            <br/>
+            <?php _e('Esse processo pode demorar alguns minutos dependendo do tamanho dos arquivos enviados.', 'tnb');?>
         </div>
-		
         
-		<p class="clearfix prepend-1">
-			<label for="site"><?php _e('Link', 'tnb');?></label>
-			<br/>
-			<input type="text" id="site" name="site" value="<?php echo $profileuser->site; ?>" class="text span-13" />
-			<small><?php _e('Coloque o principal link do Artista (Twitter, Facebook, MySpace, etc).', 'tnb');?></small>
-		</p>
-		
-		
-		
-		<h4 class='prepend-1'><?php _e('Origem da banda', 'tnb');?></h4>
-		<p class="clearfix prepend-1 span-4">
-			<label for="origem_estado"><?php _e('Estado', 'tnb');?></label>
-			<br />
-			<select name="origem_estado">                            
-				 <?php 
-                    foreach($estados as $uf=>$name){
-                        echo "<option " . ($profileuser->origem_estado == $uf ? 'selected':'') . " value='$uf'>$name</option>";    
-                    }
-                ?>
-			</select>
-		</p>
-		
-		<p class="clearfix prepend-1">	
-			<label for="origem_cidade"><?php _e('Cidade', 'tnb');?></label>
-			<br />
-			<input class="span-9 text" type="text" id="origem_cidade" name="origem_cidade" value="<?php echo htmlspecialchars($profileuser->origem_cidade); ?>" />
-		</p>
-		
-		
-        
-		<h4 class='prepend-1'><?php _e('Residência da banda', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></h4>
-		<p class="clearfix prepend-1 span-4">
-			<label for="banda_estado"><?php _e('Estado', 'tnb');?></label>
-			<br />
-			<select name="banda_estado">                            
-				 <?php 
-                    foreach($estados as $uf=>$name){
-                        echo "<option " . ($profileuser->banda_estado == $uf ? 'selected':'') . " value='$uf'>$name</option>";    
-                    }
-                ?>
-			</select>
-		</p>
-        
-		
-        
-        
-        
-		<p class="clearfix prepend-1">	
-			<label for="banda_cidade"><?php _e('Cidade', 'tnb');?></label>
-			<br />
-			<input class="span-9 text" type="text" id="banda_cidade" name="banda_cidade" value="<?php echo htmlspecialchars($profileuser->banda_cidade); ?>" />
-		</p>
-        
-        <h4 class='prepend-1'><?php _e('Categoria', 'tnb');?> </h4>
-        <p class="clearfix prepend-1">
-        
-            <?php 
-                                    
-            global $fmb_categorias, $fmb_subcategorias;
+        <form class="background clearfix" method="post" enctype="multipart/form-data" id="your-profile" >
+            <input type="hidden" name="action" value="update" />
+            <input type="hidden" name="action_user" value="user_data" />
             
-            $selectedCat = array();
-            $selectedSubCat = array();
-            $selectedCat[$profileuser->categoria] = 'checked';
-            $selectedSubCat[$profileuser->subcategoria] = 'checked';
-            ?>
-            
-            <?php foreach($fmb_categorias as $cat_value => $cat_name) : ?>
-                
-                <input type="radio" name="categoria" id="categoria_<?php echo $cat_value; ?>" value="<?php echo $cat_value; ?>" <?php echo $selectedCat[$cat_value]; ?>> <label for="categoria_<?php echo $cat_value; ?>"><?php echo $cat_name; ?></label>
-                &nbsp;&nbsp;&nbsp;
-                
-            <?php endforeach; ?>
-            
+            <?php wp_nonce_field('edit_nonce'); ?>
+            <i>Campos marcardos com <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?> não serão exibidos publicamente no site. Apenas os produtores de eventos terão acesso a estes dados</i>
             <br/><br/>
             
-            <?php foreach($fmb_subcategorias as $cat_value => $cat_name) : ?>
-                
-                <input type="radio" name="subcategoria" id="subcategoria_<?php echo $cat_value; ?>" value="<?php echo $cat_value; ?>" <?php echo $selectedSubCat[$cat_value]; ?>> <label for="subcategoria_<?php echo $cat_value; ?>"><?php echo $cat_name; ?></label>
+            <p class="clearfix textright">
+                <input class='profile-update-submit' type="submit" value="<?php _e('Salvar', 'tnb');?>" />
+                <a href="" class="button cancel-submit"><?php _e('Cancelar', 'tnb');?></a>
+            </p>
+            
+            <h2><?php _e('Informações de login', 'tnb');?></h2>
+            
+            <p class="clearfix prepend-1">
+                <label for="user_login"><?php _e('Nome de usuário', 'tnb');?></label>
                 <br/>
+                <input type="text" id="user_login" name="user_login" disabled='disabled' value="<?php echo htmlspecialchars($profileuser->user_login); ?>" class="text span-13" />
+            </p>
+            
+            <p class="clearfix prepend-1">
+                <label for="user_pass"><?php _e('Senha', 'tnb');?></label>
+                <br/>
+                <input type="password" id="user_pass" name="user_pass"  class="text span-13" />
+            </p>
+            
+            <p class="clearfix prepend-1">
+                <label for="user_pass_confirm"><?php _e('Confirmação da senha', 'tnb');?></label>
+                <br/>
+                <input type="password" id="user_pass_confirm" name="user_pass_confirm"  class="text span-13" />
+            </p>
+
+            <h2><?php _e('Informações de contato', 'tnb');?></h2>
+            
+            <p class="clearfix prepend-1">
+                <label for="responsable"><?php _e('Responsável', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
+                <br/>
+                <input type="text" id="responsavel" name="responsavel" value="<?php echo htmlspecialchars($profileuser->responsavel); ?>" class="text span-13" />
+                <small><?php _e('Nome do responsável pela inscrição', 'tnb'); ?></small>
+            </p>
+            <p class="clearfix prepend-1">
+                <label for="user_email"><?php _e('E-mail', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
+                <br/>
+                <input type="text" id="user_email" name="user_email" value="<?php echo htmlspecialchars($profileuser->user_email); ?>" class="text span-13" />
+                <small><?php _e('Email do responsável pela inscrição', 'tnb'); ?></small>
+            </p>
+            <p class="clearfix prepend-1">
+                <label for="phone"><?php _e('Telefone', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
+                <br/>
+                <input type="text" id="telefone_" name="telefone_ddd" value="<?php echo htmlspecialchars($profileuser->telefone_ddd); ?>" class="text span-1 margin-right" /> <input type="text" id="telefone" name="telefone" value="<?php echo $profileuser->telefone; ?>" class="text span-5"/>
+                <small><?php _e('Número do responsável pela inscrição', 'tnb'); ?></small>
+            </p>
+            
+
+            <h2><?php _e('Informações do artista', 'tnb');?></h2>
+            
+            <p class="prepend-1 clearfix">
+                <label for="banda"><?php _e('Nome do artista', 'tnb');?></label>
+                <br/>
+                <input type="text" id="banda" name="banda" value="<?php echo htmlspecialchars($profileuser->banda); ?>" class="text span-13" />
+            </p>
+            
+            <p class="clearfix prepend-1">
+                <label for="description"><?php _e('Release', 'tnb');?></label>
+                <br/>
+                <textarea  id="description" name="description" class="span-12" ><?php echo htmlspecialchars($profileuser->description); ?></textarea>
+            </p>
+            
+            <p class="clearfix prepend-1">
+                <label for="integrantes"><?php _e('integrantes', 'tnb');?></label>
+                <br/>
+                <textarea  id="integrantes" name="integrantes" class="span-12" ><?php echo htmlspecialchars($profileuser->integrantes); ?></textarea>
+            </p>
+            
+            <h5 class='prepend-1'><?php _e('Foto do Perfil', 'tnb');?></h5>
+            <div class="prepend-1 clearfix">
+              <?php do_action('custom_edit_user_profile'); ?>
+              
+            </div>
+            
+            
+            <p class="clearfix prepend-1">
+                <label for="site"><?php _e('Link', 'tnb');?></label>
+                <br/>
+                <input type="text" id="site" name="site" value="<?php echo $profileuser->site; ?>" class="text span-13" />
+                <small><?php _e('Coloque o principal link do Artista (Twitter, Facebook, MySpace, etc).', 'tnb');?></small>
+            </p>
+            
+            
+            
+            <h4 class='prepend-1'><?php _e('Origem do artista', 'tnb');?></h4>
+            <p class="clearfix prepend-1 span-4">
+                <label for="origem_estado"><?php _e('Estado', 'tnb');?></label>
+                <br />
+                <select name="origem_estado">                            
+                     <?php 
+                        foreach($estados as $uf=>$name){
+                            echo "<option " . ($profileuser->origem_estado == $uf ? 'selected':'') . " value='$uf'>$name</option>";    
+                        }
+                    ?>
+                </select>
+            </p>
+            
+            <p class="clearfix prepend-1">	
+                <label for="origem_cidade"><?php _e('Cidade', 'tnb');?></label>
+                <br />
+                <input class="span-9 text" type="text" id="origem_cidade" name="origem_cidade" value="<?php echo htmlspecialchars($profileuser->origem_cidade); ?>" />
+            </p>
+            
+            
+            
+            <h4 class='prepend-1'><?php _e('Residência do artista', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></h4>
+            <p class="clearfix prepend-1 span-4">
+                <label for="banda_estado"><?php _e('Estado', 'tnb');?></label>
+                <br />
+                <select name="banda_estado">                            
+                     <?php 
+                        foreach($estados as $uf=>$name){
+                            echo "<option " . ($profileuser->banda_estado == $uf ? 'selected':'') . " value='$uf'>$name</option>";    
+                        }
+                    ?>
+                </select>
+            </p>
+            
+            
+            
+            
+            
+            <p class="clearfix prepend-1">	
+                <label for="banda_cidade"><?php _e('Cidade', 'tnb');?></label>
+                <br />
+                <input class="span-9 text" type="text" id="banda_cidade" name="banda_cidade" value="<?php echo htmlspecialchars($profileuser->banda_cidade); ?>" />
+            </p>
+            
+            <h4 class='prepend-1'><?php _e('Categoria', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></h4>
+            <p class="clearfix prepend-1">
+            
+                <?php 
+                                        
+                global $fmb_categorias, $fmb_subcategorias;
                 
-            <?php endforeach; ?>
-        
-        </p>
-        
-        <h3><?php _e('Rider e Mapa de Palco', 'tnb');?></h3>
-        <?php for($i = 1; $i<=1; $i++): ?>
-		<p class="clearfix prepend-1">
-			<label for="rider"><?php _e('Rider', 'tnb');?></label>
-        		<?php 
-        		        $media = get_posts("post_type=rider&meta_key=_media_index&meta_value=rider_{$i}&author={$user_ID}");
-        		        
-        		        if(isset($media[0])){
-        		            $media  = $media[0];
-                            echo '<br />';
-        		            echo "<a href='{$media->guid}'>ARQUIVO</a>";
-        		            echo '<br />';
-        		            echo $media->post_title;
-        		            echo "<br/><input type='checkbox'  name='delete_media[]' value='rider_{$media->ID}' class='delete_profile_media' />Deletar arquivo<br/>";
-        		        }
-        		?>
-    		
-    			
-    			<br/>
-    			<input type="file" id="rider" name="rider_<?php echo $i;?>" value="" class="text span-13" />
-                <small><?php _e('(Formato: PDF, DOC, ODT, JPG, PNG, GIF)', 'tnb'); echo" ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B';?></small>
-    		</p>
-		<?php endfor;?>
-		
-		<?php for($i = 1; $i<=1; $i++): ?>
-		<p class="clearfix prepend-1">
-			<label for="mapa_palco"><?php _e('Mapa de palco', 'tnb');?></label> 
-        		<?php 
-        		        $media = get_posts("post_type=mapa_palco&meta_key=_media_index&meta_value=mapa_palco_{$i}&author={$user_ID}");
-        		        
-        		        if(isset($media[0])){
-        		            $media  = $media[0];
-        		            echo '<br />';
-        		            echo "<a href='{$media->guid}'>ARQUIVO</a>";
-        		            echo '<br />';
-        		            echo $media->post_title;
-        		            echo "<br/><input type='checkbox'  name='delete_media[]' value='mapa_palco_{$media->ID}' class='delete_profile_media' />Deletar arquivo<br/>";
-        		        }
-        		?>
-    		
-    			
-    			<br/>
-    			<input type="file" id="mapa_palco" name="mapa_palco_<?php echo $i;?>" value="" class="text span-13" />
-                <small><?php _e('Formato: PDF, DOC, ODT, JPG, PNG, GIF.', 'tnb'); echo" ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B';?></small>
-    		</p>
-		<?php endfor;?>
-		<br/>
-		<h2><?php _e('Mídias', 'tnb');?></h2>
-		<h3><?php _e('Vídeo', 'tnb');?></h3>
-		<p class="clearfix prepend-1">
-			
+                $selectedCat = array();
+                $selectedSubCat = array();
+                $selectedCat[$profileuser->categoria] = 'checked';
+                $selectedSubCat[$profileuser->subcategoria] = 'checked';
+                ?>
+                
+                <?php foreach($fmb_categorias as $cat_value => $cat_name) : ?>
+                                            
+                    <input type="radio" class="categoria" name="categoria" id="categoria_<?php echo $cat_value; ?>" value="<?php echo $cat_value; ?>" <?php echo $selectedCat[$cat_value]; ?>> <label for="categoria_<?php echo $cat_value; ?>"><?php echo $cat_name; ?></label>
+                    &nbsp;&nbsp;&nbsp;
+                    
+                <?php endforeach; ?>
+                
+                <br/><br/>
+                <span style="display:none" id="subcategorias_div">
+                <?php foreach($fmb_subcategorias as $cat_value => $cat_name) : ?>
+                    
+                    <input type="radio" class="subcategorias" name="subcategoria" id="subcategoria_<?php echo $cat_value; ?>" value="<?php echo $cat_value; ?>" <?php echo $selectedSubCat[$cat_value]; ?>> <label for="subcategoria_<?php echo $cat_value; ?>"><?php echo $cat_name; ?></label>
+                    <br/>
+                    
+                <?php endforeach; ?>
+                </span>
             
-            <label for="youtube"><?php _e('URL de vídeo no YouTube', 'tnb');?></label>
-			<br/>
-			<input type="text" id="youtube" name="youtube" value="<?php echo htmlspecialchars($profileuser->youtube); ?>" class="text span-13" />
-			<small><?php _e('(Exemplo: http://www.youtube.com/watch?v=videoid)', 'tnb'); ?></small>
-		</p>
-		
-		
-		<h3><?php _e('Imagens', 'tnb');?></h3>
-		<?php for($i = 1; $i<=2; $i++):?>
-        	<p class="clearfix prepend-1">
-    			<label for="photo"><?php _e('Imagem', 'tnb');?> <?php echo $i;?></label>
-    			<?php 
-        		        $media = get_posts("post_type=images&meta_key=_media_index&meta_value=images_{$i}&author={$user_ID}");
-        		        
-        		        if(isset($media[0])){
-        		            echo '<br />';
-        		            $media  = $media[0];
-        		            
-        		            $meta = get_post_meta($media->ID, '_wp_attachment_metadata');
-
-
-                            preg_match('/(\d{4}\/\d\d\/).+/', $meta[0]['file'], $folder);
-                            $images_url = get_option('siteurl') . '/wp-content/uploads/';
-                            
-                            if (isset($meta[0]['sizes']) && array_key_exists('thumbnail', $meta[0]['sizes'])) {
-                                $thumb = $folder[1] . $meta[0]['sizes']['thumbnail']['file'];
-                            } else {
-                                $thumb = $meta[0]['file'];
-                            }
-                            
-                            if (isset($meta[0]['sizes']) && array_key_exists('medium', $meta[0]['sizes'])) {
-                                $medium = $folder[1] . $meta[0]['sizes']['medium']['file'];
-                            } else {
-                            	$medium = $meta[0]['file'];
-                            }
-                            
-                            if (isset($meta[0]['sizes']) && array_key_exists('large', $meta[0]['sizes'])) {
-                                $large = $folder[1] . $meta[0]['sizes']['large']['file'];
-                            } else {
-                            	$large = $meta[0]['file'];
-                            }
-                                
-                            $thumburl = $images_url . $thumb;
-                            $mediumurl = $images_url . $medium;
-                            $largeurl = $images_url . $large;
-        		            
-        		            echo "<img src='" . $mediumurl ."'>";
-        		            echo $media->post_title;
-        		            
-        		            echo "<br/><input type='checkbox'  name='delete_media[]' value='images_{$media->ID}' class='delete_profile_media' />Deletar arquivo<br/>";
-        		        }
-        		?>
-    			<br/>
-    			<input type="file" id="images" name="images_<?php echo $i;?>" value="" class="text span-13" />
-                <small><?php _e('(Formato: JPG, PNG, GIF)', 'tnb'); echo" ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B';?></small>
-    		</p>
+            </p>
             
-		<?php endfor;?>
-		
-		<p class="clearfix textright">
-			<input class='profile-update-submit' type="submit" value="<?php _e('Salvar', 'tnb');?>" />
-			<a href="" class="button cancel-submit"><?php _e('Cancelar', 'tnb');?></a>
-		</p>
-	</form>
-	
-	
-	
-	<h3><?php _e('Upload de Músicas', 'tnb'); ?></h3>
-		<?php for($i = 1; $i<=3; $i++): ?>
-		<div class='upload_music'>
-		<form class="background clearfix" method="post" enctype="multipart/form-data" id="your-profile" >
-    		<input type="hidden" name="action" value="update" />
-    	    <?php wp_nonce_field('edit_nonce'); ?>
-    		<h4 class='prepend-1'><?php _e('Música', 'tnb');?> <?php echo $i;?></h4>
+            <h3><?php _e('Rider e Mapa de Palco', 'tnb');?></h3>
+            <?php for($i = 1; $i<=1; $i++): ?>
+            <p class="clearfix prepend-1">
+                <label for="rider"><?php _e('Rider', 'tnb');?></label>
+                    <?php 
+                            $media = get_posts("post_type=rider&meta_key=_media_index&meta_value=rider_{$i}&author={$user_ID}");
+                            
+                            if(isset($media[0])){
+                                $media  = $media[0];
+                                echo '<br />';
+                                echo "<a href='{$media->guid}'>ARQUIVO</a>";
+                                echo '<br />';
+                                echo $media->post_title;
+                                echo "<br/><input type='checkbox'  name='delete_media[]' value='rider_{$media->ID}' class='delete_profile_media' />Deletar arquivo<br/>";
+                            }
+                    ?>
+                
+                    
+                    <br/>
+                    <input type="file" id="rider" name="rider_<?php echo $i;?>" value="" class="text span-13" />
+                    <small><?php _e('(Formato: PDF, DOC, ODT, JPG, PNG, GIF)', 'tnb'); echo" ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B';?></small>
+                </p>
+            <?php endfor;?>
+            
+            <?php for($i = 1; $i<=1; $i++): ?>
+            <p class="clearfix prepend-1">
+                <label for="mapa_palco"><?php _e('Mapa de palco', 'tnb');?></label> 
+                    <?php 
+                            $media = get_posts("post_type=mapa_palco&meta_key=_media_index&meta_value=mapa_palco_{$i}&author={$user_ID}");
+                            
+                            if(isset($media[0])){
+                                $media  = $media[0];
+                                echo '<br />';
+                                echo "<a href='{$media->guid}'>ARQUIVO</a>";
+                                echo '<br />';
+                                echo $media->post_title;
+                                echo "<br/><input type='checkbox'  name='delete_media[]' value='mapa_palco_{$media->ID}' class='delete_profile_media' />Deletar arquivo<br/>";
+                            }
+                    ?>
+                
+                    
+                    <br/>
+                    <input type="file" id="mapa_palco" name="mapa_palco_<?php echo $i;?>" value="" class="text span-13" />
+                    <small><?php _e('Formato: PDF, DOC, ODT, JPG, PNG, GIF.', 'tnb'); echo" ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B';?></small>
+                </p>
+            <?php endfor;?>
+            <br/>
+            <h2><?php _e('Mídias', 'tnb');?></h2>
+            <h3><?php _e('Vídeo', 'tnb');?></h3>
             <p class="clearfix prepend-1">
                 
-			    <?php 
                 
-        		        $media = get_posts("post_type=music&meta_key=_media_index&meta_value=music_{$i}&author={$user_ID}");
-        		        
-        		        if(isset($media[0])){
-        		            $media  = $media[0];
-        		            print_audio_player($media->ID);
-        		            
-        		            echo $media->post_excerpt;
-        		            
-        		            echo "<br/><input type='checkbox'  name='delete_media[]' value='music_{$media->ID}' class='delete_profile_media' />Deletar arquivo<br/>";
-        		        }
-        		            
-        		?>
+                <label for="youtube"><?php _e('URL de vídeo no YouTube', 'tnb');?></label>
                 <br/>
-                <label for="music_title"><?php _e('Nome','tnb'); ?></label>
-    			<input type="text" id="music_title" name="label_music" value="<?php echo htmlspecialchars($media->post_title); ?>" class="text span-12" /><br/>
-                 
-                <label><?php _e('Arquivo MP3','tnb'); ?></label>
+                <input type="text" id="youtube" name="youtube" value="<?php echo htmlspecialchars($profileuser->youtube); ?>" class="text span-13" />
+                <small><?php _e('(Exemplo: http://www.youtube.com/watch?v=videoid)', 'tnb'); ?></small>
+            </p>
+            
+            
+            <h3><?php _e('Imagens', 'tnb');?></h3>
+            <?php for($i = 1; $i<=2; $i++):?>
+                <p class="clearfix prepend-1">
+                    <label for="photo"><?php _e('Imagem', 'tnb');?> <?php echo $i;?></label>
+                    <?php 
+                            $media = get_posts("post_type=images&meta_key=_media_index&meta_value=images_{$i}&author={$user_ID}");
+                            
+                            if(isset($media[0])){
+                                echo '<br />';
+                                $media  = $media[0];
+                                
+                                $meta = get_post_meta($media->ID, '_wp_attachment_metadata');
+
+
+                                preg_match('/(\d{4}\/\d\d\/).+/', $meta[0]['file'], $folder);
+                                $images_url = get_option('siteurl') . '/wp-content/uploads/';
+                                
+                                if (isset($meta[0]['sizes']) && array_key_exists('thumbnail', $meta[0]['sizes'])) {
+                                    $thumb = $folder[1] . $meta[0]['sizes']['thumbnail']['file'];
+                                } else {
+                                    $thumb = $meta[0]['file'];
+                                }
+                                
+                                if (isset($meta[0]['sizes']) && array_key_exists('medium', $meta[0]['sizes'])) {
+                                    $medium = $folder[1] . $meta[0]['sizes']['medium']['file'];
+                                } else {
+                                    $medium = $meta[0]['file'];
+                                }
+                                
+                                if (isset($meta[0]['sizes']) && array_key_exists('large', $meta[0]['sizes'])) {
+                                    $large = $folder[1] . $meta[0]['sizes']['large']['file'];
+                                } else {
+                                    $large = $meta[0]['file'];
+                                }
+                                    
+                                $thumburl = $images_url . $thumb;
+                                $mediumurl = $images_url . $medium;
+                                $largeurl = $images_url . $large;
+                                
+                                echo "<img src='" . $mediumurl ."'>";
+                                echo $media->post_title;
+                                
+                                echo "<br/><input type='checkbox'  name='delete_media[]' value='images_{$media->ID}' class='delete_profile_media' />Deletar arquivo<br/>";
+                            }
+                    ?>
+                    <br/>
+                    <input type="file" id="images" name="images_<?php echo $i;?>" value="" class="text span-13" />
+                    <small><?php _e('(Formato: JPG, PNG, GIF)', 'tnb'); echo" ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B';?></small>
+                </p>
                 
-                <input type="file" id="music" name="music_<?php echo $i;?>" value="" class="text span-13" />
-                <small><?php echo " ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B'; ?></small>
-    			<input type="hidden" name="id_music" value="<?php echo $media->ID; ?>" />    			
-    		</p>
-    		<p class="clearfix textright">
-    			<input class='profile-update-submit' type="submit" value="<?php _e('Salvar esta música', 'tnb');?>" />
-    		</p>
+            <?php endfor;?>
+            
+            <p class="clearfix textright">
+                <input class='profile-update-submit' type="submit" value="<?php _e('Salvar', 'tnb');?>" />
+                <a href="" class="button cancel-submit"><?php _e('Cancelar', 'tnb');?></a>
+            </p>
         </form>
-        </div>    
-		<?php endfor;?>
-	
-	
+        
+        
+        
+        <h3><?php _e('Upload de Músicas', 'tnb'); ?></h3>
+            <?php for($i = 1; $i<=3; $i++): ?>
+            <div class='upload_music'>
+            <form class="background clearfix" method="post" enctype="multipart/form-data" id="your-profile" >
+                <input type="hidden" name="action" value="update" />
+                <?php wp_nonce_field('edit_nonce'); ?>
+                <h4 class='prepend-1'><?php _e('Música', 'tnb');?> <?php echo $i;?></h4>
+                <p class="clearfix prepend-1">
+                    
+                    <?php 
+                    
+                            $media = get_posts("post_type=music&meta_key=_media_index&meta_value=music_{$i}&author={$user_ID}");
+                            
+                            if(isset($media[0])){
+                                $media  = $media[0];
+                                print_audio_player($media->ID);
+                                
+                                echo $media->post_excerpt;
+                                
+                                echo "<br/><input type='checkbox'  name='delete_media[]' value='music_{$media->ID}' class='delete_profile_media' />Deletar arquivo<br/>";
+                            }
+                                
+                    ?>
+                    <br/>
+                    <label for="music_title"><?php _e('Nome','tnb'); ?></label>
+                    <input type="text" id="music_title" name="label_music" value="<?php echo htmlspecialchars($media->post_title); ?>" class="text span-12" /><br/>
+                     
+                    <label><?php _e('Arquivo MP3','tnb'); ?></label>
+                    
+                    <input type="file" id="music" name="music_<?php echo $i;?>" value="" class="text span-13" />
+                    <small><?php echo " ", __('Tamanho máximo para upload:', 'tnb'),  " " , ini_get('upload_max_filesize'), 'B'; ?></small>
+                    <input type="hidden" name="id_music" value="<?php echo $media->ID; ?>" />    			
+                </p>
+                <p class="clearfix textright">
+                    <input class='profile-update-submit' type="submit" value="<?php _e('Salvar esta música', 'tnb');?>" />
+                </p>
+            </form>
+            </div>    
+            <?php endfor;?>
+        
+	<?php else: // atividades encerradas ?>
+    
+        Não é permitido editar o perfil após o encerramento do período de inscrições
+    
+    <?php endif; ?>
 	
 </div>
 <div class="span-8 last">

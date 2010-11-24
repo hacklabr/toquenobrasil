@@ -10,7 +10,7 @@ Tags: feira música brasil
 */
 
 /* Blueprint */
-@import url(../toquenobrasil/css/screen.css);
+@import url(css/screen.css);
 
 /*cores
 amarelo - #FBA61A
@@ -53,7 +53,7 @@ body { background:#0039a6 url(img/bg-header.png) no-repeat top center; padding-b
 /* =Header:Login Box
 ------------------------------------------------------------------*/
 #login { background-color:#FBA61A; padding:10px; position:absolute; right:0px; top:-175px; width:120px; z-index: 1000; -moz-border-radius:0px 0px 9px 9px; -webkit-border-bottom-left-radius:9px; -webkit-border-bottom-right-radius:9px; }
-#login h5, #login h5 a { color:#fff; font-size:0.9em; }
+#login h5, #login h5 a { color:#fff; font-size:0.8em; }
 #login h5 a { background:#e3860d; padding:2px; -moz-border-radius:3px; -webkit-border-radius:3px; }
 #login h5 a:hover { color:#fff; }
 #login #user, #login #user_login, #login #senha { border:none; margin:0 0 18px; padding:6px; width:108px; -moz-border-radius:9px; -webkit-border-radius:9px; -moz-box-shadow:4px 4px 0px #e3860d; -webkit-box-shadow:4px 4px 0px #e3860d}
@@ -74,7 +74,7 @@ body { background:#0039a6 url(img/bg-header.png) no-repeat top center; padding-b
 #footer #socialmedia img { margin-bottom:9px; }
 #footer #twit { background:url(img/twit.png); color:#204F18; height:296px; left:90px; position:absolute; top:-36px; width:326px; }
 #footer #twit .content { margin-left:30px; padding:0px 30px; }
-#footer #twit .content .tb_author { font-family:Arista; }
+#footer #twit .content .tb_author { font-family:Verdana; }
 #footer #twit .content span { display:block; }
 #footer #twit div.tb_tweetlist, #footer #twit  div.tb_tweet { border:none !important; }
 #footer #twit a { border:1px dotted #204F18; color:#204F18; padding:0 3px; }
@@ -90,10 +90,10 @@ body { background:#0039a6 url(img/bg-header.png) no-repeat top center; padding-b
 /* =Footer:Bottom Navigation
 ------------------------------------------------------------------*/
  { }
-#nav-bottom { color:white; font-family:Arista; font-size:1.2em; position:relative; text-transform:uppercase; }
+#nav-bottom { color:white; font-family:Verdana; font-size:1.2em; position:relative; text-transform:uppercase; }
 #nav-bottom a, #nav-bottom-wrapper #wp a { color:white; }
 #nav-bottom ul { list-style:none; margin:0px; padding:0px; }
-#nav-bottom-wrapper #wp { font-family:Arista; font-size:1.6em; text-align:right; margin-top:44px; }
+#nav-bottom-wrapper #wp { font-family:Verdana; font-size:1.6em; text-align:right; margin-top:44px; }
 #nav-bottom-wrapper #wp img { vertical-align: middle; margin-left: 6px; }
 
 /* =Main Content
@@ -130,7 +130,7 @@ body { background:#0039a6 url(img/bg-header.png) no-repeat top center; padding-b
 .yellow .title .shadow { background:url(img/shadow-yellow.png) no-repeat bottom right; }
 
 /* =Magenta boxes for signup or another kind of highlight */
-.signup { background:#9900cc; bottom:-9px; font-family:Arista; font-weight:bold; padding:9px; position:absolute; right:9px; -moz-border-radius:9px 0px 0px 0px; -webkit-border-top-left-radius:9px; }
+.signup { background:#9900cc; bottom:-9px; font-family:Verdana; font-weight:bold; padding:9px; position:absolute; right:9px; -moz-border-radius:9px 0px 0px 0px; -webkit-border-top-left-radius:9px; }
 .signup a { color:white; font-size:1.3em; padding:9px; position:relative; text-decoration:none; text-transform:uppercase; }
 .signup .shadow { background:url(img/shadow-magenta.png) no-repeat; margin-left:0px; position:absolute; right:-9px; width:9px; height:9px; }
 
@@ -152,7 +152,7 @@ body.single .post { margin-bottom: 160px; }
 .post .post-time .shadow { float:right; height:9px; width:9px; } 
 .post .post-time .shadow { background:url(img/shadow-blue-menu.png) no-repeat top right; }
 .post .post-comments { background:url(img/comments.png) center center no-repeat; height:70px; color: #fff; }
-.post .post-comments span { display:block; font-family:Arista; font-size:2.5em; height:40px; padding:7px 0px; text-align:center; width:70px; }
+.post .post-comments span { display:block; font-family:Verdana; font-size:2.5em; height:40px; padding:7px 0px; text-align:center; width:70px; }
 .post .post-categories { margin-bottom:18px; }
 .post .post-categories a { background:#660099; border:none; color:white; font-weight:bold; line-height:2.25; padding:3px 6px; text-transform:uppercase; }
 .post .post-categories a:hover { background:#9900cc; text-decoration:none; }
@@ -176,7 +176,7 @@ body.single .post { margin-bottom: 160px; }
 #comment { width:258px; }
 #author, #email, #url { padding:5px; width:138px; }
 #posts-navigation { bottom:312px; clear:both; height:200px; margin-top:150px; position:absolute; }
-#posts-navigation #proximo, #posts-navigation #anterior, #posts-navigation #proximos, #posts-navigation #anteriores{ bottom:-72px; font-family:Arista; position:absolute; z-index:1; }
+#posts-navigation #proximo, #posts-navigation #anterior, #posts-navigation #proximos, #posts-navigation #anteriores{ bottom:-72px; font-family:Verdana; position:absolute; z-index:1; }
 #posts-navigation #proximo, #posts-navigation #anteriores { left:370px; width:164px; height:200px; background:transparent url(img/proximo.png) no-repeat; }
 #posts-navigation #anterior, #posts-navigation #proximos { left:110px; width:253px; height:200px; background:transparent url(img/anterior.png) no-repeat; }
 #posts-navigation a { color:#fff; border:none; font-size:1.2em; display:block; }
@@ -203,7 +203,7 @@ body.single .post { margin-bottom: 160px; }
 .event .artist a.name { border-bottom:1px dotted #46b03d; color:#46b03d; font-size:1.25em; margin-bottom:1em; }
 .event .artist a.name:hover { border-bottom-style:solid; }
 .event .artist .avatar img { margin-top:5px; }
-.event .quero-tocar { background:#9900cc; padding:9px; font-family:Arista; font-size:1.2em; line-height:1.25; position:relative; text-align:center; text-transform:uppercase; -moz-border-radius:9px 9px 9px 0; -webkit-border-top-left-radius:9px; -webkit-border-top-right-radius:9px; -webkit-border-bottom-right-radius:9px; }
+.event .quero-tocar { background:#9900cc; padding:9px; font-family:Verdana;  line-height:1.25; position:relative; text-align:center; text-transform:uppercase; -moz-border-radius:9px 9px 9px 0; -webkit-border-top-left-radius:9px; -webkit-border-top-right-radius:9px; -webkit-border-bottom-right-radius:9px; }
 .event .quero-tocar:hover { background:#660099; }
 .event .quero-tocar a { color:#FFFFFF !important; border:none !important; }
 .event .quero-tocar a:hover { border:none; }
@@ -233,7 +233,7 @@ body.single .post { margin-bottom: 160px; }
 
 /* Artists Profile */
 #your-profile small { clear:both; display:block; }
-#your-profile label { font-family:Arista; text-transform:uppercase; font-weight:normal;}
+#your-profile label { font-family:Verdana; text-transform:uppercase; font-weight:normal;}
 .upload_music{border:1px solid #CCCCCC; margin-bottom:20px; padding:15px 10px 0px 0px;}
 /* =Sign up form
 ---------------------------------------------------------------------------------*/
@@ -326,3 +326,12 @@ a.edit-post-link { color:blue; font-size:12px;}
 .ui-state-hover { background:#883D97 !important; height:18px !important; width:18px !important; padding:1px !important; }
 .ui-dialog-content { background:#FFF !important; margin-top:-34px !important; min-height:111px !important; }
 .ui-dialog-content h1 { background:#F5A31D; border-radius:9px; color:white; display:block; float:left; font-size:16px !important; font-weight:bold; padding:9px; text-align:left; -moz-border-radius:9px; -webkit-border-radius:9px; }
+
+
+div#register_tos_unique{
+	background-color:#FFFFFF;
+	height:300px;
+	margin-left:-10px;
+	overflow:auto;
+	padding:10px 15px
+}

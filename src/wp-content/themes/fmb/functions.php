@@ -1,5 +1,5 @@
 <?php
-
+include('admin_listagens.php');
 global $fmb_categorias, $fmb_subcategorias;
 
 $fmb_categorias = array(
@@ -29,5 +29,9 @@ function tnb_mail_name($from_name) {
     return __('Feira Música Brasil [inscrições]', 'tnb');
 }
 
+
+global $atividadesEncerradas;
+
+$atividadesEncerradas = date('Ymd') > 20101105;
 
 ?>

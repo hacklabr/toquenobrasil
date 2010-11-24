@@ -510,4 +510,67 @@ function toquenobrasil_delete_item($itemId, $postType) {
     
 	wp_delete_post((int) $itemId);
 }
+
+
+/*
+print_video_thumbnail("http://www.youtube.com/watch?v=5f-MYl-HzNw");
+print_video_thumbnail('http://vimeo.com/8572290');
+
+print_video_player("http://www.youtube.com/watch?v=5f-MYl-HzNw");
+print_video_player("http://vimeo.com/8572290");
+*/
+
+function print_video_player($video_url, $width='300', $height="200"){
+    
+      if(preg_match("/\/watch\?v=/", $video_url) ) {
+            
+            $videoUrl = preg_replace("/\/watch\?v=/", "/v/" ,$video_url);
+                
+          ?>
+          <object width='<?php echo $width; ?>' height='<?php echo $height; ?>' data='<?php echo $videoUrl; ?>?fs=1&amp;hl=en_US&amp;rel=0'>
+            <param name='allowScriptAccess' value='always'/>
+            <param name='allowFullScreen' value='True'/>
+            <param name='movie' value='<?php echo $videoUrl; ?>&autoplay=0&border=0&showsearch=0&enablejsapi=1&playerapiid=ytplayer&fs=1'></param>
+            <param name='wmode' value='transparent'></param>
+            <embed src='<?php echo $videoUrl; ?>&autoplay=0&border=0&showsearch=0&fs=1' type='application/x-shockwave-flash' wmode='transparent' width='<?php echo $width; ?>' height='<?php echo $height; ?>' allowfullscreen='1'></embed>
+          </object>
+          <?php 
+      }elseif(preg_match("|(vimeo.com)|",$video_url)){
+          preg_match("/http:\/\/(www\.)?vimeo.com\/(\d+)($|\/)/",  $video_url, $out);
+          $vimeo_id = $out[2];
+          ?>
+            <iframe src="http://player.vimeo.com/video/<?php echo $vimeo_id;?>" width="<?php echo $width; ?>" height="<?php echo $height; ?>" frameborder="0"></iframe>
+            
+            
+          <?php 
+      }
+    
+}
+
+function print_video_thumbnail($video_url, $size = 'small'){
+    parse_str(parse_url($video_url,PHP_URL_QUERY), $vars);
+    if( preg_match("|(youtube.com)|",$video_url ) &&  isset($vars['v'])){
+        $y_sizes['large'] =  0;
+        $y_sizes['medium'] =  0;
+        $y_sizes['small'] =  'default';
+        $src = "http://img.youtube.com/vi/{$vars['v']}/{$y_sizes[$size]}.jpg";
+    }elseif(preg_match("|(vimeo.com)|",$video_url ) ){
+        preg_match("/http:\/\/(www\.)?vimeo.com\/(\d+)($|\/)/",  $video_url, $out);
+        $vimeo_id = $out[2];
+
+        $api_endpoint = 'http://www.vimeo.com/api/v2/video/'.$vimeo_id.'.xml';
+        
+        $curl = curl_init($api_endpoint);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+        $str_xml = curl_exec($curl);
+        curl_close($curl);
+
+        
+        $xml  = simplexml_load_string($str_xml);
+        $src = $xml->video->{'thumbnail_' . $size};
+    }
+    echo "<img src='$src' />";
+}
+
 ?>

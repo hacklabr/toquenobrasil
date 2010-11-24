@@ -90,7 +90,10 @@
 				<h1><?php the_title(); ?></h1>
 			</div>
 		</div>
-
+		<?php if(current_user_can('edit_users')){
+		    
+		    echo "<a href='" ,  get_stylesheet_directory_uri() , "/exporta_eventos.php?evento=" , get_the_ID() ,"'> EXPORTAR USUÁRIOS </a>";
+		}?>
 		<div id="event-<?php echo the_ID(); ?>-content" class="clearfix">
 			<?php get_template_part('type-evento', 'block'); ?>
 		</div>
