@@ -16,7 +16,12 @@
   </div>
 
   <p id="intro">
-    <?php echo get_page_by_path('artistas')->post_content; ?>
+    
+    <?php if (is_search()): ?>
+        Resultado da busca por "<?php echo $_GET['s']; ?>"
+    <?php else : ?>
+        <?php echo get_page_by_path('artistas')->post_content; ?>
+    <?php endif; ?>
   </p>
 
   <?php 
@@ -25,8 +30,8 @@
     $paged = $wp_query->get('paged'); 
     $per_page  = get_option('posts_per_page');
     $ofset = $per_page*($paged == 0 ? 0 : $paged-1 );
-    $artistas = get_artistas( "LIMIT $ofset,$per_page" , 'user_registered DESC') ;
-    $found = count(get_artistas());
+    $artistas = get_artistas( "LIMIT $ofset,$per_page" , 'user_registered DESC', get_query_var('s')) ;
+    $found = count(get_artistas( false , 'user_registered DESC', get_query_var('s')));
     $pagination = new ListControl($paged , (int)$per_page , $found);
 
     if(sizeof($artistas)>0):
@@ -50,6 +55,14 @@
 
       <?php endforeach; ?>
 
+    <?php else: ?>
+        
+        <div class="span-12 last">
+            <h2 class="span-10">
+            Nenhum artista encontrado
+            </h2>
+        </div>
+        
     <?php endif; ?>
 
   <div id="posts-navigation">

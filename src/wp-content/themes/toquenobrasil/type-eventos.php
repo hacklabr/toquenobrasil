@@ -15,9 +15,12 @@
 	</div>
 
 	<p id="intro">
-        <?php 
-          echo get_page_by_path('eventos')->post_content;
-        ?>
+        <?php if (is_search()): ?>
+            Resultado da busca por "<?php echo $_GET['s']; ?>"
+        <?php else : ?>
+            <?php echo get_page_by_path('eventos')->post_content; ?>
+        <?php endif; ?>
+        
     </p>
 
 	<?php if ( have_posts() ) : while (have_posts()) : the_post(); ?>
@@ -33,6 +36,14 @@
 		<?php next_posts_link('<span id="proximos"><span>Eventos anteriores</span></span>'); ?>            
 	</div> 
 	
+    <?php else: ?>
+        
+        <div class="span-12 last">
+            <h2 class="span-10">
+            Nenhum evento encontrado
+            </h2>
+        </div>
+    
 	<?php endif; ?>
 
 </div>

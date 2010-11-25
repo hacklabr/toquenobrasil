@@ -13,6 +13,7 @@ include(TEMPLATEPATH . '/includes/tnb_comment.php');
 include(TEMPLATEPATH . '/includes/post_types.php');
 include(TEMPLATEPATH . '/widgets/ultimas_bandas.php');
 include(TEMPLATEPATH . '/widgets/ultimos_eventos.php');
+include(TEMPLATEPATH . '/widgets/busca.php');
 
 
 add_filter( 'author_link', 'tnb_author_link', 10, 3);
@@ -395,7 +396,7 @@ function print_audio_player($post_id){
 }
 
 
-function get_artistas( $limit = false, $order=false) {
+function get_artistas( $limit = false, $order=false, $search = false) {
         global $wpdb;
         
         if(!$order)
@@ -408,10 +409,12 @@ function get_artistas( $limit = false, $order=false) {
         $prefix = $wpdb->prefix;
         $role = 'artista';
         
+        $searchQuery = $search ? $wpdb->prepare("AND display_name LIKE %s", "%$search%") : "";
+        
         $q = "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = '{$prefix}capabilities' AND meta_value LIKE '%\"$role\"%' ORDER BY $order";
         $not_q = "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = 'tnb_inactive' AND meta_value = 1";
-        $query = "SELECT * FROM {$wpdb->users} WHERE ID IN($q) AND ID NOT IN ($not_q) ORDER BY $order $limit";
-//        echo $query ;
+        $query = "SELECT * FROM {$wpdb->users} WHERE ID IN($q) AND ID NOT IN ($not_q) $searchQuery ORDER BY $order $limit";
+
         $users = $wpdb->get_results($query);
         return $users;
 }

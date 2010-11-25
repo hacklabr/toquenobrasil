@@ -42,7 +42,7 @@
             ?>
           	<input type="hidden" name='contact_us' value='1'>
             <div class="span-6 prepend-2 " >
-              <textarea class='auto_clean' name='contact_message' title='<?php _e('Menssagem','tnb');?>'><?php echo isset($_POST['contact_message'])?$_POST['contact_message']: __('Menssagem', 'tnb'); ?></textarea>
+              <textarea class='auto_clean' name='contact_message' title='<?php _e('Mensagem','tnb');?>'><?php echo isset($_POST['contact_message'])?$_POST['contact_message']: __('Mensagem', 'tnb'); ?></textarea>
             </div>
 
             <div class="span-4 last">

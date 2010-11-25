@@ -19,7 +19,7 @@ class ListControl{
         $cleanURL  = explode("?",$cleanURL);
         
         
-        $url = $cleanURL[0] . 'page/' . ($pp + 1) . ( isset($cleanURL[1]) ? '?' . $cleanURL[1] : '' );
+        $url = trailingslashit($cleanURL[0]) . 'page/' . ($pp + 1) . ( isset($cleanURL[1]) ? '?' . $cleanURL[1] : '' );
         
         echo "<div class='prev alignright'><a href='$url'>$label</a></div>";
         
@@ -41,7 +41,7 @@ class ListControl{
         
         if ($previous > 1) {
             $cleanURL  = explode("?",$cleanURL);
-            $url = $cleanURL[0] . 'page/' . ($pp - 1) . ( isset($cleanURL[1]) ? '?' . $cleanURL[1] : '' );
+            $url = trailingslashit($cleanURL[0]) . 'page/' . ($pp - 1) . ( isset($cleanURL[1]) ? '?' . $cleanURL[1] : '' );
         } else {
             $url = $cleanURL;
         }
