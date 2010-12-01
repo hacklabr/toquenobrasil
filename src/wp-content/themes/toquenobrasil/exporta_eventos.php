@@ -25,20 +25,21 @@ if($inscritos){
     if(!is_array($inscritos))
         $inscritos = array($inscritos);
     
-    echo "INSCRITOS:<br/>";    
+    echo "INSCRITOS:<br/>";
+    echo "first name,login,email<br/>";
     foreach($inscritos as $usu){
-        echo $usu->banda, ", ", $usu->user_email , "<br/>"; 
+        echo $usu->banda, ", ", $usu->user_login, ", ", $usu->user_email , "<br/>"; 
     }
 }
-
 
 
 if($selecionados){
     if(!is_array($selecionados))
         $selecionados = array($selecionados);
     
-    echo "ELECIONADOS:<br/>";    
+    echo "SELECIONADOS:<br/>";
+    echo "first name,login,email<br/>";
     foreach($selecionados as $usu){
-        echo $usu->banda, ", ", $usu->user_email , "<br/>"; 
+        echo $usu->banda, ", ", $usu->user_login, ", ", $usu->user_email , "<br/>"; 
     }
 }

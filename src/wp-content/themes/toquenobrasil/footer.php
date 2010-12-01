@@ -52,7 +52,7 @@
               <input type="text" name="contact_email" value="<?php echo isset($_POST['contact_email'])?$_POST['contact_email']:  (is_string($v = $current_user->user_email) ? $v : __('E-mail', 'tnb')); ?>" title='<?php _e('E-mail','tnb');?>'  class="text auto_clean" />
             </div>
             <div class="span-4 last">
-              <input type="text" name="contact_site" value="<?php echo isset($_POST['contact_site'])?$_POST['contact_site']: (is_string($v = $current_user->site) ? $v : __('E-mail', 'tnb')); ?>" title='<?php _e('http://','tnb');?>' class="text auto_clean" />
+              <input type="text" name="contact_site" value="<?php echo isset($_POST['contact_site'])?$_POST['contact_site']: (is_string($v = $current_user->site) ? $v : __('http://', 'tnb')); ?>" title='<?php _e('http://','tnb');?>' class="text auto_clean" />
             </div>
             <div class="span-3 prepend-1 last">
               <input type="image" src="<?php echo get_theme_image("submit.png"); ?>" value="<?php _e('Enviar','tnb');?>" class="submit" />
