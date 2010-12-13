@@ -14,7 +14,7 @@ include(TEMPLATEPATH . '/includes/post_types.php');
 include(TEMPLATEPATH . '/widgets/ultimas_bandas.php');
 include(TEMPLATEPATH . '/widgets/ultimos_eventos.php');
 include(TEMPLATEPATH . '/widgets/busca.php');
-
+include(TEMPLATEPATH . '/includes/admin_export_users.php');
 
 add_filter( 'author_link', 'tnb_author_link', 10, 3);
 
