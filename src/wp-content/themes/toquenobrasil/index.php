@@ -56,10 +56,5 @@ get_header(); ?>
   
 </div>
 
-<div class="span-8 last">
-    <div  class='widgets'>
-        <?php dynamic_sidebar("blog-sidebar");?>
-    </div>
-</div>
-
+<?php get_sidebar(); ?>
 <?php get_footer(); ?>

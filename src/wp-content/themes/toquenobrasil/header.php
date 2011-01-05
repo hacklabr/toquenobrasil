@@ -7,8 +7,8 @@
     global $page, $paged;
 	wp_title( '|', true, 'right' );
     bloginfo( 'name' );
-	
-    
+
+
   	if ( $paged >= 2 || $page >= 2 )
  	echo ' | ' . sprintf( __( 'Page %s', 'tnb' ), max( $paged, $page ) );
   ?>
@@ -37,11 +37,11 @@
   <div class="stripes-header">
     <div class="stripes-content">
       <div id="content" class="container">
-        
+
         <a href="<?php bloginfo('url'); ?>" title='Página inicial''>
           <?php theme_image("toquenobrasil2.png", array("id" => "toquenobrasil", "style" => "height:auto;width:340px;")); ?>
         </a>
-        
+
         <?php wp_nav_menu(array("theme_location" => "main",
                                 "container" => "div",
                                 "container_id" => "nav-main",
@@ -51,17 +51,17 @@
                                 "link_after" => "</h1>"
                                )
         ) ?>
-          
+
         <?php if( is_user_logged_in()):
                 global $current_user;
                 $cap = get_user_option('wp_capabilities', $current_user->ID);
                 $edit_url  = get_bloginfo('url');
                 if(isset($cap['administrator'])){
-                  $edit_url.= '/wp-admin/profile.php';  
+                  $edit_url.= '/wp-admin/profile.php';
                 }elseif(isset($cap['produtor'])){
-                  $edit_url.= '/editar/produtor';
+                  $edit_url.= '/rede/editar/produtor';
                 }elseif(isset($cap['artista'])){
-                  $edit_url.= '/editar/artista';
+                  $edit_url.= '/rede/editar/artista';
                 }
         ?>
 
@@ -69,11 +69,18 @@
           <a href='<?php echo get_author_posts_url($current_user->ID)?>'>
             <?php echo get_avatar($current_user->ID, 120); ?>
             <br/>
-            <span>Ver Perfil</span>
+            <?php if(in_array('artista', $current_user->roles)): ?>
+                <span>Ver Perfil</span>
+            <?php endif; ?>
           </a>
+          <?php if(in_array('produtor', $current_user->roles) || in_array('administrator', $current_user->roles)): ?>
+            <a href='<?php echo get_author_posts_url($current_user->ID)?>/eventos/'>
+                <span>Gerenciar eventos</span>
+            </a>
+          <?php endif; ?>
 
           <br />
-          
+
           <?php if(current_user_can('delete_users')):?>
             <a href="<?php echo get_bloginfo('url')?>/wp-admin"><span>Painel Admin</span></a><br />
           <?php endif;?>
@@ -83,9 +90,9 @@
           <?php endif; ?>
 
           <a href="<?php  echo wp_logout_url(get_bloginfo('url')) ; ?>"><span>Sair</span></a>
-        </div> 
-        	 
-        <?php else: ?>  
+        </div>
+
+        <?php else: ?>
 
           <div id="login">
             <?php
@@ -95,7 +102,7 @@
                 echo "</div>" ;
               }
               if($_GET['email_confirm']){
-                  
+
                 echo "<div class='error'>" ;
                 if($_GET['email_confirm'] == 'artista')
                     _e('Confirme seu e-mail para acessar sua conta.','tnb');
@@ -117,7 +124,7 @@
               <input type="password" name="pwd" value="" id="senha" class="text" />
               <a id="lost-pass" href="#"><span>Perdi a senha</span></a><input type="image" name="ok" src="<?php echo get_theme_image("ok.png"); ?>" id="signin_btn" />
             </form>
-            
+
             <form method="post" action="<?php bloginfo('url'); ?>/wp-login.php?action=lostpassword"  name="lostpasswordform" id="lostpassform">
               <h5>recuperar senha</h5>
               <a>insira seu nome de usuário</a>
@@ -126,5 +133,5 @@
               <a id="cancel-lost-pass" href="#"><span>Cancelar</span></a><input type="image" name="ok" src="<?php echo get_theme_image("ok.png"); ?>" id="lostpassform_submit" />
             </form>
           </div>
-        <?php endif;?>  
-        <div class="clear"></div>    
+        <?php endif;?>
+        <div class="clear"></div>

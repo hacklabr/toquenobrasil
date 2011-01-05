@@ -23,12 +23,12 @@ if ($_GET['tipo_busca'] == 'eventos') {
         'paged' => $paged
     ));
     
-    include('type-eventos.php');
+    include('eventos/list.php');
     exit;
     
 } elseif ($_GET['tipo_busca'] == 'artistas') {
 
-    include('list-artistas.php');
+    include('artistas/list.php');
     exit;
 
 }

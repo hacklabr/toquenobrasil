@@ -18,7 +18,7 @@ class ultimosEventos extends WP_Widget {
 			
       <div id="last-events" class="content">
         <?php
-	  query_posts("post_type=eventos&posts_per_page={$instance['qnt_listado']}&orderby=date&order=DESC");
+	  query_posts("post_type=eventos&posts_per_page={$instance['qnt_listado']}&orderby=date&post_parent=0&order=DESC");
           //The Loop
           if ( have_posts() ) : while ( have_posts() ) : the_post();
 	?>

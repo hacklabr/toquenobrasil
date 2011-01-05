@@ -13,11 +13,12 @@
     </div>
     <?php
       global $authordata, $current_user;
-      if(current_user_can('select_other_artists') || $authordata->ID == $current_user->ID):
+      if(current_user_can('select_other_artists') || current_user_can('select_artists', get_the_ID()) ):
         if(in_postmeta(get_post_meta(get_the_ID(), 'inscrito'), $banda->ID)):?>
 				
           <form action='<?php the_permalink();?>' method="post" id='form_join_event_<?php echo $banda->ID; ?>'>
             <?php wp_nonce_field('select_band'); ?>
+            <input type="hidden" name="action" value="select_band"/>
             <input type="hidden" name="banda_id" value='<?php echo $banda->ID; ?>' />
             <input type="hidden" name="evento_id" value='<?php the_ID(); ?>' />
           </form>
@@ -30,6 +31,7 @@
 
           <form action='<?php the_permalink();?>' method="post" id='form_join_event_<?php echo $banda->ID; ?>'>
             <?php wp_nonce_field('unselect_band'); ?>
+            <input type="hidden" name="action" value="unselect_band"/>
             <input type="hidden" name="banda_id" value='<?php echo $banda->ID; ?>' />
             <input type="hidden" name="evento_id" value='<?php the_ID(); ?>' />
           </form>

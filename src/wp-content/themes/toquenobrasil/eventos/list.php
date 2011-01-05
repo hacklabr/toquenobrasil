@@ -1,5 +1,8 @@
 <?php
 /* Template Name: Listagem dos eventos */
+global $query_string;
+query_posts($query_string . '&post_parent=0');
+
 ?>
 
 <?php get_header(); ?>
@@ -24,9 +27,32 @@
     </p>
 
 	<?php if ( have_posts() ) : while (have_posts()) : the_post(); ?>
-		<div id="event-<?php echo the_ID(); ?>" class="event">
+		
+        <div id="event-<?php echo the_ID(); ?>" class="event">
 			<h2 class="span-14"><a href="<?php the_permalink(); ?>" title='<?php _e('Visitar página do evento', 'tnb'); ?>'><?php the_title(); ?></a></h2>        
-			<?php get_template_part('type-evento', 'block'); ?>
+			<?php include('evento-list-item.php'); ?>
+            
+            <?php
+            // sub eventos
+            if (get_post_meta(get_the_ID(), 'superevento', true) == 'yes') : 
+                
+                $query_args = array(
+                    'post_type' => 'eventos',
+                    'post_parent' => get_the_ID(),
+                    'meta_key' => 'aprovado_para_superevento',
+                    'meta_value' => get_the_ID()
+                );
+                
+                $subevents = get_posts($query_args);
+                foreach ($subevents as $sub) :?>
+                <div class="prepend-1">
+                    <h3><a href="<?php echo get_permalink($sub->ID); ?>" title="<?php echo $sub->post_title;?>"><?php echo $sub->post_title;?></a></h3>
+                    <?php $evento_list_item_id = $sub->ID;                 
+                    include('evento-list-item.php'); ?>
+                </div>
+                <?php endforeach;
+            endif;
+            ?>
 		</div>
 
 	<?php endwhile; ?>
@@ -48,10 +74,5 @@
 
 </div>
 
-<div class="span-8 last">
-    <div  class='widgets'>
-        <?php dynamic_sidebar("tnb-sidebar");?>
-    </div>
-</div>
-
+<?php get_sidebar(); ?>
 <?php get_footer(); ?>
