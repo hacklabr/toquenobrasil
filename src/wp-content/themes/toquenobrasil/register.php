@@ -111,7 +111,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
             update_user_meta( $user_id, 'responsavel' , $_POST['responsavel'] );
         }elseif( $reg_type == 'produtor'){
             update_user_meta( $user_id, 'nome' , $_POST['nome'] );
-            update_user_meta( $user_id, 'banda' , $_POST['nome'] );
 
             if ($_POST['cpf'] != '') {
                 $cpf = preg_replace('/[^0-9]/','',$_POST['cpf']);
