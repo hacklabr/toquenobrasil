@@ -63,13 +63,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
             update_user_meta( $profileuser_id, 'origem_estado' , $_POST['origem_estado'] );
             update_user_meta( $profileuser_id, 'origem_cidade' , $_POST['origem_cidade'] );
             
-            update_user_meta( $profileuser_id, 'banda_pais' , $_POST['banda_pais'] );
-            update_user_meta( $profileuser_id, 'banda_estado' , $_POST['banda_estado'] );
-            update_user_meta( $profileuser_id, 'banda_cidade' , $_POST['banda_cidade'] );
-            
             update_user_meta( $profileuser_id, 'youtube' , $_POST['youtube'] );
-            
-            update_user_meta( $profileuser_id, 'integrantes' , $_POST['integrantes'] );
 
             $cpf = preg_replace('/[^0-9]/','',$_POST['cpf']);
             update_user_meta( $profileuser_id, 'cpf' , $cpf );
