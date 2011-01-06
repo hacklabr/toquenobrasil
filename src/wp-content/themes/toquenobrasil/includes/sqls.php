@@ -74,8 +74,17 @@ if (!get_option('tnb_sql_10')) {
         $wpdb->query("UPDATE $wpdb->usermeta SET meta_value = '$ddd $me->meta_value' WHERE umeta_id = $me->umeta_id");
     
     }
-    
+}
 
+if(!get_option('tnb_sql_11')) {
+    update_option('tnb_sql_11', 1);
+
+    global $wpdb;
+    $eventos = $wpdb->get_col("SELECT ID FROM $wpdb->posts WHERE post_type='eventos'");
+
+    foreach ($eventos as $evento) {
+        update_post_meta($evento, 'evento_pais', 'BR');
+    }
 }
 
 ?>

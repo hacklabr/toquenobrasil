@@ -54,7 +54,7 @@
       <span class="labels"><?php _e('Tipo de evento:', 'tnb');?></span> <?php echo get_post_meta($evento_list_item_id, "evento_tipo", true); ?><br />
       <span class="labels"><?php _e('Data do evento:', 'tnb');?></span> <?php echo ($br_fim==$br_inicio ? $br_inicio : "$br_inicio - $br_fim") ;?><br />
       <span class="labels"><?php _e('Inscrições até:', 'tnb');?></span> <?php echo $br_insc_fim; ?><br />
-            
+
       <span class="labels"><?php _e('Local:', 'tnb');?></span> <?php echo ($local?"$local, ":'')."$cidade".($estado?"/$estado":'')." - {$paises[$sigla_pais]}"; ?><br />
             
       <?php if($link):?>

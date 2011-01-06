@@ -50,7 +50,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
             
             $rt = wp_insert_user($userdata);
             update_user_meta( $profileuser_id, 'banda' , $_POST['banda'] );
-            update_user_meta( $profileuser_id, 'responsavel' , $_POST['responsavel'] );
+            update_user_meta( $profileuser_id, 'nome' , $_POST['nome'] );
             update_user_meta( $profileuser_id, 'telefone' , $_POST['telefone'] );
             //update_user_meta( $profileuser_id, 'telefone_ddd' , $_POST['telefone_ddd'] );
             if(strlen($_POST['site'])> 0 && $_POST['site']!='http://')
@@ -344,16 +344,14 @@ get_header();
 		</p>
 
         <p class="clearfix prepend-1">
-			<label for="responsable"><?php _e('Responsável', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
+			<label for="nome"><?php _e('Nome', 'tnb');?></label>
 			<br/>
-			<input type="text" id="responsavel" name="responsavel" value="<?php echo $profileuser->responsavel; ?>" class="text span-13" />
-			<small><?php _e('Nome do responsável pelo agendamento', 'tnb'); ?></small>
+			<input type="text" id="nome" name="nome" value="<?php echo $profileuser->nome; ?>" class="text span-13" />
 		</p>
 		<p class="clearfix prepend-1">
 			<label for="user_email"><?php _e('E-mail', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
 			<br/>
 			<input type="text" id="user_email" name="user_email" value="<?php echo $profileuser->user_email; ?>" class="text span-13" />
-			<small><?php _e('Email do responsável pelo agendamento', 'tnb'); ?></small>
 		</p>
 		<p class="clearfix prepend-1">
 			<label for="phone"><?php _e('Telefone', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
@@ -362,6 +360,12 @@ get_header();
 			<small><?php _e('Telefone completo. Ex: +55 11 5555 0111', 'tnb'); ?></small>
 		</p>
 		
+        <h5 class='prepend-1'><?php _e('Foto do Perfil', 'tnb');?></h5>
+		<div class="prepend-1 clearfix">
+          <?php do_action('custom_edit_user_profile'); ?>
+
+        </div>
+
 		<br/>
 		<h2><?php _e('Mídias', 'tnb');?></h2>
 		<h3><?php _e('Vídeo', 'tnb');?></h3>
