@@ -62,30 +62,39 @@ function itsnoon_do_export_users() {
     header('Cache-control: private');
     header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
     header('Content-Description: File Transfer');
-    header('Content-Type: application/csv');
-    header('Content-disposition: attachment; filename=TNB_Users_' . date('Y-m-d') . '.csv');
+    header('Content-Type: application/vnd.ms-excel;');                 // This should work for IE & Opera
+    header("Content-type: application/x-msexcel");                    // This should work for the rest 
+    header('Content-disposition: attachment; filename=TNB_Users_' . date('Y-m-d') . '.xls');
     
     
     // table header
+    
+    echo '<table>';
+    
+    echo '<tr>'; echo '</tr>';
     foreach ($outputUsers as $columnName => $v) {
     
-        echo $columnName, ";";
+        echo "<th>$columnName</th>";
     
     }
     
-    echo "\n";
+    echo '</tr>';
     
     foreach ($users_ids as $id) {
     
+        echo '<tr>';
+    
         foreach ($outputUsers as $columnName => $v) {
     
-            echo '"' . $v[$id] . '"', ";";
+            echo '<td>' . $v[$id] . '</td>';
         
         }
         
-        echo "\n";
+        echo '</tr>';
     
     }
+
+    echo '</table>';
     
     exit;
     
