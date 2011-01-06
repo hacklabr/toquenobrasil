@@ -4,6 +4,7 @@
     }
 
     $evento_list_item = get_post($evento_list_item_id);
+    $paises = $paises?$paises:get_paises();
 
     $inicio = get_post_meta($evento_list_item_id, "evento_inicio", true);
     $fim = get_post_meta($evento_list_item_id, "evento_fim", true);
@@ -14,6 +15,9 @@
     $br_insc_inicio = preg_replace("/([0-9]{4})-([0-9]{2})-([0-9]{2})/","$3/$2/$1", $inscricao_inicio);
     $br_insc_fim = preg_replace("/([0-9]{4})-([0-9]{2})-([0-9]{2})/","$3/$2/$1",$inscricao_fim);
     $local = get_post_meta($evento_list_item_id, "evento_local", true);
+    $sigla_pais = get_post_meta($evento_list_item_id, "evento_pais", true);
+    $estado = strtoupper(get_post_meta($evento_list_item_id, "evento_estado", true));
+    $cidade = get_post_meta($evento_list_item_id, "evento_cidade", true);
     $link = get_post_meta($evento_list_item_id, "evento_site", true);
     $vagas = get_post_meta($evento_list_item_id, "evento_vagas", true);
     $condicoes = get_the_condicoes($evento_list_item_id);
@@ -51,9 +55,7 @@
       <span class="labels"><?php _e('Data do evento:', 'tnb');?></span> <?php echo ($br_fim==$br_inicio ? $br_inicio : "$br_inicio - $br_fim") ;?><br />
       <span class="labels"><?php _e('Inscrições até:', 'tnb');?></span> <?php echo $br_insc_fim; ?><br />
             
-      <?php if($local):?>
-        <span class="labels"><?php _e('Local:', 'tnb');?></span> <?php echo $local; ?><br />
-      <?php endif; ?>
+      <span class="labels"><?php _e('Local:', 'tnb');?></span> <?php echo ($local?"$local, ":'')."$cidade".($estado?"/$estado":'')." - {$paises[$sigla_pais]}"; ?><br />
             
       <?php if($link):?>
         <span class="labels"><?php _e('Site:', 'tnb');?></span> <a href="<?php echo $link; ?>" target="_blank"><?php echo $link; ?></a><br />

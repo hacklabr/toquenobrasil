@@ -41,7 +41,7 @@
 
         $_POST['evento_inscricao_inicio'] = preg_replace("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/","$3-$2-$1", $_POST['evento_inscricao_inicio']);
 
-        $_POST['evento_inscricao_fim'] = $_POST['evento_inscricao_fim']!='' 
+        $_POST['evento_inscricao_fim'] = $_POST['evento_inscricao_fim']!=''
                                              ? preg_replace("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/","$3-$2-$1", $_POST['evento_inscricao_fim'])
                                              : $_POST['evento_inscricao_inicio'] ;
     }
@@ -52,6 +52,7 @@
         'evento_local' => $_POST['evento_local'],
         'evento_cidade' => $_POST['evento_cidade'],
         'evento_estado' => $_POST['evento_estado'],
+        'evento_pais' => $_POST['evento_pais'],
         'evento_inicio' => $_POST['evento_inicio'],
         'evento_fim' => $_POST['evento_fim'],
         'evento_tipo' => $_POST['evento_tipo'],
@@ -67,7 +68,7 @@
         'superevento' => $_REQUEST['superevento'],
         'evento_produtores_selecionam' => $_POST['evento_produtores_selecionam']
     );
-   
+
     // é confrontado com $_FILES
     $images = array(
         'evento_avatar' => null,
@@ -97,8 +98,8 @@
     if ($event->post_parent==0 && !empty($_REQUEST['post_parent'])) {
         $event->post_parent = (int) sprintf("%d", $_REQUEST['post_parent']);
     }
-    
-    if ($event->post_parent > 0) { 
+
+    if ($event->post_parent > 0) {
         $parent_event = get_post($event->post_parent);
 
         if(get_post_meta($parent_event->ID, 'superevento', true) == 'yes' && $parent_event->post_type == 'eventos') {
@@ -167,16 +168,16 @@
         if(strip_tags($_POST['post_content']) == ''){
             $errors[] = __("A descrição do evento não está preenchida correntamente.");
         }
-        
+
         // Restrições para mudar o status de um evento:
-        
+
         if ($_POST['post_status'] == 'publish' && $event->post_parent > 0) {
             // Um sub evento só pode ser marcado como ativo se o evento pai estiver ativo:
             if ($parent_event->post_status != 'publish')
                 $errors[] = __("Este evento só pode ser ativado quando o evento pai estiver ativo");
         }
         if(count($errors) == 0) {
-        
+
             if ($event->ID && $_POST['post_status'] == 'draft' && $_REQUEST['superevento'] == 'yes') {
                 // Se um super evento for marcado como inativo, é preciso desativar todos os eventos filhos e comunicar seus produtores
                 $subEventosParaDesativar = get_posts("post_type=eventos&post_parent={$event->ID}&post_status=publish&numberposts=-1");
@@ -186,7 +187,7 @@
                     do_action('tnb_subevento_desativado_por_superevento', $event, $subEventoDesativar);
                 }
             }
-        
+
             $event->post_title = $_POST['post_title'];
             $post = array(
                 'post_title' => strip_tags($_POST['post_title']),
@@ -285,6 +286,7 @@
     $superevents = query_posts($query_args);
 
     $estados = get_estados();
+    $paises = get_paises();
 
     wp_enqueue_script('datepicker_js', TNB_URL . '/js/ui.datepicker.js', array('jquery'));
     wp_enqueue_script('datepicker_br_js', TNB_URL . '/js/jquery.ui.datepicker-pt-BR.js', array('datepicker_js'));
@@ -322,12 +324,12 @@
             </p>
             <p>
                 <label for="post_status"><?php _e('Status');?>*</label><br />
-                
+
                 <select name="post_status">
                     <option value="publish" <?php if ($event->post_status == 'publish') echo "selected"; ?>>Ativo</option>
                     <option value="draft" <?php if ($event->post_status == 'draft') echo "selected"; ?>>Inativo</option>
                 </select>
-                
+
             </p>
             <p style="clear:both">
                 <label for="post_content"><?php _e('Descrição');?>*</label><br />
@@ -431,19 +433,29 @@
                 <label for="evento_local"><?php _e('Estabelecimento');?></label><br />
                 <input id="evento_local" class="text" name="evento_local" type="text" value="<?php echo $event_meta['evento_local'];?>" />
             </p>
-            <p class="span-5">
-                <label for="evento_cidade"><?php _e('Cidade');?></label><br />
-                <input id="evento_cidade" class="text" name="evento_cidade" type="text" value="<?php echo $event_meta['evento_cidade'];?>" />
+            <p class="span-3">
+                <label for="evento_pais"><?php _e('País', 'tnb');?></label><br />
+                <select name="evento_pais" id='evento_pais' class="span-3">
+                     <?php
+                        foreach($paises as $sigla=>$name){
+                            echo "<option " . ($event_meta['evento_pais'] == $sigla ? 'selected':'') . " value='$sigla'>$name</option>";
+                        }
+                    ?>
+                </select>
             </p>
-            <p class="span-5">
+            <p class="span-4">
                 <label for="evento_estado"><?php _e('Estado');?></label><br />
-                <select id="evento_estado" name="evento_estado">
+                <select id="evento_estado" name="evento_estado" class="span-4">
                 <?php
                     foreach($estados as $uf=>$name){
                         echo "<option " . ($event_meta['evento_estado'] == $uf ? 'selected':'') . " value='$uf'>$name</option>";
                     }
                 ?>
                 </select>
+            </p>
+            <p class="span-5">
+                <label for="evento_cidade"><?php _e('Cidade');?></label><br />
+                <input id="evento_cidade" class="text" name="evento_cidade" type="text" value="<?php echo $event_meta['evento_cidade'];?>" />
             </p>
 
             <div class="clear"></div>
@@ -473,7 +485,7 @@
                 <label for="evento_vagas"><?php _e('Vagas');?></label><br />
                 <input id="evento_vagas" class="text" name="evento_vagas" type="text" value="<?php echo $event_meta['evento_vagas'];?>" />
             </p>
-            
+
             <p style="clear:both">
                 <label for="evento_condicoes"><?php _e('Condições');?></label><br />
                 <textarea <?php echo $parent_event->forcar_condicoes?'disabled="disabled" ':'';?>id="evento_condicoes" class="text" name="evento_condicoes"><?php echo $event_meta['evento_condicoes'];?></textarea>
