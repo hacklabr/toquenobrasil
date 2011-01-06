@@ -57,6 +57,7 @@ function tnb_superevento_recebe_um_subevento($subevent_id) {
     $subevent = get_post($subevent_id);
     $superevent = get_post($subevent->post_parent);
     $produtor = get_userdata($subevent->post_author);
+    $produtor_super = get_userdata($superevent->post_author);
 
     $subject = 'TNB | ' . $superevent->post_title;
 
@@ -67,7 +68,7 @@ function tnb_superevento_recebe_um_subevento($subevent_id) {
     $info .= __("Link para o evento") . ": " . get_permalink($subevent->ID);
     $message = str_replace('{{INFORMACOES}}', $info, $message);
 
-    wp_mail($produtor->user_email, $subject,$message);
+    wp_mail($produtor_super->user_email, $subject,$message);
 }
 
 ////////////////// UM SUBEVENTO É APROVADO EM UM SUPEREVENTO ////////
