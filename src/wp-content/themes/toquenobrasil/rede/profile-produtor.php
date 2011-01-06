@@ -5,7 +5,7 @@
   <div id="artist-<?php echo $curauth->ID; ?>-title" class="item green clearfix">
     <div class="title pull-1 clearfix">
       <div class="shadow"></div>
-      <h1><?php echo $curauth->banda; ?></h1>
+      <h1><?php echo $curauth->nome; ?></h1>
     </div>
   </div>
 
@@ -20,7 +20,7 @@
 		<br/><br/>
         <p>
           <?php if($curauth->origem_estado !=''): $estados = get_estados();?>
-   	      	<strong><?php _e('Estado:','tnb'); ?></strong>  <?php echo $estados[$curauth->origem_estado], ' - ', $curauth->origem_cidade ?><br/>
+   	      	<strong><?php _e('Local:','tnb'); ?></strong>  <?php echo $estados[$curauth->origem_estado], ' - ', $curauth->origem_cidade ?><br/>
           <?php endif;?>
           
           <?php if ($curauth->site) : ?>
@@ -30,10 +30,6 @@
           <?php if(current_user_can('select_artists') || current_user_can('select_other_artists')  || $curauth->ID == $current_user->ID ):?>
             <br/>
             <h3>Dados Pessoais <?php theme_image('lock.png', array('title' => 'teste')); ?></h3>
-            <?php if ($curauth->responsavel) : ?>
-                <strong><?php _e('Responsável:','tnb') ?></strong> <?php echo $curauth->responsavel; ?>
-                <br/>
-            <?php endif;?>
             
             <?php if ($curauth->user_email) : ?>
                 <strong><?php _e('E-mail:','tnb'); ?></strong> <a href="mailto:<?php echo $curauth->user_email; ?>"><?php echo $curauth->user_email; ?></a>
@@ -44,11 +40,6 @@
                 <strong><?php _e('Telefone:','tnb'); ?></strong> <?php echo $curauth->telefone_ddd; ?> <?php echo $curauth->telefone; ?>
                 <br/>
             <?php endif;?>
-            
-            <?php if($curauth->banda_estado !=''): $estados = get_estados();?>
-                 <strong><?php _e('Local de residência da banda:','tnb'); ?></strong>  <?php echo $estados[$curauth->banda_estado], ' - ', $curauth->banda_cidade; ?><br/>
-            <?php endif;?>
-        
           <?php endif; ?>
           
         </p>
