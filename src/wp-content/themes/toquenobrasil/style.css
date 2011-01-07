@@ -195,7 +195,7 @@ body.single .post { margin-bottom: 160px; }
 #events .event h2 { font-size:2em; line-height:1; margin-bottom:1em; text-transform:uppercase; }
 .event a { border-bottom:1px dotted #5B9F31; color:#5B9F31; }
 .event a:hover { border-bottom:1px solid #5B9F31; text-decoration:none; }
-.event #thumb img { margin-top:5px; -moz-border-radius:9px; -webkit-border-radius:9px; }
+.event #thumb img { margin-top:5px; margin-bottom:20px; -moz-border-radius:9px; -webkit-border-radius:9px; }
 
 .event .artist { border-bottom:1px solid #EEEEEE; margin-bottom:1.5em; padding-bottom:1.5em; }
 .event .artist a.name { border-bottom:1px dotted #5B9F31; color:#5B9F31; font-size:1.25em; margin-bottom:1em; }
