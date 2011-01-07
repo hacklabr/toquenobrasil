@@ -347,8 +347,11 @@ get_header();
                           <?php elseif($activated):?>
                             <?php _e('Seu cadastro foi ativado.', 'tnb');?>
                           <?php else:?>
-                          <input type="hidden" name="action" value="register" />
-                          <input type="hidden" name="type" value="produtor" />
+                            <input type="hidden" name="action" value="register" />
+                            <input type="hidden" name="type" value="produtor" />
+                         
+                            <?php print_help_player_for('cadastro_produtor');?>
+
                             <div class="span-6">
                                 <label for="nome"><?php _e('Nome:', 'tnb');?></label>
                                 <br />
