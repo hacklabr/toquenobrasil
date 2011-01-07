@@ -928,15 +928,20 @@ function is_a_valid_cpf($cpf) {
     return $digit[9] == ((int)$cpf[9]) && $digit[10] == ((int)$cpf[10]);
 }
 
+/**
+ * Monta estrutra para caixa modal e exibe o vídeo de
+ * ajuda de acordo com o contexto passado por parâmetro.
+ * O link para o vídeo deve ser definido no wp-admin.
+ */
 function print_help_player_for($for_what) {
     $options = get_option('help_videos');
     $url = $options[$for_what];
 
     if($url){
         ?>
-        <p style="text-align:right">
-            <input type="button" id="help_button" value="Ajuda" onclick="jQuery('#tnb_modal_help_video').dialog('open');"/>
-        </p>
+        <div class="help_video_bar">
+            <a class="help_video_button" title="Ajuda" alt="Ajuda" onclick="jQuery('#tnb_modal_help_video').dialog('open');"><span>Ajuda</span></a>
+        </div>
         <div class='tnb_modal' id='tnb_modal_help_video'> 
             <h2>Ajuda</h2>
             <?php print_video_player($url, 640, 480);?>
@@ -948,6 +953,4 @@ function print_help_player_for($for_what) {
 
 // Tamanho customizado de imagens
 add_image_size('banner-horizontal',550,150,false);
-
-
 ?>

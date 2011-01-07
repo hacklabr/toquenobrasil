@@ -191,6 +191,7 @@ get_header();
             <div class="shadow"></div>
             <h1>Cadastre-se</h1>
         </div>
+        <?php print_help_player_for('cadastro_produtor');?>
     </div>
 
     <?php print_msgs($msgs);?>
@@ -350,7 +351,6 @@ get_header();
                             <input type="hidden" name="action" value="register" />
                             <input type="hidden" name="type" value="produtor" />
                          
-                            <?php print_help_player_for('cadastro_produtor');?>
 
                             <div class="span-6">
                                 <label for="nome"><?php _e('Nome:', 'tnb');?></label>

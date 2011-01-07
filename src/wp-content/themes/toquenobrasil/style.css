@@ -354,3 +354,10 @@ h2 .inactive { color: lightgray; text-transform: lowercase; }
 /* =error box
 ---------------------------------------------------------------------------------*/
 .error a { text-decoration: underline; }
+
+/* =help video
+---------------------------------------------------------------------------------*/
+.help_video_button { background: transparent url(img/pink-question.png) no-repeat top left; display: block; float: right; width: 28px; height: 28px; cursor: pointer; }
+.help_video_button:hover { background: transparent url(img/wine-question.png) no-repeat top left; }
+.help_video_button span{ display: none; }
+.item .help_video_bar{ padding-top: 40px; }
