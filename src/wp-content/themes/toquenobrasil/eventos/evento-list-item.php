@@ -69,7 +69,7 @@
         <span class="labels"><?php _e('Aprovado:', 'tnb');?></span> <?php echo get_post_meta($evento_list_item_id,'aprovado_para_superevento',true) ==  $evento_list_item->post_parent ? _e('Sim') : _e('Não');?><br/>
       <?php endif; ?>
 
-      <span class="labels"><?php _e('Produtor');?>:</span> <a href="<?php echo get_author_posts_url($evento_list_item->post_author);?>"><?php the_author(); ?></a><br />
+      <span class="labels"><?php _e('Produtor');?>:</span> <a href="<?php echo get_author_posts_url($evento_list_item->post_author);?>"><?php echo get_author_name($evento_list_item->post_author); ?></a><br />
       
       <?php if (current_user_can('edit_post', $evento_list_item_id)): ?>
         <a href="<?php echo get_author_posts_url($evento_list_item->post_author);?>/eventos/<?php echo $evento_list_item->post_name;?>/editar">Editar este evento</a> <br />
@@ -80,7 +80,7 @@
   </div><!-- .dados-do-evento -->
 </div>
 
-<div class="span-3 last">
+<div class="span-<?php echo $subevento?2:3;?> last">
 
     <?php if(is_produtor() && $superevento): ?>
         <div class="novo-subevento quero-tocar">
