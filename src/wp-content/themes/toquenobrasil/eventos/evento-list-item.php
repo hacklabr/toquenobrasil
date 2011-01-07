@@ -82,7 +82,7 @@
 
 <div class="span-<?php echo $subevento?2:3;?> last">
 
-    <?php if(is_produtor() && $superevento): ?>
+    <?php if(is_produtor() && $superevento && strtotime($inscricao_fim) >= strtotime(date('Y-m-d'))): ?>
         <div class="novo-subevento quero-tocar">
             <a href="<?php bloginfo('siteurl');?>/rede/<?php echo $current_user->user_nicename;?>/eventos/novo/?superevento=no&post_parent=<?php echo $evento_list_item_id;?>">Inscrever meu evento</a>
         </div>
@@ -124,10 +124,19 @@
             <a href="<?php bloginfo('url');?>/cadastre-se/artista" title='<?php _e('Cadastre-se para poder participar do Toque no Brasil!', 'tnb');?>'><?php _e('Quero <br />tocar!', 'tnb');?></a>
           </div>
         <?php endif;?>
-    <?php  else :?>    
+
+    <?php /* Quando as inscrições estão encerradas */ ?>
+    <?php elseif(strtotime($inscricao_fim) < strtotime(date('Y-m-d'))): ?>    
 
         <div class="quero-tocar iam-signed">
             <a><?php _e('Inscrições <br /> encerradas!', 'tnb');?></a>
+        </div>
+
+    <?php /* Quando as inscrições ainda não abriram */ ?>
+    <?php elseif(strtotime($inscricao_inicio) > strtotime(date('Y-m-d'))): ?>    
+
+        <div class="quero-tocar iam-signed">
+            <a><?php _e('Em breve!', 'tnb');?></a>
         </div>
 
     <?php endif;?>
