@@ -16,12 +16,6 @@
 		</div>
 	</div>
 
-	<div id="intro">
-        <?php 
-          echo get_page_by_path('produtores')->post_content;
-        ?>
-    </div>
-    
     <?php 
     global $wp_query;
 		
