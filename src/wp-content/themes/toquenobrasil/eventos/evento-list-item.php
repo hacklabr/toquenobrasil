@@ -125,11 +125,11 @@
           </div>
         <?php endif;?>
     <?php  else :?>    
-        <!--
+
         <div class="quero-tocar iam-signed">
             <a><?php _e('Inscrições <br /> encerradas!', 'tnb');?></a>
         </div>
-        -->
+
     <?php endif;?>
  </div>
  
