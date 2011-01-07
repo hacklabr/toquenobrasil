@@ -127,7 +127,8 @@
                     'post_parent' => get_the_ID(),
                     'meta_key' => 'superevento',
                     'meta_value' => 'no',
-                    'post_status' => 'any'
+                    'post_status' => 'any',
+                    'numberposts' => -1
                 );
             } else {
                 $query_args = array(
@@ -136,7 +137,8 @@
                     'author' => $current_user->ID,
                     'meta_key' => 'superevento',
                     'meta_value' => 'no',
-                    'post_status' => 'any'
+                    'post_status' => 'any',
+                    'numberposts' => -1
                 );
             }
 

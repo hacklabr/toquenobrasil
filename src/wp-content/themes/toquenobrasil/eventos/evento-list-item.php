@@ -20,8 +20,8 @@
     $cidade = get_post_meta($evento_list_item_id, "evento_cidade", true);
     $link = get_post_meta($evento_list_item_id, "evento_site", true);
     $vagas = get_post_meta($evento_list_item_id, "evento_vagas", true);
-    $condicoes = get_the_condicoes($evento_list_item_id);
-    $restricoes = get_the_restricoes($evento_list_item_id);
+    $condicoes = !$supress_condicoes?get_the_condicoes($evento_list_item_id):null;
+    $restricoes = !$supress_restricoes?get_the_restricoes($evento_list_item_id):null;
     $tos = get_the_tos($evento_list_item_id);
     $superevento = get_post_meta($evento_list_item_id, "superevento", true) == 'yes';
 
