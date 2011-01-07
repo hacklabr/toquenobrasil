@@ -59,10 +59,6 @@
             </div>
         </div>
 
-        <?php if(current_user_can('edit_users')):?>
-        <a href="<?php echo get_stylesheet_directory_uri();?>/exporta_eventos.php?evento=<?php echo get_the_ID();?>">Exportar usuários</a>";
-        <?php endif;?>
-        
         <!-- partes do evento comum -->
         
         <?php if ($superevento): ?>        
