@@ -17,7 +17,7 @@
     $evento_tipos = array("Competição","Festival","Publicidade","Show","Turnê");
 
     $profileuser = $current_user->data;
-    if( !$profileuser->cpf && !$profileuser->cpf){
+    if( !$profileuser->cnpj && !$profileuser->cpf){
         $profile_href = home_url().'/rede/editar/'.$current_user->user_nicename.'/';
         $errors[] = __("Complete seus dados do perfil com CPF ou CNPJ para poder criar eventos.").'<br/>'.
                     "<a class='tag-link' href='$profile_href'>".__("Clique aqui para editar seu perfil")."</a>";
