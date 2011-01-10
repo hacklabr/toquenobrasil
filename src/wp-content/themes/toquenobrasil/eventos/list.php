@@ -1,8 +1,9 @@
 <?php
 /* Template Name: Listagem dos eventos */
-global $query_string;
-query_posts($query_string . '&post_parent=0');
-
+if (!is_search()) {
+    global $query_string;
+    query_posts($query_string . '&post_parent=0');
+}
 ?>
 
 <?php get_header(); ?>
@@ -40,7 +41,8 @@ query_posts($query_string . '&post_parent=0');
                     'post_type' => 'eventos',
                     'post_parent' => get_the_ID(),
                     'meta_key' => 'aprovado_para_superevento',
-                    'meta_value' => get_the_ID()
+                    'meta_value' => get_the_ID(),
+                    'orderby' => 'rand'
                 );
                 
                 $subevents = get_posts($query_args);

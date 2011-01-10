@@ -1,5 +1,7 @@
 <?php
 /* Template Name: Listagem dos produtores */
+
+$page_content = get_page_by_path('produtores')->post_content;
 ?>
 
 <?php get_header(); ?>
@@ -16,6 +18,12 @@
 		</div>
 	</div>
 
+    <?php if($page_content):?>
+	<div id="intro">
+        <?php echo $page_content;?>
+    </div>
+    <?php endif;?>
+    
     <?php 
     global $wp_query;
 		
