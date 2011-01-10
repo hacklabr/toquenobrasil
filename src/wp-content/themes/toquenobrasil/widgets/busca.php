@@ -21,13 +21,13 @@ class buscaTNB extends WP_Widget {
             <label for="s" class="screen-reader-text"><?php _e('Pesquisar por','tnb');?></label>
             <input type="text" id="s" name="s" value="<?php echo htmlspecialchars($_GET['s']); ?>">
             <input type="submit" value="Pesquisar" id="tnbsearchsubmit">
-            <span class="">
-                <input type="radio" name="tipo_busca" value="artistas" <?php if(!$_GET['tipo_busca'] || $_GET['tipo_busca'] == 'artistas') echo 'checked'; ?> /> <?php _e('Artistas','tnb');?>
+            <div>
+                <input type="radio" name="tipo_busca" value="artistas" <?php if(!$_GET['tipo_busca'] || $_GET['tipo_busca'] == 'artistas') echo 'checked="checked"'; ?> /> <?php _e('Artistas','tnb');?>
                 <!-- <input type="radio" name="tipo_busca" value="produtores" <?php if($_GET['tipo_busca'] == 'produtores') echo 'checked'; ?> /> <?php _e('Produtores','tnb');?> -->
             
                 <input type="radio" name="tipo_busca" value="eventos" <?php if($_GET['tipo_busca'] == 'eventos') echo 'checked'; ?> /> <?php _e('Eventos','tnb');?>
                 <input type="radio" name="tipo_busca" value="blog" <?php if($_GET['tipo_busca'] == 'blog') echo 'checked'; ?> /> <?php _e('Blog','tnb');?>
-            </span>
+            </div>
         </div>
     </form>
     <script>
