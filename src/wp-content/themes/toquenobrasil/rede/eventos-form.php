@@ -103,6 +103,8 @@
         $parent_event = get_post($event->post_parent);
 
         if(get_post_meta($parent_event->ID, 'superevento', true) == 'yes' && $parent_event->post_type == 'eventos') {
+            $event_meta['evento_tipo'] = get_post_meta($parent_event->ID, 'evento_tipo', true);
+
             if(get_post_meta($parent_event->ID, 'forcar_condicoes', true)) {
                 $parent_event->forcar_condicoes = true;
                 $event_meta['evento_condicoes'] = get_post_meta($parent_event->ID, 'evento_condicoes', true);
@@ -355,20 +357,6 @@
                 <input id="evento_avatar" class="text" name="evento_avatar" type="file" />
                 <p>As imagens dos supereventos são maiores do que as dos eventos comuns, para terem mais destaque. Se o seu evento for um <b>superevento</b>, para melhor aparência, preferencialmente envie uma imagem proporcional à medida máxima de exibição que é de 550x150px (retangular).<br /> Se for um <b>evento normal</b>, envie uma imagem na proporção de 150x150px (quadrada). Imagens menores que estas medidas não serão redimensionadas.</p>
             </p>
-            <p class="span-6">
-                <label for="evento_tipo"><?php _e('Tipo de evento');?>*</label><br />
-                <select id="evento_tipo">
-                    <?php foreach($evento_tipos as $tipo):?>
-                    <option value="<?php echo $tipo;?>"<?php echo $tipo==$event_meta['evento_tipo']?' selected="selected"':'';?>><?php echo $tipo;?></option>
-                    <?php endforeach;?>
-                    <option value="Outro"<?php echo !in_array($event_meta['evento_tipo'],$evento_tipos)?' selected="selected"':'';?>><?php _e('Outro');?></option>
-                </select>
-            </p>
-            <p class="span-6" id="outro_evento_tipo" style="display:none">
-                <small><?php _e('Qual o tipo de evento?');?></small><br />
-                <input type="hidden" id="evento_tipo_original" value="<?php echo $event_meta['evento_tipo'];?>"/>
-                <input type="text" class="text" name="evento_tipo" value="<?php echo $event_meta['evento_tipo'];?>"/>
-            </p>
 
             <p class="span-6" style="clear:left">
                 <label for="superevento"><?php _e('Super-evento');?></label><br />
@@ -392,9 +380,26 @@
                 </select>
                 <?php endif;?>
             </p>
-            <p class="span-10" id="produtores_selecionam">
+
+            <p id="produtores_selecionam">
                 <label for="evento_produtores_selecionam"><?php _e('Os produtores dos sub-eventos podem selecionar os artistas');?></label>
                 <input id="evento_produtores_selecionam" name="evento_produtores_selecionam" type="checkbox" value="1" <?php if ($event_meta['evento_produtores_selecionam'] == 1) echo 'checked' ?>/>
+            </p>
+
+
+            <p class="span-6 evento_tipo" style="clear:left">
+                <label for="evento_tipo"><?php _e('Tipo de evento');?>*</label><br />
+                <select id="evento_tipo">
+                    <?php foreach($evento_tipos as $tipo):?>
+                    <option value="<?php echo $tipo;?>"<?php echo $tipo==$event_meta['evento_tipo']?' selected="selected"':'';?>><?php echo $tipo;?></option>
+                    <?php endforeach;?>
+                    <option value="Outro"<?php echo !in_array($event_meta['evento_tipo'],$evento_tipos)?' selected="selected"':'';?>><?php _e('Outro');?></option>
+                </select>
+            </p>
+            <p class="span-6" id="outro_evento_tipo" style="display:none">
+                <small><?php _e('Qual o tipo de evento?');?></small><br />
+                <input type="hidden" id="evento_tipo_original" value="<?php echo $event_meta['evento_tipo'];?>"/>
+                <input type="text" class="text" name="evento_tipo" value="<?php echo $event_meta['evento_tipo'];?>"/>
             </p>
 
             <p style="clear:both">
@@ -508,21 +513,6 @@
                 <small for="forcar_tos" class="forcar"><?php _e('Forçar sub-eventos a usarem os mesmos termos:');?></small>
                 <input <?php echo $event_meta['forcar_tos']?'checked="checked" ':'';?>type="checkbox" id="forcar_tos" name="forcar_tos" class="forcar"/>
             </p>
-            <script type="text/javascript">
-                jQuery("select#superevento").change(function(){
-                    if(jQuery(this).find("option:selected").val() == "yes"){
-                        jQuery("p#evento_pai").hide('fast');
-                        jQuery("p .forcar").show('fast');
-                        jQuery("#produtores_selecionam").show('fast');
-                    } else {
-                        jQuery("p#evento_pai").show('fast');
-                        jQuery("p .forcar").hide('fast');
-                        jQuery("#produtores_selecionam").hide('fast');
-                    }
-                }).keyup(function(){
-                    jQuery(this).change();
-                }).change();
-            </script>
 
             <?php if( ! property_exists($event, 'ID')):?>
             <div class='tnb_modal' id='tnb_modal_cadastro_evento'>

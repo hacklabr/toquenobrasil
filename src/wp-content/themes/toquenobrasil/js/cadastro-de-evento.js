@@ -45,4 +45,36 @@ jQuery(document).ready(function(){
             $('input[name=evento_tipo]').val($("select#evento_tipo").val());
         }
     }).keyup(function(){$(this).change();}).change();
+
+    $("select#superevento").change(function(){
+        if($(this).find("option:selected").val() == "yes"){
+            $("p#evento_pai").hide('fast', function(){ 
+                    $("#produtores_selecionam").show();
+                    $("p .forcar").show();
+
+                    $("p.evento_tipo").show();
+                    $("select#evento_tipo").change();
+                });
+        } else {
+            $("#produtores_selecionam").hide('fast', function(){
+                    $("p#evento_pai").show();
+                    $('select[name=post_parent]').change();
+                });
+            $("p .forcar").hide('fast');
+        }
+    }).keyup(function(){
+        $(this).change();
+    }).change();
+
+    $('select[name=post_parent]').change(function(){
+        if($(this).val() == "0" && $("select#superevento").val() == "no") {
+            $("p.evento_tipo").show();
+            $("select#evento_tipo").change();
+        } else {
+            $("p.evento_tipo").hide();
+            $("p#outro_evento_tipo").hide();
+        }
+    }).keyup(function(){
+        $(this).change();
+    }).change();
 });

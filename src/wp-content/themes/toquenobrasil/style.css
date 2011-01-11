@@ -267,6 +267,7 @@ body.single .post { margin-bottom: 160px; }
 #cadastro-de-evento #evento_vagas { width: 60px; }
 #cadastro-de-evento #evento_taxa { width: 138px; }
 #cadastro-de-evento .submit { margin-left:-15px; }
+#cadastro-de-evento #produtores_selecionam { margin-top: 35px; }
 
 /* =Gerenciar eventos
 ---------------------------------------------------------------------------------*/
