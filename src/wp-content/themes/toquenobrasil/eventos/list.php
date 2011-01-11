@@ -46,13 +46,17 @@ if (!is_search()) {
                 );
                 
                 $subevents = get_posts($query_args);
-                foreach ($subevents as $sub) :?>
+                $len_subevents = 0;
+                foreach ($subevents as $sub): $len_subevents++;?>
                 <div class="prepend-1">
                     <h3><a href="<?php echo get_permalink($sub->ID); ?>" title="<?php echo $sub->post_title;?>"><?php echo $sub->post_title;?></a></h3>
                     <?php $evento_list_item_id = $sub->ID;                 
                     include('evento-list-item.php'); ?>
                 </div>
                 <?php endforeach;
+                if($len_subevents >= 5):?>
+                    <a href="<?php the_permalink(); ?>" title='<?php _e('Mostrar mais...', 'tnb'); ?>'><?php _e('Mostrar mais');?>...</a>
+                <?php endif;
             endif;
             ?>
 		</div>
