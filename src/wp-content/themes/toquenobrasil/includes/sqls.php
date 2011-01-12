@@ -76,6 +76,7 @@ if (!get_option('tnb_sql_10')) {
     }
 }
 
+// eventos que não tem um pais marcado ficam 'BR'
 if(!get_option('tnb_sql_11')) {
     update_option('tnb_sql_11', 1);
 
@@ -87,4 +88,11 @@ if(!get_option('tnb_sql_11')) {
     }
 }
 
+// coloca 'http://' em links que não tem
+if(!get_option('tnb_sql_12')) {
+    update_option('tnb_sql_12', 1);
+
+    global $wpdb;
+    $wpdb->query("UPDATE $wpdb->postmeta SET meta_value=concat('http://', meta_value) WHERE meta_key='evento_site' AND NOT meta_value LIKE 'http://%' AND NOT meta_value='';");
+}
 ?>
