@@ -40,6 +40,20 @@ function help_videos() {
                     </small>
                 </div>
 
+                <div>
+                    <label for="video_cadastro_evento"><?php _e("Vídeo de ajuda para inserir ou editar evento");?></label><br/>
+                    <input id="video_cadastro_evento" class="large-text code" name="help_videos[cadastro_evento]"
+                           value="<?php echo $options['cadastro_evento'];?>"/>
+                    <small>
+                    Vídeo exibido na página de cadastro de novo evento <br />
+                    </small>
+                </div>
+
+                <div>
+                    <label for="video_gerenciar_eventos"><?php _e("Vídeo de ajuda para página de gerenciar eventos");?></label><br/>
+                    <input id="video_gerenciar_eventos" class="large-text code" name="help_videos[gerenciar_eventos]"
+                           value="<?php echo $options['gerenciar_eventos'];?>"/>
+                </div>
 
                 <p class="submit">
                     <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>"/>

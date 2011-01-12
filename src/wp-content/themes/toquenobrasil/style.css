@@ -271,7 +271,7 @@ body.single .post { margin-bottom: 160px; }
 
 /* =Gerenciar eventos
 ---------------------------------------------------------------------------------*/
-.add-new-event { display: block; float: right; margin-top: 32px; padding: 9px; font-size: 1.2em; font-family: Arista; color: #fff; text-transform: uppercase; background: #F3168A; border-radius; 9px 9px 9px 0; -moz-border-radius: 9px 9px 9px 0; }
+.add-new-event { display: block; float: left; margin-top: 32px; padding: 9px; font-size: 1.2em; font-family: Arista; color: #fff; text-transform: uppercase; background: #F3168A; border-radius: 9px 9px 9px 0; -moz-border-radius: 9px 9px 9px 0; margin-left: 6em; }
 .add-new-event:hover { color: #fff; background: #8C0052; }
 #gerenciar-eventos li { border-bottom: 1px solid #00C0F3; padding: 20px 0; list-style: none; }
 #gerenciar-eventos li ul li { border-bottom: 1px solid #ccc; }

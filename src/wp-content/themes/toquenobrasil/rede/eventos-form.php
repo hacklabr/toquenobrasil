@@ -190,9 +190,10 @@
                 }
             }
 
-            $event->post_title = $_POST['post_title'];
+            $event->post_title = strip_tags($_POST['post_title']);
             $post = array(
-                'post_title' => strip_tags($_POST['post_title']),
+                'post_title' => $event->post_title,
+                'post_name' => sanitize_title_with_dashes($event->post_title),
                 'post_content' => strip_tags($_POST['post_content']),
                 'post_type' => 'eventos',
                 'post_status' => $_POST['post_status'],
@@ -301,11 +302,12 @@
 <div class="span-14 prepend-1 right-colborder">
     <div class="item green clearfix">
 
-    <div class="title pull-1">
-        <div class="shadow"></div>
-            <h1><?php _e('Novo Evento');?></h1>
+        <div class="title pull-1">
+            <div class="shadow"></div>
+                <h1><?php _e('Novo Evento');?></h1>
+            </div>
+        <?php print_help_player_for('cadastro_evento');?>
         </div>
-    </div>
 
     <?php if(count($errors) > 0):?>
         <div class="error">

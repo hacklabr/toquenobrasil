@@ -79,6 +79,7 @@
                 <h1><?php _e('Gerenciar Eventos');?></h1>                
             </div>
             <a class="add-new-event" href='<?php echo get_author_posts_url($current_user->ID)?>/eventos/novo'>+ Adicionar Novo Evento</a>
+            <?php print_help_player_for('gerenciar_eventos');?>
         </div>
         
         <ul id="gerenciar-eventos">
