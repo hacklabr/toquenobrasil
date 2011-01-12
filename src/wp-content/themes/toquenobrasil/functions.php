@@ -950,6 +950,34 @@ function print_help_player_for($for_what) {
     }
 }
 
+/**
+ * Retorna um slug unico para um evento, desconsiderando
+ * se o evento está ativo ou não. Este trecho de código
+ * foi copiado da função wp_unique_post_slug, nativa no
+ * Wordpress.
+ */
+function tnb_unique_event_slug($slug, $post_ID=0) {
+	global $wpdb, $wp_rewrite;
+
+	$feeds = $wp_rewrite->feeds;
+	if ( ! is_array( $feeds ) )
+		$feeds = array();
+
+    $check_sql = "SELECT post_name FROM $wpdb->posts WHERE post_name = %s AND post_type = 'eventos' AND ID != %d LIMIT 1";
+    $post_name_check = $wpdb->get_var( $wpdb->prepare( $check_sql, $slug, $post_ID ) );
+
+    if ( $post_name_check || in_array( $slug, $feeds ) ) {
+        $suffix = 2;
+        do {
+            $alt_post_name = substr( $slug, 0, 200 - ( strlen( $suffix ) + 1 ) ) . "-$suffix";
+            $post_name_check = $wpdb->get_var( $wpdb->prepare( $check_sql, $alt_post_name, $post_ID ) );
+            $suffix++;
+        } while ( $post_name_check );
+        $slug = $alt_post_name;
+    }
+
+    return $slug;
+}
 
 // Tamanho customizado de imagens
 add_image_size('banner-horizontal',550,150,false);

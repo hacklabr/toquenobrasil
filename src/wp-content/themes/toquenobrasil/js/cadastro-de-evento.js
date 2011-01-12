@@ -77,4 +77,10 @@ jQuery(document).ready(function(){
     }).keyup(function(){
         $(this).change();
     }).change();
+
+    $('input#evento_site').change(function(){
+        if($(this).val() != '' && !$(this).val().match(/^http:\/\//)) {
+            $(this).val('http://'+$(this).val());
+        }
+    });
 });

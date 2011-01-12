@@ -30,7 +30,7 @@
     }
 
     /*
-     * Normaliza datas
+     * Normaliza campos 
      */
     if($_POST) {
         $_POST['evento_inicio'] = preg_replace("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/","$3-$2-$1", $_POST['evento_inicio']);
@@ -44,6 +44,8 @@
         $_POST['evento_inscricao_fim'] = $_POST['evento_inscricao_fim']!=''
                                              ? preg_replace("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/","$3-$2-$1", $_POST['evento_inscricao_fim'])
                                              : $_POST['evento_inscricao_inicio'] ;
+
+        $_POST['evento_site'] = preg_replace('|^(https?://)*(.+)$|', 'http://$2', $_POST['evento_site']);
     }
 
     // é confrontado com $_POST
@@ -191,14 +193,20 @@
             }
 
             $event->post_title = strip_tags($_POST['post_title']);
+            $post_name = sanitize_title_with_dashes($event->post_title);
+
             $post = array(
                 'post_title' => $event->post_title,
-                'post_name' => sanitize_title_with_dashes($event->post_title),
                 'post_content' => strip_tags($_POST['post_content']),
                 'post_type' => 'eventos',
                 'post_status' => $_POST['post_status'],
                 'post_parent' => $_POST['superevento']=='yes' ? 0 : $_POST['post_parent']
             );
+
+            if(!$event->post_name) {
+                $post_name = sanitize_title_with_dashes($event->post_title);
+                $post['post_name'] = tnb_unique_event_slug($post_name, $post['ID']);
+            }
 
             if($event->ID) {
                 $post['ID'] = $event->ID;
