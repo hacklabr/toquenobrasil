@@ -193,7 +193,6 @@
             }
 
             $event->post_title = strip_tags($_POST['post_title']);
-            $post_name = sanitize_title_with_dashes($event->post_title);
 
             $post = array(
                 'post_title' => $event->post_title,
