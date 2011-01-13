@@ -38,7 +38,7 @@
   <div class="item yellow clearfix">
     <div class="title clearfix">
       <div class="shadow"></div>
-      <h1><?php _e('Bem-vindo','tnb'); ?></h1>
+      <h1><?php echo get_theme_option('home_welcome_tit'); ?></h1>
     </div>
     <div class="background clearfix">
       <p><?php echo get_theme_option('home_welcome_text'); ?></p>

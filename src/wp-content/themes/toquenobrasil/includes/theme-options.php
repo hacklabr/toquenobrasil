@@ -34,17 +34,24 @@ function theme_options_page() {
 					</th>
 				</tr>
 				<tr valign="top">
-					<th scope="row">Bem Vindos</th>
+					<th scope="row">Destaque Home</th>
+					<td>
+						<input type="text" name="theme_options[home_welcome_tit]" value="<?php echo htmlspecialchars($options['home_welcome_tit']); ?>" />
+						<br/>(Título do box de destaque  da home)
+					</td>
+				</tr>
+                <tr valign="top">
+					<th scope="row"></th>
 					<td>
 						<textarea name="theme_options[home_welcome_text]" cols="60" rows="6"><?php echo htmlspecialchars($options['home_welcome_text']); ?></textarea>
-						<br/>(Texto que aparece no box "Bem Vindos" da home)
+						<br/>(Texto que aparece no box de destaque da home)
 					</td>
 				</tr>
 				<tr valign="top">
 					<th scope="row"></th>
 					<td>
 						<textarea name="theme_options[home_welcome_video]" cols="60" rows="6"><?php echo htmlspecialchars($options['home_welcome_video']); ?></textarea>
-						<br/>(Vídeo que aparece no box "Bem Vindos" da home. <strong>Formato: 430x242px</strong>)
+						<br/>(Vídeo que aparece no box de destaque  da home. <strong>Formato: 430x242px</strong>)
 					</td>
 				</tr>
 				<tr valign="top">
