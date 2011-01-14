@@ -2,11 +2,19 @@
     global $current_user;
     $join_success = false;
     
-    if(isset($_POST['_wpnonce']) &&  wp_verify_nonce($_POST['_wpnonce'], 'join_event' )){
+    if($_POST['action'] = 'join' && isset($_POST['_wpnonce']) &&  wp_verify_nonce($_POST['_wpnonce'], 'join_event' )){
         if(!in_postmeta(get_post_meta($_POST['evento_id'], 'inscrito'), $_POST['banda_id'])){
             add_post_meta($_POST['evento_id'], 'inscrito', $_POST['banda_id']);
             
             do_action('tnb_artista_inscreveu_em_um_evento', $_POST['evento_id'], $_POST['banda_id']);
+        }
+    }
+    
+    if($_POST['action'] = 'unjoin' && isset($_POST['_wpnonce']) &&  wp_verify_nonce($_POST['_wpnonce'], 'unjoin_event' )){
+        if(in_postmeta(get_post_meta($_POST['evento_id'], 'inscrito'), $_POST['banda_id'])){
+            delete_post_meta($_POST['evento_id'], 'inscrito', $_POST['banda_id']);
+            
+            do_action('tnb_artista_desinscreveu_em_um_evento', $_POST['evento_id'], $_POST['banda_id']);
         }
     }
 

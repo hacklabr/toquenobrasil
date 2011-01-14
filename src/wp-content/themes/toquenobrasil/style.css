@@ -207,13 +207,17 @@ body.single .post { margin-bottom: 160px; }
 .event .quero-tocar a:hover { border:none; }
 .event .iam-selected { background:#F0C137; }
 .event .iam-selected:hover { background:#F0C137; }
-.event .iam-signed { background:#179FBF; }
-.event .iam-signed:hover { background:#179FBF; }
+.event .cancel-subscription { background:#179FBF; cursor: pointer}
+.event .cancel-subscription:hover { background:#11778F; }
 .event .i-wanna-play { background:#EC008C; cursor: pointer;}
 .restrictions, .conditions { position: relative; }
 .event .restrictions h3, .event .conditions h3 { cursor: pointer; margin: -14px; padding: 10px; color: #fff; background: #F0C137; -moz-border-radius: 9px 9px 9px 0; border-radius: 9px 9px 9px 0; }
 .event .restrictions h3 span, .event .conditions h3 span { float: right; font-size: 2em; margin: -14px 0; }
 .event .restrictions p, .event .conditions p { display:none; margin: 18px 0 0; }
+
+.event .em-breve, .event .inscricoes-encerradas {background:#CCCCCC;}
+.event .em-breve:hover, .event .inscricoes-encerradas:hover {background:#CCCCCC;}
+
 
 
 /* =Artists & Producers

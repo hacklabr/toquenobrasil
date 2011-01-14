@@ -90,15 +90,25 @@
         <div class="quero-tocar iam-selected">
             <a><?php _e('Já fui<br />selecionado!', 'tnb');?></a>
         </div>
-    <?php  elseif(is_artista() &&  in_postmeta(get_post_meta($evento_list_item_id, 'inscrito'), $current_user->ID)): ?>
-        <div class="quero-tocar iam-signed">
-            <a><?php _e('Já estou<br />inscrito!', 'tnb');?></a>
+    <?php  elseif(is_artista() &&  in_postmeta(get_post_meta($evento_list_item_id, 'inscrito'), $current_user->ID) && strtotime($inscricao_inicio) <= strtotime(date('Y-m-d')) && strtotime($inscricao_fim) >= strtotime(date('Y-m-d'))): ?>
+
+        <div class="quero-tocar cancel-subscription">
+            <form action='<?php the_permalink();?>' method="post" id='form_unjoin_event_<?php echo $evento_list_item_id; ?>'>
+                <?php wp_nonce_field('unjoin_event'); ?>
+                <input type="hidden" name="banda_id" value='<?php echo $current_user->ID; ?>' />
+                <input type="hidden" name="action" value='unjoin' />
+                <input type="hidden" name="evento_id" value='<?php echo $evento_list_item_id; ?>' />
+            </form>
+            <a onclick="jQuery('#form_unjoin_event_<?php echo $evento_list_item_id; ?>').submit();"><?php _e('Cancelar<br />inscrição', 'tnb');?></a>
         </div>
+    
+        
     <?php  elseif(!$superevento && strtotime($inscricao_inicio) <= strtotime(date('Y-m-d')) && strtotime($inscricao_fim) >= strtotime(date('Y-m-d'))):?>  
         <?php if( is_artista() ):?>
             <form action='<?php the_permalink();?>' method="post" id='form_join_event_<?php echo $evento_list_item_id; ?>'>
                 <?php wp_nonce_field('join_event'); ?>
                 <input type="hidden" name="banda_id" value='<?php echo $current_user->ID; ?>' />
+                <input type="hidden" name="action" value='join' />
                 <input type="hidden" name="evento_id" value='<?php echo $evento_list_item_id; ?>' />
             </form>
             
@@ -128,14 +138,14 @@
     <?php /* Quando as inscrições estão encerradas */ ?>
     <?php elseif(strtotime($inscricao_fim) < strtotime(date('Y-m-d'))): ?>    
 
-        <div class="quero-tocar iam-signed">
+        <div class="quero-tocar inscricoes-encerradas">
             <a><?php _e('Inscrições <br /> encerradas!', 'tnb');?></a>
         </div>
 
     <?php /* Quando as inscrições ainda não abriram */ ?>
     <?php elseif(strtotime($inscricao_inicio) > strtotime(date('Y-m-d'))): ?>    
 
-        <div class="quero-tocar iam-signed">
+        <div class="quero-tocar em-breve">
             <a><?php _e('Em breve!', 'tnb');?></a>
         </div>
 
