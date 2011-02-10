@@ -95,4 +95,17 @@ if(!get_option('tnb_sql_12')) {
     global $wpdb;
     $wpdb->query("UPDATE $wpdb->postmeta SET meta_value=concat('http://', meta_value) WHERE meta_key='evento_site' AND NOT meta_value LIKE 'http://%' AND NOT meta_value='';");
 }
+
+// capabilities select_artists
+if(!get_option('tnb_sql_13')) {
+    update_option('tnb_sql_13', 1);
+    $adm = get_role('produtor');
+    $adm->add_cap( 'select_artists' );
+    $adm = get_role('administrator');
+    $adm->add_cap( 'select_artists' );
+    $adm->add_cap( 'select_other_artists' );
+
+}
+
+
 ?>
