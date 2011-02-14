@@ -981,4 +981,63 @@ function tnb_unique_event_slug($slug, $post_ID=0) {
 
 // Tamanho customizado de imagens
 add_image_size('banner-horizontal',550,150,false);
+
+
+// New users to madmimi
+function tnb_madmimi_user_register($user_id) {
+    
+    global $wpdb, $wp_query;
+    
+    $op = get_option('tnb_madmimi_user');
+    $username = $op['user'];
+    $api_key = $op['api_key'];
+    
+    if (!$username || !$api_key)
+        return false;
+    
+    $email = $wpdb->get_var("SELECT user_email FROM $wpdb->users WHERE ID = $user_id");
+    
+    if (!$email)
+        return false;
+    
+    
+    
+    $reg_type = (isset($_POST['type']) ? $_POST['type'] :  $wp_query->get('reg_type'));
+
+    $list = $reg_type == 'produtor' ? '175892' : '175894';
+    
+    
+    
+    $ch = curl_init('http://madmimi.com/audience_lists/' . $list . '/add');
+    curl_setopt($ch, CURLOPT_POST, TRUE);
+    curl_setopt($ch, CURLOPT_VERBOSE, false);
+    curl_setopt($ch, CURLOPT_MUTE, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, 'username='.$username.'&api_key='.$api_key.'&email='.$email);
+    
+    //prevents output
+    ob_start();
+    curl_exec($ch);
+    ob_end_clean();
+    
+    
+}
+add_action('tnb_user_register', 'tnb_madmimi_user_register') ;
+
+
+function tnb_madmimi_user_settings() {
+ 	register_setting('general','tnb_madmimi_user');
+    add_settings_field('tnb_madmimi_user', 'Mad Mimi', 'tnb_madmimi_user_input', 'general', 'default');
+}
+
+add_action('admin_init', 'tnb_madmimi_user_settings');
+
+function tnb_madmimi_user_input() {
+    $m = get_option('tnb_madmimi_user');
+    
+    echo "<input type='text' value='" . htmlspecialchars($m['user']) . "' name='tnb_madmimi_user[user]'><br/>";
+    echo "<small>Usuário do MadMimi</small><br/><br/>";
+    echo "<input type='text' value='" . htmlspecialchars($m['api_key']) . "' name='tnb_madmimi_user[api_key]'><br/>";
+    echo "<small>API Key MadMimi</small>";
+}
+
 ?>

@@ -169,6 +169,11 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
         //wp_new_user_notification( $user_id, $user_pass );
 
         $msgs['success'] = 'Cadastro efetuado com sucesso';
+        
+        
+        do_action('tnb_user_register', $user_id);
+        
+        
         $regtister_succes[$reg_type] = true;
     }else{
         foreach($errors as $type=>$msg)
