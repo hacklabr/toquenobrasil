@@ -49,7 +49,7 @@
       <?php 
 		$medias = get_posts("post_type=images&meta_key=_media_index&author={$curauth->ID}&orderby=menu_order&order=ASC");
 		foreach ($medias as $media) {
-          
+          /*
           $meta = get_post_meta($media->ID, '_wp_attachment_metadata');
           preg_match('/(\d{4}\/\d\d\/).+/', $meta[0]['file'], $folder);
           $images_url = get_option('siteurl') . '/wp-content/uploads/';
@@ -76,12 +76,12 @@
           $largeurl = $images_url . $large;
 	
           echo "<a href='". $largeurl."' rel='lightbox-images' ><img src='" . $thumburl ."'/></a>";
+          */
           
-          /*
           $largeurl = image_downsize($media->ID, 'large');
           
           echo "<a href='". $largeurl[0]."' rel='lightbox-images' >" .  wp_get_attachment_image( $media->ID, 'thumbnail', true ) . "</a>";
-          */
+          
         }
       ?>
     </div>

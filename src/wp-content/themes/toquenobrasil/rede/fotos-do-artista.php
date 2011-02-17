@@ -12,10 +12,14 @@ $images_url = get_option('siteurl') . '/wp-content/uploads/';
 
 foreach ($medias as $media) {
     
+    /*
     $meta = get_post_meta($media->ID, '_wp_attachment_metadata');
     $img = $images_url . $meta[0]['file'];
     
     echo "<img src='$img' />";
+    */
+    
+    echo wp_get_attachment_image( $media->ID, 'full', true );
     
     echo '<hr/>';
         

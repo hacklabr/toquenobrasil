@@ -384,7 +384,8 @@ get_header();
         		            echo '<br />';
         		            $media  = $media[0];
         		            
-        		            $meta = get_post_meta($media->ID, '_wp_attachment_metadata');
+        		            /*
+                            $meta = get_post_meta($media->ID, '_wp_attachment_metadata');
 
 
                             preg_match('/(\d{4}\/\d\d\/).+/', $meta[0]['file'], $folder);
@@ -413,9 +414,10 @@ get_header();
                             $largeurl = $images_url . $large;
         		            
         		            echo "<img src='" . $mediumurl ."'>";
+                            */
                             
                             
-                            //echo wp_get_attachment_image( $media->ID, 'medium', true );
+                            echo wp_get_attachment_image( $media->ID, 'medium', true );
                             
         		            echo $media->post_title;
         		            
