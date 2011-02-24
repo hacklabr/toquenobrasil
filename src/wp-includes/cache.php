@@ -346,6 +346,7 @@ class WP_Object_Cache {
 	 *		contents on success
 	 */
 	function get($id, $group = 'default') {
+                
 		if ( empty ($group) )
 			$group = 'default';
 
@@ -480,6 +481,8 @@ class WP_Object_Cache {
 	 * @return null|WP_Object_Cache If cache is disabled, returns null.
 	 */
 	function __construct() {
+        //if(file_exists('/tmp/toquenobrasil.cache'))
+        //    $this->cache = unserialize (file_get_contents ('/tmp/toquenobrasil.cache'));
 		/**
 		 * @todo This should be moved to the PHP4 style constructor, PHP5
 		 * already calls __destruct()
@@ -497,6 +500,7 @@ class WP_Object_Cache {
 	 * @return bool True value. Won't be used by PHP
 	 */
 	function __destruct() {
+        //file_put_contents('/tmp/toquenobrasil.cache', serialize($this->cache));
 		return true;
 	}
 }

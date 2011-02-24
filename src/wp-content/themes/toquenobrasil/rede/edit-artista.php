@@ -227,7 +227,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
         }*/
     }
 }
-
+wp_enqueue_script('cadastre-se', get_stylesheet_directory_uri(). '/js/campo-cidade.js',array('jquery'));
 
 do_action('custom_profile_update', $profileuser->ID);
 get_header();
@@ -236,7 +236,6 @@ get_header();
 
 
 ?>
-
 <div class="clear"></div>
 <div class="prepend-top"></div>
 
@@ -358,8 +357,9 @@ get_header();
 		<p class="clearfix prepend-1 span-6">
 			<label for="origem_pais"><?php _e('País', 'tnb');?></label>
 			<br />
-			<select name="origem_pais">
+			<select id='origem_pais' name="origem_pais">
 				 <?php
+				 
                     foreach($paises as $sigla=>$name){
                         echo "<option " . ($profileuser->origem_pais == $sigla ? 'selected':'') . " value='$sigla'>$name</option>";
                     }
@@ -370,19 +370,24 @@ get_header();
 		<p class="clearfix prepend-1 span-4">
 			<label for="origem_estado"><?php _e('Estado', 'tnb');?></label>
 			<br />
-			<select name="origem_estado">
+			<select id="origem_estado_select" name="origem_estado_select" class='<?php echo $profileuser->origem_pais == 'BR' ? '' : 'hide' ?>' >
 				 <?php
                     foreach($estados as $uf=>$name){
                         echo "<option " . ($profileuser->origem_estado == $uf ? 'selected':'') . " value='$uf'>$name</option>";
                     }
                 ?>
 			</select>
+			<input class="span-6 text <?php echo $profileuser->origem_pais == 'BR' ? 'hide' : '' ?>" type="text" id="origem_estado_input" name="origem_cidade" value="<?php echo $profileuser->origem_pais == 'BR' ? '' : $profileuser->origem_estado; ?>" />
+			<input type="hidden" id="origem_estado" name="origem_estado" value="<?php echo $profileuser->origem_estado; ?>" />
+			
 		</p>
 
 		<p class="prepend-1 clearfix clear">
 			<label for="origem_cidade"><?php _e('Cidade', 'tnb');?></label>
 			<br />
-			<input class="span-9 text" type="text" id="origem_cidade" name="origem_cidade" value="<?php echo $profileuser->origem_cidade; ?>" />
+            <select class="span-6 text <?php echo $profileuser->origem_pais == 'BR' ? '' : 'hide' ?>" id="origem_cidade_select" name="origem_cidade_select" ></select>
+            <input class="span-6 text <?php echo $profileuser->origem_pais == 'BR' ? 'hide' : '' ?>" type="text" id="origem_cidade_input" name="origem_cidade_input" value="<?php echo $profileuser->origem_pais == 'BR' ? '' : $profileuser->origem_cidade; ?>" />
+            <input type="hidden" name="origem_cidade" id="origem_cidade" value="<?php echo $profileuser->origem_cidade;?>"/>
 		</p>
 
 
@@ -391,7 +396,7 @@ get_header();
 		<p class="clearfix prepend-1 span-6">
 			<label for="banda_pais"><?php _e('País', 'tnb');?></label>
 			<br />
-			<select name="banda_pais">
+			<select id='banda_pais' name="banda_pais">
 				 <?php
                     foreach($paises as $sigla=>$name){
                         echo "<option " . ($profileuser->banda_pais == $sigla ? 'selected':'') . " value='$sigla'>$name</option>";
@@ -403,19 +408,23 @@ get_header();
 		<p class="clearfix prepend-1 span-4">
 			<label for="banda_estado"><?php _e('Estado', 'tnb');?></label>
 			<br />
-			<select name="banda_estado">
+			<select id="banda_estado_select" name="banda_estado_select" class='<?php echo $profileuser->banda_pais == 'BR' ? '' : 'hide' ?>' >
 				 <?php
                     foreach($estados as $uf=>$name){
                         echo "<option " . ($profileuser->banda_estado == $uf ? 'selected':'') . " value='$uf'>$name</option>";
                     }
                 ?>
 			</select>
+			<input class="span-6 text <?php echo $profileuser->banda_pais == 'BR' ? 'hide' : '' ?>" type="text" id="banda_estado_input" name="banda_cidade" value="<?php echo $profileuser->banda_pais == 'BR' ? '' : $profileuser->banda_estado; ?>" />
+			<input type="hidden" id="banda_estado" name="banda_estado" value="<?php echo $profileuser->banda_estado; ?>" />
 		</p>
 
 		<p class="clearfix prepend-1 clear">
 			<label for="banda_cidade"><?php _e('Cidade', 'tnb');?></label>
 			<br />
-			<input class="span-9 text" type="text" id="banda_cidade" name="banda_cidade" value="<?php echo $profileuser->banda_cidade; ?>" />
+            <select class="span-6 text <?php echo $profileuser->banda_pais == 'BR' ? '' : 'hide' ?>" id="banda_cidade_select" name="banda_cidade_select" ></select>
+            <input class="span-6 text <?php echo $profileuser->banda_pais == 'BR' ? 'hide' : '' ?>" type="text" id="banda_cidade_input" name="banda_cidade_input" value="<?php echo $profileuser->banda_pais == 'BR' ? '' : $profileuser->banda_cidade; ?>" />
+            <input type="hidden" name="banda_cidade" id="banda_cidade" value="<?php echo $profileuser->banda_cidade;?>"/>
 		</p>
 
         <h3 class="clear"><?php _e('Rider e Mapa de Palco', 'tnb');?></h3>

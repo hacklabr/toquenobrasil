@@ -79,6 +79,6 @@
     </div>
   </div>
 </div>
-
+<?php echo 'QUERIES: ' . $wpdb->num_queries; ?>
 </body>
 </html>

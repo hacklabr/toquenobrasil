@@ -182,6 +182,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
 }
 
 wp_enqueue_script('cadastre-se', get_stylesheet_directory_uri(). '/js/cadastre-se.js',array('jquery'));
+
 get_header();
 
 ?>
@@ -205,10 +206,10 @@ get_header();
             <div id="formularios-de-cadastro">
                 <div id="abas" class="clearfix">
                     <div id="aba-produtores" class="title <?php echo ($reg_type == 'produtor' ? 'current' : '');?>">
-                      <a href="#"><?php _e('Produtores', 'tnb');?><span class="shadow"></span></a>
+                      <a href="javascript:void(0);"><?php _e('Produtores', 'tnb');?><span class="shadow"></span></a>
                     </div>
                     <div id="aba-artistas" class="title <?php echo ($reg_type == 'artista' ? 'current' : '');?>">
-                        <a href="#"><?php _e('Artistas', 'tnb');?><span class="shadow"></span></a>
+                        <a href="javascript:void(0);"><?php _e('Artistas', 'tnb');?><span class="shadow"></span></a>
                     </div>
                 </div><!-- #abas -->
                 <div id="conteudo">
@@ -283,27 +284,42 @@ get_header();
                                 <br />
                                 <select class="span-6 text" name="origem_pais" id='origem_pais'>
                                     <?php
+                                        $paisSelecionado = $user->origem_pais ? $user->origem_pais : 'BR';
                                         foreach($paises as $sigla=>$name){
-                                            echo "<option " . ($user->origem_pais == $sigla ? 'selected':'') . " value='$sigla'>$name</option>";
+                                            echo "<option " . ($paisSelecionado == $sigla ? 'selected="selected"':'') . " value='$sigla'>$name</option>";
                                         }
                                     ?>
                                 </select>
                              </div>
+
+
+
+
+                              <!--  ======================================= -->
+
+
+
+
+
                             <div class="span-6">
                                 <label for="origem_estado"><?php _e('Estado:', 'tnb');?></label>
                                 <br />
-                                <select class="span-6 text" name="origem_estado" id='origem_estado'>
+                                <select class="span-6 text <?php echo $paisSelecionado == 'BR' ? '' : 'hide' ?>" name="origem_estado_select" id='origem_estado_select'>
                                     <?php
                                         foreach($estados as $uf=>$name){
                                             echo "<option " . ($user->origem_estado == $uf ? 'selected':'') . " value='$uf'>$name</option>";
                                         }
                                     ?>
                                 </select>
+                                <input class="span-6 text <?php echo $paisSelecionado == 'BR' ? 'hide' : '' ?>" type="text" id="origem_estado_input" name="origem_cidade" value="<?php echo $paisSelecionado == 'BR' ? '' : $user->origem_estado; ?>" />
+                                <input type="hidden" id="origem_estado" name="origem_estado" value="<?php echo $user->origem_estado; ?>" />
                              </div>
                             <div class="span-12">
                                 <label for="origem_cidade"><?php _e('Cidade:', 'tnb');?></label>
                                 <br />
-                                <input class="span-6 text" type="text" id="origem_cidade" name="origem_cidade" value="<?php echo $user->origem_cidade; ?>" />
+                                <select class="span-6 text <?php echo $paisSelecionado == 'BR' ? '' : 'hide' ?>" id="origem_cidade_select" name="origem_cidade_select" ></select>
+                                <input class="span-6 text <?php echo $paisSelecionado == 'BR' ? 'hide' : '' ?>" type="text" id="origem_cidade_input" name="origem_cidade_input" value="<?php echo $paisSelecionado == 'BR' ? '' : $user->origem_cidade; ?>" />
+                                <input type="hidden" name="origem_cidade" id="origem_cidade" value="<?php echo $user->origem_cidade;?>"/>
                             </div>
 
 
@@ -312,31 +328,43 @@ get_header();
                              </div>
 
                             <div class="span-6">
-                                <label for="banda_pais"><?php _e('Estado:', 'tnb');?></label>
+                                <label for="banda_pais"><?php _e('País:', 'tnb');?></label>
                                 <br />
                                 <select class="span-6 text" name="banda_pais" id='banda_pais'>
                                     <?php
+                                        $paisSelecionado = $user->banda_pais ? $user->banda_pais : 'BR';
                                         foreach($paises as $sigla=>$name){
-                                            echo "<option " . ($user->banda_pais == $sigla ? 'selected':'') . " value='$sigla'>$name</option>";
+                                            echo "<option " . ($paisSelecionado == $sigla ? 'selected':'') . " value='$sigla'>$name</option>";
                                         }
                                     ?>
                                 </select>
                             </div>
+
+
+
+
+                            <!--  ======================================= -->
+
+
                             <div class="span-6">
                                 <label for="banda_estado"><?php _e('Estado:', 'tnb');?></label>
                                 <br />
-                                <select class="span-6 text" name="banda_estado" id='banda_estado'>
+                                <select class="span-6 text <?php echo $paisSelecionado == 'BR' ? '' : 'hide' ?>" name="banda_estado_select" id='banda_estado_select'>
                                     <?php
                                         foreach($estados as $uf=>$name){
                                             echo "<option " . ($user->banda_estado == $uf ? 'selected':'') . " value='$uf'>$name</option>";
                                         }
                                     ?>
                                 </select>
+                                <input class="span-6 text <?php echo $paisSelecionado == 'BR' ? 'hide' : '' ?>" type="text" id="banda_estado_input" name="banda_cidade_select" value="<?php echo $paisSelecionado == 'BR' ? '' : $user->banda_estado; ?>" />
+                                <input type="hidden" id="banda_estado" name="banda_estado" value="<?php echo $user->banda_estado; ?>" />
                             </div>
                             <div class="span-6">
                                 <label for="banda_cidade"><?php _e('Cidade:', 'tnb');?></label>
                                 <br />
-                                <input class="span-6 text" type="text" id="banda_cidade" name="banda_cidade" value="<?php echo $user->banda_cidade; ?>" />
+                                <input type="hidden" name="banda_cidade" id="banda_cidade" value="<?php echo $user->banda_cidade;?>"/>
+                                <select class="span-6 text <?php echo $paisSelecionado == 'BR' ? '' : 'hide' ?>" id="banda_cidade_select" name="banda_cidade_select" ></select>
+                                <input class="span-6 text <?php echo $paisSelecionado == 'BR' ? 'hide' : '' ?>" type="text" id="banda_cidade_input" name="banda_cidade_input" value="<?php echo $paisSelecionado == 'BR' ? '' : $user->banda_cidade; ?>" />
                             </div>
 
                             <div class="span-2 prepend-10 last">
@@ -384,31 +412,38 @@ get_header();
                             <div class='clear'></div>
 
                             <div class="span-6">
-                                <label for="produtor_cidade"><?php _e('Cidade:', 'tnb');?></label>
-                                <br />
-                                <input type="text" class="span-6 text" name="origem_cidade" id='produtor_cidade'/>
-                            </div>
-                            <div class="span-6">
-                                <label for="produtor_estado"><?php _e('Estado:', 'tnb');?></label>
-                                <br />
-                                <select class="span-6 text" name="origem_estado" id='produtor_estado'>
-                                     <?php
-                                        foreach($estados as $uf=>$name){
-                                            echo "<option " . ($user->estado == $uf ? 'selected':'') . " value='$uf'>$name</option>";
-                                        }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="span-6">
-                                <label for="produtor_pais"><?php _e('País:', 'tnb');?></label>
+                                 <label for="produtor_pais"><?php _e('País:', 'tnb');?></label>
                                 <br />
                                 <select class="span-6 text" name="origem_pais" id='produtor_pais'>
                                      <?php
+                                        $paisSelecionado = $user->origem_pais ? $user->origem_pais : 'BR';
                                         foreach($paises as $sigla=>$name){
-                                            echo "<option " . ($user->pais == $sigla ? 'selected':'') . " value='$sigla'>$name</option>";
+                                            echo "<option " . ($paisSelecionado == $sigla ? 'selected':'') . " value='$sigla'>$name</option>";
                                         }
                                     ?>
                                 </select>
+                                
+                            </div>
+                            <div class="span-6"> 
+                                <label for="produtor_estado"><?php _e('Estado:', 'tnb');?></label>
+                                <br />
+                                <select class="span-6 text <?php echo $paisSelecionado == 'BR' ? '' : 'hide' ?>" name="produtor_estado_select" id='produtor_estado_select'>
+                                     <?php
+                                        foreach($estados as $uf=>$name){
+                                            echo "<option " . ($user->origem_estado == $uf ? 'selected="selected"':'') . " value='$uf'>$name</option>";
+                                        }
+                                    ?>
+                                </select>
+                                <input class="span-6 text <?php echo $paisSelecionado == 'BR' ? 'hide' : '' ?>" type="text" id="produtor_estado_input" name="produtor_estado_input" value="<?php echo $paisSelecionado == 'BR' ? '' : $user->origem_estado; ?>" />
+                                <input type="hidden" id="produtor_estado" name="origem_estado" value="<?php echo $user->origem_estado; ?>" />
+                            </div>
+                            <div class="span-6">
+                               <label for="produtor_cidade"><?php _e('Cidade:', 'tnb');?></label>
+                                <br />
+                                <select class="span-6 text <?php echo $paisSelecionado == 'BR' ? '' : 'hide' ?>" id="produtor_cidade_select" name="produtor_cidade_select" ></select>
+                                <input class="span-6 text <?php echo $paisSelecionado == 'BR' ? 'hide' : '' ?>" type="text" id="produtor_cidade_input" name="origem_cidade_input" value="<?php echo $paisSelecionado == 'BR' ? '' : $user->origem_cidade; ?>" />
+                                <input type="hidden" name="origem_cidade" id="produtor_cidade" value="<?php echo $user->origem_cidade;?>"/>
+
                             </div>
                             <div class="span-6">
                                 <label for="produtor_telefone"><?php _e('Telefone:', 'tnb');?></label>

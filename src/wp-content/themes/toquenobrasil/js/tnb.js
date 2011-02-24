@@ -138,5 +138,11 @@ jQuery(document).ready(function() {
             jQuery(this).next().slideUp();
         }
     )
-
 });
+
+
+function tnbCarregaCidadesOptions(campoId, uf){
+	  var selected = jQuery('#'+campoId).val();
+	  
+	  jQuery('#'+campoId+'_select').load(params.base_url+'/cidades-options.php?uf='+uf+'&selected='+selected,function(result){jQuery('#'+campoId+'_select').html(result)});
+	}

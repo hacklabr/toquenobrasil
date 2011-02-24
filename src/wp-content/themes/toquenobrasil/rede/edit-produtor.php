@@ -225,7 +225,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
         }*/
     }
 }
-
+wp_enqueue_script('cadastre-se', get_stylesheet_directory_uri(). '/js/campo-cidade.js',array('jquery'));
 
 do_action('custom_profile_update', $profileuser->ID);
 get_header();

@@ -1,5 +1,4 @@
 <?php
-
 //var_dump(current_user_can('select_other_artists'));
 
 define('TNB_URL', get_bloginfo('url') . strstr(dirname(__FILE__), '/wp-content') );
@@ -24,6 +23,8 @@ include(TEMPLATEPATH . '/produtores/produtor-actions.php');
 
 
 add_filter( 'author_link', 'tnb_author_link', 10, 3);
+
+
 
 function tnb_author_link($link, $author_id, $author_nicename) {
     return get_bloginfo('url') . '/rede/' . $author_nicename;
@@ -76,6 +77,7 @@ function tnb_load_js() {
   if ( !is_admin() ) {
     wp_enqueue_script('scrollTo_js', TNB_URL . '/js/jquery.scrollTo-min.js', array('jquery'));
     wp_enqueue_script('tnb_js', TNB_URL . '/js/tnb.js', array('jquery', 'jquery-ui-dialog'));
+    wp_localize_script('tnb_js', 'params', array('base_url' => get_bloginfo('stylesheet_directory')));
   }
 }
 
@@ -410,7 +412,7 @@ function get_estados(){
 }
 
 function get_paises() {
-    $paises = array('' => 'Selecione',
+    $paises = array(
       'AF' => 'Afeganistão',                            'ZA' => 'África do Sul',                         'AL' => 'Albânia',
       'DE' => 'Alemanha',                               'AD' => 'Andorra',                               'AO' => 'Angola',
       'AI' => 'Anguilla',                               'AQ' => 'Antártida',                             'AG' => 'Antígua e Barbuda',

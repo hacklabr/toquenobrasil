@@ -1064,6 +1064,7 @@ class wpdb {
 	 * @return int|false Number of rows affected/selected or false on error
 	 */
 	function query( $query ) {
+                global $TNB_QUERIES;
 		if ( ! $this->ready )
 			return false;
 
@@ -1110,7 +1111,7 @@ class wpdb {
 
 		$this->result = @mysql_query( $query, $dbh );
 		$this->num_queries++;
-
+            
 		if ( defined( 'SAVEQUERIES' ) && SAVEQUERIES )
 			$this->queries[] = array( $query, $this->timer_stop(), $this->get_caller() );
 
