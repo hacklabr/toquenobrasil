@@ -10,8 +10,9 @@ $profileuser = $current_user->data;
 
 $estados = get_estados();
 $paises = get_paises();
+//echo '<pre>';
 //var_dump($_POST);
-
+//echo '</pre>';
 if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_POST['_wpnonce'], 'edit_nonce' )){
     require_once( ABSPATH . WPINC . '/registration.php' );
     $profileuser_id = $user_ID;
@@ -30,7 +31,19 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
 
         if(strlen($_POST['site'])>0 &&  $_POST['site'] != 'http://' && !filter_var($_POST['site'], FILTER_VALIDATE_URL))
             $msg['error'][]= __('O link fornecido não é válido.','tnb');
-
+        
+        if($_POST['origem_estado'] == '')
+          $msg['error'][] = "Por favor informe o estado de origem.";
+        
+        if($_POST['origem_cidade'] == '')
+          $msg['error'][] = "Por favor informe a cidade de origem.";
+                
+        if($_POST['banda_estado'] == '')
+          $msg['error'][] = "Por favor informe o estado de residência.";
+         
+        if($_POST['banda_cidade'] == '')
+          $msg['error'][] = "Por favor informe a cidade de residência.";
+                
         if( !$msg['error']){
             $userdata['ID'] = $profileuser_id;
             $userdata['user_login'] = $profileuser->user_login;
@@ -60,6 +73,14 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
             update_user_meta( $profileuser_id, 'banda_estado' , $_POST['banda_estado'] );
             update_user_meta( $profileuser_id, 'banda_cidade' , $_POST['banda_cidade'] );
 
+            $current_user->banda_pais = $_POST['origem_pais'];
+            $current_user->origem_estado = $_POST['origem_estado'];
+            $current_user->origem_cidade = $_POST['origem_cidade'];
+            
+            $current_user->banda_pais = $_POST['banda_pais'];
+            $current_user->banda_estado = $_POST['banda_estado'];
+            $current_user->banda_cidade = $_POST['banda_cidade'];
+            
             update_user_meta( $profileuser_id, 'youtube' , $_POST['youtube'] );
 
             update_user_meta( $profileuser_id, 'integrantes' , $_POST['integrantes'] );

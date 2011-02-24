@@ -143,6 +143,6 @@ jQuery(document).ready(function() {
 
 function tnbCarregaCidadesOptions(campoId, uf){
 	  var selected = jQuery('#'+campoId).val();
-	  
+	  selected = encodeURI(selected);
 	  jQuery('#'+campoId+'_select').load(params.base_url+'/cidades-options.php?uf='+uf+'&selected='+selected,function(result){jQuery('#'+campoId+'_select').html(result)});
 	}

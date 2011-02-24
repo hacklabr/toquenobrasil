@@ -19,7 +19,7 @@ include(TEMPLATEPATH . '/includes/admin_email_messages.php');
 include(TEMPLATEPATH . '/includes/admin_system_messages.php');
 include(TEMPLATEPATH . '/includes/email_messages.php');
 include(TEMPLATEPATH . '/includes/admin_help_videos.php');
-include(TEMPLATEPATH . '/produtores/produtor-actions.php');
+
 
 
 // interface para arrumar usuários que não estão com dados de país, estado e cidade corretos
@@ -1046,4 +1046,58 @@ function tnb_madmimi_user_input() {
     echo "<small>API Key MadMimi</small>";
 }
 
+
+function tnb_getMunicipio($uf, $municipio){
+  global $CACHE_CidadeInfo;
+  if(isset($CACHE_CidadesInfo[$uf][$municipio]))
+    return $CACHE_CidadesInfo[$uf][$municipio];
+
+  global $wpdb;
+  $query = "
+		SELECT 
+			municipio.*
+		FROM
+			municipio, uf
+		WHERE
+			municipio.ufid = uf.id AND
+			municipio.nome = '$municipio' AND
+  			uf.sigla = '$uf'";
+
+  $result = $wpdb->get_row($query);
+  
+  if(is_object($result))
+    $CACHE_CidadesInfo[$uf][$municipio] = $result;
+  else
+    $result = null;
+  
+  return $result;
+}
+
+function tnb_contatoUsuarioCorreto($user){
+//    echo '<pre>
+//    	origem: p: '.$user->origem_pais.', uf: '.$user->origem_estado.', cidade: '.$user->origem_cidade.'
+//    	residência: p: '.$user->banda_pais.', uf: '.$user->banda_estado.', cidade: '.$user->banda_cidade.'</pre>';
+    
+    if(!$user->origem_pais OR !$user->origem_estado OR !$user->origem_cidade){
+      //echo '<div>origem vazia: p: '.$user->origem_pais.', uf: '.$user->origem_estado.', cidade: '.$user->origem_cidade.'</div>';
+      return false; 
+    }
+    
+    if($user->origem_pais == 'BR' AND !tnb_getMunicipio($user->origem_estado, $user->origem_cidade)){
+      //echo '<div>origem não encontrada: p: '.$user->origem_pais.', uf: '.$user->origem_estado.', cidade: '.$user->origem_cidade.'</div>';
+      return false; //
+    }
+    if(in_array('artista', $user->roles)){
+      if(!$user->banda_pais OR !$user->banda_estado OR !$user->banda_cidade){
+       // echo '<div>residência vazia: p: '.$user->banda_pais.', uf:  '.$user->banda_estado.', cidade: '.$user->banda_cidade.'</div>';
+        return false; 
+      }
+      if($user->banda_pais == 'BR' AND !tnb_getMunicipio($user->banda_estado, $user->banda_cidade)){
+       // echo '<div>residência não encontrada: p: '.$user->banda_pais.', uf: '.$user->banda_estado.', cidade: '.$user->banda_cidade.'</div>';
+        return false; 
+      }
+    }
+    return true;
+}
+//include(TEMPLATEPATH . '/includes/update-actions.php');
 ?>

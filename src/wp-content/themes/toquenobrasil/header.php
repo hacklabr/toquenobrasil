@@ -59,9 +59,9 @@
                 if(isset($cap['administrator'])){
                   $edit_url.= '/wp-admin/profile.php';
                 }elseif(isset($cap['produtor'])){
-                  $edit_url.= '/rede/editar/produtor';
+                  $edit_url.= '/rede/editar/produtor/';
                 }elseif(isset($cap['artista'])){
-                  $edit_url.= '/rede/editar/artista';
+                  $edit_url.= '/rede/editar/artista/';
                 }
         ?>
 
@@ -91,7 +91,12 @@
 
           <a href="<?php  echo wp_logout_url(get_bloginfo('url')) ; ?>"><span>Sair</span></a>
         </div>
-
+        
+        <?php if(!tnb_contatoUsuarioCorreto($current_user)): ?>
+            <div class='info-atencao'>
+            	Suas informações de contato estão incorretas ou incompletas. Por favor atualize seu <a href='<?php echo $edit_url; ?>'>perfil</a>.  
+            </div>
+        <?php endif; ?>
         <?php else: ?>
 
           <div id="login">

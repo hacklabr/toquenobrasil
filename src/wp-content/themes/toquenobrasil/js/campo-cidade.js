@@ -1,4 +1,4 @@
-jQuery(document).ready(function() { 	
+jQuery(document).ready(function() {
      // ============= CAMPO ORIGEM DE BANDAS ===================
      // muda o campo estado e cidade entre select e input, dependendo se o país é brasil ou não
      jQuery('#origem_pais').change(function(){

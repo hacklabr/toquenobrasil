@@ -37,6 +37,12 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
         if($_POST['cnpj'] != '' && !is_a_valid_cnpj($_POST['cnpj']))
             $msg['error'][] = "Informe um CNPJ válido.";
         
+        if($_POST['origem_estado'] == '')
+          $msg['error'][] = "Por favor informe o estado de residência.";
+        
+        if($_POST['origem_cidade'] == '')
+          $msg['error'][] = "Por favor informe a cidade de residência.";
+        
 
         if( !$msg['error']){
             $userdata['ID'] = $profileuser_id;
@@ -62,6 +68,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'update' && wp_verify_nonce($_
             update_user_meta( $profileuser_id, 'origem_pais' , $_POST['origem_pais'] );
             update_user_meta( $profileuser_id, 'origem_estado' , $_POST['origem_estado'] );
             update_user_meta( $profileuser_id, 'origem_cidade' , $_POST['origem_cidade'] );
+            
+            $current_user->origem_pais =  $_POST['origem_pais'];
+            $current_user->origem_estado =  $_POST['origem_estado'];
+            $current_user->origem_cidade =  $_POST['origem_cidade'];
             
             update_user_meta( $profileuser_id, 'youtube' , $_POST['youtube'] );
 
@@ -323,18 +333,22 @@ get_header();
         <p class="clearfix prepend-1">
 			<label for="origem_estado"><?php _e('Estado', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
 			<br/>
-            <select class="span-13 text" name="origem_estado" id='origem_estado'>                            
-                 <?php 
+			<select id="origem_estado_select" name="origem_estado_select" class='<?php echo $profileuser->origem_pais == 'BR' ? '' : 'hide' ?>' >
+				 <?php
                     foreach($estados as $uf=>$name){
-                        echo "<option " . ($profileuser->origem_estado == $uf ? 'selected':'') . " value='$uf'>$name</option>";    
+                        echo "<option " . ($profileuser->origem_estado == $uf ? 'selected':'') . " value='$uf'>$name</option>";
                     }
                 ?>
-            </select>
+			</select>
+			<input class="span-6 text <?php echo $profileuser->origem_pais == 'BR' ? 'hide' : '' ?>" type="text" id="origem_estado_input" name="origem_cidade" value="<?php echo $profileuser->origem_pais == 'BR' ? '' : $profileuser->origem_estado; ?>" />
+			<input type="hidden" id="origem_estado" name="origem_estado" value="<?php echo $profileuser->origem_estado; ?>" />
 		</p>
         <p class="clearfix prepend-1">
 			<label for="origem_cidade"><?php _e('Cidade', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
 			<br/>
-			<input type="text" id="origem_cidade" name="origem_cidade" value="<?php echo $profileuser->origem_cidade; ?>" class="text span-13" />
+            <select class="span-6 text <?php echo $profileuser->origem_pais == 'BR' ? '' : 'hide' ?>" id="origem_cidade_select" name="origem_cidade_select" ></select>
+            <input class="span-6 text <?php echo $profileuser->origem_pais == 'BR' ? 'hide' : '' ?>" type="text" id="origem_cidade_input" name="origem_cidade_input" value="<?php echo $profileuser->origem_pais == 'BR' ? '' : $profileuser->origem_cidade; ?>" />
+            <input type="hidden" name="origem_cidade" id="origem_cidade" value="<?php echo $profileuser->origem_cidade;?>"/>
 		</p>
 
         <p class="clearfix prepend-1">

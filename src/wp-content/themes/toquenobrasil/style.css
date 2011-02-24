@@ -97,6 +97,23 @@ body { background:#DFF9FF url(img/pattern.png) repeat-x fixed; padding-bottom:0p
 
 /* =Boxes items and title
 ------------------------------------------------------------------*/
+.info-atencao{
+	font-size: 15px;
+	font-weight:bold;
+	width:80%;
+	margin: 11px auto 33px auto;
+	padding:11px;
+	background-color:#F9ED32;
+	-moz-border-radius:0px 0px 18px 0px; 
+	-webkit-border-bottom-left-radius:18px; 
+	-moz-box-shadow:5px 5px 0px #D09031; -webkit-box-shadow:5px 5px 0px #D09031;
+	text-align: center;
+}
+.info-atencao a{
+	color:green;
+}
+
+
 /* =Structure */
 .item { margin:6px 0px 20px 0px; position:relative; }
 .item .title { padding-top:20px; }
