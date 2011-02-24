@@ -1074,6 +1074,7 @@ function tnb_getMunicipio($uf, $municipio){
 }
 
 function tnb_contatoUsuarioCorreto($user){
+  
 //    echo '<pre>
 //    	origem: p: '.$user->origem_pais.', uf: '.$user->origem_estado.', cidade: '.$user->origem_cidade.'
 //    	residência: p: '.$user->banda_pais.', uf: '.$user->banda_estado.', cidade: '.$user->banda_cidade.'</pre>';
@@ -1087,13 +1088,13 @@ function tnb_contatoUsuarioCorreto($user){
       //echo '<div>origem não encontrada: p: '.$user->origem_pais.', uf: '.$user->origem_estado.', cidade: '.$user->origem_cidade.'</div>';
       return false; //
     }
-    if(in_array('artista', $user->roles)){
+    if(in_array('artista', $user->wp_capabilities)){
       if(!$user->banda_pais OR !$user->banda_estado OR !$user->banda_cidade){
-       // echo '<div>residência vazia: p: '.$user->banda_pais.', uf:  '.$user->banda_estado.', cidade: '.$user->banda_cidade.'</div>';
+        //echo '<div>residência vazia: p: '.$user->banda_pais.', uf:  '.$user->banda_estado.', cidade: '.$user->banda_cidade.'</div>';
         return false; 
       }
       if($user->banda_pais == 'BR' AND !tnb_getMunicipio($user->banda_estado, $user->banda_cidade)){
-       // echo '<div>residência não encontrada: p: '.$user->banda_pais.', uf: '.$user->banda_estado.', cidade: '.$user->banda_cidade.'</div>';
+        //echo '<div>residência não encontrada: p: '.$user->banda_pais.', uf: '.$user->banda_estado.', cidade: '.$user->banda_cidade.'</div>';
         return false; 
       }
     }
