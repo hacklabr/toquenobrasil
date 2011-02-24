@@ -22,6 +22,10 @@ include(TEMPLATEPATH . '/includes/admin_help_videos.php');
 include(TEMPLATEPATH . '/produtores/produtor-actions.php');
 
 
+// interface para arrumar usuários que não estão com dados de país, estado e cidade corretos
+include(TEMPLATEPATH . '/includes/admin_fix_usuarios_cidades.php');
+
+
 add_filter( 'author_link', 'tnb_author_link', 10, 3);
 
 
