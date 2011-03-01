@@ -91,6 +91,7 @@ function add_adm_js(){
     wp_enqueue_script('datepicker_br_js', TNB_URL . '/js/jquery.ui.datepicker-pt-BR.js', array('datepicker_js'));
     wp_enqueue_style('jquery_ui', TNB_URL . '/css/jquery-ui-css/ui-lightness/jquery-ui-1.7.2.custom.css');
     wp_enqueue_script('tnb_adm_js', TNB_URL . '/js/tnb_adm.js', array('jquery','datepicker_br_js'), 12);
+    wp_localize_script('tnb_adm_js', 'params', array('base_url' => get_bloginfo('stylesheet_directory')));
 }
 add_action('admin_init', 'add_adm_js');
 add_action('wp_print_styles', 'custom_load_css');
@@ -965,7 +966,7 @@ function print_help_player_for($for_what) {
 function tnb_unique_event_slug($slug, $post_ID=0) {
 	global $wpdb, $wp_rewrite;
 
-	$feeds = $wp_rewrite->feeds;
+    $feeds = $wp_rewrite->feeds;
 	if ( ! is_array( $feeds ) )
 		$feeds = array();
 
@@ -1074,27 +1075,19 @@ function tnb_getMunicipio($uf, $municipio){
 }
 
 function tnb_contatoUsuarioCorreto($user){
-  
-//    echo '<pre>
-//    	origem: p: '.$user->origem_pais.', uf: '.$user->origem_estado.', cidade: '.$user->origem_cidade.'
-//    	residência: p: '.$user->banda_pais.', uf: '.$user->banda_estado.', cidade: '.$user->banda_cidade.'</pre>';
-    
-    if(!$user->origem_pais OR !$user->origem_estado OR !$user->origem_cidade){
-      //echo '<div>origem vazia: p: '.$user->origem_pais.', uf: '.$user->origem_estado.', cidade: '.$user->origem_cidade.'</div>';
+    // usuários de fora do brasil só precisam preencher o pais e a cidade, já os brasileiros precisam preencher o estado também
+    if(!$user->origem_pais OR !$user->origem_cidade){
       return false; 
     }
     
     if($user->origem_pais == 'BR' AND !tnb_getMunicipio($user->origem_estado, $user->origem_cidade)){
-      //echo '<div>origem não encontrada: p: '.$user->origem_pais.', uf: '.$user->origem_estado.', cidade: '.$user->origem_cidade.'</div>';
       return false; //
     }
     if(in_array('artista', $user->wp_capabilities)){
-      if(!$user->banda_pais OR !$user->banda_estado OR !$user->banda_cidade){
-        //echo '<div>residência vazia: p: '.$user->banda_pais.', uf:  '.$user->banda_estado.', cidade: '.$user->banda_cidade.'</div>';
+      if(!$user->banda_pais OR !$user->banda_cidade){
         return false; 
       }
       if($user->banda_pais == 'BR' AND !tnb_getMunicipio($user->banda_estado, $user->banda_cidade)){
-        //echo '<div>residência não encontrada: p: '.$user->banda_pais.', uf: '.$user->banda_estado.', cidade: '.$user->banda_cidade.'</div>';
         return false; 
       }
     }

@@ -163,7 +163,7 @@ foreach($users as $usr){
   //$origem_cidade = $wpdb->get_var("SELECT meta_value FROM $table_usermeta WHERE user_id = '$usr->id' AND meta_key = 'origem_cidade'");
   //$origem_estado = $wpdb->get_var("SELECT meta_value FROM $table_usermeta WHERE user_id = '$usr->id' AND meta_key = 'origem_estado'");
 
-  $output .= "alterando <strong>$capability (id: $usr->id)</strong> origem: '$origem_cidade' - '$origem_estado' (";
+  $output .= "alterando <strong>$capability (id: $usr->id)</strong> origem: '$origem_cidade' - '$origem_estado' - '$origem_pais' (";
   // PROCURA O MUNICIPIO DE ORIGEM A PARTIR DOS DADOS CADASTRADOS
   $origem = TNB_getCidade($origem_estado, $origem_cidade);
 
@@ -184,7 +184,7 @@ foreach($users as $usr){
         user_id = '$usr->id'";
 
     // E DEFINE O PAÍS COMO 'BR'
-    $queryUpdateResidenciaCidade = "
+    $queryUpdateOrigemPais = "
         UPDATE
           $table_usermeta
         SET
@@ -194,6 +194,7 @@ foreach($users as $usr){
           user_id = '$usr->id'";
 
     $wpdb->query($queryUpdateOrigemCidade);
+    $wpdb->query($queryUpdateOrigemPais);
 
   }else{
     $usr->ESTADO = $origem_estado;
@@ -256,7 +257,7 @@ foreach($users as $usr){
             user_id = '$usr->id'";
 
         // E DEFINE O PAÍS COMO 'BR'
-        $queryUpdateResidenciaCidade = "
+        $queryUpdateResidenciaPais = "
           UPDATE
             $table_usermeta
           SET
@@ -267,6 +268,7 @@ foreach($users as $usr){
         
         
         $wpdb->query($queryUpdateResidenciaCidade);
+        $wpdb->query($queryUpdateResidenciaPais);
       }else{
         $usr->ESTADO = $residencia_estado;
         $usr->CIDADE = $residencia_cidade;

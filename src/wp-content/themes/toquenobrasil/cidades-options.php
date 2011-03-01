@@ -6,7 +6,7 @@ require_once('../../../wp-load.php');
  */
 $cidades = $wpdb->get_results("SELECT municipio.* FROM municipio, uf WHERE municipio.ufid = uf.id AND uf.sigla = '$_REQUEST[uf]' ORDER BY municipio.nome");
 
-echo "<option>Selecione</option>";
+echo "<option value=''>Selecione</option>";
 foreach($cidades as $cidade){
   $selected = trim(strtolower($cidade->nome)) == trim(strtolower($_REQUEST['selected'])) ? ' selected="selected"' : '';
   echo "<option value='$cidade->nome'$selected>$cidade->nome</option>";

@@ -345,10 +345,17 @@ get_header();
 		</p>
         <p class="clearfix prepend-1">
 			<label for="origem_cidade"><?php _e('Cidade', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></label>
-			<br/>
+            <br/>
+            <?php if(!tnb_contatoUsuarioCorreto($profileuser) AND !tnb_getMunicipio($profileuser->origem_estado, $profileuser->origem_cidade)): ?>
+                A cidade "<?php echo $profileuser->origem_cidade; ?>" não é válida, por favor selecione uma das cidades listadas abaixo.
+                <br/>
+            <?php endif; ?>
+			
             <select class="span-6 text <?php echo $profileuser->origem_pais == 'BR' ? '' : 'hide' ?>" id="origem_cidade_select" name="origem_cidade_select" ></select>
             <input class="span-6 text <?php echo $profileuser->origem_pais == 'BR' ? 'hide' : '' ?>" type="text" id="origem_cidade_input" name="origem_cidade_input" value="<?php echo $profileuser->origem_pais == 'BR' ? '' : $profileuser->origem_cidade; ?>" />
             <input type="hidden" name="origem_cidade" id="origem_cidade" value="<?php echo $profileuser->origem_cidade;?>"/>
+            
+            
 		</p>
 
         <p class="clearfix prepend-1">

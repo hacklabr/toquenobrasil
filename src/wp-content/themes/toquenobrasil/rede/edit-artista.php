@@ -254,7 +254,7 @@ do_action('custom_profile_update', $profileuser->ID);
 get_header();
 
 
-
+$usuarioOK = tnb_contatoUsuarioCorreto($profileuser);
 
 ?>
 <div class="clear"></div>
@@ -372,8 +372,7 @@ get_header();
 			<small><?php _e('Coloque o principal link do Artista (Twitter, Facebook, MySpace, etc).', 'tnb');?></small>
 		</p>
 
-
-
+        
 		<h4 class='prepend-1'><?php _e('Origem da banda', 'tnb');?></h4>
 		<p class="clearfix prepend-1 span-6">
 			<label for="origem_pais"><?php _e('País', 'tnb');?></label>
@@ -406,11 +405,17 @@ get_header();
 		<p class="prepend-1 clearfix clear">
 			<label for="origem_cidade"><?php _e('Cidade', 'tnb');?></label>
 			<br />
+            <?php if(!$usuarioOK && !tnb_getMunicipio($profileuser->origem_estado, $profileuser->origem_cidade)): ?>
+                A cidade "<?php echo $profileuser->origem_cidade; ?>" não é válida, por favor selecione uma das cidades listadas abaixo.
+                <br />
+            <?php endif; ?>
+            
             <select class="span-6 text <?php echo $profileuser->origem_pais == 'BR' ? '' : 'hide' ?>" id="origem_cidade_select" name="origem_cidade_select" ></select>
             <input class="span-6 text <?php echo $profileuser->origem_pais == 'BR' ? 'hide' : '' ?>" type="text" id="origem_cidade_input" name="origem_cidade_input" value="<?php echo $profileuser->origem_pais == 'BR' ? '' : $profileuser->origem_cidade; ?>" />
             <input type="hidden" name="origem_cidade" id="origem_cidade" value="<?php echo $profileuser->origem_cidade;?>"/>
+            
 		</p>
-
+            
 
 
 		<h4 class='prepend-1'><?php _e('Residência da banda', 'tnb');?> <?php theme_image('lock.png', array('title' => __('Informações restritas a Produtores', 'tnb'))); ?></h4>
@@ -443,9 +448,15 @@ get_header();
 		<p class="clearfix prepend-1 clear">
 			<label for="banda_cidade"><?php _e('Cidade', 'tnb');?></label>
 			<br />
+            <?php if(!$usuarioOK && !tnb_getMunicipio($profileuser->banda_estado, $profileuser->banda_cidade)): ?>
+                A cidade "<?php echo $profileuser->banda_cidade; ?>" não é válida, por favor selecione uma das cidades listadas abaixo.
+                <br />
+            <?php endif; ?>
+            
             <select class="span-6 text <?php echo $profileuser->banda_pais == 'BR' ? '' : 'hide' ?>" id="banda_cidade_select" name="banda_cidade_select" ></select>
             <input class="span-6 text <?php echo $profileuser->banda_pais == 'BR' ? 'hide' : '' ?>" type="text" id="banda_cidade_input" name="banda_cidade_input" value="<?php echo $profileuser->banda_pais == 'BR' ? '' : $profileuser->banda_cidade; ?>" />
             <input type="hidden" name="banda_cidade" id="banda_cidade" value="<?php echo $profileuser->banda_cidade;?>"/>
+            
 		</p>
 
         <h3 class="clear"><?php _e('Rider e Mapa de Palco', 'tnb');?></h3>
