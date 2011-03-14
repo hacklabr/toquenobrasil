@@ -121,17 +121,17 @@
                     </div>
                 </div>
                 <div class="quero-tocar i-wanna-play">
-                    <a onclick="jQuery('#tnb_modal_<?php echo $evento_list_item_id; ?>').dialog('open');" title="<?php printf(__('Participe do evento %s', 'tnb'),  get_the_title());?>"><?php _e('Quero <br />tocar!', 'tnb');?></a>
+                    <a onclick="jQuery('#tnb_modal_<?php echo $evento_list_item_id; ?>').dialog('open');" title="<?php printf(__('Participe do evento %s', 'tnb'),  get_the_title());?>"><?php _e('Me<br />Inscrever!', 'tnb');?></a>
                 </div>
             <?php else:?>
                 <div class="quero-tocar i-wanna-play">
-                    <a onclick="jQuery('#form_join_event_<?php echo $evento_list_item_id; ?>').submit();"><?php _e('Quero <br />tocar!', 'tnb');?></a>
+                    <a onclick="jQuery('#form_join_event_<?php echo $evento_list_item_id; ?>').submit();"><?php _e('Me<br />Inscrever!', 'tnb');?></a>
                 </div>
             <?php endif;?>   
           
         <?php  elseif(!is_user_logged_in()) :?>
           <div class="quero-tocar i-wanna-play">
-            <a href="<?php bloginfo('url');?>/cadastre-se/artista" title='<?php _e('Cadastre-se para poder participar do Toque no Brasil!', 'tnb');?>'><?php _e('Quero <br />tocar!', 'tnb');?></a>
+            <a href="<?php bloginfo('url');?>/cadastre-se/artista" title='<?php _e('Cadastre-se para poder participar do Toque no Brasil!', 'tnb');?>'><?php _e('Me<br />Inscrever!', 'tnb');?></a>
           </div>
         <?php endif;?>
 
