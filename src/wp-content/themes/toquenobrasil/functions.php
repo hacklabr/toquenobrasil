@@ -19,6 +19,7 @@ include(TEMPLATEPATH . '/includes/admin_email_messages.php');
 include(TEMPLATEPATH . '/includes/admin_system_messages.php');
 include(TEMPLATEPATH . '/includes/email_messages.php');
 include(TEMPLATEPATH . '/includes/admin_help_videos.php');
+include(TEMPLATEPATH . '/produtores/produtor-actions.php');
 
 
 
