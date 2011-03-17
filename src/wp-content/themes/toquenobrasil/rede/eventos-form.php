@@ -291,7 +291,8 @@
     $query_args = array(
         'post_type' => 'eventos',
         'meta_key' => 'superevento',
-        'meta_value' => 'yes'
+        'meta_value' => 'yes',
+        'posts_per_page' => -1
     );
     $superevents = query_posts($query_args);
 

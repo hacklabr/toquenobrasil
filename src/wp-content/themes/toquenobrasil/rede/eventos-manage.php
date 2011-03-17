@@ -115,7 +115,8 @@
         'post_parent' => 0,
         'meta_key' => 'superevento',
         'meta_value' => 'yes',
-        'post_status' => 'any'
+        'post_status' => 'any',
+        'posts_per_page' => -1
     );
     $superevents = query_posts($query_args);
     

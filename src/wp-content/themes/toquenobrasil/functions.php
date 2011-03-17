@@ -1,5 +1,5 @@
 <?php
-//var_dump(current_user_can('select_other_artists'));
+date_default_timezone_set('America/Sao_Paulo');
 
 define('TNB_URL', get_bloginfo('url') . strstr(dirname(__FILE__), '/wp-content') );
 
