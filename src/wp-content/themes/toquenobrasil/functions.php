@@ -757,7 +757,7 @@ function get_the_tos($post_id = null) {
         return false;
 
     if($post->post_parent > 0 && $meta = get_post_meta($post->post_parent, 'forcar_tos', true)) {
-        return $meta;
+        return get_post_meta($post->post_parent, 'evento_tos', true);
     } else {
         return get_post_meta($post->ID, 'evento_tos', true);
     }
@@ -779,7 +779,7 @@ function get_the_condicoes($post_id = null) {
         return false;
 
     if($post->post_parent > 0 && $meta = get_post_meta($post->post_parent, 'forcar_condicoes', true)) {        
-        return $meta;
+        return get_post_meta($post->post_parent, 'evento_condicoes', true);
     } else {
         return get_post_meta($post->ID, 'evento_condicoes', true);
     }
@@ -801,7 +801,7 @@ function get_the_restricoes($post_id = null) {
         return false;
 
     if($post->post_parent > 0 && $meta = get_post_meta($post->post_parent, 'forcar_restricoes', true)) {
-        return $meta;
+        return get_post_meta($post->post_parent, 'evento_restricoes', true);
     } else {
         return get_post_meta($post->ID, 'evento_restricoes', true);
     }
