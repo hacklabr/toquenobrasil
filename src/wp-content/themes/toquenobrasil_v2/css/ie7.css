@@ -1,0 +1,5 @@
+.tnb_widget_header h3 { padding-bottom:9px; }
+section#signup input[type="text"], section#signup input[type="password"] { width:168px !important; }
+.widget_toolbar .widget_toolbar_options { margin-top:26px; }
+footer#main-footer #hacklab { margin-bottom:22px; }
+input[type="button"].grey, input[type="submit"] { padding:6px 11px 4px 11px !important; }

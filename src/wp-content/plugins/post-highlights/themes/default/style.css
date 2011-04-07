@@ -1,0 +1,107 @@
+#posthighlights_container {
+    font-family: Arial, Helvetica, Verdana, Sans-serif;
+}
+
+/* Lets keep loading process beautiful */
+#posthighlights_container .ph_post div, .ph-hide-while-loading{
+    display: none;
+}
+
+/*
+Basically you can play with everything in here, just keep in mind:
+
+#posthighlights_container is the div that wraps everything.
+
+It must have position relative, so the picures (ph_canvas) have position absolute 
+and the fade between them will work
+*/
+
+#posthighlights_container {
+    padding: 15px 0 0 0px;
+    text-align: center;
+    position: relative;
+}
+/*
+
+ph-canvas are the divs where the pictures will show up
+They have to have position: absolute
+And its very important that they have both width and height set
+In our case, it is set dynamically in the index.php
+because its a theme option.
+But if your theme doesnt have this option, dont forget to put it here
+
+ */
+#posthighlights_container .ph-canvas {
+    position: absolute !important;
+    left: 0px !important; /* importants are needed for i.E 6 */
+    /* background-position: center center; */
+}
+
+#posthighlights_container .ph_picture {
+    position: absolute;
+}
+
+#posthighlights_container #ph-next-nav, 
+#posthighlights_container #ph-prev-nav  {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    z-index: 3;
+    cursor: pointer;
+    background-image: url(arrows.gif);
+}
+
+#posthighlights_container #ph-next-nav {
+    right: 0px;
+    bottom: 0px;
+    background-position: 50px 0px;
+}
+
+#posthighlights_container #ph-next-nav:hover {
+    background-position: 52px 0px;
+}
+
+#posthighlights_container #ph-prev-nav {
+    left: 0px;
+    bottom: 0px;
+    background-position: -10px 0px;
+}
+
+#posthighlights_container #ph-prev-nav:hover {
+    background-position: -12px 0px;
+}
+
+#ph-description-background, 
+#posthighlights_container .ph_content {
+    position: absolute !important;
+    bottom: 0px !important;
+    left: 0px !important; /* importants are needed for i.E 6 */
+    width: 100%;
+    height: 40px;
+    z-index: 2;
+    padding: 0px;
+    text-align: left;
+}
+
+#posthighlights_container .ph_content a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#posthighlights_container .ph_content p {
+    color: white;
+    font-size: 12px;
+} 
+
+#ph-description-background {
+    background-color: black;
+    z-index: 1;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+}
+
+.ph_content h2, .ph_content p {
+    margin: 0 50px;
+}

@@ -1,0 +1,210 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ph\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-02-11 17:35-0300\n"
+"PO-Revision-Date: 2010-02-18 22:39+0200\n"
+"Last-Translator: Fat Cow <zhr@tut.by>\n"
+"Language-Team: FatCow <zhr@tut.by>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: Belarusian\n"
+"X-Poedit-Country: BELARUS\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: /home/leo/devel/post-highlights/trunk\n"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:118
+msgid "Loading"
+msgstr "Загрузка"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:137
+msgid "Edit"
+msgstr "Редактировать"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:138
+msgid "Hide Settings"
+msgstr "Скрыть настройки"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:145
+msgid "only highlighted"
+msgstr "только подсвеченое"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:149
+msgid "Highlight"
+msgstr "Подсветка"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:154
+msgid "Post Highlight Settings"
+msgstr "Настройки Post Highlights"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:154
+msgid "Settings"
+msgstr "Настройки"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:155
+msgid "Post Highlight Options"
+msgstr "Настройки Post Highlight"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:155
+msgid "Post Highlights"
+msgstr "Post Highlights"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:156
+msgid "Post Highlight Permissions"
+msgstr "Разрешения Post Highlight"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:156
+msgid "Permissions"
+msgstr "Разрешения"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:167
+msgid "Global Options"
+msgstr "Глобальные настройки"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:168
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:187
+msgid "Options"
+msgstr "Настройки"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:172
+msgid "Delay: The time between each highlight in miliseconds (1 sec = 1000) - default = 8000"
+msgstr "Задержка: время между каждым событием в миллисекундах (1 сек = 1000) - по умолчанию = 8000"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:173
+msgid "Number of posts: Maximum number of posts to display (0 or empty = unlimited) - default = unlimited"
+msgstr "Количество сообщений: Максимальное количество сообщений для отображения (0 или пусто = Unlimited) - по умолчанию = Unlimited"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:186
+msgid "Theme Options"
+msgstr "Настройки темы"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:202
+msgid "These settings applies to all Post Highlight themes"
+msgstr "Эти настройки применяются ко всем темам Post Highlight"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:207
+msgid "Current Theme"
+msgstr "Текущая тема"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:230
+msgid "I want Post Highlights to automatically create and use an image with these dimensions:"
+msgstr "Я хочу использовать Post Highlights для автоматического создания и использования изображений с этими размерами:"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:232
+msgid "Width:"
+msgstr "Ширина:"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:235
+msgid "Height:"
+msgstr "Высота:"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:243
+msgid "These settings applies only to the active theme"
+msgstr "Эти настройки применияются только к текущей теме"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:268
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:308
+msgid "Save Changes"
+msgstr "Сохранить изменения"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:280
+msgid "Who can Highlight Posts?"
+msgstr "Кому нужен Highlights Posts?"
+
+#: /home/leo/devel/post-highlights/trunk/themes/default/settings.php:14
+#: /home/leo/devel/post-highlights/trunk/themes/default-2/settings.php:18
+msgid "Width"
+msgstr "Ширина"
+
+#: /home/leo/devel/post-highlights/trunk/themes/default/settings.php:15
+#: /home/leo/devel/post-highlights/trunk/themes/default-2/settings.php:19
+msgid "Height"
+msgstr "Высота"
+
+#: /home/leo/devel/post-highlights/trunk/themes/default/settings.php:16
+msgid "Background color for the navigation arrows (e.g #FFCC00 or red)"
+msgstr "Цвет фона для навигации стрелками (например, # FFCC00 или красный)"
+
+#: /home/leo/devel/post-highlights/trunk/themes/guarani/index.php:19
+msgid "by"
+msgstr "от"
+
+#: /home/leo/devel/post-highlights/trunk/themes/guarani/index.php:45
+msgid "No posts highlighted"
+msgstr "Нет подсветки"
+
+#: /home/leo/devel/post-highlights/trunk/themes/guarani/settings.php:4
+msgid "Background color (default: #FFCC00)"
+msgstr "Цвет фона (по умолч.: #FFCC00)"
+
+#: /home/leo/devel/post-highlights/trunk/themes/default-2/index.php:32
+msgid "Next"
+msgstr "След."
+
+#: /home/leo/devel/post-highlights/trunk/themes/default-2/index.php:33
+msgid "Previous"
+msgstr "Пред."
+
+#: /home/leo/devel/post-highlights/trunk/themes/default-2/settings.php:20
+msgid "Background color for the content and navigation arrows (e.g #FFCC00 or red)"
+msgstr "Фон для контента и навигации (например, # FFCC00 или красный)"
+
+#: /home/leo/devel/post-highlights/trunk/ajax/ph_settings.php:19
+msgid "Settings Updated"
+msgstr "Настройки обновлены"
+
+#: /home/leo/devel/post-highlights/trunk/ajax/ph_settings.php:24
+msgid "Choose a picture from your post"
+msgstr "Выбрать картинку из поста"
+
+#: /home/leo/devel/post-highlights/trunk/ajax/ph_settings.php:46
+msgid "Or enter URL for the picture"
+msgstr "Или введите УРЛ картинки"
+
+#: /home/leo/devel/post-highlights/trunk/ajax/ph_settings.php:52
+msgid "Enter a headline"
+msgstr "Ввести заголовок"
+
+#: /home/leo/devel/post-highlights/trunk/ajax/ph_settings.php:54
+msgid "This will be displayed under the post's title:"
+msgstr "Это будет отображаться под заголовком к сообщению:"
+
+#: /home/leo/devel/post-highlights/trunk/ajax/ph_settings.php:60
+msgid "Order"
+msgstr "Порядок"
+
+#: /home/leo/devel/post-highlights/trunk/ajax/ph_settings.php:62
+msgid "Select the display order."
+msgstr "Выберите порядок отображения"
+
+msgid "Select the display order. Randomize using the same value for multiple posts."
+msgstr "Выберите порядок отображения. Randomize используя те же значения для нескольких сообщений."
+
+msgid "Delay"
+msgstr "Intervalo"
+
+msgid "Button Color"
+msgstr "Цвет кнопки"
+
+msgid "The color of the next and previous buttons"
+msgstr "Цвет кнопки Далее и Назад"
+
+msgid "Size"
+msgstr "Размер"
+
+msgid "You can easily create a custom size from the .FLA file available at the plugin's home page. More info at the README.txt file."
+msgstr "Вы можете легко создать пользовательский размер с. FLA файла доступны на домашней странице плагина. Больше информации в файле README.TXT."
+
+msgid "The width of the Flash movie"
+msgstr "Ширина фильма Flash"
+
+msgid "The background color of the Flash movie"
+msgstr "Цвет фона флэш-фильма"
+
+#, fuzzy
+#~ msgid "Post Highlights Options"
+#~ msgstr "Настройки Post Highlight"
+

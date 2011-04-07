@@ -1,0 +1,133 @@
+#posthighlights_container {
+    font-family: Arial, Helvetica, Verdana, Sans-serif;
+}
+
+/* Lets keep loading process beautiful */
+#posthighlights_container .ph_post div{
+    display: none;
+}
+
+#posthighlights_container {
+    padding: 15px 0 0 0px;
+    position: relative;
+    text-align: center;
+}
+
+#posthighlights_container .ph-canvas {
+    /* background-position: center center; */
+    position: absolute !important;
+    left: 0px !important;
+}
+
+#posthighlights_container .ph_picture {
+    position: absolute;
+}
+
+#posthighlights_container #ph-nav-background {
+    bottom: 0px !important;
+    filter: alpha(opacity=70);
+    height: 28px;
+    opacity: 0.7;
+    left: 0px !important;
+    position: absolute !important;
+    right: 0 !important;
+    width: 100%;
+    z-index: 2;
+}
+
+#posthighlights_container #ph-next-nav, 
+#posthighlights_container #ph-prev-nav  {
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    height: 24px;
+    padding: 0;
+    position: absolute !important;
+    width: 80px;
+    z-index: 3;
+}
+
+#posthighlights_container #ph-next-nav {
+    background: url(arrow-right.gif) no-repeat right -4px;
+    bottom: 0px;
+    padding: 0 18px 0 0;
+    right: 0px;
+    text-align: right;
+}
+
+#posthighlights_container #ph-prev-nav {
+    background: url(arrow-left.gif) no-repeat left -4px;
+    bottom: 0px;
+    left: 0px;
+    padding: 0 0 0 18px;
+    text-align:left;
+}
+
+#ph-description-background, 
+#posthighlights_container .ph_content {
+    bottom: 28px !important;
+    height: 70px;
+    left: 0px !important;
+    padding: 0px;
+    position: absolute !important;
+    text-align: left;
+    width: 100%;
+    z-index: 2;
+}
+
+#posthighlights_container .ph_content a {
+    color: white;
+    font-size: 17px;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+#posthighlights_container .ph_content p {
+    color: white;
+    font-size: 12px;
+} 
+
+#ph-description-background {
+    filter: alpha(opacity=90);
+    opacity: 0.9;
+    z-index: 1;
+}
+
+.ph_content h2, .ph_content p {
+    margin: 7px 15px;
+}
+
+#ph-numeric-nav { 
+    bottom: 7px !important;
+    font-size: 12px;
+    left: 50% !important; 
+    position:absolute; 
+    text-align: center; 
+    z-index: 3;
+}
+
+#ph-numeric-nav ul { 
+    display: inline; 
+    margin: 0; 
+    padding: 0; 
+}
+
+#ph-numeric-nav ul li { 
+    cursor: pointer; 
+    display: inline;
+    padding: 1px 5px;
+    
+}
+
+#ph-numeric-nav ul li.current { 
+    background: white;
+}
+
+#ph-numeric-nav ul li a { 
+    color: white; 
+}
+
+#ph-numeric-nav ul li.current a {
+    color: black;
+}

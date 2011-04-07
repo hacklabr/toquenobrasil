@@ -1,0 +1,303 @@
+/* Reset
+----------------------------------------------------------------------------------------------------*/
+html { margin:0; padding:0; border:0; }
+body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, nav, section { margin:0; padding:0; border:0; font-weight:inherit; font-style:inherit; font-size:100%; font-family:inherit; vertical-align:baseline; }
+article, aside, dialog, figure, footer, header, hgroup, nav, section { display:block; }
+body { line-height:1.5; background:white; }
+table { border-collapse:separate; border-spacing:0; }
+caption, th, td { text-align:left; font-weight:normal; float:none !important; }
+table, th, td { vertical-align:middle; }
+blockquote:before, blockquote:after, q:before, q:after { content:''; }
+blockquote, q { quotes:"" ""; }
+a img { border:none; }
+:focus { outline:0; }
+
+/* Typography
+----------------------------------------------------------------------------------------------------*/
+/* Font Face */
+@font-face {
+    font-family: 'Delicious';
+    src: url('fonts/delicious-bold-webfont.eot');
+    src: url('fonts/delicious-bold-webfont.eot?iefix') format('eot'),
+         url('fonts/delicious-bold-webfont.woff') format('woff'),
+         url('fonts/delicious-bold-webfont.ttf') format('truetype'),
+         url('fonts/delicious-bold-webfont.svg#webfontYaUNbb20') format('svg');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Delicious';
+    src: url('fonts/delicious-bolditalic-webfont.eot');
+    src: url('fonts/delicious-bolditalic-webfont.eot?iefix') format('eot'),
+         url('fonts/delicious-bolditalic-webfont.woff') format('woff'),
+         url('fonts/delicious-bolditalic-webfont.ttf') format('truetype'),
+         url('fonts/delicious-bolditalic-webfont.svg#webfontzdQZm4Ah') format('svg');
+    font-weight: bold;
+    font-style: italic;
+
+}
+
+@font-face {
+    font-family: 'Delicious';
+    src: url('fonts/delicious-italic-webfont.eot');
+    src: url('fonts/delicious-italic-webfont.eot?iefix') format('eot'),
+         url('fonts/delicious-italic-webfont.woff') format('woff'),
+         url('fonts/delicious-italic-webfont.ttf') format('truetype'),
+         url('fonts/delicious-italic-webfont.svg#webfont4gsNPYsF') format('svg');
+    font-weight: normal;
+    font-style: italic;
+
+}
+
+@font-face {
+    font-family: 'Delicious';
+    src: url('fonts/delicious-roman-webfont.eot');
+    src: url('fonts/delicious-roman-webfont.eot?iefix') format('eot'),
+         url('fonts/delicious-roman-webfont.woff') format('woff'),
+         url('fonts/delicious-roman-webfont.ttf') format('truetype'),
+         url('fonts/delicious-roman-webfont.svg#webfontedw351Al') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Arista';
+    src: url('fonts/arista-webfont.eot');
+    src: url('fonts/arista-webfont.eot?iefix') format('eot'),
+         url('fonts/arista-webfont.woff') format('woff'),
+         url('fonts/arista-webfont.ttf') format('truetype'),
+         url('fonts/arista-webfont.svg#webfontWvctblUU') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Default font settings.
+   The font-size percentage is of 16px. (0.875 * 16px = 14px) */
+html { font-size:100.01%; }
+body { background:#fff; color:#666; font-family:"Delicious", Arial, Helvetica, sans-serif; font-size:87.5%; }
+h1, h2, h3, h4, h5, h6 { font-weight:normal; }
+h1 { font-size:3em; line-height:1; margin-bottom:0.5em; }
+h2 { font-size:2em; margin-bottom:0.75em; }
+h3 { font-size:1.5em; line-height:1; margin-bottom:1em; }
+h4 { font-size:1.2em; line-height:1.25; margin-bottom:1.25em; }
+h5 { font-size:1em; font-weight:bold; margin-bottom:1.5em; }
+h6 { font-size:1em; font-weight:bold; }
+h1 img, h2 img, h3 img, h4 img, h5 img, h6 img { margin:0; }
+p { margin:0 0 1.5em; }
+.left { float:left !important; }
+p .left { margin:1.5em 1.5em 1.5em 0; padding:0; }
+.right { float:right !important; }
+p .right { margin:1.5em 0 1.5em 1.5em; padding:0; }
+a:focus, a:hover { border-style:solid; color:#04BAEE; }
+a { color:#04BAEE; text-decoration:none; border-bottom:1px dotted #04BAEE; }
+blockquote { margin:1.5em; color:#666; font-style:italic; }
+strong, dfn { font-weight:bold; }
+em, dfn { font-style:italic; }
+sup, sub { line-height:0; }
+abbr, acronym { border-bottom:1px dotted #666; }
+address { margin:0 0 1.5em; font-style:italic; }
+del { color:#666; }
+pre { margin:1.5em 0; white-space:pre; }
+pre, code, tt { font:1em 'andale mono', 'lucida console', monospace; line-height:1.5; }
+li ul, li ol { margin:0; }
+ul, ol { margin:0 1.5em 1.5em 0; padding-left:1.5em; }
+ul { list-style-type:disc; }
+ol { list-style-type:decimal; }
+dl { margin:0 0 1.5em 0; }
+dl dt { font-weight:bold; }
+dd { margin-left:1.5em; }
+table { margin-bottom:1.4em; width:100%; }
+th { font-weight:bold; }
+thead th { background:#c3d9ff; }
+th, td, caption { padding:4px 5px; }
+tfoot { font-style:italic; }
+caption { background:#eee; }
+.small { font-size:.8em; margin-bottom:1.875em; line-height:1.875em; }
+.large { font-size:1.2em; line-height:2.5em; margin-bottom:1.25em; }
+.hide { display:none; }
+.quiet { color:#666; }
+.loud { color:#000; }
+.highlight { background:#ff0; }
+.added { background:#060; color:#fff; }
+.removed { background:#900; color:#fff; }
+.first { margin-left:0 !important; padding-left:0; }
+.last { margin-right:0 !important; padding-right:0; }
+.top { margin-top:0 !important; padding-top:0; }
+.bottom { margin-bottom:0 !important; padding-bottom:0; }
+.margin-left { margin-left:10px !important; }
+.margin-right { margin-right:10px !important; }
+.text-center { text-align:center; }
+.text-left { text-align:left; }
+.text-right { text-align:right; }
+
+/* Form
+----------------------------------------------------------------------------------------------------*/
+button { font-family: "Delicious", Arial, Helvetica, sans-serif; font-size:11px; border: none; border-radius:4px; -moz-border-radius:4px; height: 20px; padding: 4px 6px 3px; color: #fff; cursor: pointer; }
+label { font-weight:normal; }
+fieldset { padding:0 1.4em 1.4em 1.4em; margin:0 0 1.5em 0; border:1px solid #ccc; }
+legend { font-weight:bold; font-size:1.2em; margin-top:-0.2em; margin-bottom:1em; }
+fieldset, #IE8#HACK { padding-top:1.4em; }
+legend, #IE8#HACK { margin-top:0; margin-bottom:0; }
+input[type=text], input[type=password], input.text, input.title, textarea { background-color: #fff; border: 1px solid #bbb; border-radius: 4px; -moz-border-radius: 4px; }
+input[type=text]:focus, input[type=password]:focus, input.text:focus, input.title:focus, textarea:focus { border-color: #666; }
+select { background-color: #fff; border-width: 1px; border-style: solid; }
+input[type=text], input[type=password], input[type=file], input.text, input.title, textarea, select { margin:0.5em 0; }
+input.text, input.title { width:100%; padding:5px; }
+input.title { font-size:1.5em; }
+textarea { width:100%; height:120px; padding:5px; }
+form.inline { line-height:2.5; }
+form.inline div.select { line-height:1; }
+form.inline p { margin-bottom:0; }
+.error, .alert, .notice, .success, .info { padding:0.8em; margin-bottom:1em; border:1px dotted #ddd; border-radius:9px; -webkit-box-shadow:1px 1px 3px rgba(0,0,0,0.2); -moz-box-shadow:1px 1px 3px rgba(0,0,0,0.2); -moz-border-radius:9px; }
+.error, .alert { background:#fbe3e4; color:#8a1f11; border-color:#fbc2c4; }
+.notice { background:#fff6bf; color:#514721; border-color:#ffd324; }
+.success { background:#e6efc2; color:#264409; border-color:#c6d880; }
+.info { background:#d5edf8; color:#205791; border-color:#92cae4; }
+.error a, .alert a { color:#8a1f11; }
+.notice a { color:#514721; }
+.success a { color:#264409; }
+.info a { color:#205791; }
+
+
+/* Grid
+----------------------------------------------------------------------------------------------------*/
+body { min-width:960px; }
+.showgrid { background:url(../img/grid.gif); }
+.border { border-right:1px solid #e6e6e6; margin-right:9px; }
+.container_16 { margin-left:auto; margin-right:auto; width:960px; }
+.grid_1, .grid_2, .grid_3, .grid_4, 
+.grid_5, .grid_6, .grid_7, .grid_8,
+.grid_9, .grid_10, .grid_11, .grid_12,
+.grid_13, .grid_14, .grid_15, .grid_16 { display:inline; float:left; margin-bottom:18px; margin-left:10px; margin-right:10px; }
+
+.push_1, .pull_1, .push_2, .pull_2,
+.push_3, .pull_3, .push_4, .pull_4,
+.push_5, .pull_5, .push_6, .pull_6,
+.push_7, .pull_7, .push_8, .pull_8,
+.push_9, .pull_9, .push_10, .pull_10,
+.push_11, .pull_11, .push_12, .pull_12,
+.push_13, .pull_13, .push_14, .pull_14,
+.push_15, .pull_15 { position:relative; }
+
+.alpha { margin-left:0; }
+.omega { margin-right:0; }
+
+.grid_1  { width:40px; }
+.grid_2  { width:100px; }
+.grid_3  { width:160px; }
+.grid_4  { width:220px; }
+.grid_5  { width:280px; }
+.grid_6  { width:340px; }
+.grid_7  { width:400px; }
+.grid_8  { width:460px; }
+.grid_9  { width:520px; }
+.grid_10 { width:580px; }
+.grid_11 { width:640px; }
+.grid_12 { width:700px; }
+.grid_13 { width:760px; }
+.grid_14 { width:820px; }
+.grid_15 { width:880px; }
+.grid_16 { width:940px; }
+
+/* Prefix Extra Space
+----------------------------------------------------------------------------------------------------*/
+.prefix_1  { padding-left:60px; }
+.prefix_2  { padding-left:120px; }
+.prefix_3  { padding-left:180px; }
+.prefix_4  { padding-left:240px; }
+.prefix_5  { padding-left:300px; }
+.prefix_6  { padding-left:360px; }
+.prefix_7  { padding-left:420px; }
+.prefix_8  { padding-left:480px; }
+.prefix_9  { padding-left:540px; }
+.prefix_10 { padding-left:600px; }
+.prefix_11 { padding-left:660px; }
+.prefix_12 { padding-left:720px; }
+.prefix_13 { padding-left:780px; }
+.prefix_14 { padding-left:840px; }
+.prefix_15 { padding-left:900px; }
+
+/* Suffix Extra Space
+----------------------------------------------------------------------------------------------------*/
+.suffix_1  { padding-right:60px; }
+.suffix_2  { padding-right:120px; }
+.suffix_3  { padding-right:180px; }
+.suffix_4  { padding-right:240px; }
+.suffix_5  { padding-right:300px; }
+.suffix_6  { padding-right:360px; }
+.suffix_7  { padding-right:420px; }
+.suffix_8  { padding-right:480px; }
+.suffix_9  { padding-right:540px; }
+.suffix_10 { padding-right:600px; }
+.suffix_11 { padding-right:660px; }
+.suffix_12 { padding-right:720px; }
+.suffix_13 { padding-right:780px; }
+.suffix_14 { padding-right:840px; }
+.suffix_15 { padding-right:900px; }
+
+/* Push Space
+----------------------------------------------------------------------------------------------------*/
+.push_1  { left:60px; }
+.push_2  { left:120px; }
+.push_3  { left:180px; }
+.push_4  { left:240px; }
+.push_5  { left:300px; }
+.push_6  { left:360px; }
+.push_7  { left:420px; }
+.push_8  { left:480px; }
+.push_9  { left:540px; }
+.push_10 { left:600px; }
+.push_11 { left:660px; }
+.push_12 { left:720px; }
+.push_13 { left:780px; }
+.push_14 { left:840px; }
+.push_15 { left:900px; }
+
+/* Pull Space
+----------------------------------------------------------------------------------------------------*/
+.pull_1  { left:-60px; }
+.pull_2  { left:-120px; }
+.pull_3  { left:-180px; }
+.pull_4  { left:-240px; }
+.pull_5  { left:-300px; }
+.pull_6  { left:-360px; }
+.pull_7  { left:-420px; }
+.pull_8  { left:-480px; }
+.pull_9  { left:-540px; }
+.pull_10 { left:-600px; }
+.pull_11 { left:-660px; }
+.pull_12 { left:-720px; }
+.pull_13 { left:-780px; }
+.pull_14 { left:-840px; }
+.pull_15 { left:-900px; }
+
+/* Grid with forms
+----------------------------------------------------------------------------------------------------*/
+input.grid_1, textarea.grid_1, input.grid_2, textarea.grid_2, input.grid_3, textarea.grid_3, input.grid_4, textarea.grid_4, input.grid_5, textarea.grid_5, input.grid_6, textarea.grid_6, input.grid_7, textarea.grid_7, input.grid_8,textarea.grid_8, input.grid_9, textarea.grid_9, input.grid_10, textarea.grid_10, input.grid_11, textarea.grid_11, input.grid_12, textarea.grid_12, input.grid_13, textarea.grid_13, input.grid_14, textarea.grid_14, input.grid_15, textarea.grid_15, input.grid_16, textarea.grid_16 { border-left-width:1px; border-right-width:1px; padding-left:5px; padding-right:5px; }
+
+input.grid_1, input.grid_1 { width:28px; }
+input.grid_2, input.grid_2 { width:88px; }
+input.grid_3, input.grid_3 { width:148px; }
+input.grid_4, input.grid_4 { width:208px; }
+input.grid_5, input.grid_5 { width:268px; }
+input.grid_6, input.grid_6 { width:328px; }
+input.grid_7, input.grid_7 { width:376px; }
+input.grid_8, input.grid_8 { width:448px; }
+input.grid_9, input.grid_9 { width:508px; }
+input.grid_10, input.grid_10 { width:568px; }
+input.grid_11, input.grid_11 { width:628px; }
+input.grid_12, input.grid_12 { width:688px; }
+input.grid_13, input.grid_13 { width:748px; }
+input.grid_14, input.grid_14 { width:808px; }
+input.grid_15, input.grid_15 { width:868px; }
+input.grid_16, input.grid_16 { width:928px; }
+
+/* Clear Floated Elements
+----------------------------------------------------------------------------------------------------*/
+.clear { clear:both; }
+.clearfix:before, .clearfix:after { content:'\0020'; display:block; height:0; overflow:hidden; visibility:hidden; width:0; }
+.clearfix:after { clear:both; }
+.clearfix { zoom:1; }

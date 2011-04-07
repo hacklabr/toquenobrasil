@@ -1,0 +1,35 @@
+/* =Just to make the loading process beautiful */
+#posthighlights_container .ph_post div, .ph-hide-while-loading { display:none; }
+
+/* =The wrapper of the whole thing */
+#posthighlights_container { background:#FFF; border-radius:9px; margin-top:1em; -moz-border-radius:9px; }
+#posthighlights_container { height:342px; padding:9px; width:922px; }
+#posthighlights_container { clear:both; position:relative; text-align:center; }
+
+/* =Canvas which is the photo */
+#posthighlights_container .ph-canvas { border-radius:6px; height:342px; left:9px !important; position:absolute !important; top:9px; width:922px; -moz-border-radius:6px; }
+#posthighlights_container a.ph-canvas { border:none; }
+
+/* =The link of the post */
+#posthighlights_container .ph_picture { position:absolute; }
+
+/* =Content typography */
+#posthighlights_container .ph_content { height:80px; padding:0px; padding:9px 18px; position:absolute !important; right:9px !important; top:190px !important; z-index:2; }
+#posthighlights_container .ph_content h1 { font-size:2.5em; }
+#posthighlights_container .ph_content a { border:none; color:white; text-decoration:none; }
+#posthighlights_container .ph_content p { color:white; font-size:1.1em; } 
+
+/* =Background of the content */
+#ph-description-background { background-color:#000; filter:alpha(opacity=60); height:80px; opacity:.6; padding:0px; padding:9px 18px; position:absolute !important; right:9px !important; top:190px !important; z-index:1; }
+
+/* =Navigation */
+#ph-numeric-nav { bottom:33px !important; font-size:12px; position:absolute; right:22px; text-align:right; z-index:3; }
+#ph-numeric-nav ul { display:inline; margin:0; padding:0; }
+#ph-numeric-nav ul li { background:#FFF; border-radius:12px; cursor:pointer; display:inline; margin-left:4px; padding:1px 5px; }
+#ph-numeric-nav ul li.current { background:#FCEA0D; }
+#ph-numeric-nav a { border:none; color:#000; }
+
+/* =Menu */
+#ph-menu { background:rgba(0,0,0,0.5); border-radius:0 6px 0 6px; height:100px; padding:20px; position:absolute; right:9px; top:9px; width:180px; z-index:3; }
+#ph-menu { margin-bottom:10px; }
+#ph-menu img:first-child { margin-bottom:10px; }

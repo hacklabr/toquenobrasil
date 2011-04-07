@@ -1,0 +1,215 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Post Highlights v2.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-02-11 17:35-0300\n"
+"PO-Revision-Date: 2010-04-09 19:15+0100\n"
+"Last-Translator: WordPressPluginGuide.com <info@wppg.me>\n"
+"Language-Team: http://wppg.me <info@wppg.me>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: DUTCH\n"
+"X-Poedit-Country: NETHERLANDS\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SearchPath-0: /home/leo/devel/post-highlights/trunk\n"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:118
+msgid "Loading"
+msgstr "Laden"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:137
+msgid "Edit"
+msgstr "Bewerken"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:138
+msgid "Hide Settings"
+msgstr "Verberg Instellingen"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:145
+msgid "only highlighted"
+msgstr "alleen gemarkeerde"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:149
+msgid "Highlight"
+msgstr "Markeer"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:154
+msgid "Post Highlight Settings"
+msgstr "Post Highlight Instellingen"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:154
+msgid "Settings"
+msgstr "Instellingen"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:155
+msgid "Post Highlight Options"
+msgstr "Post Highlight Opties"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:155
+msgid "Post Highlights"
+msgstr "Post Highlights"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:156
+msgid "Post Highlight Permissions"
+msgstr "Post Highlight Permissies"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:156
+msgid "Permissions"
+msgstr "Permissies"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:167
+msgid "Global Options"
+msgstr "Globale Opties"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:168
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:187
+msgid "Options"
+msgstr "Opties"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:172
+msgid "Delay: The time between each highlight in miliseconds (1 sec = 1000) - default = 8000"
+msgstr "Vertraging: de tijd tussen markeringen in miliseconden (1 sec = 1000) - standaard = 8000"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:173
+msgid "Number of posts: Maximum number of posts to display (0 or empty = unlimited) - default = unlimited"
+msgstr "Aantal berichten: Maximum aantal berichten om weer te geven (0 or leeg = zonder limiet) - standaard= zonder limiet"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:186
+msgid "Theme Options"
+msgstr "Thema Opties"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:202
+msgid "These settings applies to all Post Highlight themes"
+msgstr "Deze instellingen zijn van toepassing op alle Post Highlight thema's"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:207
+msgid "Current Theme"
+msgstr "Huidig Thema"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:230
+msgid "I want Post Highlights to automatically create and use an image with these dimensions:"
+msgstr "Ik wil dat Post Highlights automatisch afbeeldingen creeërt en gebruikt met deze afmetingen:"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:232
+msgid "Width:"
+msgstr "Breedte:"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:235
+msgid "Height:"
+msgstr "Hoogte:"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:243
+msgid "These settings applies only to the active theme"
+msgstr "Deze instellingen gelden alleen voor het huidige thema"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:268
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:308
+msgid "Save Changes"
+msgstr "Wijzigingen Opslaan"
+
+#: /home/leo/devel/post-highlights/trunk/post-highlights.php:280
+msgid "Who can Highlight Posts?"
+msgstr "Wie kan berichten markeren?"
+
+#: /home/leo/devel/post-highlights/trunk/themes/default/settings.php:14
+#: /home/leo/devel/post-highlights/trunk/themes/default-2/settings.php:18
+msgid "Width"
+msgstr "Breedte"
+
+#: /home/leo/devel/post-highlights/trunk/themes/default/settings.php:15
+#: /home/leo/devel/post-highlights/trunk/themes/default-2/settings.php:19
+msgid "Height"
+msgstr "Hoogte"
+
+#: /home/leo/devel/post-highlights/trunk/themes/default/settings.php:16
+msgid "Background color for the navigation arrows (e.g #FFCC00 or red)"
+msgstr "Achtergrondkleur voor de navigatie pijlen (bijv. #FFCC00 of rood)"
+
+#: /home/leo/devel/post-highlights/trunk/themes/guarani/index.php:19
+msgid "by"
+msgstr "door"
+
+#: /home/leo/devel/post-highlights/trunk/themes/guarani/index.php:45
+msgid "No posts highlighted"
+msgstr "Geen berichten gemarkeerd"
+
+#: /home/leo/devel/post-highlights/trunk/themes/guarani/settings.php:4
+msgid "Background color (default: #FFCC00)"
+msgstr "Achtergrondkleur (standaard: #FFCC00)"
+
+#: /home/leo/devel/post-highlights/trunk/themes/default-2/index.php:32
+msgid "Next"
+msgstr "Volgende"
+
+#: /home/leo/devel/post-highlights/trunk/themes/default-2/index.php:33
+msgid "Previous"
+msgstr "Vorige"
+
+#: /home/leo/devel/post-highlights/trunk/themes/default-2/settings.php:20
+msgid "Background color for the content and navigation arrows (e.g #FFCC00 or red)"
+msgstr "Achtergrondkleur voor de inhoud of de navigatie pijlen (bijv. #FFCC00 of rood)"
+
+#: /home/leo/devel/post-highlights/trunk/ajax/ph_settings.php:19
+msgid "Settings Updated"
+msgstr "Instellingen Bijgewerkt"
+
+#: /home/leo/devel/post-highlights/trunk/ajax/ph_settings.php:24
+msgid "Choose a picture from your post"
+msgstr "Kies een afbeelding uit je bericht"
+
+#: /home/leo/devel/post-highlights/trunk/ajax/ph_settings.php:46
+msgid "Or enter URL for the picture"
+msgstr "Of voer een URL in voor de afbeelding"
+
+#: /home/leo/devel/post-highlights/trunk/ajax/ph_settings.php:52
+msgid "Enter a headline"
+msgstr "Voer een titel in"
+
+#: /home/leo/devel/post-highlights/trunk/ajax/ph_settings.php:54
+msgid "This will be displayed under the post's title:"
+msgstr "Dit zal worden getoond onder de titel van het bericht"
+
+#: /home/leo/devel/post-highlights/trunk/ajax/ph_settings.php:60
+msgid "Order"
+msgstr "Sorteren"
+
+#: /home/leo/devel/post-highlights/trunk/ajax/ph_settings.php:62
+msgid "Select the display order."
+msgstr "Selecteer de sorteringsweergave."
+
+#~ msgid ""
+#~ "Select the display order. Randomize using the same value for multiple "
+#~ "posts."
+#~ msgstr "Selecione a ordem de exibição."
+
+#~ msgid "Post Highlights Options"
+#~ msgstr "Opções do Post Highlight"
+
+#~ msgid "Delay"
+#~ msgstr "Intervalo"
+
+#~ msgid "Button Color"
+#~ msgstr "Cor do botão"
+
+#~ msgid "The color of the next and previous buttons"
+#~ msgstr "A cor dos botões de próximo e anterior"
+
+#~ msgid "Size"
+#~ msgstr "Tamanho"
+
+#~ msgid ""
+#~ "You can easily create a custom size from the .FLA file available at the "
+#~ "plugin's home page. More info at the README.txt file."
+#~ msgstr ""
+#~ "Você pode facilmente criar um tamanho personlizado a partir do arquivo ."
+#~ "FLA disponível na página do plugin. Mais informações no arquivo README.txt"
+
+#~ msgid "The width of the Flash movie"
+#~ msgstr "A largura da área de destaques"
+
+#~ msgid "The background color of the Flash movie"
+#~ msgstr "A cor de fundo da área de destaques"

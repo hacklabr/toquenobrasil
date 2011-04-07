@@ -1,0 +1,41 @@
+/* ie.css */
+body {text-align:center;}
+.container_16 {text-align:left !important;}
+* html legend {margin:0px -8px 16px 0;padding:0;}
+sup {vertical-align:text-top;}
+sub {vertical-align:text-bottom;}
+html>body p code {*white-space:normal;}
+hr {margin:-8px auto 11px;}
+img {-ms-interpolation-mode:bicubic;}
+.clearfix, .container_16 {display:block;}
+* html .clearfix, * html .container_16 {height:1%;}
+fieldset {padding-top:0;}
+legend {margin-top:-0.2em;margin-bottom:1em;margin-left:-0.5em;}
+textarea {overflow:auto;}
+label {vertical-align:middle;position:relative;top:-0.25em;}
+input.text, input.title, textarea {background-color:#fff;border:1px solid #bbb;}
+input.text:focus, input.title:focus {border-color:#666;}
+input.text, input.title, textarea, select {margin:0.5em 0;}
+input.checkbox, input.radio {position:relative;top:.25em;}
+form.inline div, form.inline p {vertical-align:middle;}
+form.inline input.checkbox, form.inline input.radio, form.inline input.button, form.inline button {margin:0.5em 0;}
+button, input.button {position:relative;line-height:1;width:auto;}
+
+
+nav#institutional { float:left; }
+.user-nav { background:#04BAEE; float:right; line-height:1.4; padding:7px 10px; width:265px; }
+#login .error { position:absolute; z-index:100; margin:-7px -10px; padding:6px 10px; width:261px; }
+.logged-in .user-nav { padding:8px 10px; }
+.select { z-index:1; }
+form#search-users .style input[type="checkbox"] { margin:0; }
+.text-right { text-align:right !important; }
+section.profile .music, section.profile .video { margin-top:0; padding-top:11px; }
+section.profile form { width:556px; }
+.tnb_modal { text-align:left; }
+section.profile form input[type="text"],
+section.profile form input[type="password"],
+section.profile form input[type="file"],
+section.profile form textarea { width:380px; }
+#abrir-kit { width:130px; }
+#search-opportunities { position:relative; }
+a.btn-green { background:#8CC63F; }

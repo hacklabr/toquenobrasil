@@ -3,7 +3,7 @@
 class ultimosCadastros extends WP_Widget {
 	
   function ultimosCadastros () {
-    $widget_ops = array('classname' => 'ultimos_cadastros', 'description' => 'Lista últimos artistas cadastrados');
+    $widget_ops = array('classname' => 'ultimos_cadastros', 'description' => 'Lista últimos cadastrados');
     $this->WP_Widget('ultimos_cadastros', 'Ultimas bandas', $widget_ops);
   }
 	

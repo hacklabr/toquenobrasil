@@ -1,0 +1,82 @@
+/*
+ * Skin for jPlayer Plugin (jQuery JavaScript Library)
+ * http://www.happyworm.com/jquery/jplayer
+ *
+ * Skin Name:Blue Monday
+ *
+ * Copyright (c) 2010 Happyworm Ltd
+ * Dual licensed under the MIT and GPL licenses.
+ *  - http://www.opensource.org/licenses/mit-license.php
+ *  - http://www.gnu.org/copyleft/gpl.html
+ *
+ * Author:Silvia Benvenuti
+ * Skin Version:3.0 (jPlayer 2.0.0)
+ * Date:20th December 2010
+ */
+
+div.jplayer { background:#fff; height:0px; width:0px; }
+div.jp-audio { background:#fff; margin-bottom:11px; width:100%; }
+div.jp-interface { position:relative; width:100%; }
+
+/* =CONTROLS */
+ul.jp-controls { float:left; list-style-type:none; margin:0 11px 0 0; padding:0; }
+ul.jp-controls li { display:inline; }
+ul.jp-controls a { border:none; display:block; float:left; text-indent:-9999px; }
+
+/* play, pause, next, previous */
+a.jp-play, a.jp-pause { height:30px; margin:0 11px; width:22px; z-index:1; }
+a.jp-play { background:url("../img/jplayer-play.png") no-repeat center center; }
+a.jp-pause { background:url("../img/jplayer-pause.png") no-repeat center center; display:none; }
+a.jp-previous { background:url("../img/jplayer-previous.png") no-repeat center center; height:30px; width:22px; }
+a.jp-next { background:url("../img/jplayer-next.png") no-repeat center center; height:30px; width:22px; }
+
+/* volume bar */
+.jp-volume ul { margin:0 5px 0 0; }
+a.jp-mute, a.jp-unmute { height:30px; width:22px; }
+a.jp-mute { background:url("../img/jplayer-mute.png") no-repeat center center; }
+a.jp-unmute { background:url("../img/jplayer-unmute.png") no-repeat center center; display:none; }
+div.jp-volume-bar { background:#333; cursor:pointer; float:right; height:11px; margin-top:9px; overflow:hidden; width:60px; }
+div.jp-volume-bar-value { background:#FCEA0D; height:11px; width:0px; }
+
+/* progress bar */
+div.jp-progress { background:#fff; border:1px solid #333; height:14px; margin:7px 11px 0 0; width:180px; }
+div.jp-seek-bar { background:#fff; cursor:pointer; height:12px; width:0px; }
+div.jp-play-bar { background:#FCEA0D; height:12px; margin:1px; width:0px; }
+div.jp-seeking-bg { background:url("pbar-ani.gif"); }
+div.jp-current-time, div.jp-duration { font-style:oblique; position:absolute; }
+div.jp-current-time { top:150px; left:100px; }
+div.jp-duration { top:150px; right:103px; }
+div.jp-playlist { background-color:#ccc; border:1px solid #009be3; border-top:none; width:100%; }
+div.jp-playlist ul { font-size:.72em; list-style-type:none; margin:0; padding:0 20px; }
+div.jp-type-playlist div.jp-playlist li { border-bottom:1px solid #eee; padding:5px 0 4px 20px; }
+div.jp-type-playlist div.jp-playlist li.jp-playlist-last { border-bottom:none; padding:5px 0 5px 20px; }
+div.jp-type-playlist div.jp-playlist li.jp-playlist-current { list-style-type:square; list-style-position:inside; padding-left:8px; }
+div.jp-type-playlist div.jp-playlist a { color:#666; text-decoration:none; }
+div.jp-type-playlist div.jp-playlist a:hover { color:#0d88c1; }
+div.jp-type-playlist div.jp-playlist a.jp-playlist-current { color:#0d88c1; }
+div.jp-type-playlist div.jp-playlist div.jp-free-media { display:inline; margin-left:20px; }
+
+/* jPlayer: artist information (home) */
+.jp-current-details { border-bottom:1px solid #666; line-height:1.25; margin-bottom:15px; padding-bottom:11px; }
+.jp-current-author_image { float:left; }
+.jp-current-author_image img { border-radius:4px; margin-right:11px; -moz-border-radius:4px; }
+.jp-current-author_name { }
+.jp-current-title { font-size:18px; }
+.jp-current-download_button a { border:none; border-radius:4px; color:#666; padding:3px 11px; -moz-border-radius:4px; }
+.jp-current-author_profile_button a { border:none; border-radius:4px; color:#fff; padding:3px 11px; -moz-border-radius:4px; }
+
+.jp-next-details { clear:both; float:none; height:22px; margin-top:15px; overflow:hidden; width:382px; }
+
+.tnb_widget_body .jp-audio { background:none; }
+.tnb_widget_body .jp-playlist { background:none; border:none; width:100%; }
+.tnb_widget_body .jp-controls { float:left; min-height:30px !important; margin-right:10px; }
+.tnb_widget_body .jp-progress { background:#fff; border:1px solid #333; float:left; height:14px; margin:7px 10px 7px 0; width:240px; }
+.tnb_widget_body .jp-interface { border-bottom:1px solid #eee; margin:11px 0 0; padding-bottom:22px; position:relative; }
+.tnb_widget_body .jp-interface .jp-current-time { left:98px; position:absolute; top:20px; }
+.tnb_widget_body .jp-interface .jp-duration { left:310px; position:absolute; top:20px; }
+.tnb_widget_body .jp-playlist ul { font-size:1em; list-style-type:none; margin:0; padding:0; }
+.tnb_widget_body .jp-playlist li { border-bottom:1px solid #eee; padding:8px !important; }
+.tnb_widget_body .jp-playlist li.jp-playlist-current { list-style:none !important; padding-left:8px !important; }
+.tnb_widget_body .jp-playlist a { border:none; color:#666; text-decoration:none; }
+.tnb_widget_body .jp-playlist a:hover { color:#0d88c1; }
+.tnb_widget_body .jp-playlist a.jp-playlist-current { border:none; color:#0d88c1; }

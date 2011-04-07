@@ -1,0 +1,26 @@
+
+/* Arquivo carregado nas páginas de edição de usuário user-edit.php */
+
+
+/* ORDENAÇÂO DE MIDIAS
+ * usado na ordenação de videos, fotos e musicas
+ * user-edit-videos, user-edit-fotos e user-edit-musicas.php
+ */
+
+/*.comecar-ordenacao {
+    cursor: pointer;
+}
+
+.ordenar-midias {
+    display: none;
+}
+
+.ordenar li {
+    display:block;
+    cursor:move;
+    background-color: green;    
+    color: white;
+    margin-bottom: 3px;
+    width: 80%;
+}
+*/
