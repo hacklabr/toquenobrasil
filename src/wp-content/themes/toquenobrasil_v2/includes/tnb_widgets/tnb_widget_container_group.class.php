@@ -649,48 +649,48 @@ jQuery(document).ready(function() {
             </div>
             
             <div id='widget_<?php echo $this->name; ?>_toolbar_widgets' class='alignleft'>
-                <button  id='<?php echo $this->id?>_botao_widgets' class="config-button"><?php _e('Configurar widgets', 'tnb'); ?></button>
+                <button  id='<?php echo $this->id?>_botao_widgets' class="config-button"><?php _e('Configurar TNBox', 'tnb'); ?></button>
                 <div id='widget_<?php echo $this->name; ?>_toolbar_widgets_options' class='widget_toolbar_options widget-settings'>
                 
                     <div class="grid_4">
                         <div id="widget_<?php echo $this->name; ?>_widget-header-background-color-selector">
                             <div class='widget_colorpicker' style='background-color: <?php echo htmlentities($this->css['widget-header-background-color']);?>;'>&nbsp;</div>
-                            <?php _e('cor do header do widget', 'tnb'); ?> 
+                            <?php _e('Cabeçalhos dos TNBox', 'tnb'); ?> 
                             <input type='hidden' id='widget_<?php echo $this->name; ?>_widget-header-background-color' name='css[widget-header-background-color]' value='<?php echo htmlentities($this->css['widget-header-background-color']);?>'/>
                         </div>
                         
                         <div id="widget_<?php echo $this->name; ?>_widget-header-font-color-selector">
                             <div class='widget_colorpicker' style='background-color: <?php echo htmlentities($this->css['widget-header-font-color']);?>;'>&nbsp;</div>
-                            <?php _e('cor da fonte do header do widget', 'tnb'); ?> 
+                            <?php _e('Fonte dos cabeçalhos dos TNBox', 'tnb'); ?> 
                             <input type='hidden' id='widget_<?php echo $this->name; ?>_widget-header-font-color' name='css[widget-header-font-color]' value='<?php echo htmlentities($this->css['widget-header-font-color']);?>'/>
                         </div>
                         
                         <div id="widget_<?php echo $this->name; ?>_widget-background-color-selector">
                             <div class='widget_colorpicker' style='background-color: rgb(<?php echo htmlentities($this->css['widget-background-color']);?>);'>&nbsp;</div>
-                            <?php _e('cor dos widgets', 'tnb'); ?> 
+                            <?php _e('Fundo dos TNBox', 'tnb'); ?> 
                             <input type='hidden' id='widget_<?php echo $this->name; ?>_widget-background-color' name='css[widget-background-color]' value='<?php echo htmlentities($this->css['widget-background-color']);?>'/>
                         </div>
                         
                         <div id="widget_<?php echo $this->name; ?>_widget-font-color-selector">
                             <div class='widget_colorpicker' style='background-color: <?php echo htmlentities($this->css['widget-font-color']);?>;'>&nbsp;</div>
-                            <?php _e('cor da fonte dos widgets', 'tnb'); ?> 
+                            <?php _e('Fonte dos TNBox', 'tnb'); ?> 
                             <input type='hidden' id='widget_<?php echo $this->name; ?>_widget-font-color' name='css[widget-font-color]' value='<?php echo htmlentities($this->css['widget-font-color']);?>' />
                         </div>
                         
                         <div id="widget_<?php echo $this->name; ?>_link-color-selector">
                             <div class='widget_colorpicker' style='background-color: <?php echo htmlentities($this->css['link-color']);?>'>&nbsp;</div>
-                            <?php _e('cor dos links', 'tnb'); ?> 
+                            <?php _e('Links dos TNBox', 'tnb'); ?> 
                             <input type='hidden' id='widget_<?php echo $this->name; ?>_link-color' name='css[link-color]' value='<?php echo htmlentities($this->css['link-color']);?>'/>
                         </div>
                         
                         <div id="widget_<?php echo $this->name; ?>_link-hover-color-selector">
                             <div class='widget_colorpicker' style='background-color: <?php echo htmlentities($this->css['link-hover-color']);?>;'>&nbsp;</div>
-                            <?php _e('cor dos links quando o mouse está sobre', 'tnb'); ?> 
+                            <?php _e('Links destacados', 'tnb'); ?> 
                             <input type='hidden' id='widget_<?php echo $this->name; ?>_link-hover-color' name='css[link-hover-color]' value='<?php echo htmlentities($this->css['link-hover-color']);?>' />
                         </div>
                     </div>
                     <div class="grid_6">
-                        <?php _e('opacidade da cor de fundo das caixas de conteúdo')?>
+                        <?php _e('Opacidade dos TNBox')?>
                         <input type='hidden' id='widget_<?php echo $this->name; ?>_widget-alpha' name='css[widget-alpha]' value='<?php echo $this->css['widget-alpha'] ? $this->css['widget-alpha'] : 0;?>'/>
                         <div id="widget_<?php echo $this->name; ?>_widget-alpha-slider"></div>
                     </div>

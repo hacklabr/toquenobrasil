@@ -91,7 +91,7 @@ class TNB_WidgetContainer{
         if($this->editable()){
 ?>
 <div id='<?php echo $this->id; ?>_add_box' class='tnb_widget_add_box clearfix'>
-    <p><?php _e("Adicione conteúdos a esta coluna clicando nos <strong>ícones de aplicativos abaixo</strong>. Você pode abrir <strong>quantos aplicativos do mesmo tipo quiser</strong>. Depois de salvos, você pode <strong>reorganizá-los</strong> arrastando-os para cima e para baixo ou para a coluna ao lado. Você pode também mudas as cores dos aplicativos em \"Configurar Aplicativos\" no topo da página. <strong>Não se esqueça de salvar suas alterações</strong> clicando no botão \"salvar\" <strong>no topo da página</strong>.", "tnb"); ?></p>
+    <p><?php _e("Adicione conteúdos a esta coluna clicando nos <strong>ícones abaixo</strong>. Você pode inserir <strong>quantos TNBox do mesmo tipo quiser</strong>. Depois de salvos, você pode <strong>reorganizá-los</strong> arrastando-os para cima e para baixo ou para a coluna ao lado. Você também pode mudar as cores dos TNBoxes clicando no botão \"Configurar TNBox\" no topo da página. <strong>Não se esqueça de salvar suas alterações</strong> clicando no botão \"salvar tudo\" <strong>no topo da página</strong>.", "tnb"); ?></p>
     <div id='<?php echo $this->id; ?>_add_box_icons' class="tnb_add_box_icons clearfix">    
     <?php foreach($this->widget_classes as $class):?>
         <div id='<?php echo $this->id.'_'.$class; ?>_form_icon' class='tnb_widget_form_icon <?php echo $class.'_icon'; ?>' onclick='jQuery("#<?php echo $this->id; ?>_add_box_icons").fadeOut("fast", function(){jQuery("#<?php echo $this->id.'_'.$class; ?>_insert_form").fadeIn("fast");});'>
