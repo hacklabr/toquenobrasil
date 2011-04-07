@@ -111,7 +111,7 @@
                 <input id="evento_avatar" class="text" name="evento_avatar" type="file" />
                 <br/>
                 <span class="info">
-                    <?php _e("Para <strong>oportunidades para produtores</strong> preferencialmente envie uma imagem proporcional à medida máxima de exibição que é de 550x150px (retangular). Se for uma <strong>oportunidade para artistas</strong>, envie uma imagem na proporção de 150x150px (quadrada). Imagens menores que estas medidas não serão redimensionadas.", "tnb"); ?>
+                    <?php _e("largura máxima", "tnb"); ?> - 528px
                 </span>
             </div>
             
@@ -275,7 +275,7 @@
                     <input type="checkbox" id="excluir_evento_patrocinador1" name="excluir_evento_patrocinador1" value="0"/>
                     <br/>
                 <?php endif;?>
-                <input id="evento_patrocinador1" class="text alignleft" name="evento_patrocinador1" type="file" /> <span>(largura máxima - 550px)</span>
+                <input id="evento_patrocinador1" class="text alignleft" name="evento_patrocinador1" type="file" /> <span>(<?php _e("largura máxima",'tnb'); ?> - 550px)</span>
             </div>
             <div class="clearfix">
                 <label><?php _e("Logo do segundo patrocinador", "tnb"); ?></label>
@@ -285,7 +285,7 @@
                     <input type="checkbox" id="excluir_evento_patrocinador2" name="excluir_evento_patrocinador2" value="0"/>
                     <br/>
                 <?php endif;?>
-                <input id="evento_patrocinador2" class="text alignleft" name="evento_patrocinador2" type="file" /> <span>(largura máxima - 550px)</span>
+                <input id="evento_patrocinador2" class="text alignleft" name="evento_patrocinador2" type="file" /> <span>(<?php _e("largura máxima",'tnb'); ?> - 550px)</span>
             </div>
             <div class="clearfix">
                 <label><?php _e("Logo do terceiro patrocinador", "tnb"); ?></label>
@@ -295,7 +295,7 @@
                     <input type="checkbox" id="excluir_evento_patrocinador3" name="excluir_evento_patrocinador3" value="0"/>
                     <br/>
                 <?php endif;?>
-                <input id="evento_patrocinador3" class="text alignleft" name="evento_patrocinador3" type="file" /> <span>(largura máxima - 550px)</span>
+                <input id="evento_patrocinador3" class="text alignleft" name="evento_patrocinador3" type="file" /> <span>(<?php _e("largura máxima",'tnb'); ?> - 550px)</span>
             </div>
 
             <?php if( ! property_exists($event, 'ID')):?>

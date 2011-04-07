@@ -1,21 +1,13 @@
 <?php
 class Widget_Eventos_Produtor extends TNB_Widget{
+    protected $property = array('titulo' => 'Oportunidades', 'exibir' => 'todos');
+    
     public function __js_update_form_validation($form_id){
-    ?>
-        if(jQuery("#<?php echo $form_id?> textarea").val() == ''){
-            alert("<?php _e('o texto não pode ficar em vazio.', 'tnb')?>");
-            return false;
-        }
-    <?php 
+        
     }
     
     public static function __js_insert_form_validation($form_id){
-    ?>
-        if(jQuery("#<?php echo $form_id?> textarea").val() == ''){
-            alert("<?php _e('o texto não pode ficar em vazio.', 'tnb')?>");
-            return false;
-        }
-    <?php 
+     
     }
     
     public static function form_filter(){
