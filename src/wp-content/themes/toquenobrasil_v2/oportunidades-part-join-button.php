@@ -54,7 +54,7 @@ extract($data);
       
     <?php  elseif(!is_user_logged_in()) :?>
       <p class="quero-tocar i-wanna-play text-right">
-        <a href="<?php bloginfo('url');?>/cadastre-se" title='<?php _e('Cadastre-se para poder participar do Toque no Brasil!', 'tnb');?>' class="btn-green"><?php _e('Me Inscrever!', 'tnb');?></a>
+        <a href="<?php bloginfo('url');?>/cadastro" title='<?php _e('Cadastre-se para poder participar do Toque no Brasil!', 'tnb');?>' class="btn-green"><?php _e('Me Inscrever!', 'tnb');?></a>
       </p>
     <?php endif;?>
 
