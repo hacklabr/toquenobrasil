@@ -395,6 +395,11 @@ function WPEB_init_js_vars() {
                         $is_image = false;                        
                     }   
                     
+                    $baseuploaddir = wp_upload_dir();
+                    $baseuploaddir = $baseuploaddir['basedir'];
+                    $src = str_replace($baseuploaddir.'/', '', $src);
+                                        
+                    
                     $local = pslug;
                     
                     echo "wpeb['$pslug'][$i] = new Array();\n";
