@@ -34,14 +34,21 @@ else
 	
 	<div class="clear"></div>
 	<section id="results" >
-        <div class="clearfix">
-        <?php if ( have_posts() ): ?>
-	        <?php while (have_posts()): the_post(); $evento_list_item_id = get_the_ID();?>
+        
+        <?php if ( have_posts() ):  ?>
+            <?php while (have_posts()): the_post(); $evento_list_item_id = get_the_ID(); $impar = $impar ? false : true;?>
+            
+                
 	      		<?php get_template_part('oportunidades-list-item');?>
+            
+                <?php if(!$impar):?> 
+                    <div class='clear'></div>
+                <?php endif;?>
+            
 	        <?php endwhile;?>
         <?php endif;?>    
         
-        </div>
+        
 		
     </section>
      <!-- #results -->

@@ -206,7 +206,7 @@ section#opportunities .opportunity a { border:none; }
 section#opportunities .opportunity a:hover { border-bottom:1px dotted #04BAEE; color:#04BAEE; }
 
 /* Lista de oportunidades no resultado de busca */
-section#opportunities section#results .opportunity { float:left; width:299px;  }
+section#opportunities section#results .opportunity { float:left; width:298px;  }
 
 /* An Opportunity itself */
 article.opportunity { background:#FFF; border-radius:0 0 0 9px; -moz-border-radius:0 0 0 9px; }
