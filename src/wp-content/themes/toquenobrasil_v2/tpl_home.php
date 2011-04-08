@@ -13,7 +13,7 @@
     <article class="grid_7">
         <div id="player" class="box box-shadow">
             <?php
-                $musicasRecentes = $wpdb->get_col("SELECT ID FROM $wpdb->posts WHERE post_parent IN (SELECT ID FROM $wpdb->posts WHERE post_type = 'music') ORDER BY post_date DESC LIMIT 10");
+                $musicasRecentes = $wpdb->get_col("SELECT ID FROM $wpdb->posts WHERE post_parent IN (SELECT ID FROM $wpdb->posts WHERE post_type = 'music') ORDER BY RAND() LIMIT 10");
             
                 printCompactPlayer(ids2playlist($musicasRecentes));
             ?>
