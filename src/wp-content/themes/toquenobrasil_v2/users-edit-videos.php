@@ -32,7 +32,7 @@ $video_principal = tnb_get_artista_video_principal($profileuser->ID);
         
         <div class="checkbox clearfix">
             <input type="checkbox" id="video_principal" name="video_principal" <?php if ($edit && $video_principal->ID == $video_edit_id) echo 'checked'; ?> />
-            <label for="music_principal"><?php _e("Vídeo principal do seu kit de divulgação para o produtor", "tnb"); ?></label>
+            <label for="music_principal"><?php _e("Vídeo principal do seu KIT para o produtor", "tnb"); ?></label>
         </div>
         <!-- .checkbox -->
         
@@ -64,7 +64,7 @@ $video_principal = tnb_get_artista_video_principal($profileuser->ID);
                         <h3 class="bottom"><?php echo $video->post_title; ?></h3>
                         <p>
                             <a href="?tnb_user_action=edit-video&mid=<?php echo $video->ID; ?>">Editar</a> | <a class="apagar-media" href="?tnb_user_action=delete-video&mid=<?php echo $video->ID; ?>">Apagar</a>
-                            <?php if($video_principal->ID == $video->ID): ?><br/><em><?php _e("Esta é seu vídeo principal e aparecerá para o produtor no seu kit de divulgação.", "tnb"); ?></em><?php endif; ?>
+                            <?php if($video_principal->ID == $video->ID): ?><br/><em><?php _e("Esta é seu vídeo principal e aparecerá para o produtor no seu KIT.", "tnb"); ?></em><?php endif; ?>
                         </p>
                         <?php print_video_player($video->post_excerpt); ?>
                         <p><?php echo $video->post_content; ?></p>

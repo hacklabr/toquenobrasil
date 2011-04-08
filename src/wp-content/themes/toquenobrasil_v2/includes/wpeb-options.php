@@ -50,7 +50,7 @@ function WPEB_getActiveRule(){
 	 */
 	
 	// se estiver na listagem do blog ou num post do blog
-	if(($wp_query->post->post_type == 'page' && $wp_query->post->post_name == 'blog' ) OR ($wp_query->is_single === TRUE && $wp_query->post->post_type == 'post'))
+	if(($wp_query->query_vars['pagename'] == 'blog'  ) OR ($wp_query->is_single === TRUE && $wp_query->post->post_type == 'post') OR $wp_query->is_archive === true )
 		return 'blog';
 
 	// listagem de eventos

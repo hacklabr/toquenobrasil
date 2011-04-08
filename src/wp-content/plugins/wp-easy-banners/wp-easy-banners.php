@@ -395,9 +395,10 @@ function WPEB_init_js_vars() {
                         $is_image = false;                        
                     }   
                     
-                    $baseuploaddir = wp_upload_dir();
-                    $baseuploaddir = $baseuploaddir['basedir'];
-                    $src = str_replace($baseuploaddir.'/', '', $src);
+                    #$baseuploaddir = wp_upload_dir();
+                    #$baseuploaddir = $baseuploaddir['basedir'];
+                    #$src = str_replace($baseuploaddir.'/', '', $src);
+                    $src = preg_replace('|.*/wp-content/uploads/|', '', $src);
                                         
                     
                     $local = pslug;

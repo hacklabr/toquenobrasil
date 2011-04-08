@@ -219,6 +219,6 @@ class Widget_Infos_Artista extends TNB_Widget{
     }
 
     public static function getWidgetDescription(){
-        return __('Clique aqui para inserir um aplicativo com as informações da banda que deseja publicar.','tnb');
+        return __('Clique aqui para inserir um TNBox com as informações da banda que deseja publicar.','tnb');
     }
 }

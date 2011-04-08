@@ -104,6 +104,6 @@ class Widget_Twitter extends TNB_Widget{
     }
 
     public static function getWidgetDescription(){
-        return __('Clique aqui para inserir um aplicativo com as últimas entradas do seu twitter.','tnb');
+        return __('Clique aqui para inserir um TNBox com as últimas entradas do seu twitter.','tnb');
     }
 }

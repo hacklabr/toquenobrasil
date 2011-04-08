@@ -60,6 +60,6 @@ class Widget_Texto extends TNB_Widget{
     }
     
     public static function getWidgetDescription(){
-        return __('Clique aqui para inserir um aplicativo de texto.','tnb');
+        return __('Clique aqui para inserir um TNBox de texto.','tnb');
     }
 }

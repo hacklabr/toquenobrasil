@@ -127,6 +127,6 @@ class Widget_Infos_Produtor extends TNB_Widget{
     }
 
     public static function getWidgetDescription(){
-        return __('Clique para inserir uma caixa com suas informações.','tnb');
+        return __('Clique para inserir um TNBox com suas informações.','tnb');
     }
 }

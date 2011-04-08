@@ -147,6 +147,6 @@ class Widget_Player extends TNB_Widget{
     }
 
     public static function getWidgetDescription(){
-        return __('Clique aqui para inserir um aplicativo com suas músicas.','tnb');
+        return __('Clique aqui para inserir um TNBox com suas músicas.','tnb');
     }
 }

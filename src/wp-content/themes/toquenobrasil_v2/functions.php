@@ -95,6 +95,9 @@ function tnb_load_js() {
   }
 }
 
+
+
+
 //remove auto loading rel=next post link in header
 remove_action('wp_head', 'adjacent_posts_rel_link_wp_head');
 
@@ -216,6 +219,7 @@ function register_block_redirect() {
         wp_redirect(get_bloginfo('url'));
 }
 
+remove_action('template_redirect', 'redirect_canonical');
 
 add_action('template_redirect', 'template_redirect_intercept');
 function template_redirect_intercept(){

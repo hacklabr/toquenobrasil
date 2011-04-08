@@ -120,6 +120,6 @@ class Widget_RSS extends TNB_Widget{
     }
     
     public static function getWidgetDescription(){
-        return __('Clique aqui para inserir um aplicativo com feed de sites externos.','tnb');
+        return __('Clique aqui para inserir um TNBox com feed de sites externos.','tnb');
     }
 }

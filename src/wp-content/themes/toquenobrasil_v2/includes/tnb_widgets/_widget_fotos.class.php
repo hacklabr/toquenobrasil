@@ -234,6 +234,6 @@ class Widget_Fotos extends TNB_Widget{
     }
 
     public static function getWidgetDescription(){
-        return __('Clique aqui para inserir um aplicativo com fotos para dispor em galeria ou como slideshow.','tnb');
+        return __('Clique aqui para inserir um TNBox com fotos para dispor em galeria ou como slideshow.','tnb');
     }
 }

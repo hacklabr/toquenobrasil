@@ -1,4 +1,5 @@
-<?php get_header(); ?>
+<?php #global $wp_query; print_r($wp_query); die; 
+get_header(); ?>
 
 <section id="blog" class="grid_11 clearfix box-shadow">
     <h1 class="title">Blog</h1>
@@ -23,6 +24,6 @@
     <?php endif; ?>
 </section>
 
-<?php get_sidebar('main-sidebar'); ?>
+<?php get_sidebar('blog'); ?>
 
 <?php get_footer(); ?>

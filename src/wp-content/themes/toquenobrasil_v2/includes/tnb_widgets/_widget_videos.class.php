@@ -157,6 +157,6 @@ class Widget_Videos extends TNB_Widget{
     }
 
     public static function getWidgetDescription(){
-        return __('Clique aqui para inserir um aplicativo com vídeos.','tnb');
+        return __('Clique aqui para inserir um TNBox com vídeos.','tnb');
     }
 }
