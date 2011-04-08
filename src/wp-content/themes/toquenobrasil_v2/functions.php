@@ -1,5 +1,5 @@
 <?php
-
+date_default_timezone_set('America/Sao_Paulo');
 define('TNB_URL', get_bloginfo('url') . strstr(dirname(__FILE__), '/wp-content') );
 define('TNB_USERS_COLS', 4);  // número de usuários a exibir a cada linha
 require(TEMPLATEPATH . '/includes/wpeb-options.php');
