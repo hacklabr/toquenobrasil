@@ -144,7 +144,7 @@ function theme_post_type_init() {
                           'not_found_in_trash' => __("Nenhum evento encontrado na lixeira")
                         ),
       'public' => true,
-      'rewrite' => true,
+      'rewrite' => array('slug' => 'oportunidades'),
       'capability_type' => 'post',
       
       'hierarchical' => true,
