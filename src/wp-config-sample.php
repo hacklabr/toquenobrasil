@@ -35,6 +35,11 @@ define('DB_CHARSET', 'utf8');
 /** O tipo de collate do banco de dados. Não altere isso se tiver dúvidas. */
 define('DB_COLLATE', '');
 
+########################################
+## NÂO OUSE TIRAR ISSO DAQUI!! ##
+#define('COOKIE_DOMAIN', '.tnb.art.br');
+########################################
+
 /**#@+
  * Chaves únicas de autenticação e salts.
  *
@@ -44,14 +49,15 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         'coloque sua frase única aqui');
-define('SECURE_AUTH_KEY',  'coloque sua frase única aqui');
-define('LOGGED_IN_KEY',    'coloque sua frase única aqui');
-define('NONCE_KEY',        'coloque sua frase única aqui');
-define('AUTH_SALT',        'coloque sua frase única aqui');
-define('SECURE_AUTH_SALT', 'coloque sua frase única aqui');
-define('LOGGED_IN_SALT',   'coloque sua frase única aqui');
-define('NONCE_SALT',       'coloque sua frase única aqui');
+define('AUTH_KEY',         'd8oJSPz~A8Mg@!|:GEl8P`[I+Ld.V,r;^q{^jlcp$7wOM*yQj_xL#5R[/Bqc+2+x');
+define('SECURE_AUTH_KEY',  'Pm*PPh3b&*%<4RXo0}32}MHsRpjuad%PZ-;(sHr(t JD-c[&4G~&&`p8l&tK%R;I');
+define('LOGGED_IN_KEY',    'AfJhx-Fin!3X^iUOkJ~Urr$<Qw@<!vx]?,nR6nnOC:Nu~)P$Y/3>P_vtclq&F%yi');
+define('NONCE_KEY',        '}7CIV,T^=LpLHI9]Az!,Le@(8);of51j:fP/)3D ZS}jD8jU*d:(Xf_`x`Z:K<;4');
+define('AUTH_SALT',        'k/6+V-S$K-}^@,zjfx-F~X$*u50^R69>-ZGQBa$-h9dCKLrLgOOw4>mp1|!?f$8T');
+define('SECURE_AUTH_SALT', '=rv{>U$G!4Bg/{=:Mj07R({J$o_aSt,cJ|_g7-&YaYN[H!O|-b?9+2,ROm]Q<?|D');
+define('LOGGED_IN_SALT',   '!NNyuS[d>.Y#V5qcZcX~W:|({|ylq!,m=1DV(mzd_jq6/>zFq|X:0>;(m{VbRr_x');
+define('NONCE_SALT',       ';_w(@v|DVt0-+%0W$<0G=^u+U^UiEyI9k@pBc1OCsX}|$.vY</9w_K#1{b+_ZCTw');
+
 
 /**#@-*/
 

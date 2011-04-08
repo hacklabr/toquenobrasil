@@ -1,5 +1,10 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
+
+########################################
+## NÂO OUSE TIRAR ISSO DAQUI!! ##
+#RewriteRule ^(/)?eventos(/.+) /oportunidades$2 [R,L]
+
 RewriteBase /toquenobrasil/
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
