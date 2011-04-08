@@ -21,7 +21,7 @@ function printFullPlayer($playlist) {
                 id: <?php echo $song['id']; ?>,
                 downloads: <?php echo $song['downloads']; ?>,
                 plays: <?php echo $song['plays']; ?>,
-                author_name: '<?php echo $song['author_name']; ?>',
+                author_name: '<?php echo addslashes($song['author_name']); ?>',
                 author_url: '<?php echo $song['author_url']; ?>',
                 author_image: '<?php echo str_replace("'", '"', $song['author_image']); ?>',
                 mp3:"<?php bloginfo('siteurl'); ?>/play/?id=<?php echo $song['id']; ?>",
@@ -115,7 +115,7 @@ function printCompactPlayer($playlist) {
                 downloads: <?php echo $song['downloads']; ?>,
                 plays: <?php echo $song['plays']; ?>,
                 author_url: '<?php echo $song['author_url']; ?>',
-                author_name: '<?php echo $song['author_name']; ?>',
+                author_name: '<?php echo addslashes($song['author_name']); ?>',
                 author_image: '<?php echo str_replace("'", '"', $song['author_image']); ?>',
                 mp3: "<?php bloginfo('siteurl'); ?>/play/?id=<?php echo $song['id']; ?>",
                 download_url: "<?php bloginfo('siteurl'); ?>/download/?id=<?php echo $song['id']; ?>"
