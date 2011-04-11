@@ -577,7 +577,7 @@ aside .widget img, aside .widget-banner img { border-radius:0; }
 .ui-dialog-titlebar a, .ui-widget-header a { border:none !important; }
 .ui-dialog .ui-dialog-titlebar-close { right:1.5em !important; z-index:100; }
 .ui-icon-closethick { background:url("img/fechar.png") no-repeat 0 0 !important; height:20px !important; width:20px !important; }
-#abrir-kit { position:absolute; top:31px; right:20px; }
+#abrir-kit { position:absolute; top:31px; right:20px; z-index:1000; }
 
 /* =MISC
 ******************************************************************/
