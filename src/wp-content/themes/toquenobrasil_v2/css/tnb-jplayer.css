@@ -40,7 +40,7 @@ div.jp-volume-bar-value { background:#FCEA0D; height:11px; width:0px; }
 
 /* progress bar */
 div.jp-progress { background:#fff; border:1px solid #333; height:14px; margin:7px 11px 0 0; width:180px; }
-div.jp-seek-bar { background:#fff; cursor:pointer; height:12px; width:0px; }
+div.jp-seek-bar { background:#f1f1f1; cursor:pointer; height:12px; width:0px; }
 div.jp-play-bar { background:#FCEA0D; height:12px; margin:1px; width:0px; }
 div.jp-seeking-bg { background:url("pbar-ani.gif"); }
 div.jp-current-time, div.jp-duration { font-style:oblique; position:absolute; }
