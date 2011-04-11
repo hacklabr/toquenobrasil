@@ -67,7 +67,7 @@ class Widget_Eventos_Artista extends TNB_Widget{
              
              <?php if($this->property['selecionados']): ?>
              
-                <ul class="widget_oportunidades_tabs_">
+                <ul class="widget_oportunidades_tabs">
                     <li><a class="inscrito"><?php _e('Estou Inscrito', 'tnb'); ?></a></li>
                     <li><a class="selecionado"><?php _e('Fui Selecionado', 'tnb'); ?></a></li>
                 </ul>

@@ -499,6 +499,7 @@ form.perfil_header_form-options .config-button { padding:4px 6px 3px !important;
 .widget_oportunidades_tabs a:hover { background:#04BAEE; }
 .widget_oportunidades_tabs a.current { background:#FCEA0D; border:none; border-radius:3px; color:#666; cursor:pointer; display:inline-block; font-family:"Arista"; font-size:14px; margin-bottom:17px; padding:6px 11px 3px 11px; text-transform:uppercase; -webkit-box-shadow:2px 2px 4px #999; -moz-box-shadow:2px 2px 4px #999; zoom:1; *display:inline; }
 .Widget_Eventos_Artista .avatar { margin-right:10px; }
+.Widget_Eventos_Artista .content { width:350px; }
 
 /* =SIGNUP PAGE
 ******************************************************************/
