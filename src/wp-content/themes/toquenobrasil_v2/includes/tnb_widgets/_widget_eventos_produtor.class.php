@@ -73,9 +73,9 @@ class Widget_Eventos_Produtor extends TNB_Widget{
         
         <div id="<?php echo $formID; ?>_form">
         
-        <label><input type="radio" id="<?php echo $formID; ?>_radio_todos" class="radio_oportunidades" name="property[exibir]" value="todos" <?php if($instance->property['exibir'] == 'todos') echo 'checked="checked" '; ?>/><?php _e('Todos', 'tnb'); ?></label><br />
+        <label><input type="radio" id="<?php echo $formID; ?>_radio_todos" class="radio_oportunidades" name="property[exibir]" value="todos" <?php if($instance->property['exibir'] == 'todos') echo 'checked="checked" '; ?>/><?php _e('Todas', 'tnb'); ?></label><br />
         <label><input type="radio" id="<?php echo $formID; ?>_radio_abertos" class="radio_oportunidades" name="property[exibir]" value="abertos" <?php if($instance->property['exibir'] == 'abertos') echo 'checked="checked" '; ?>/><?php _e('Com inscrições abertas', 'tnb'); ?></label><br />
-        <label><input type="radio" id="<?php echo $formID; ?>_radio_selecionados" class="radio_oportunidades" name="property[exibir]" value="selecionados" <?php if($instance->property['exibir'] == 'selecionados') echo 'checked="checked" '; ?>/><?php _e('Apenas selecionados', 'tnb'); ?></label><br />
+        <label><input type="radio" id="<?php echo $formID; ?>_radio_selecionados" class="radio_oportunidades" name="property[exibir]" value="selecionados" <?php if($instance->property['exibir'] == 'selecionados') echo 'checked="checked" '; ?>/><?php _e('Apenas selecionadas', 'tnb'); ?></label><br />
         
     
         <div id='<?php echo $formID?>_selecionados_lista' class='<?php if($instance->property['exibir'] != 'selecionados') echo 'hide'; ?>'>

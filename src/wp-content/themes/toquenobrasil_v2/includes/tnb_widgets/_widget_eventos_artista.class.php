@@ -142,7 +142,7 @@ class Widget_Eventos_Artista extends TNB_Widget{
         <h3><?php _e('Oportunidades', 'tnb'); ?></h3>
         <label for="<?php echo $formID; ?>_titulo"><?php _e('título','tnb')?></label>: <input type='text' name='property[titulo]' id="<?php echo $formID; ?>_titulo" value="<?php echo htmlentities(utf8_decode($instance->property['titulo'])); ?>" /><br />
         
-        <label><input type="checkbox" id="<?php echo $formID; ?>_inscritos" name="property[inscritos]" <?php if($instance->property['inscritos']) echo 'checked="checked" '; ?>/><?php _e('exibir os eventos em que estou inscrito', 'tnb'); ?></label><br />
+        <label><input type="checkbox" id="<?php echo $formID; ?>_inscritos" name="property[inscritos]" <?php if($instance->property['inscritos']) echo 'checked="checked" '; ?>/><?php _e('exibir as oportunidades em que estou inscrito', 'tnb'); ?></label><br />
         
         <div id='<?php echo $formID?>_inscritos_div' class='<?php if(!$instance->property['inscritos']) echo 'hide'; ?>'>
             <label><input type='radio' id='<?php echo $formID?>_inscritos_todos' name='property[quais_inscritos]' value='todos' <?php if(!$instance->property['quais_inscritos'] || $instance->property['quais_inscritos'] == 'todos') echo 'checked="checked"'?> /> <?php _e('todos', 'tnb');?></label>
@@ -157,7 +157,7 @@ class Widget_Eventos_Artista extends TNB_Widget{
          
         <hr />
         
-        <label><input type="checkbox" id="<?php echo $formID; ?>_selecionados" name="property[selecionados]" <?php if($instance->property['selecionados']) echo 'checked="checked" '; ?>/><?php _e('exibir os eventos em que fui selecionado', 'tnb'); ?></label><br />
+        <label><input type="checkbox" id="<?php echo $formID; ?>_selecionados" name="property[selecionados]" <?php if($instance->property['selecionados']) echo 'checked="checked" '; ?>/><?php _e('exibir as oportunidades para as quais fui selecionado', 'tnb'); ?></label><br />
         
         <div id='<?php echo $formID?>_selecionados_div' class='<?php if(!$instance->property['selecionados']) echo 'hide'; ?>'>
             <label><input type='radio' id='<?php echo $formID?>_selecionados_todos' name='property[quais_selecionados]' value='todos' <?php if(!$instance->property['quais_selecionados'] || $instance->property['quais_selecionados'] == 'todos') echo 'checked="checked"'?> /> <?php _e('todos', 'tnb');?></label>
@@ -212,7 +212,7 @@ class Widget_Eventos_Artista extends TNB_Widget{
     }
 
     public static function getWidgetDescription(){
-        return __('Clique aqui para inserir um aplicativo com as oportunidades em que estou inscrito e/ou selecionado.','tnb');
+        return __('Clique aqui para inserir um TNBox com as oportunidades em que estou inscrito e/ou selecionado.','tnb');
     }
     
     

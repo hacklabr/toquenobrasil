@@ -4,7 +4,27 @@
         $evento_list_item_id = get_the_ID();
     }
 
-    $data = get_oportunidades_data($evento_list_item_id);    
+    $data = get_oportunidades_data($evento_list_item_id);  
+    
+    $local = '';
+    
+    $local = $data['cidade'];
+    
+    if (strlen($local) > 0 && $data['estado']) $local .= ' - ';
+    if ($data['estado']) $local .= $data['estado'];
+    
+    
+    
+    if ($data['sigla_pais']) {
+        $paises = get_paises();
+        if (strlen($local) > 0) {
+            $local .= ', ' . $paises[$data['sigla_pais']];
+        } else {
+            $local .= $paises[$data['sigla_pais']];
+        }
+    
+    }
+
 ?>
 
 <div id="<?php echo basename(get_permalink($evento_list_item_id)); ?>" class="opportunity clearfix">
@@ -27,7 +47,7 @@
          <?php else:?>
             <li><span class="label">Inscrições até:</span> <?php echo $data['br_insc_fim']; ?></li>
          <?php endif;?>
-            <li><span class="label">Local:</span> <?php echo $data['local']; ?></li>
+            <li><span class="label">Local:</span> <?php echo $local; ?></li>
         </ul>
     </div>
 </div>

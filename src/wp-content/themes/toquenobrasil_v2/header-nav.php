@@ -20,7 +20,7 @@
         <input type="hidden" id="search_param2" value="" />
         <input type="hidden" id="search_param3" value="" />
         <ul id="search-options">
-            <li><a class="search-option" id="search_usuarios">usuários</a></li>
+            <li><a class="search-option" id="search_usuarios">universo TNB</a></li>
             <li><a class="search-option" id="search_oportunidades">oportunidades</a></li>
             <li><a class="search-option" id="search_blog">blog</a></li>
         </ul>

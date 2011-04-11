@@ -15,7 +15,7 @@ $tipo_evento = get_post_meta($oportunidade_item->ID, 'evento_tipo', true);
     <h3><?php echo $oportunidade_item->post_title;?></h3>
     
     <?php if($join_success):?>
-        <div class='success' id='join_success'><?php _e('Suas informações foram enviadas ao produtor do evento para curadoria. <br/> Apos encerramento das inscrições você receberá um email com a resposta positiva ou negativa.', 'tnb');?></div>
+        <div class='success' id='join_success'><?php _e('Suas informações foram enviadas ao produtor da oportunidade para curadoria. <br/> Apos encerramento das inscrições você receberá um email com a resposta positiva ou negativa.', 'tnb');?></div>
     <?php endif;?>
     
     <?php if($unjoin_success):?>

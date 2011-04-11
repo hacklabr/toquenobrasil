@@ -1,6 +1,26 @@
 <?php
 global $oportunidade_item;
 $header_data = get_oportunidades_data($oportunidade_item->ID); 
+
+$local = '';
+    
+$local = $header_data['cidade'];
+
+if (strlen($local) > 0 && $header_data['estado']) $local .= ' - ';
+if ($header_data['estado']) $local .= $header_data['estado'];
+
+
+
+if ($header_data['sigla_pais']) {
+    $paises = get_paises();
+    if (strlen($local) > 0) {
+        $local .= ', ' . $paises[$header_data['sigla_pais']];
+    } else {
+        $local .= $paises[$header_data['sigla_pais']];
+    }
+
+}
+
 ?>
 
 <p>
@@ -17,7 +37,8 @@ $header_data = get_oportunidades_data($oportunidade_item->ID);
     <?php else:?>
        <li><span class="label">Inscrições até:</span> <?php echo $header_data['br_insc_fim']; ?></li>
     <?php endif;?>
-    <li><span class="label">Local:</span> <?php echo $header_data['local']; ?></li>
+    <li><span class="label">Local:</span> <?php echo $local; ?></li>
+    <li><span class="label">Estabelecimento:</span> <?php echo $header_data['local']; ?></li>
     <li><span class="label">Site:</span> <a href="<?php echo $header_data['link']; ?>" title="<?php echo $header_data['link']; ?>"><?php echo $header_data['link']; ?></a></li>
     <li><span class="label">Vagas:</span> <?php echo $header_data['vagas']; ?></li>
     <li><span class="label">Produtor:</span> <a href="<?php echo get_author_posts_url($oportunidade_item->post_author);?>"><?php echo get_author_name($oportunidade_item->post_author); ?></a></li>

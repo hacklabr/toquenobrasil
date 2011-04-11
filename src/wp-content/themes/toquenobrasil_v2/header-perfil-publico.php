@@ -90,7 +90,16 @@ if($widget_group->editable() && isset($_POST['tnb_header_action']) && $_POST['tn
                     echo ' | ' . sprintf( __( 'Page %s', 'tnb' ), max( $paged, $page ) );
             ?>
         </title>
-
+        
+        
+        <?php if($widget_group->editable()): ?>
+        
+            <style>
+            .tnb_widget_header {cursor: move; }
+            </style>
+        
+        <?php endif; ?>
+        
         <link rel="profile" href="http://gmpg.org/xfn/11" />
         <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
         <!--[if IE]>
@@ -143,6 +152,9 @@ if($widget_group->editable() && isset($_POST['tnb_header_action']) && $_POST['tn
     </head>
 
     <body <?php body_class(); ?>>
+        
+        
+    
         <?php //echo '<pre>'; die(print_r($curauth));?>
         <div id="wrapper" class="container_16 clearfix">
             

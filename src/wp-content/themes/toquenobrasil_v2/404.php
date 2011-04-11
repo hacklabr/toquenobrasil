@@ -12,7 +12,7 @@
             <input type="hidden" id="404_search_param2" value="" />
             <input type="hidden" id="404_search_param3" value="" />
             <ul>
-                <li><input type="radio" name="404_search_action" value="usuarios" id="404_search_action_usuarios" checked/> <label for="404_search_action_usuarios">usuários</label></li>
+                <li><input type="radio" name="404_search_action" value="usuarios" id="404_search_action_usuarios" checked/> <label for="404_search_action_usuarios">universo TNB</label></li>
                 <li><input type="radio" name="404_search_action" value="oportunidades" id="404_search_action_op" /> <label for="404_search_action_op">oportunidades</label></li>
                 <li><input type="radio" name="404_search_action" value="blog" id="404_search_action_blog" /> <label for="404_search_action_blog">blog</label></li>
             </ul>
