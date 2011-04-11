@@ -16,7 +16,7 @@ function printFullPlayer($playlist) {
             <?php $first = true; foreach ($playlist as $song): ?>
             <?php if ($first) {$first = false;} else {echo ',';} ?>
             {
-                name:'<?php echo addslashes($song['title'] ? $song['title'] : __('Sem Título', 'tnb')); ?>',
+                name:'<span><?php echo addslashes($song['title'] ? $song['title'] : __('Sem Título', 'tnb')); ?></span>',
                 free:<?php echo $song['download'] ? 'true' : 'false'; ?>,
                 id: <?php echo $song['id']; ?>,
                 downloads: <?php echo $song['downloads']; ?>,
@@ -79,7 +79,6 @@ function printFullPlayer($playlist) {
                     <ul>
                         <!-- The method Playlist.displayPlaylist() uses this unordered list -->
                         <li></li>
-
                     </ul>
                 </div>
             </div>

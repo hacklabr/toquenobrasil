@@ -3,3 +3,4 @@ section#signup input[type="text"], section#signup input[type="password"] { width
 .widget_toolbar .widget_toolbar_options { margin-top:26px; }
 footer#main-footer #hacklab { margin-bottom:22px; }
 input[type="button"].grey, input[type="submit"] { padding:6px 11px 4px 11px !important; }
+.tnb_widget_body .jp-playlist li.jp-playlist-current { padding-left:0 !important; }

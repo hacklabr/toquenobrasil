@@ -46,7 +46,7 @@ jQuery(document).ready(function(){
 			var self = this;
 			jQuery(this.cssSelector.playlist + " ul").empty();
 			for (i=0; i < this.playlist.length; i++) {
-				var listItem = (i === this.playlist.length-1) ? "<li class='jp-playlist-last'>" : "<li>";
+				var listItem = (i === this.playlist.length-1) ? "<li class='jp-playlist-last clearfix'>" : "<li class='clearfix'>";
 				listItem += "<a href='#' id='" + this.cssId.playlist + this.instance + "_item_" + i +"' tabindex='1'>"+ this.playlist[i].name +"</a>";
 
 				// Create links to free media
