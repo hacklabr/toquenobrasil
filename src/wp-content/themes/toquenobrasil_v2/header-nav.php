@@ -34,9 +34,9 @@
         
             <ul>
                 <li class="username">
-                    <a href="<?php echo get_author_posts_url($current_user->ID)?>">
-                        <?php echo get_avatar($current_user->ID, 36); ?>
-                        <?php echo $current_user->display_name; ?>
+                    <a href="<?php echo get_author_posts_url($current_user->ID)?>" class="clearfix">
+                        <div class="alignleft"><?php echo get_avatar($current_user->ID, 36); ?></div>
+                        <div class="display-name alignleft"><?php echo $current_user->display_name; ?></div>
                     </a>
                 
                     <ul class="usermenu">

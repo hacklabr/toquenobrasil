@@ -78,6 +78,7 @@ body { background:#fff url(img/pattern.jpg) fixed center center; }
 .user-nav { background:#04BAEE; float:right; line-height:1.4; padding:8px 10px; width:265px; }
 .user-nav li { float:left; }
 .user-nav li.username { height:18px; position:relative; }
+.user-nav li.username .display-name { height:18px; margin-left:10px; overflow:hidden; width:190px; }
 .user-nav li.username .avatar, .user-nav li.username .photo { margin-left:-10px; margin-top:-8px; vertical-align:middle; }
 .user-nav ul ul { background:#04BAEE; display:none; left:-10px; position:absolute; padding:8px 9px; width:285px; z-index:100; }
 .user-nav ul ul li { float:none; margin:0; }
