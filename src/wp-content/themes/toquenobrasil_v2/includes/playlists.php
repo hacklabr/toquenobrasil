@@ -156,7 +156,6 @@ function printCompactPlayer($playlist) {
                             <span class="jp-current-author_name"></span>
                             <br/>
                             <span class="jp-current-title"></span>
-                            <br/>
                             <span class="jp-current-downloads">
                                 <span></span> <?php _e('downloads', 'tnb'); ?>
                             </span>
