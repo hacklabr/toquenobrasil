@@ -6,7 +6,15 @@
 
 <?php get_header(); ?>
 
+    <div class="clear"></div>
 
+    <div class="home-buttons">
+        <a href="<?php echo get_theme_option('iam-artist'); ?>" class="btn-home-blue" title="<?php _e("artista", "tnb"); ?>"><?php _e("artista", "tnb"); ?></a>
+        <a href="<?php echo get_theme_option('iam-producer'); ?>" class="btn-home-blue" title="<?php _e("produtor", "tnb"); ?>"><?php _e("produtor", "tnb"); ?></a>
+        <a href="<?php echo get_theme_option('iam-groupie'); ?>" class="btn-home-blue" title="<?php _e("fã", "tnb"); ?>"><?php _e("fã", "tnb"); ?></a>
+        <a href="<?php echo get_theme_option('iam-brand'); ?>" class="btn-home-blue" title="<?php _e("marca", "tnb"); ?>"><?php _e("marca", "tnb"); ?></a>
+        <a href="<?php echo get_theme_option('signup'); ?>" class="btn-home-yellow" title="<?php _e("cadastro", "tnb"); ?>"><?php _e("cadastro", "tnb"); ?></a>
+    </div>
 
     <?php if(function_exists("insert_post_highlights")) insert_post_highlights(); ?>
     
@@ -21,12 +29,6 @@
             <h3 class="text-center">
                 <?php echo get_theme_option('slogan'); ?>
             </h3>
-            <a href="<?php echo get_theme_option('iam-groupie'); ?>" title="<?php _e("Sou Fã", "tnb"); ?>">
-                <?php theme_image("sou-fa.png", array("alt" => "Sou Fã")); ?>
-            </a>
-            <a href="<?php echo bloginfo('siteurl'); ?>/cadastro" title="<?php _e("Cadastre-se", "tnb"); ?>">
-                <?php theme_image("cadastre-se.png", array("alt" => "Cadastre-se")); ?>
-            </a>
         </div>
     </article>
 

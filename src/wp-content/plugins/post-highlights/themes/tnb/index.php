@@ -51,11 +51,12 @@
     <?php endif; ?>
 
     <!-- This is not part of the post-highlights itself -->
-    <div id="ph-menu">
+    <!-- <div id="ph-menu">
         <a href="<?php echo $this->get_option('iam-artist'); ?>"><?php theme_image("sou-artista.png", array('alt' => 'Sou Artista')); ?></a>
         <a href="<?php echo $this->get_option('iam-producer'); ?>"><?php theme_image("sou-produtor.png", array('alt' => 'Sou Produtor')); ?></a>
     </div>
-
+    -->
+    
     <script type="text/javascript">
         jQuery(document).ready(function() {
             jQuery("#posthighlights_container").addClass("grid_16 box-shadow");

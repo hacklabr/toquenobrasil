@@ -37,11 +37,39 @@ function theme_customization_page() {
                 <textarea name="theme_customization[slogan]" cols="40" rows="6"><?php echo htmlspecialchars($options[slogan]); ?></textarea>
             </p>
             <p>
+                <label for="theme_customization[iam-artist]">
+                    <strong><?php _e('Link para o botão Artista', 'tnb'); ?></strong>
+                </label>
+                <br/>
+                <input type="text" name="theme_customization[iam-artist]" value="<?php echo htmlspecialchars($options['iam-artist']); ?>" />
+            </p>
+            <p>
+                <label for="theme_customization[iam-producer]">
+                    <strong><?php _e('Link para o botão Produtor', 'tnb'); ?></strong>
+                </label>
+                <br/>
+                <input type="text" name="theme_customization[iam-producer]" value="<?php echo htmlspecialchars($options['iam-producer']); ?>" />
+            </p>
+            <p>
                 <label for="theme_customization[iam-groupie]">
-                    <strong><?php _e('Link para o botão Sou Fã', 'tnb'); ?></strong>
+                    <strong><?php _e('Link para o botão Fã', 'tnb'); ?></strong>
                 </label>
                 <br/>
                 <input type="text" name="theme_customization[iam-groupie]" value="<?php echo htmlspecialchars($options['iam-groupie']); ?>" />
+            </p>
+            <p>
+                <label for="theme_customization[iam-brand]">
+                    <strong><?php _e('Link para o botão Marca', 'tnb'); ?></strong>
+                </label>
+                <br/>
+                <input type="text" name="theme_customization[iam-brand]" value="<?php echo htmlspecialchars($options['iam-brand']); ?>" />
+            </p>
+            <p>
+                <label for="theme_customization[signup]">
+                    <strong><?php _e('Link para o botão Cadastro', 'tnb'); ?></strong>
+                </label>
+                <br/>
+                <input type="text" name="theme_customization[signup]" value="<?php echo htmlspecialchars($options['signup']); ?>" />
             </p>
             
             <p>
