@@ -29,6 +29,7 @@
             <h3 class="text-center">
                 <?php echo get_theme_option('slogan'); ?>
             </h3>
+            
         </div>
     </article>
 

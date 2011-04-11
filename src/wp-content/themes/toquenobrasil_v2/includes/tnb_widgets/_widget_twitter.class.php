@@ -34,12 +34,14 @@ class Widget_Twitter extends TNB_Widget{
         if (!$this->property['twitter_user'])
             return;
         $num = $this->property['num_posts'] ? $this->property['num_posts'] : 4;
+        $twitter_user = str_replace('http://twitter.com/', '', $this->property['twitter_user']);
+        $twitter_user = str_replace('twitter.com/', '', $twitter_user);
         
        ?> 
         <div id='<?php echo $div_id;?>'><?php 
         tweet_blender_widget(array(
             'unique_div_id' => $div_id,
-            'sources' => '@'.$this->property['twitter_user'],
+            'sources' => '@'.$twitter_user,
             'refresh_rate' => 60,
             'tweets_num' => $num,
             'view_more_url' => 'http://twitter.com/tweetblender'
