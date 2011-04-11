@@ -126,15 +126,15 @@ footer#main-footer #hacklab a { border:none; }
 ******************************************************************/
 /* =Header */
 .header-banner { background:#FFF; border-radius:9px; min-height:150px; margin-bottom:14px; -moz-border-radius:9px; }
-.header-banner img { border-radius:6px; height:132px; -moz-border-radius:6px; }
-.header-banner a { border:none; display:block; height:132px; }
+.header-banner img { border-radius:6px; min-height:132px; width:922px; -moz-border-radius:6px; }
+.header-banner a { border:none; float:left; height:auto; min-height:132px; width:922px; }
 
 /* =Home */
 .home-banner { background:#FFF; height:182px; }
 .home-banner-top { border-radius:0 9px 0 0; margin-top:14px; }
-.home-banner-top img { border-radius:0 6px 0 0; height:182px; }
+.home-banner-top img { border-radius:0 6px 0 0; min-height:182px; width:502px; }
 .home-banner-bottom { border-radius:0 0 9px 0; }
-.home-banner-bottom img { border-radius:0 0 6px 0; height:182px; }
+.home-banner-bottom img { border-radius:0 0 6px 0; min-height:182px; width:502px; }
 
 /* =Sidebar */
 /* Está definido na Sidebar */
