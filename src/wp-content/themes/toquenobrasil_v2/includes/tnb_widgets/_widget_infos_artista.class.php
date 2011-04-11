@@ -92,13 +92,13 @@ class Widget_Infos_Artista extends TNB_Widget{
             
             <?php if($mapa_palco):?>
             
-                <a class="btn-download bg-yellow" href="<?php echo wp_get_attachment_url($mapa_palco->ID); ?>"><?php _e('Mapa do Palco','tnb'); ?></a>
+                <a class="btn-download button" href="<?php echo wp_get_attachment_url($mapa_palco->ID); ?>"><?php _e('Mapa do Palco','tnb'); ?></a>
                 
             <?php endif;?>
             
             <?php if($rider):?>
                 
-                <a class="btn-download bg-yellow" href="<?php echo wp_get_attachment_url($rider->ID); ?>"><?php _e('Rider','tnb'); ?></a>
+                <a class="btn-download button" href="<?php echo wp_get_attachment_url($rider->ID); ?>"><?php _e('Rider','tnb'); ?></a>
                 
             <?php endif;?>
 

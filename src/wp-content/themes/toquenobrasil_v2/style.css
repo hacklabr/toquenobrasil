@@ -474,7 +474,7 @@ form.perfil_header_form-options .config-button { padding:4px 6px 3px !important;
 
 /*widget de info da banda*/
 .tnb_widget .photo { float:left; margin:0 10px 5px 0; }
-.btn-download { border-radius:4px; -moz-border-radius:4px; padding:3px 11px 3px 22px; border:none !important; background-image:url(img/download.png); background-repeat:no-repeat; background-position:6px center; margin-bottom:11px; display:inline-block; zoom:1; *display:inline; }
+.btn-download { border-radius:4px; -moz-border-radius:4px; padding:3px 11px 3px 22px !important; border:none !important; background-image:url(img/download.png) !important; background-repeat:no-repeat !important; background-position:6px center !important; margin-bottom:11px; display:inline-block; zoom:1; *display:inline; }
 .btn-download:hover { border:none; color:#666; }
 .redes-sociais a img { vertical-align:middle; }
 
