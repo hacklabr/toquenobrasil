@@ -8,7 +8,7 @@ $galeriasId['mapa_palco']   = tnb_get_artista_galeria($profileuser->ID, 'mapa_pa
     
     <h2><?php _e("Kit do artista", "tnb"); ?> "<?php echo $curauth->display_name; ?>"</h2>
     
-    <p><em><?php _e('Você está vendo o KIT (Kit de Informações Técnicas) do artista. Feche essa janela para ver o perfil completo. Se quiser abrir novamente o kit, clique no botão no topo da página', 'tnb'); ?></em></p>
+    <p><em><?php _e('Você está vendo o KIT (Kit de Informações Técnicas) do artista. Feche essa janela para ver o perfil completo. Se quiser abrir novamente o KIT, clique no botão no topo da página', 'tnb'); ?></em></p>
 
     <div class="content">
         <div class="thumbnail"><?php echo get_avatar($curauth->ID); ?></div>

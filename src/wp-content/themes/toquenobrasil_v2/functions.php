@@ -22,6 +22,8 @@ include(TEMPLATEPATH . '/includes/stats/stats.php');
 
 include(TEMPLATEPATH . '/includes/admin_system_messages.php');
 
+include(TEMPLATEPATH . '/includes/admin/admin-menu.php');
+
 // funções para dump
 include(TEMPLATEPATH . '/includes/hl_functions.php');
 
