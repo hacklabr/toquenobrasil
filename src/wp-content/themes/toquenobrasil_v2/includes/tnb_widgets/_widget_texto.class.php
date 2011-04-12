@@ -1,7 +1,7 @@
 <?php
 class Widget_Texto extends TNB_Widget{
     protected static function form_filter($instance){
-        $_POST['property']['text'] = strip_tags(stripslashes($_POST['property']['text']), '<p><a><img><blockquote><i><b>' );
+        $_POST['property']['text'] = strip_tags(stripslashes($_POST['property']['text']), '<p><a><img><blockquote><i><b><hr>' );
         $_POST['property']['titulo'] = strip_tags(stripslashes($_POST['property']['titulo']));
         return true;
     }
@@ -32,6 +32,7 @@ class Widget_Texto extends TNB_Widget{
 <h3><?php _e('Texto','tnb')?></h3>
 <label><?php _e('título','tnb')?>: <input type='text' name='property[titulo]' value="<?php echo htmlentities(utf8_decode($this->property['titulo']))?>"/></label><br/>
 <label><?php _e('texto','tnb')?>: <textarea name='property[text]'><?php echo htmlentities(utf8_decode($this->property['text'])); ?></textarea></label>
+<p>Tags HTML permitidas: p, a, img, blockquote, i, b, hr </p>
 <?php 
         
     }

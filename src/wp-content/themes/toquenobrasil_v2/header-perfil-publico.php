@@ -213,7 +213,7 @@ if($widget_group->editable() && isset($_POST['tnb_header_action']) && $_POST['tn
                             </div>
                             <!-- .exibir-nome-opcoes -->
 
-                            <div class="fundo-label alignleft"><?php _e('Fundo', 'tnb'); ?></div>
+                            <div class="fundo-label alignleft"><?php _e('Fundo', 'tnb'); ?> <?php _e('(largura: 923px)', 'tnb'); ?></div>
                             <div class="fundo-opcoes alignleft">
                                 <span id="hf-color-selector">
                                     <span class='widget_colorpicker' style='background-color:<?php echo $perfil_header['color'];?>;'>&nbsp;</span>
@@ -224,6 +224,7 @@ if($widget_group->editable() && isset($_POST['tnb_header_action']) && $_POST['tn
                                 <span id="adicionar-imagem">
                                    <input type='hidden' name='tnb_header_action' value='save' />
                                    <input type="file" id='hf_image' name='header_image'/>
+                                   
                                 </span>
                                 <!-- #adicionar-imagem -->
                             </div>
