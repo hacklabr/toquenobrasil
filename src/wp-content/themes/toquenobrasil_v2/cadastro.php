@@ -133,9 +133,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
 
 <section id="signup" class="grid_16 clearfix box-shadow text-center">
     <?php theme_image("tnb-big.png", array("id" => "tnb", "alt" => "TNB")); ?>
+    
     <form method="post">
         <p>
-            <?php if ($_POST['tipo_usuario'] == 'produtor'): ?>
+            <?php if ($_POST['user_type'] == 'produtor'): ?>
                 <?php theme_image("sou-artista-off.png", array("alt" => "Sou Artista", "class" => "i-am-artist")); ?>
                 <?php theme_image("sou-produtor.png", array("alt" => "Sou Produtor", "class" => "i-am-producer")); ?>
                 <input type="hidden" name="user_type" id="tipo_usuario" value="produtor" />
