@@ -671,3 +671,4 @@ span.info, .field-hint { -webkit-box-shadow:none !important; -moz-box-shadow:non
 
 /* reset labels */
 .reset-label{color:inherit !important; float:none !important; }
+.oportunidade-filtro{max-height: 200px; overflow:auto; padding:0px; border:1px solid #666; }

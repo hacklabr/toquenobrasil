@@ -67,8 +67,8 @@ switch($_POST['action']) {
         break;
         
         case 'join':
-        
-            if(isset($_POST['_wpnonce']) &&  wp_verify_nonce($_POST['_wpnonce'], 'join_event' )){
+            
+            if(tnb_artista_can_join($_POST['evento_id']) && isset($_POST['_wpnonce']) &&  wp_verify_nonce($_POST['_wpnonce'], 'join_event' )){
                 if(!in_postmeta(get_post_meta($_POST['evento_id'], 'inscrito'), $_POST['banda_id'])){
                     add_post_meta($_POST['evento_id'], 'inscrito', $_POST['banda_id']);
                     $join_success = true;

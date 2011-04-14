@@ -67,7 +67,12 @@
         'forcar_restricoes' => $_POST['forcar_restricoes'],
         'forcar_tos' => $_POST['forcar_tos'],
         'superevento' => $_REQUEST['superevento'],
-        'evento_produtores_selecionam' => $_POST['evento_produtores_selecionam']
+        'evento_produtores_selecionam' => $_POST['evento_produtores_selecionam'],
+        'evento_filtro_origem_pais' => $_POST['evento_filtro_origem_pais'],
+    	'evento_filtro_residencia_pais' => $_POST['evento_filtro_residencia_pais'],
+    	'evento_filtro_origem_uf' => $_POST['evento_filtro_origem_uf'],
+    	'evento_filtro_residencia_uf' => $_POST['evento_filtro_residencia_uf'],
+    	'evento_filtro_estilo' => $_POST['evento_filtro_estilo']
     );
 
     // é confrontado com $_FILES

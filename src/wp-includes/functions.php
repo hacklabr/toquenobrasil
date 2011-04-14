@@ -1456,7 +1456,7 @@ function remove_query_arg( $key, $query=false ) {
  */
 function add_magic_quotes( $array ) {
 	foreach ( (array) $array as $k => $v ) {
-		if ( is_array( $v ) ) {
+	    if ( is_array( $v ) ) {
 			$array[$k] = add_magic_quotes( $v );
 		} else {
 			$array[$k] = addslashes( $v );

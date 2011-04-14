@@ -301,6 +301,61 @@ function template_redirect_intercept(){
  */
 
 
+
+/**
+ * Verifica se o $current_user é artista e pode se inscrever no evento
+ * @param string $artista_id
+ * @param string $oportunidade_id
+ * @return boolean
+ */
+function tnb_artista_can_join($oportunidade_id, $user_id = null){
+    global $current_user;
+    
+    $user_id = $user_id ? $user_id : $current_user->ID;
+    $user = $user_id ? get_user_by('id', $user_id) :  $current_user;
+    
+    if(is_artista($user_id)){
+        $opdata = get_oportunidades_data($oportunidade_id);
+        
+        $user_estilos = get_user_meta($user_id, 'estilo_musical');
+        
+        $user_estilos = is_array($user_estilos)? $user_estilos : array();
+            
+        $result = true;
+        
+        if($opdata['filtro_origem_pais'] && $opdata['filtro_origem_pais'] != $user->origem_pais)
+            $result = false;
+        
+        if($opdata['filtro_residencia_pais'] && $opdata['filtro_residencia_pais'] != $user->banda_pais)
+            $result = false;
+        
+        
+        if($result && $opdata['filtro_origem_pais'] == 'BR' && is_array($opdata['filtro_origem_uf']))
+            if(!in_array($user->origem_estado, $opdata['filtro_origem_uf']))
+                $result = false;
+        
+        
+        if($result && $opdata['filtro_residencia_pais'] == 'BR' && is_array($opdata['filtro_residencia_uf']))
+            if(!in_array($user->banda_estado, $opdata['filtro_residencia_uf']))
+                $result = false;
+        
+        
+        if($result && is_array($opdata['filtro_estilo'])){
+           $result = false;
+           foreach ($opdata['filtro_estilo'] as $estilo)
+               if(in_array($estilo, $user_estilos))
+                   $result = true;
+           
+        }
+        
+        //_vd($result);
+        return $result;
+        
+    }else{
+        return false;
+    }
+}
+
 function get_users_search_result(){
 	global $wp_query, $wpdb;
 	$wp_query->get('paged');
@@ -722,7 +777,6 @@ function tnb_get_artista_videos($artista_id){
 }
 
 
-
 /** =================================== OPORTUNIDADES =================================== //
  * 
  * Enter description here ...
@@ -946,6 +1000,13 @@ function get_oportunidades_data($evento_list_item_id){
     $subevento = $evento_list_item->post_parent != 0;
 	
     
+    $filtro_origem_pais = get_post_meta($evento_list_item_id, 'evento_filtro_origem_pais', true);
+    $filtro_residencia_pais = get_post_meta($evento_list_item_id, 'evento_filtro_residencia_pais', true);
+    $filtro_origem_uf = get_post_meta($evento_list_item_id, 'evento_filtro_origem_uf', true);
+    $filtro_residencia_uf = get_post_meta($evento_list_item_id, 'evento_filtro_residencia_uf', true);
+    
+    $filtro_estilo = get_post_meta($evento_list_item_id, 'evento_filtro_estilo', true);
+    
     $result = array(
     	'inicio' => $inicio,
     	'fim' => $fim,
@@ -968,7 +1029,12 @@ function get_oportunidades_data($evento_list_item_id){
     	'patrocinador_1' => $patrocinador_1,
     	'patrocinador_2' => $patrocinador_2,
     	'patrocinador_3' => $patrocinador_3,
-    	'subevento' => $subevento
+    	'subevento' => $subevento,
+        'filtro_origem_pais' => $filtro_origem_pais,
+        'filtro_residencia_pais' => $filtro_residencia_pais,
+        'filtro_origem_uf' => $filtro_origem_uf,
+        'filtro_residencia_uf' => $filtro_residencia_uf,
+        'filtro_estilo' => $filtro_estilo
     );
     
     tnb_cache_set('OPORTUNIDADES_DATA', $evento_list_item_id, $result);

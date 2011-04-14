@@ -75,8 +75,35 @@ jQuery(document).ready(function() {
      
      
      if(jQuery('#evento_pais').val() == 'BR'){
-       tnbCarregaCidadesOptions('evento_cidade',jQuery('#evento_estado_select').val());
+         tnbCarregaCidadesOptions('evento_cidade',jQuery('#evento_estado_select').val());
      }
-    
+      
+     if(jQuery('#evento_filtro_origem_pais').val() != 'BR'){
+      	 jQuery('#evento_filtro_origem_div .oportunidade-filtro').hide();
+     }
+       
+     jQuery('#evento_filtro_origem_pais').change(function(){
+      	 if(jQuery(this).val() == 'BR'){
+      		 jQuery('#evento_filtro_origem_div .oportunidade-filtro').slideDown();
+      	 }else{
+      		 jQuery('#evento_filtro_origem_div .oportunidade-filtro').slideUp();
+      		 jQuery('#evento_filtro_origem_div .oportunidade-filtro input:checked').attr('checked', false);
+      	 }
+     });
+       
+     if(jQuery('#evento_filtro_residencia_pais').val() != 'BR'){
+      	 jQuery('#evento_filtro_residencia_div .oportunidade-filtro').hide();
+     }
+       
+     jQuery('#evento_filtro_residencia_pais').change(function(){
+      	 if(jQuery(this).val() == 'BR'){
+      		 jQuery('#evento_filtro_residencia_div .oportunidade-filtro').slideDown();
+      	 }else{
+      		 jQuery('#evento_filtro_residencia_div .oportunidade-filtro').slideUp();
+      		 jQuery('#evento_filtro_residencia_div .oportunidade-filtro input:checked').attr('checked', false);
+      	 }
+     });
+      
+     
  });
  

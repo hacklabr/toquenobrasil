@@ -2,6 +2,7 @@
 global $oportunidade_item, $current_user;
 $data = get_oportunidades_data($oportunidade_item->ID); 
 extract($data);
+$can_join = tnb_artista_can_join($oportunidade_item->ID);
 ?>
 
 <?php if(is_produtor() && $superevento && strtotime($inscricao_fim) >= strtotime(date('Y-m-d'))): ?>
@@ -28,30 +29,33 @@ extract($data);
     
 <?php  elseif(!$superevento && strtotime($inscricao_inicio) <= strtotime(date('Y-m-d')) && strtotime($inscricao_fim) >= strtotime(date('Y-m-d'))):?>  
     <?php if( is_artista() ):?>
-        <form action='<?php the_permalink();?>' method="post" id='form_join_event_<?php echo $oportunidade_item->ID; ?>'>
-            <?php wp_nonce_field('join_event'); ?>
-            <input type="hidden" name="banda_id" value='<?php echo $current_user->ID; ?>' />
-            <input type="hidden" name="action" value='join' />
-            <input type="hidden" name="evento_id" value='<?php echo $oportunidade_item->ID; ?>' />
-        </form>
-        
-        <?php if($tos):?>    
-            <div class='tnb_modal' id='tnb_modal_<?php echo $oportunidade_item->ID; ?>'>
-                <h2><?php _e('Termo de Responsabilidade','tnb'); ?></h2>
-                <p><?php echo $tos; ?></p>
-                <div class="text-center">
-                    <a onclick="jQuery('#form_join_event_<?php echo $oportunidade_item->ID; ?>').submit();" class="btn-grey" class="btn-green"><?php _e('Li e aceito o termo', 'tnb');?></a>
+        <?php if($can_join): ?>
+            <form action='<?php the_permalink();?>' method="post" id='form_join_event_<?php echo $oportunidade_item->ID; ?>'>
+                <?php wp_nonce_field('join_event'); ?>
+                <input type="hidden" name="banda_id" value='<?php echo $current_user->ID; ?>' />
+                <input type="hidden" name="action" value='join' />
+                <input type="hidden" name="evento_id" value='<?php echo $oportunidade_item->ID; ?>' />
+            </form>
+            
+            <?php if($tos):?>    
+                <div class='tnb_modal' id='tnb_modal_<?php echo $oportunidade_item->ID; ?>'>
+                    <h2><?php _e('Termo de Responsabilidade','tnb'); ?></h2>
+                    <p><?php echo $tos; ?></p>
+                    <div class="text-center">
+                        <a onclick="jQuery('#form_join_event_<?php echo $oportunidade_item->ID; ?>').submit();" class="btn-grey" class="btn-green"><?php _e('Li e aceito o termo', 'tnb');?></a>
+                    </div>
                 </div>
-            </div>
-            <p class="quero-tocar i-wanna-play text-right">
-                <a onclick="jQuery('#tnb_modal_<?php echo $oportunidade_item->ID; ?>').dialog('open');" title="<?php printf(__('Participe do evento %s', 'tnb'),  get_the_title());?>" class="btn-green"><?php _e('Me Inscrever!', 'tnb');?></a>
-            </p>
-        <?php else:?>
-            <p class="quero-tocar i-wanna-play text-right">
-                <a onclick="jQuery('#form_join_event_<?php echo $oportunidade_item->ID; ?>').submit();" class="btn-green"><?php _e('Me Inscrever!', 'tnb');?></a>
-            </p>
-        <?php endif;?>   
-      
+                <p class="quero-tocar i-wanna-play text-right">
+                    <a onclick="jQuery('#tnb_modal_<?php echo $oportunidade_item->ID; ?>').dialog('open');" title="<?php printf(__('Participe do evento %s', 'tnb'),  get_the_title());?>" class="btn-green"><?php _e('Me Inscrever!', 'tnb');?></a>
+                </p>
+            <?php else:?>
+                <p class="quero-tocar i-wanna-play text-right">
+                    <a onclick="jQuery('#form_join_event_<?php echo $oportunidade_item->ID; ?>').submit();" class="btn-green"><?php _e('Me Inscrever!', 'tnb');?></a>
+                </p>
+            <?php endif;?>
+        <?php else: ?>
+            <?php _e('Você não pode se inscrever pois seu perfil não se enquadra nesta oportunidade.', 'tnb')?>   
+        <?php endif; ?>
     <?php  elseif(!is_user_logged_in()) :?>
       <p class="quero-tocar i-wanna-play text-right">
         <a href="<?php bloginfo('url');?>/cadastro" title='<?php _e('Cadastre-se para poder participar do Toque no Brasil!', 'tnb');?>' class="btn-green"><?php _e('Me Inscrever!', 'tnb');?></a>

@@ -59,7 +59,10 @@ class Widget_Eventos_Artista extends TNB_Widget{
     
     protected function __output(){
         //hl_print_r($this->property);
-        
+        $did = uniqid('div');
+        ?>
+        <div id='<?php echo $did; ?>'>
+        <?php 
         if($this->property['inscritos']):
              $eventos_inscritos = self::getOportunidadesInscrito();
              
@@ -68,13 +71,13 @@ class Widget_Eventos_Artista extends TNB_Widget{
              <?php if($this->property['selecionados']): ?>
              
                 <ul class="widget_oportunidades_tabs">
-                    <li><a class="inscrito"><?php _e('Estou Inscrito', 'tnb'); ?></a></li>
-                    <li><a class="selecionado"><?php _e('Fui Selecionado', 'tnb'); ?></a></li>
+                    <li><a class="inscrito" onclick="jQuery('#<?php echo $did;?>_sel').hide(); jQuery('#<?php echo $did;?>_insc').show();"><?php _e('Estou Inscrito', 'tnb'); ?></a></li>
+                    <li><a class="selecionado" onclick="jQuery('#<?php echo $did;?>_insc').hide(); jQuery('#<?php echo $did;?>_sel').show();"><?php _e('Fui Selecionado', 'tnb'); ?></a></li>
                 </ul>
-             
+                
              <?php endif; ?>
              
-             <div class="inscrito oportunidades_tab">
+             <div id='<?php echo $did?>_insc' class="inscrito oportunidades_tab">
              
              <?php foreach ($eventos_inscritos as $evento): ?>
              
@@ -100,7 +103,7 @@ class Widget_Eventos_Artista extends TNB_Widget{
              $eventos_selecionados = self::getOportunidadesSelecionado();
              ?>
              
-             <div class="selecionado oportunidades_tab">
+             <div id='<?php echo $did?>_sel' class="selecionado oportunidades_tab">
              
              <?php foreach ($eventos_selecionados as $evento): ?>
                  
@@ -119,6 +122,9 @@ class Widget_Eventos_Artista extends TNB_Widget{
             
         <?php  
         endif; 
+        ?>
+        </div>
+        <?php 
     }
     
     protected static function insert_form(){
@@ -150,7 +156,7 @@ class Widget_Eventos_Artista extends TNB_Widget{
             
             <div id='<?php echo $formID?>_inscritos_lista' class='<?php if($instance->property['quais_inscritos'] != 'selecionados') echo 'hide';?>' >
                 <?php foreach($eventos_inscritos as $evento):?>
-                    <label><input type="checkbox" name='property[eventos_inscritos][]' value='<?php echo $evento->ID?>'  <?php if(in_array($evento->ID, $instance->property['eventos_inscritos'])) echo 'checked="checked"'; ?>/> <?php echo $evento->post_title; ?></label><br/> 
+                    <label><input type="checkbox" name='property[eventos_inscritos][]' value='<?php echo $evento->ID?>'  <?php if(is_array($instance->property['eventos_inscritos']) && in_array($evento->ID, $instance->property['eventos_inscritos'])) echo 'checked="checked"'; ?>/> <?php echo $evento->post_title; ?></label><br/> 
                 <?php endforeach; ?>
             </div>
         </div>
@@ -165,7 +171,7 @@ class Widget_Eventos_Artista extends TNB_Widget{
         
             <div id='<?php echo $formID?>_selecionados_lista' class='<?php if($instance->property['quais_selecionados'] != 'selecionados') echo 'hide'; ?>'>
                 <?php foreach($eventos_selecionado as $evento): ?>
-                    <label><input type="checkbox" name='property[eventos_selecionados][]' value='<?php echo $evento->ID?>' <?php if(in_array($evento->ID, $instance->property['eventos_selecionados'])) echo 'checked="checked"'; ?> /> <?php echo $evento->post_title; ?></label><br/>
+                    <label><input type="checkbox" name='property[eventos_selecionados][]' value='<?php echo $evento->ID?>' <?php if(is_array($instance->property['eventos_selecionados']) && in_array($evento->ID, $instance->property['eventos_selecionados'])) echo 'checked="checked"'; ?> /> <?php echo $evento->post_title; ?></label><br/>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -220,7 +226,6 @@ class Widget_Eventos_Artista extends TNB_Widget{
     
     protected static function getOportunidadesInscrito(){
         global $wpdb, $curauth;
-        
         if(tnb_cache_exists('ARTISTA_EVENTOS_INSCRITOS', $curauth->ID))
             return tnb_cache_get('ARTISTA_EVENTOS_INSCRITOS', $curauth->ID);
         
@@ -238,6 +243,7 @@ class Widget_Eventos_Artista extends TNB_Widget{
             ID in (SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'evento_fim' AND meta_value >= CURRENT_TIMESTAMP )
             $query_subevents_arovados";
     
+        
         //echo " QUERY { $query } ";
         $oportunidadesID = $wpdb->get_col($query);
         if (sizeof($oportunidadesID) == 0) {

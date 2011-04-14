@@ -7,6 +7,7 @@ $estados = get_estados();
 $paises = get_paises();
 
 wp_enqueue_script('campo-cidade', get_stylesheet_directory_uri(). '/js/campo-cidade.js',array('jquery'));
+global $unjoin_err;
 
 if(isset($_REQUEST['tnb_user_action']) && $_REQUEST['tnb_user_action'] == 'edit-banda'){
    
@@ -108,7 +109,42 @@ if(isset($_REQUEST['tnb_user_action']) && $_REQUEST['tnb_user_action'] == 'edit-
         
         
         $msg['success'][] = __('Dados Atualizados', 'tnb');
-        //$profileuser = get_userdata( $user_ID );
+        
+        
+        // VERIFICANDO SE O ARTISTA PODE CONTINUAR INSCRITO NOS EVENTOS EM QUE ELE ESTÁ INSCRITO 
+        // (SOMENTE VERIFICA OS EVENTOS COM A DATA FINAL MENOS DO QUE A DATA ATUAL)
+        global $wpdb;
+        
+        $query_subevents_arovados = " AND (post_parent = 0 OR ID IN (SELECT DISTINCT post_id FROM $wpdb->postmeta WHERE meta_key = 'aprovado_para_superevento') ) ";
+    
+        $query = "
+        SELECT 
+            ID, post_title 
+        FROM 
+            $wpdb->posts 
+        WHERE
+            post_type = 'eventos' AND
+            post_status = 'publish' AND
+            ID in (SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'inscrito' AND meta_value = '{$profileuser->ID}' ) AND
+            ID in (SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'evento_fim' AND meta_value >= CURRENT_TIMESTAMP )
+            $query_subevents_arovados";
+    
+       
+        $oportunidades = $wpdb->get_results($query);
+        $unjoin = '';
+        foreach ($oportunidades as $ops){
+            if(!tnb_artista_can_join($ops->ID, $profileuser->ID)){
+                delete_post_meta($ops->ID, 'inscrito', $profileuser->ID);
+                do_action('tnb_artista_desinscreveu_em_um_evento', $ops->ID, $profileuser->ID);
+                
+                $unjoin .= '<li>'.$ops->post_title.'</li>';
+            }
+        }
+        if($unjoin){
+            $unjoin_err = __('Devido às alterações em seu perfil, você foi desinscrito das seguintes oportunidades: %s');
+            $unjoin_err = sprintf($unjoin_err, '<ul>'.$unjoin.'</ul>');
+            
+        }
         
     }else{
 
@@ -242,7 +278,9 @@ if(isset($_REQUEST['tnb_user_action']) && $_REQUEST['tnb_user_action'] == 'edit-
     }
    
 }
-
+if($unjoin_err){
+    $msg['error'][] = $unjoin_err;
+}
 $usuarioOK = tnb_contatoUsuarioCorreto($profileuser);
 
 ?>
