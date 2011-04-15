@@ -74,7 +74,8 @@
     	'evento_filtro_residencia_uf' => $_POST['evento_filtro_residencia_uf'],
     	'evento_filtro_estilo' => $_POST['evento_filtro_estilo']
     );
-
+    
+    
     // é confrontado com $_FILES
     $images = array(
         'evento_avatar' => null,
@@ -98,7 +99,6 @@
 
         $event = count($result)==1 ? $result[0] : new stdClass();
     }
-
     $parent_event = new stdClass();
 
     if ($event->post_parent==0 && !empty($_REQUEST['post_parent'])) {
@@ -254,6 +254,33 @@
                     }
                 }
 
+                
+            
+                /**
+                 * REMOVE OS INSCRITOS QUE NÃO SE ENQUADRAM NOS FILTROS 
+                 */
+                
+                if($event_meta['evento_fim'] && new DateTime(str_replace('/', '-', $event_meta['evento_fim'])) > new DateTime(date("Y-m-d"))){
+                    global $wpdb;
+                    $arts_ids = $wpdb->get_col("SELECT meta_value FROM $wpdb->postmeta WHERE post_id = '$event->ID' and meta_key = 'inscrito'");
+                    $arts_ids = is_array($arts_ids) ? $arts_ids : array();
+                    
+                    
+                    
+                    foreach ($arts_ids as $aid){
+                        //_vd($aid);
+                        //_vd(is_artista($aid));
+                        //_vd(tnb_artista_can_join($event->ID, $aid));
+                        if(is_artista($aid) && !tnb_artista_can_join($event->ID, $aid)){
+                            delete_post_meta($event->ID, 'inscrito', $aid);
+                            do_action('tnb_artista_desinscreveu_em_um_evento', $event->ID, $aid);
+                            //_pr('delete');
+                        }
+                    }
+                   // die;
+                }
+                
+                
                 // Upload de imagens
                 require_once(ABSPATH . '/wp-admin/includes/media.php');
                 require_once(ABSPATH . '/wp-admin/includes/file.php');
@@ -336,5 +363,7 @@
 
 
 
-    if ($_GET['msg-success'])
+    if ($_GET['msg-success']){
         $msg['success'][] = __('Oportunidade Salva', 'tnb');
+    }
+    
