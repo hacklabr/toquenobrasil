@@ -94,35 +94,36 @@ if ($header_data['sigla_pais']) {
         <h4 class="title">Restrições</h4>
         <div class="clear"></div>
         <div class="content">
-            <p><?php echo $header_data['restricoes']; ?></p>
-        </div>
-        <div class='filtro'>
-            <?php if($header_data['filtro_estilo']): ?>
-                <strong><?php _e('Estilos Musicais', 'tnb')?>:</strong> 
+            <p class="bottom"><?php echo $header_data['restricoes']; ?></p>
+
+            <p>
+                <?php if($header_data['filtro_estilo']): ?>
+                    <strong><?php _e('Estilos Musicais', 'tnb')?>:</strong> 
                 
-                <?php foreach ($header_data['filtro_estilo'] as $estilo):?><?php echo $sep0.__($estilo,'tnb');?><?php $sep0 = ', '; endforeach;?>
+                    <?php foreach ($header_data['filtro_estilo'] as $estilo):?><?php echo $sep0.__($estilo,'tnb');?><?php $sep0 = ', '; endforeach;?>
                 
-            <?php endif;?>
+                <?php endif;?>
             
             
-            <?php if($header_data['filtro_origem_pais']): $pais = get_paises();  $estados = get_estados();?>
-                <br /><strong><?php _e('País de origem','tnb'); ?>:</strong> <?php _e($pais[$header_data['filtro_origem_pais']], 'tnb')?>
-                <?php if($header_data['filtro_origem_uf']):?>
-                    <br />
-                    <strong><?php _e('Estado de origem', 'tnb')?>: </strong>
-                    <?php foreach ($header_data['filtro_origem_uf'] as $uf):?><?php echo $sep1 . __($estados[$uf],'tnb');?><?php $sep1 = ', '; endforeach;?>
-                <?php endif; ?>
-            <?php endif;?>
+                <?php if($header_data['filtro_origem_pais']): $pais = get_paises();  $estados = get_estados();?>
+                    <br /><strong><?php _e('País de origem','tnb'); ?>:</strong> <?php _e($pais[$header_data['filtro_origem_pais']], 'tnb')?>
+                    <?php if($header_data['filtro_origem_uf']):?>
+                        <br />
+                        <strong><?php _e('Estado de origem', 'tnb')?>: </strong>
+                        <?php foreach ($header_data['filtro_origem_uf'] as $uf):?><?php echo $sep1 . __($estados[$uf],'tnb');?><?php $sep1 = ', '; endforeach;?>
+                    <?php endif; ?>
+                <?php endif;?>
             
             
-           <?php if($header_data['filtro_residencia_pais']): $pais = get_paises(); $estados = get_estados();?>
-                <br /><strong><?php _e('País de residência','tnb'); ?>:</strong> <?php _e($pais[$header_data['filtro_residencia_pais']], 'tnb')?>
-                <?php if($header_data['filtro_residencia_uf']):?>
-                    <br />
-                    <strong><?php _e('Estado de residência', 'tnb')?>:</strong> 
-                    <?php foreach ($header_data['filtro_residencia_uf'] as $uf):?><?php echo $sep2 . __($estados[$uf],'tnb');?><?php $sep2 = ', '; endforeach;?>
-                <?php endif; ?>
-            <?php endif;?>
+               <?php if($header_data['filtro_residencia_pais']): $pais = get_paises(); $estados = get_estados();?>
+                    <br /><strong><?php _e('País de residência','tnb'); ?>:</strong> <?php _e($pais[$header_data['filtro_residencia_pais']], 'tnb')?>
+                    <?php if($header_data['filtro_residencia_uf']):?>
+                        <br />
+                        <strong><?php _e('Estado de residência', 'tnb')?>:</strong> 
+                        <?php foreach ($header_data['filtro_residencia_uf'] as $uf):?><?php echo $sep2 . __($estados[$uf],'tnb');?><?php $sep2 = ', '; endforeach;?>
+                    <?php endif; ?>
+                <?php endif;?>
+            </p>
         </div>
     </section>
     <!-- .restrictions -->
