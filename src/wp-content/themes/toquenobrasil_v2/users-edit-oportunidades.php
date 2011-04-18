@@ -224,48 +224,47 @@
             <h5 class="title"><?php _e("Filtro", "tnb"); ?></h5><br />
             <?php $estilos = get_estilos_musicais(); ?>
             
-            <?php _e('Utilize estes campos para restringir as inscrições às bandas que se enquadrem aos itens selecionados abaixo. Para permitir todos, não selecione nada.','tnb');?>
+            <p><?php _e('Utilize estes campos para restringir as inscrições às bandas que se enquadrem aos itens selecionados abaixo. Para permitir todos, não selecione nada.','tnb');?></p>
             
-            <div class='clearfix'>
-                <div class="grid_5" id="evento_filtro_origem_div" style='margin:4px'>
-                    <?php _e('Local de Origem','tnb'); ?><br />
-                    <select id='evento_filtro_origem_pais' name='evento_filtro_origem_pais'>
-                        <option value=''><?php _e('sem restrição', 'tnb'); ?></option>
-                    <?php foreach(get_paises() as $sigla=>$pais):?>
-                        <option value="<?php echo $sigla; ?>" <?php if($event_meta['evento_filtro_origem_pais'] == $sigla) echo 'selected="selected"'?>><?php echo $pais; ?></option>
-                    <?php endforeach;?>
-                    </select>
-                    <div class='oportunidade-filtro'>
-                    <?php foreach($estados as $uf => $name): if($uf): ?>
-                        <label class='reset-label'><input type="checkbox" name="evento_filtro_origem_uf[]" value="<?php echo $uf?>" <?php if(in_array($uf, $event_meta['evento_filtro_origem_uf'])) echo 'checked="checked" ';?>/> <?php echo $name;?></label><br />
-                    <?php endif; endforeach;?>
-                    </div>
-                </div>
-                
-                <div class="grid_5" id="evento_filtro_residencia_div" style='margin:4px'>
-                    <?php _e('Local de Residência','tnb'); ?><br />
-                    <select id='evento_filtro_residencia_pais' name='evento_filtro_residencia_pais'>
-                        <option value=''><?php _e('sem restrição', 'tnb'); ?></option>
-                    <?php foreach(get_paises() as $sigla=>$pais):?>
-                        <option value="<?php echo $sigla; ?>" <?php if($event_meta['evento_filtro_residencia_pais'] == $sigla) echo 'selected="selected"'?>><?php echo $pais; ?></option>
-                    <?php endforeach;?>
-                    </select>
-                    <div class='oportunidade-filtro'>
-                    <?php foreach($estados as $uf => $name): if($uf): ?>
-                        <label class='reset-label'><input type="checkbox" name="evento_filtro_residencia_uf[]" value="<?php echo $uf?>" <?php if(in_array($uf, $event_meta['evento_filtro_residencia_uf'])) echo 'checked="checked" ';?>/> <?php echo $name;?></label><br />
-                    <?php endif; endforeach;?>
-                    </div>
-                </div>
-                <div class='clear'></div>
-                <div class="grid_3" id="evento_filtro_estilo_div" style='margin:4px'>
-                    <?php _e('Estilo Musical','tnb'); ?><br />
-                    <div class='oportunidade-filtro'>
-                    <?php foreach($estilos as $estilo): ?>
-                        <label class='reset-label'><input type="checkbox" name="evento_filtro_estilo[]" value="<?php echo htmlentities(utf8_decode($estilo)); ?>" <?php if(in_array($estilo, $event_meta['evento_filtro_estilo'])) echo 'checked="checked" ';?>/> <?php echo $estilo;?></label><br />
-                    <?php endforeach;?>
-                    </div>
+            <div id="evento_filtro_origem_div" class='clearfix'>
+                <label><?php _e('Local de Origem','tnb'); ?></label>
+                <select id='evento_filtro_origem_pais' name='evento_filtro_origem_pais'>
+                    <option value=''><?php _e('sem restrição', 'tnb'); ?></option>
+                <?php foreach(get_paises() as $sigla=>$pais):?>
+                    <option value="<?php echo $sigla; ?>" <?php if($event_meta['evento_filtro_origem_pais'] == $sigla) echo 'selected="selected"'?>><?php echo $pais; ?></option>
+                <?php endforeach;?>
+                </select>
+                <div class='oportunidade-filtro'>
+                <?php foreach($estados as $uf => $name): if($uf): ?>
+                    <label class='reset-label'><input type="checkbox" name="evento_filtro_origem_uf[]" value="<?php echo $uf?>" <?php if(in_array($uf, $event_meta['evento_filtro_origem_uf'])) echo 'checked="checked" ';?>/> <?php echo $name;?></label><br />
+                <?php endif; endforeach;?>
                 </div>
             </div>
+                
+            <div id="evento_filtro_residencia_div" class="clearfix">
+                <label><?php _e('Local de Residência','tnb'); ?></label>
+                <select id='evento_filtro_residencia_pais' name='evento_filtro_residencia_pais'>
+                    <option value=''><?php _e('sem restrição', 'tnb'); ?></option>
+                <?php foreach(get_paises() as $sigla=>$pais):?>
+                    <option value="<?php echo $sigla; ?>" <?php if($event_meta['evento_filtro_residencia_pais'] == $sigla) echo 'selected="selected"'?>><?php echo $pais; ?></option>
+                <?php endforeach;?>
+                </select>
+                <div class='oportunidade-filtro'>
+                <?php foreach($estados as $uf => $name): if($uf): ?>
+                    <label class='reset-label'><input type="checkbox" name="evento_filtro_residencia_uf[]" value="<?php echo $uf?>" <?php if(in_array($uf, $event_meta['evento_filtro_residencia_uf'])) echo 'checked="checked" ';?>/> <?php echo $name;?></label><br />
+                <?php endif; endforeach;?>
+                </div>
+            </div>
+
+            <div id="evento_filtro_estilo_div" class="clearfix">
+                <label><?php _e('Estilo Musical','tnb'); ?></label>
+                <div class='oportunidade-filtro'>
+                <?php foreach($estilos as $estilo): ?>
+                    <label class='reset-label'><input type="checkbox" name="evento_filtro_estilo[]" value="<?php echo htmlentities(utf8_decode($estilo)); ?>" <?php if(in_array($estilo, $event_meta['evento_filtro_estilo'])) echo 'checked="checked" ';?>/> <?php echo $estilo;?></label><br />
+                <?php endforeach;?>
+                </div>
+                </div>
+
             <hr />
             <h5 class="title"><?php _e("Local", "tnb"); ?></h5>
             <div class="clear"></div>
