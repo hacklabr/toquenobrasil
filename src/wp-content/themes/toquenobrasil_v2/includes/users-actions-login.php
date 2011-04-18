@@ -1,5 +1,17 @@
 <?php 
 
+if ( $_GET['delete_profile'] && wp_verify_nonce($_GET['delete_profile'], 'delete_profile_' . $profileuser->ID ) ) {
+    include(ABSPATH . '/wp-admin/includes/user.php');
+    
+    $to = get_bloginfo('admin_email');
+    wp_mail($to, '[TNB] Perfil apagado', "O usuário $profileuser->display_name acabou de apagar seu perfil", 'Content-Type: text/html');
+    
+    wp_delete_user($profileuser->ID);
+    wp_redirect(get_bloginfo('siteurl'));
+    exit;
+
+}
+
 if(isset($_REQUEST['tnb_user_action']) && $_REQUEST['tnb_user_action'] == 'edit-login') {
 
     if(!filter_var( $_POST['user_email'], FILTER_VALIDATE_EMAIL))

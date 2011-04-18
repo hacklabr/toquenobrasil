@@ -53,6 +53,31 @@
             <input type="submit" value="Salvar" class="submit" />
         </div>
         <!-- .clearfix -->
+        
+        <h2 class="section-title">
+            <span class="bg-blue"><?php _e("Encerrar conta", "tnb"); ?></span>
+        </h2>
+        
+        <div class="clearfix">
+            <a id="delete_profile_link" href="<?php echo add_query_arg('delete_profile', wp_create_nonce('delete_profile_' . $profileuser->ID) ); ?>" >
+                <span><?php _e("Encerrar minha conta no TNB", "tnb"); ?></span>
+            </a>
+             - <?php _e("Todos as minhas publicações serão permanentemente removidas", "tnb"); ?>
+        </div>
+        
+        <script>
+        
+        jQuery('#delete_profile_link').click(function() {
+            if (confirm('<?php _e('Tem certeza que deseja encerrar sua conta no TNB? Não há como desfazer essa ação!', 'tnb'); ?>')) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+        
+        </script>
+        
+        
     </form>
 </section>
 <!-- #login -->
