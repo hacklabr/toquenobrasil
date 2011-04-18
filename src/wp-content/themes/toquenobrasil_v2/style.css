@@ -382,7 +382,7 @@ section.profile form#opportunity-form nav ul li a:hover { background:#444; }
 section.profile form#opportunity-form nav ul li a.current { background:#04BAEE; }
 section.profile form#opportunity-form .content { border:1px solid #666; border-radius:0 4px 4px 4px; margin:0 0 17px 0; padding:17px; }
 section.profile form#opportunity-form img { height:auto; margin-left:4px; width:392px; }
-section.profile form#opportunity-form div.oportunidade-filtro { margin-left:160px; width:413px; }
+section.profile form#opportunity-form div.oportunidade-filtro { height:130px; margin-left:160px; width:413px; }
 
 /* =perfil público */
 .public-profile hr { margin-top:20px; }
