@@ -5,13 +5,13 @@ function printFullPlayer($playlist) {
     if (!is_array($playlist))
         return false;
         
-    
+    $playerID = uniqid();
     ?>
     <script type="text/javascript">
     
     jQuery(document).ready(function(){
     
-        var audioPlaylist = new Playlist("1", [
+        var audioPlaylist = new Playlist("<?php echo $playerID; ?>", [
             
             <?php $first = true; foreach ($playlist as $song): ?>
             <?php if ($first) {$first = false;} else {echo ',';} ?>
@@ -48,10 +48,10 @@ function printFullPlayer($playlist) {
     });
     
     </script>
-    <div class="jplayer" id="jquery_jplayer_1"></div>
+    <div class="jplayer" id="jquery_jplayer_<?php echo $playerID; ?>"></div>
         <div class="jp-audio">
             <div class="jp-type-playlist">
-                <div id="jp_interface_1" class="jp-interface clearfix">
+                <div id="jp_interface_<?php echo $playerID; ?>" class="jp-interface clearfix">
                     <ul class="jp-controls">
                         <li><a href="#" class="jp-previous" tabindex="1">previous</a></li>
                         <li><a href="#" class="jp-play" tabindex="1">play</a></li>
@@ -75,7 +75,7 @@ function printFullPlayer($playlist) {
                 </div>
                 <!-- .jp-controls -->
                 <div class="clear"></div>
-                <div id="jp_playlist_1" class="jp-playlist">
+                <div id="jp_playlist_<?php echo $playerID; ?>" class="jp-playlist">
                     <ul>
                         <!-- The method Playlist.displayPlaylist() uses this unordered list -->
                         <li></li>

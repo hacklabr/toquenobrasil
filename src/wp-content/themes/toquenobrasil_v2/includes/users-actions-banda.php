@@ -34,7 +34,7 @@ if(isset($_REQUEST['tnb_user_action']) && $_REQUEST['tnb_user_action'] == 'edit-
         $userdata['ID'] = $profileuser->ID;
         $userdata['display_name'] = $_POST['banda'];
         
-        $userdata['description'] = $_POST['description'];
+        $userdata['description'] = strip_tags($_POST['description'], '<p><a><img><blockquote><i><b><hr>');
 
         $rt = wp_update_user($userdata);
         
@@ -65,7 +65,7 @@ if(isset($_REQUEST['tnb_user_action']) && $_REQUEST['tnb_user_action'] == 'edit-
         foreach ($updateMetaFields as $field) {
             
             // Salva no banco
-            update_user_meta( $profileuser->ID, $field , $_POST[$field] );
+            update_user_meta( $profileuser->ID, $field , strip_tags($_POST[$field], '<p><a><img><blockquote><i><b><hr>') );
             
             // Atualiza usuário para visualização
             $profileuser->$field = $_POST[$field];

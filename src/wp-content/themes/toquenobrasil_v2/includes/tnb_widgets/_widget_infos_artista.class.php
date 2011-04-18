@@ -76,13 +76,13 @@ class Widget_Infos_Artista extends TNB_Widget{
             <?php endif;?>
             
             <?php if($this->property['exibir_release']):?>
-                <p class="bottom"><?php echo nl2br($artista->description); ?></p>
+                <p class="bottom"><?php echo nl2br( strip_tags($artista->description, '<p><a><img><blockquote><i><b><hr>') ); ?></p>
             <?php endif;?>
             
             <?php if($this->property['exibir_integrantes']):?>
                 <p class="bottom">
                     <strong><?php _e('Integrantes','tnb'); ?>:</strong><br />
-                    <?php echo nl2br($artista->integrantes); ?>
+                    <?php echo nl2br( strip_tags($artista->integrantes, '<p><a><img><blockquote><i><b><hr>') ); ?>
                 </p>
             <?php endif;?>
         </div>
@@ -109,12 +109,12 @@ class Widget_Infos_Artista extends TNB_Widget{
         <?php //if (current_user_can('select_artists')): ?>
             <p class="bottom">
                 
-                <?php if($this->property['exibir_telefone'] && $artista->telefone):?>
+                <?php if($this->property['exibir_telefone'] && $artista->telefone): ?>
                     <strong><?php _e('Telefone','tnb'); ?></strong>:                     
                    <?php echo $artista->telefone; ?><br />
                 <?php endif;?>
                                 
-                <?php if($this->property['exibir_email'] && $artista->email_publico):?>
+                <?php if($this->property['exibir_email'] && $artista->email_publico): ?>
                     <strong><?php _e('E-mail','tnb'); ?></strong>: 
                     <?php echo $artista->email_publico; ?>
                 <?php endif;?>
