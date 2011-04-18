@@ -586,6 +586,21 @@ aside .widget img, aside .widget-banner img { border-radius:0; }
 .ui-icon-closethick { background:url("img/fechar.png") no-repeat 0 0 !important; height:20px !important; width:20px !important; }
 #abrir-kit { position:absolute; top:31px; right:20px; z-index:1000; }
 
+/* =MINI PLAYER
+******************************************************************/
+.miniplayer { background:#ccc !important; border-radius:4px; height:24px !important; line-height:1.5; position:relative; width:116px !important; -moz-border-radius:4px;. }
+.miniplayer .jp-audio { background:none; }
+.miniplayer a.jp-play, .miniplayer a.jp-pause { height:24px; margin:0 0 0 3px !important; width:14px; z-index:1; }
+.miniplayer a.jp-play { background:url("img/miniplayer-play.png") no-repeat center center; }
+.miniplayer a.jp-pause { background:url("img/miniplayer-pause.png") no-repeat center center; display:none; }
+.miniplayer ul { height:24px; margin:0 3px 0 0 !important; }
+.miniplayer ul li { display:block !important; height:24px !important; }
+.miniplayer .jp-progress { background:#fff; border:none; height:3px; margin:16px 0 0 0; width:90px !important; }
+.miniplayer .jp-seek-bar { background:#808080; cursor:pointer; height:3px; width:0; }
+.miniplayer .jp-play-bar { background:#00BAEE; height:3px; margin:0 !important; width:0; }
+.miniplayer .time { color:#333; font-size:12px; position:absolute; right:5px; top:-1px; }
+
+
 /* =MISC
 ******************************************************************/
 .box { padding:9px; }

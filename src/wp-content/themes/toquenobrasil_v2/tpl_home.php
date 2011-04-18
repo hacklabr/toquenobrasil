@@ -44,6 +44,28 @@
             <?php WPEB_printBanner('home inferior')?>
         </div>
     </div>
+
+    <div class="clear"></div>
+    
+    <div class="miniplayer jplayer clearfix">
+        <div class="jp-audio clearfix">
+            <div class="jp-type-playlist clearfix">
+                <ul class="jp-controls alignleft clearfix">
+                    <li><a href="#" class="jp-play" tabindex="1">play</a></li>
+                    <li><a href="#" class="jp-pause" tabindex="1">pause</a></li>
+                </ul>
+                <div class="jp-progress alignleft clearfix">
+                    <div class="jp-seek-bar">
+                        <div class="jp-play-bar"></div>
+                    </div>
+                </div>             
+                <div class="time">
+                    <span class="jp-current-time">0:00</span>/<span class="jp-duration">5:31</span>
+                </div>
+                       
+            </div>
+        </div>
+    </div>
     
 
 <?php get_footer(); ?>
