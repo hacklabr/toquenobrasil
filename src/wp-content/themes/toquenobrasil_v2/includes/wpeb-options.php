@@ -95,3 +95,25 @@ function WPEB_getActiveRule(){
 		
 	return 'outras';
 }
+
+
+if(is_admin()){
+    add_action('wp-easy-data-after-save', 'wpeb_save_banner');
+    
+    function wpeb_save_banner($data){
+        global $wpdb;
+        
+        $oldfile = get_attached_file($data->info->image);
+        
+        $filename = str_replace( ABSPATH.'wp-content/uploads/',
+                                 ABSPATH.'wp-content/banners/',
+                                 $oldfile );
+        
+         
+         if(!is_dir(dirname($filename)))
+             mkdir(dirname($filename),0777,true);
+             
+         copy($oldfile, $filename);
+        
+    }
+}

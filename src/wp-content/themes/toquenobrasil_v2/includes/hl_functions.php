@@ -36,3 +36,8 @@ function _pr($var, $die = false){
             die;
     }
 }
+
+function _bt(){
+    global $HL_DEBUG;
+    _pr(debug_backtrace());
+}
