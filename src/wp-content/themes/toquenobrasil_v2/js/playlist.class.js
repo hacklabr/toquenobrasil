@@ -241,5 +241,55 @@ jQuery(document).ready(function(){
 		}
 	};
     
+    
+    
+    // Classe de playlist single - uma música só //
+    
+    SinglePlaylist = function(instance, playlist, options) {
+		var self = this;
+
+		this.instance = instance; // String: To associate specific HTML with this playlist
+		this.playlist = playlist; // Array of Objects: The playlist
+		this.options = options; // Object: The jPlayer constructor options for this playlist
+
+		this.current = 0;
+
+		this.cssId = {
+			jPlayer: "jquery_jplayer_",
+			interface: "jp_interface_"
+		};
+		this.cssSelector = {};
+
+		jQuery.each(this.cssId, function(entity, id) {
+			self.cssSelector[entity] = "#" + id + self.instance;
+		});
+
+        if(!this.options.cssSelectorAncestor) {
+			this.options.cssSelectorAncestor = this.cssSelector.interface;
+		}
+        
+		jQuery(this.cssSelector.jPlayer).jPlayer(this.options);
+
+
+	};
+
+	SinglePlaylist.prototype = {
+		
+		playlistInit: function(autoplay) {
+			
+            jQuery(this.cssSelector.jPlayer).jPlayer("setMedia", this.playlist[0]);
+            
+            if(autoplay) {
+				this.playlistChange(this.current);
+			} else {
+				this.playlistConfig(this.current);
+			}
+		}
+		
+	};
+    
+    
+    
+    
 
 });

@@ -1087,33 +1087,9 @@ function tnb_cache_unset($type, $id){
 
 
 // ------------------- PLAYERS ---------------------- //
+// deprecated -> chama nova função
 function print_audio_player($post_id){
-        global $TanTanWordPressS3Plugin;
-
-        $fileURL = get_option('siteurl') . '/wp-content/uploads/';
-        $fileURL .= get_post_meta($post_id, "_wp_attached_file", true );
-
-        if (is_object($TanTanWordPressS3Plugin))
-            $fileURL = $TanTanWordPressS3Plugin->wp_get_attachment_url($fileURL, $post_id);
-
-        $playerURL = get_option('siteurl').'/wp-content/plugins/audio-player/assets';
-    ?>
-
-    <!-- //PLAYER de áudio-->
-        <script
-        	language="JavaScript" src="<?php echo $playerURL;?>/audio-player.js"></script>
-        <object type="application/x-shockwave-flash"
-        	data="<?php echo $playerURL;?>/player.swf" id="audioplayer1"
-        	class="audioplayer" height="24" width="140" style="visibility: visible">
-        	<param name="movie" value="<?php echo $playerURL;?>/player.swf">
-        	<param name="FlashVars"
-        		value="playerID=1&amp;soundFile=<?php echo $fileURL; ?>">
-        	<param name="quality" value="high">
-        	<param name="menu" value="false">
-        	<param name="wmode" value="transparent">
-        </object>
-
-    <?php
+    printSinglePlayer( ids2playlist(array($post_id)) );
 }
 
 

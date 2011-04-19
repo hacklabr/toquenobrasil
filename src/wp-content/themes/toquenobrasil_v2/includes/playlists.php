@@ -216,7 +216,71 @@ function printCompactPlayer($playlist) {
 
 }
 
+function printSinglePlayer($playlist) {
 
+    if (!is_array($playlist))
+        return false;
+        
+    $playerID = uniqid();
+    ?>
+    <script type="text/javascript">
+    
+    jQuery(document).ready(function(){
+    
+        var audioPlaylist = new SinglePlaylist("<?php echo $playerID; ?>", [
+            
+            <?php $first = true; foreach ($playlist as $song): ?>
+            <?php if ($first) {$first = false;} else {echo ',';} ?>
+            {
+                
+                mp3:"<?php bloginfo('siteurl'); ?>/play/?id=<?php echo $song['id']; ?>"
+                
+            }
+            <?php break; // só 1 ?>
+            <?php endforeach; ?>
+
+        ], {
+            ready: function() {
+                audioPlaylist.playlistInit(false); // Parameter is a boolean for autoplay.
+            },
+            play: function() {
+                jQuery(this).jPlayer("pauseOthers");
+            },
+            swfPath: tnb.baseurl+'/lib/jQuery.jPlayer.2.0.0/',
+            supplied: "mp3"
+        });
+        
+
+    });
+    
+    </script>
+    
+    
+    <div class="jplayer" id="jquery_jplayer_<?php echo $playerID; ?>"></div>
+    <div class="miniplayer jplayer clearfix">
+        <div class="jp-audio clearfix">
+            <div id="jp_interface_<?php echo $playerID; ?>" class="jp-type-playlist jp-interface clearfix">
+                <ul class="jp-controls alignleft clearfix">
+                    <li><a href="#" class="jp-play" tabindex="1">play</a></li>
+                    <li><a href="#" class="jp-pause" tabindex="1">pause</a></li>
+                </ul>
+                <div class="jp-progress alignleft clearfix">
+                    <div class="jp-seek-bar">
+                        <div class="jp-play-bar"></div>
+                    </div>
+                </div>             
+                <div class="time">
+                    <span class="jp-current-time"></span>/<span class="jp-duration"></span>
+                </div>
+                       
+            </div>
+        </div>
+    </div>
+    
+    <?php
+    
+
+}
 
 // recebe um array com IDs de musicas e retorna um array playlist pronto para invocar o player
 function ids2playlist($ids) {
