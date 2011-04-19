@@ -106,7 +106,7 @@ if(is_admin()){
         $oldfile = get_attached_file($data->info->image);
         
         $filename = str_replace( ABSPATH.'wp-content/uploads/',
-                                 ABSPATH.'wp-content/banners/',
+                                 ABSPATH.'wp-content/uploads/banners/',
                                  $oldfile );
         
          

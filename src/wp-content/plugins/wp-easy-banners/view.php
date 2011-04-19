@@ -4,7 +4,7 @@ $banner = addslashes(preg_replace('/\.\.\//', '', $_GET['banner']));
 $id = $_GET['id'];
 $posicao_ID = $_GET['posicao_ID'];
 
-$uploadPath = substr(__FILE__, 0, strpos(__FILE__, 'wp-content') + 11) . 'banners/';
+$uploadPath = substr(__FILE__, 0, strpos(__FILE__, 'wp-content') + 11) . 'uploads/banners/';
 
 if($_GET['logged'] != 1){
     
