@@ -19,7 +19,7 @@ function tnb_admin_oportunidades() {
 
 function tnb_admin_top10() { 
 
-	echo 'top';
+	include 'relatorio-top10.php';
 
 } 
 
