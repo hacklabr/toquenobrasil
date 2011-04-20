@@ -4,6 +4,7 @@ RewriteEngine On
 ########################################
 ## NÂO OUSE TIRAR ISSO DAQUI!! ##
 #RewriteRule ^(/)?eventos(/.+) /oportunidades$2 [R,L]
+#RewriteRule ^(/)?rede/([^/]+)$ http://$2.tnb.art.br [R,L]
 
 RewriteBase /toquenobrasil/
 RewriteRule ^index\.php$ - [L]
