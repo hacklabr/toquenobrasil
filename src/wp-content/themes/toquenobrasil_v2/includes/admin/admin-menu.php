@@ -13,7 +13,7 @@ function tnb_admin_menu() {
 
 function tnb_admin_oportunidades() { 
 
-	echo 'bla';
+	include 'relatorio-oportunidades.php';
 
 } 
 

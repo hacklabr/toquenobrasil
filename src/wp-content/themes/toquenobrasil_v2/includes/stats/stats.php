@@ -31,7 +31,7 @@ function tnb_stats_add_eventos_view($id) {
  */
 
 function tnb_stats_add($type, $object_id, $day = null) {
-
+    
     // Não contar para admin
     if (current_user_can('manage_options'))
         return false;
@@ -58,7 +58,7 @@ function tnb_stats_add($type, $object_id, $day = null) {
             break;
         
         case 'downloads':
-        
+            
             $downloads = get_post_meta($object_id, '_downloads', true);
             $downloads = is_numeric($downloads) ? $downloads = (int) $downloads + 1 : 1;
             update_post_meta($object_id, '_downloads', $downloads);
