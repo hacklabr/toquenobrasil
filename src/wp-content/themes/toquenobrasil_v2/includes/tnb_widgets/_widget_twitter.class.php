@@ -68,7 +68,18 @@ class Widget_Twitter extends TNB_Widget{
             $object = new stdClass();
             $object->property = array();
             $object->property['num_posts'] = 4;
-            $object->property['twitter_user'] = $curauth->twitter[0] == '@' ? substr($curauth->twitter, 1) : $curauth->twitter;
+            
+            $object->property['twitter_user'] = '';
+            
+            if ($curauth->twitter != '') {
+                if ($curauth->twitter[0] == '@') {
+                    $object->property['twitter_user'] = substr($curauth->twitter, 1);
+                } elseif ( preg_match('|twitter.com/|', $curauth->twitter) ) {
+                    $object->property['twitter_user'] = substr( $curauth->twitter, strrpos($curauth->twitter, '/') + 1 );
+                }
+                
+            } 
+            
         }
         //$user = get_user_by('id', $this->user_id);
         
