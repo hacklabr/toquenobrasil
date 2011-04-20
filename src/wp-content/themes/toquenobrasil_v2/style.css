@@ -556,6 +556,8 @@ aside .widget img, aside .widget-banner img { border-radius:0; }
 .ultimo-usuario { position:relative; padding-left:80px; margin-bottom:11px; min-height:70px; }
 .ultimo-usuario img { position:absolute; left:0; }
 
+aside .banner_institucional h2 { background:none !important; color:#04BAEE !important; font-size:1.5em !important; line-height:1 !important; margin:0 !important; padding:0 !important; }
+
 /* =GENERAL NAVIGATION (NEXT | PREVIOUS)
 ******************************************************************/
 .navigation { margin:14px 0; padding:0 9px; }

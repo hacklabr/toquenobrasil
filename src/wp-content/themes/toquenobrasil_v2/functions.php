@@ -34,6 +34,7 @@ include(TEMPLATEPATH . '/includes/tnb_widgets/tnb_widget.class.php');
 /* Widgets editoriais */
 include(TEMPLATEPATH . '/includes/widgets/proximos_eventos.php');
 include(TEMPLATEPATH . '/includes/widgets/ultimos_usuarios.php');
+include(TEMPLATEPATH . '/includes/widgets/banner_institucional.php');
 
 /* Widgets do perfil */
 include(TEMPLATEPATH . '/includes/tnb_widgets/_widget_texto.class.php');
