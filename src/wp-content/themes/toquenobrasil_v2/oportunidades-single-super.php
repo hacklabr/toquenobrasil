@@ -2,7 +2,7 @@
 global $oportunidade_item;
 $oportunidade_item = $post;
 
-$sub_oportunidades = $wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE post_type = 'eventos' AND post_parent = '$post->ID'");
+$sub_oportunidades = $wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE post_type = 'eventos' AND post_parent = '$post->ID' AND post_status='publish'");
 ?>
 
 <article id="<?php echo $oportunidade_item->post_name; ?>" class="opportunity grid_11 clearfix box-shadow">

@@ -49,9 +49,10 @@ if($widget_group->editable() && isset($_POST['tnb_header_action']) && $_POST['tn
         
         $si->load($_FILES['header_image']['tmp_name']);
         
-        $si->resizeToWidth(922);
-        $si->save($_FILES['header_image']['tmp_name']);
-        
+        if($si->getWidth() > 922){
+            $si->resizeToWidth(922);
+            $si->save($_FILES['header_image']['tmp_name'], $si->image_type, 100);
+        }
         $post_data = array(
         	'post_author' => $curauth->ID,
             'post_title' => 'header_background_image'
@@ -164,7 +165,7 @@ if($widget_group->editable() && isset($_POST['tnb_header_action']) && $_POST['tn
                 <div class="box" style="position:relative; min-height:132px; z-index:0">
                     
                     <?php if($perfil_header['image_url']):?>
-                        <img alt="<?php echo htmlentities(utf8_decode($curauth->display_name))?>" src="<?php echo $perfil_header['image_url']?>" style='border-radius:5px; display:block; width:923px; -moz-border-radius:5px;'/>
+                        <img alt="<?php echo htmlentities(utf8_decode($curauth->display_name))?>" src="<?php echo $perfil_header['image_url']?>" style='border-radius:5px; display:block; width:922px; -moz-border-radius:5px;'/>
                     <?php endif;?> 
                     <?php if($perfil_header['exibir_nome']):?>
                         <h1><?php echo $curauth->display_name?></h1>
@@ -213,7 +214,7 @@ if($widget_group->editable() && isset($_POST['tnb_header_action']) && $_POST['tn
                             </div>
                             <!-- .exibir-nome-opcoes -->
 
-                            <div class="fundo-label alignleft"><?php _e('Fundo', 'tnb'); ?> <?php _e('(largura: 923px)', 'tnb'); ?></div>
+                            <div class="fundo-label alignleft"><?php _e('Fundo', 'tnb'); ?> <?php _e('(largura: 922px)', 'tnb'); ?></div>
                             <div class="fundo-opcoes alignleft">
                                 <span id="hf-color-selector">
                                     <span class='widget_colorpicker' style='background-color:<?php echo $perfil_header['color'];?>;'>&nbsp;</span>
