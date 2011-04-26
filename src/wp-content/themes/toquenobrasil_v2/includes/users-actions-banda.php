@@ -126,7 +126,7 @@ if(isset($_REQUEST['tnb_user_action']) && $_REQUEST['tnb_user_action'] == 'edit-
             post_type = 'eventos' AND
             post_status = 'publish' AND
             ID in (SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'inscrito' AND meta_value = '{$profileuser->ID}' ) AND
-            ID in (SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'evento_fim' AND meta_value >= CURRENT_TIMESTAMP )
+            ID in (SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'evento_fim' AND meta_value >= CURRENT_TIMESTAMP OR meta_value = '')
             $query_subevents_arovados";
     
        

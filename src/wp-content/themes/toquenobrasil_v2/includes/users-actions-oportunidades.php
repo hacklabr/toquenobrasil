@@ -260,7 +260,7 @@
                  * REMOVE OS INSCRITOS QUE NÃO SE ENQUADRAM NOS FILTROS 
                  */
                 
-                if($event_meta['evento_fim'] && new DateTime(str_replace('/', '-', $event_meta['evento_fim'])) > new DateTime(date("Y-m-d"))){
+                if(!$event_meta['evento_fim'] || (new DateTime(str_replace('/', '-', $event_meta['evento_fim'])) > new DateTime(date("Y-m-d")))){
                     global $wpdb;
                     $arts_ids = $wpdb->get_col("SELECT meta_value FROM $wpdb->postmeta WHERE post_id = '$event->ID' and meta_key = 'inscrito'");
                     $arts_ids = is_array($arts_ids) ? $arts_ids : array();
