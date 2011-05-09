@@ -273,7 +273,7 @@
                         //_vd(tnb_artista_can_join($event->ID, $aid));
                         if(is_artista($aid) && !tnb_artista_can_join($event->ID, $aid)){
                             delete_post_meta($event->ID, 'inscrito', $aid);
-                            do_action('tnb_artista_desinscrito_pelo_filtro', $event->ID, $aid);
+                            do_action('tnb_artista_desinscrito_pelo_filtro', $event, $aid);
                             //_pr('delete');
                         }
                     }

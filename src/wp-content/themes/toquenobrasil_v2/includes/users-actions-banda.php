@@ -135,7 +135,7 @@ if(isset($_REQUEST['tnb_user_action']) && $_REQUEST['tnb_user_action'] == 'edit-
         foreach ($oportunidades as $ops){
             if(!tnb_artista_can_join($ops->ID, $profileuser->ID)){
                 delete_post_meta($ops->ID, 'inscrito', $profileuser->ID);
-                do_action('tnb_artista_desinscrito_pelo_filtro', $ops->ID, $profileuser->ID);
+                //do_action('tnb_artista_desinscrito_pelo_filtro_editado_pelo_artista', $ops->ID, $profileuser->ID);
                 
                 $unjoin .= '<li>'.$ops->post_title.'</li>';
             }

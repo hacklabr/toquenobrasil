@@ -54,7 +54,7 @@ $can_join = tnb_artista_can_join($oportunidade_item->ID);
                 </p>
             <?php endif;?>
         <?php else: ?>
-            <p class="text-center"><?php _e('Você não pode se inscrever pois seu perfil não se enquadra nesta oportunidade.', 'tnb')?></p>
+            <p class="text-center"><?php _e('Você não pode se inscrever pois seu perfil não se enquadra dentro das restrições de estilo musical ou localidade dessa oportunidade.', 'tnb')?></p>
         <?php endif; ?>
     <?php  elseif(!is_user_logged_in()) :?>
       <p class="quero-tocar i-wanna-play text-right">

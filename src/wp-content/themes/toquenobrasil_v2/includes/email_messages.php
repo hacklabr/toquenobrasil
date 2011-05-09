@@ -119,4 +119,31 @@ function tnb_subevento_desativado_por_superevento($superevento, $subevento) {
     wp_mail($produtor->user_email, $subject,$message);
 }
 
+
+////////////////// ARTISTA É DESINSCRITO DE EVENTO PQ PRODUTOR EDITOU AS RESTRICOES ////////
+
+add_action('tnb_artista_desinscrito_pelo_filtro','tnb_sendmail_artista_desinscrito_pelo_filtro', 10, 2);
+/**
+ * Quando um superevento é desativado, todos seus subeventos são desativados também e os produtores dos subeventos são notificados
+ */
+function tnb_sendmail_artista_desinscrito_pelo_filtro($evento, $artista_id) {
+
+
+    $options = get_option('custom_email_notices');
+
+    $artista = get_userdata($artista_id);
+
+    $subject = 'TNB | ' . $subevento->post_title;
+
+    $message = $options['msg_artista_desinscrito_pelo_filtro']?$options['msg_artista_desinscrito_pelo_filtro']:'';
+    
+    $info = __("Oportunidade da qual você foi desinscrito:", 'tnb')             . ": {$evento->post_title}\n";
+    
+    $message = str_replace('{{INFORMACOES}}', $info, $message);
+
+
+    wp_mail($produtor->user_email, $subject,$message);
+}
+
+
 ?>

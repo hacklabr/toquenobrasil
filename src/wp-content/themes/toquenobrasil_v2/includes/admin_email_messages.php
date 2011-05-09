@@ -93,6 +93,15 @@ function custom_email_notices() {
                     {{INFORMACOES}} será substituído pelos dados do Super Evento e do sub evento desativado.
                     </small>
                 </div>
+                
+                <div>
+                    <label for="msg_artista_desinscrito_pelo_filtro"><?php _e("Mensagem para o artista que foi desinscrito de uma oportunidade por causa de mudança nas restrições de genero ou local");?></label><br/>
+                    <textarea id="msg_artista_desinscrito_pelo_filtro" class="large-text code" rows="10" name="custom_email_notices[msg_artista_desinscrito_pelo_filtro]"><?php echo $options['msg_artista_desinscrito_pelo_filtro'];?></textarea><br/>
+                    <small>
+                    <br />
+                    {{INFORMACOES}} será substituído pelos dados da oportunidade da qual o artista foi desinscrito.
+                    </small>
+                </div>
 
                 <p class="submit">
                     <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>"/>
