@@ -133,11 +133,14 @@ function tnb_sendmail_artista_desinscrito_pelo_filtro($evento, $artista_id) {
 
     $artista = get_userdata($artista_id);
 
-    $subject = 'TNB | ' . $subevento->post_title;
+    $subject = 'TNB | ' . $evento->post_title;
 
     $message = $options['msg_artista_desinscrito_pelo_filtro']?$options['msg_artista_desinscrito_pelo_filtro']:'';
     
     $info = __("Oportunidade da qual você foi desinscrito:", 'tnb')             . ": {$evento->post_title}\n";
+    
+    if (!preg_match('/\{\{INFORMACOES\}\}/', $message))
+        $message .= '{{INFORMACOES}}';
     
     $message = str_replace('{{INFORMACOES}}', $info, $message);
 
