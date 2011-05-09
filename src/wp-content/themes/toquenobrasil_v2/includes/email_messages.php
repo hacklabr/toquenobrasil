@@ -142,7 +142,7 @@ function tnb_sendmail_artista_desinscrito_pelo_filtro($evento, $artista_id) {
     $message = str_replace('{{INFORMACOES}}', $info, $message);
 
 
-    wp_mail($produtor->user_email, $subject,$message);
+    wp_mail($artista->user_email, $subject,$message);
 }
 
 
