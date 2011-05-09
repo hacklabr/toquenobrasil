@@ -811,7 +811,38 @@ function get_oportunidades_search_results(){
     
 	$currentdate = date('Y-m-d');
 	
-	$query_local = $wpdb->prepare(" AND ID IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_key='evento_local' AND meta_value LIKE %s)", "%$local%");
+	/** FIX LOCAIS **/
+	$local_sql = false;
+	$paises = get_paises();
+	$estados = get_estados();
+	
+	foreach($paises as $sigla => $pais)
+		if(trim(strtolower($local)) == strtolower($pais)){
+			$local = $sigla;
+			continue;
+		}
+	
+	foreach($estados as $sigla => $estado)
+		if(trim(strtolower($local)) == strtolower($estado)){
+			$local = strtolower($sigla);
+			continue;
+		}
+	
+	
+	if(trim($local)){
+		$local_sql = "AND ID IN (SELECT 
+									DISTINCT post_id 
+								 FROM 
+									$wpdb->postmeta 
+								 WHERE(	meta_key = 'evento_pais' OR 
+										meta_key = 'evento_estado' OR 
+										meta_key = 'evento_cidade' OR
+										meta_key = 'evento_local' ) AND
+									meta_value LIKE '%$local%')";
+	}
+    
+	
+	
 	
 	$query_inscricao = $inscricoes_abertas ? " AND 
 		ID in (SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'evento_inscricao_inicio' AND meta_value <= '$currentdate') AND
@@ -830,9 +861,8 @@ function get_oportunidades_search_results(){
         post_status = 'publish' AND
 		post_title LIKE '%$nome%'
         $query_data
-		$query_local $query_inscricao $query_subevents_arovados";
+		$local_sql $query_inscricao $query_subevents_arovados";
 	
-	//echo " QUERY { $query } ";
 	$ids = $wpdb->get_results($query);
 	$result = array();
 	foreach($ids as $oid)
