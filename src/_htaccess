@@ -13,3 +13,8 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /toquenobrasil/index.php [L]
 </IfModule>
 
+<FilesMatch "\.(ttf|otf|eot|woff|svg)$">
+<IfModule mod_headers.c>
+Header set Access-Control-Allow-Origin "*"
+</IfModule>
+</FilesMatch>
