@@ -786,7 +786,7 @@ function tnb_get_artista_videos($artista_id){
 function get_oportunidades_search_results(){
 	global $wpdb;
 	$nome = $_GET['oportunidade_nome'];
-	$local = $_GET['oportunidade_local'];
+	$local = trim($_GET['oportunidade_local']);
 	$inscricoes_abertas = isset($_GET['oportunidades_abertas']);
 	
     if ($_GET['acontece'] != 'nao_importa' && $_GET['acontece_de'] && $_GET['acontece_ate']) {
@@ -816,33 +816,72 @@ function get_oportunidades_search_results(){
 	$paises = get_paises();
 	$estados = get_estados();
 	
-	foreach($paises as $sigla => $pais)
-		if(trim(strtolower($local)) == strtolower($pais)){
-			$local = $sigla;
-			continue;
+	$_local = remove_accents(strtolower($local));
+	
+	$paises_encontrados = array();
+	foreach($paises as $sigla => $pais){
+		$_pais = remove_accents(trim(strtolower($pais)));
+		if($local && ($_local ==  $_pais || substr_count($_pais, $_local))){
+			$paises_encontrados[] = $sigla;
 		}
+	}
 	
-	foreach($estados as $sigla => $estado)
-		if(trim(strtolower($local)) == strtolower($estado)){
-			$local = strtolower($sigla);
-			continue;
+	$estados_encontrados = array();
+	foreach($estados as $sigla => $estado){
+		$_estado = remove_accents(trim(strtolower($estado)));
+		if($local && ($_local ==  $_estado || substr_count($_estado, $_local))){
+			$estados_encontrados[] = $sigla;
 		}
+	}
 	
-	
-	if(trim($local)){
-		$local_sql = "AND ID IN (SELECT 
+	if($paises_encontrados){
+		foreach ($paises_encontrados as $sigla){
+			$valores_paises .= $valores_paises ? " OR 
+									meta_value = '$sigla'" : "
+									meta_value = '$sigla'";
+		}
+		
+		$sql_paises = sprintf("OR ID IN (SELECT 
 									DISTINCT post_id 
 								 FROM 
 									$wpdb->postmeta 
-								 WHERE(	meta_key = 'evento_pais' OR 
-										meta_key = 'evento_estado' OR 
-										meta_key = 'evento_cidade' OR
+								 WHERE
+								 	meta_key = 'evento_pais' AND (
+								 	%s
+								 	))", $valores_paises);
+	}
+	
+	if($estados_encontrados){
+		foreach ($estados_encontrados as $sigla){
+			$valores_estado .= $valores_estado ? " OR 
+									meta_value = '$sigla'" : "
+									meta_value = '$sigla'";
+		}
+		$sql_estados = sprintf("OR ID IN (SELECT 
+									DISTINCT post_id 
+								 FROM 
+									$wpdb->postmeta 
+								 WHERE
+								 	meta_key = 'evento_estado' AND (
+								 	%s
+								 	))", $valores_estado);
+	}
+	
+	if($local){
+		
+		$local_sql = "AND (ID IN (SELECT 
+									DISTINCT post_id 
+								 FROM 
+									$wpdb->postmeta 
+								 WHERE(	meta_key = 'evento_cidade' OR
 										meta_key = 'evento_local' ) AND
-									meta_value LIKE '%$local%')";
+									meta_value LIKE '%$local%')
+						   	$sql_paises
+							$sql_estados
+						   )";
 	}
     
-	
-	
+		
 	
 	$query_inscricao = $inscricoes_abertas ? " AND 
 		ID in (SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'evento_inscricao_inicio' AND meta_value <= '$currentdate') AND
@@ -862,6 +901,7 @@ function get_oportunidades_search_results(){
 		post_title LIKE '%$nome%'
         $query_data
 		$local_sql $query_inscricao $query_subevents_arovados";
+	
 	
 	$ids = $wpdb->get_results($query);
 	$result = array();
