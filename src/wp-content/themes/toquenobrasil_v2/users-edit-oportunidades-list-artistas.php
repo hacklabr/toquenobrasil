@@ -14,6 +14,7 @@
         post_status = 'publish' AND
         post_title LIKE '%$nome%' AND 
         (ID in (SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'inscrito' AND meta_value = '{$profileuser->ID}' ) OR
+        ID in (SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'inscricao_pendente' AND meta_value = '{$profileuser->ID}' ) OR
         ID in (SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'selecionado' AND meta_value = '{$profileuser->ID}' ))
         $query_subevents_arovados";
 
@@ -67,6 +68,12 @@
                  <?php else:?>
                     <li><span class="label">Inscrições até:</span> <?php echo $data['br_insc_fim']; ?></li>
                  <?php endif;?>
+                 
+                 <?php if($data['inscricao_cobrada']):?>
+				    <li><span class="label">Valor da inscrição: <?php echo get_valor_monetario($data['inscricao_valor'])?></span>
+				 <?php endif; ?>
+                 
+                 
                     <li><span class="label">Local:</span> <?php echo $data['local']; ?></li>
 
             </ul>
@@ -88,6 +95,20 @@
                     <a onclick="jQuery('#form_unjoin_event_<?php echo $post->ID; ?>').submit();"><?php _e('Cancelar inscrição', 'tnb');?></a>
                 </p>
             
+            <?php  elseif(is_artista($profileuser->ID) &&  in_postmeta(get_post_meta($post->ID, 'inscricao_pendente'), $profileuser->ID) && strtotime($data['inscricao_inicio']) <= strtotime(date('Y-m-d')) && strtotime($data['inscricao_fim']) >= strtotime(date('Y-m-d'))): ?>
+
+                <form action='<?php the_permalink();?>' method="post" id='form_unjoin_event_<?php echo $post->ID; ?>'>
+                    <?php wp_nonce_field('unjoin_event'); ?>
+                    <input type="hidden" name="banda_id" value='<?php echo $profileuser->ID; ?>' />
+                    <input type="hidden" name="action" value='unjoin' />
+                    <input type="hidden" name="evento_id" value='<?php echo $post->ID; ?>' />
+                </form>
+
+                <div class="quero-tocar cancel-subscription clearfix">
+                    <?php print_inscricao_pay_button($post->ID, $profileuser->ID);?>
+                    <input type='submit' onclick="jQuery('#form_unjoin_event_<?php echo $post->ID; ?>').submit(); return false;" value='<?php _e('Cancelar inscrição', 'tnb');?>' class='alignleft'/>
+                </div>
+                        
             <?php elseif(strtotime($data['inscricao_fim']) < strtotime(date('Y-m-d'))): ?>
 
                 <p class="quero-tocar inscricoes-encerradas">

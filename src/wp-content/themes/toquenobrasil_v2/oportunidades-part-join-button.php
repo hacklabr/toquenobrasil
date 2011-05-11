@@ -26,6 +26,21 @@ $can_join = tnb_artista_can_join($oportunidade_item->ID);
         <a onclick="jQuery('#form_unjoin_event_<?php echo $oportunidade_item->ID; ?>').submit();" class="btn-green"><?php _e('Cancelar inscrição', 'tnb');?></a>
     </p>
 
+<?php  elseif(is_artista() &&  in_postmeta(get_post_meta($oportunidade_item->ID, 'inscricao_pendente'), $current_user->ID) && strtotime($inscricao_inicio) <= strtotime(date('Y-m-d')) && strtotime($inscricao_fim) >= strtotime(date('Y-m-d'))): ?>
+    
+    <form action='<?php the_permalink();?>' method="post" id='form_unjoin_event_<?php echo $oportunidade_item->ID; ?>'>
+        <?php wp_nonce_field('unjoin_event'); ?>
+        <input type="hidden" name="banda_id" value='<?php echo $current_user->ID; ?>' />
+        <input type="hidden" name="action" value='unjoin' />
+        <input type="hidden" name="evento_id" value='<?php echo $oportunidade_item->ID; ?>' />
+    </form>
+
+    <div class="quero-tocar cancel-subscription text-right append-bottom clearfix">
+        <div class="alignright"><?php print_inscricao_pay_button($oportunidade_item->ID, $current_user->ID); ?></div>
+        <div class="alignright">
+            <a onclick="jQuery('#form_unjoin_event_<?php echo $oportunidade_item->ID; ?>').submit();" class="btn-green"><?php _e('Cancelar inscrição', 'tnb');?></a>
+        </div>
+    </div>
     
 <?php  elseif(!$superevento && strtotime($inscricao_inicio) <= strtotime(date('Y-m-d')) && strtotime($inscricao_fim) >= strtotime(date('Y-m-d'))):?>  
     <?php if( is_artista() ):?>

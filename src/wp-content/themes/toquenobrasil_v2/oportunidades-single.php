@@ -1,5 +1,5 @@
 <?php
-global $oportunidade_item, $join_success, $unjoin_success;
+global $oportunidade_item, $join_success, $unjoin_success, $join_success_evento_pago;
 $oportunidade_item = $post;
 
 $tipo_evento = get_post_meta($oportunidade_item->ID, 'evento_tipo', true);
@@ -15,7 +15,17 @@ $tipo_evento = get_post_meta($oportunidade_item->ID, 'evento_tipo', true);
     <h3><?php echo $oportunidade_item->post_title;?></h3>
     
     <?php if($join_success):?>
-        <div class='success' id='join_success'><?php _e('Suas informações foram enviadas ao produtor da oportunidade para curadoria. <br/> Apos encerramento das inscrições você receberá um email com a resposta positiva ou negativa.', 'tnb');?></div>
+    	<div class='success' id='join_success'><?php _e('Suas informações foram enviadas ao produtor da oportunidade para curadoria. <br/> Apos encerramento das inscrições você receberá um email com a resposta positiva ou negativa.', 'tnb');?></div>
+    <?php endif;?>
+    
+    <?php if($join_success_evento_pago): ?>
+    	
+    	<div class='success' id='join_success'>
+    		<?php _e('Você efetuou a pré-inscrição no evento. <br/> Para confirmar sua inscrição você deve efetuar o pagamento clicando no botão abaixo.', 'tnb');?>
+    		<div class='alignright'><?php print_inscricao_pay_button($oportunidade_item->ID, $current_user->ID); ?></div>
+    	</div>
+    	
+    	
     <?php endif;?>
     
     <?php if($unjoin_success):?>
@@ -31,6 +41,8 @@ $tipo_evento = get_post_meta($oportunidade_item->ID, 'evento_tipo', true);
         
         <?php get_template_part('oportunidades-part-selecionados'); ?>
         <?php get_template_part('oportunidades-part-inscritos'); ?>
+        
+        <?php get_template_part('oportunidades-part-inscricoes-pendentes'); ?>
     </div>
     <!-- .content -->
 </article>

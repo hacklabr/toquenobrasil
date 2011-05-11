@@ -1,3 +1,4 @@
+var submiting_form = false;
 jQuery(document).ready(function(){
     var $ = jQuery;
     
@@ -50,6 +51,10 @@ jQuery(document).ready(function(){
                 },
                 'json'
             );
+            if(!submiting_form){
+            	jQuery('.contrato_lock').attr('disabled',true);
+            }
+            
         } else {
             $('#evento_condicoes_div').find('input,textarea').each(function() { jQuery(this).attr('disabled',false) });
             $('#evento_condicoes_div').find('.forced').hide();
@@ -57,6 +62,10 @@ jQuery(document).ready(function(){
             $('#evento_tos_div').find('.forced').hide();
             $('textarea#evento_restricoes').attr('disabled',false);
             $('#evento_restricoes_div').find('.forced').hide();
+            
+            if(!submiting_form){
+            	jQuery('.contrato_lock').attr('disabled',true);
+            }
         }
     });
 
@@ -123,4 +132,6 @@ jQuery(document).ready(function(){
             $(this).val('http://'+$(this).val());
         }
     });
+    
+    
 });

@@ -16,6 +16,14 @@ if($current_user && isset($_REQUEST['tnb_user_action'])){
     
     
     switch($_REQUEST['tnb_user_action']){
+    	case 'contrato-oportunidade-aceitar':
+    		set_contrato_inscricao_aceito($_POST['evento_id']);
+    	break;
+    	
+    	case 'contrato-oportunidade-recusar':
+    		set_contrato_inscricao_recusado($_POST['evento_id']);
+    	break;
+    	
         case 'delete-media':
             
             $media_id = $_REQUEST['mid'];

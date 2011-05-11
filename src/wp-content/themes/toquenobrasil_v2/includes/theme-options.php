@@ -107,7 +107,19 @@ function theme_customization_page() {
                 <input type="text" name="theme_customization[iam_producer_explanation]" value="<?php echo htmlspecialchars($options['iam_producer_explanation']); ?>" />
             </p>
 
+
+			<h3><?php _e('PagSeguro', 'tnb'); ?></h3>
+			<p>
+                <label for="theme_customization[tnb_pagseguro_token]">
+                    <strong><?php _e("TOKEN", "tnb"); ?></strong>
+                </label>
+                <br/>
+                <input type="text" name="theme_customization[tnb_pagseguro_token]" value="<?php echo htmlspecialchars($options['tnb_pagseguro_token']); ?>" style='width:300px;'/>
+            </p>
+            
             <p><input type="submit" value="<?php _e('Salvar','tnb'); ?>" class="button-primary"/></p>
+            
+            
         </form>
     </div>
 

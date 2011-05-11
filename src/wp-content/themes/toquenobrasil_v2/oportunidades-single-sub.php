@@ -27,6 +27,8 @@ $oportunidade_item = $post;
         <?php get_template_part('oportunidades-part-selecionados'); ?>
         <?php get_template_part('oportunidades-part-inscritos'); ?>
         
+        <?php get_template_part('oportunidades-part-inscricoes-pendentes'); ?>
+        
     </div>
     <!-- .content -->
 </article>

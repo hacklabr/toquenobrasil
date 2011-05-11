@@ -47,6 +47,10 @@
          <?php else:?>
             <li><span class="label">Inscrições até:</span> <?php echo $data['br_insc_fim']; ?></li>
          <?php endif;?>
+         
+         <?php if(!strtotime($data['inscricao_fim']) < strtotime(date('Y-m-d')) && $data['inscricao_cobrada']): ?>
+         	<li><span class="label"><?php _e('valor da inscrição','tnb')?>:</span> <?php echo get_valor_monetario($data['inscricao_valor']); ?></li>
+         <?php endif;?>
             <li><span class="label">Local:</span> <?php echo $local; ?></li>
         </ul>
     </div>

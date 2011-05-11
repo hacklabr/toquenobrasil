@@ -2,7 +2,8 @@
 global $oportunidade_item;
 $oportunidade_item = $post;
 
-$sub_oportunidades = $wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE post_type = 'eventos' AND post_parent = '$post->ID' AND post_status='publish'");
+$sub_oportunidades = $wpdb->get_results("
+	SELECT * FROM {$wpdb->posts} WHERE post_type = 'eventos' AND post_parent = '$post->ID' AND post_status='publish' AND ID IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'aprovado_para_superevento' AND meta_value = '$post->ID')");
 ?>
 
 <article id="<?php echo $oportunidade_item->post_name; ?>" class="opportunity grid_11 clearfix box-shadow">
@@ -18,6 +19,8 @@ $sub_oportunidades = $wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE post
         
         <?php if (current_user_can('edit_post', $oportunidade_item->ID)): ?>
             <p>
+            <a class="btn-grey" href="<?php echo add_query_arg(array('exportar_tipo' => 'superevento', 'exportar' =>'inscricao_pendente'));?>"><?php _e('Exportar planilha de inscrições pendentes em todos as oportunidades dentro desta oportunidade'); ?></a>
+            <br />
             <a class="btn-grey" href="<?php echo add_query_arg(array('exportar_tipo' => 'superevento', 'exportar' =>'inscrito'));?>"><?php _e('Exportar planilha de inscritos em todos as oportunidades dentro desta oportunidade'); ?></a>
             <br />
             <a class="btn-grey" href="<?php echo add_query_arg(array('exportar_tipo' => 'superevento', 'exportar' => 'selecionado'));?>"><?php _e('Exportar planilha de selecionados em todos as oportunidades dentro desta oportunidade'); ?></a>

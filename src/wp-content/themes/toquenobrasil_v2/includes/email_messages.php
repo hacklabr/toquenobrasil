@@ -119,6 +119,54 @@ function tnb_subevento_desativado_por_superevento($superevento, $subevento) {
     wp_mail($produtor->user_email, $subject,$message);
 }
 
+// ========================= SISTEMA DE PAGAMENTO ========================= // 
+
+////// PRODUTOR CADASTROU UM EVENTO COM COBRANÇA //////
+add_action('tnb_produtor_cadastrou_evento_cobranca', 'tnb_email_messages_produtor_cadastrou_evento_cobranca',10,1);
+function tnb_email_messages_produtor_cadastrou_evento_cobranca($evento_id){
+    _pr('ENVIA EMAIL PARA EDITOR: tnb_email_messages_produtor_cadastrou_evento_cobranca');
+}
+
+// PRODUTOR ACEITOU CONTRATO
+add_action('tnb_produtor_aceitou_contrato_inscricao', 'tnb_email_messages_produtor_aceitou_contrato_inscricao',10,1);
+function tnb_email_messages_produtor_aceitou_contrato_inscricao($evento_id){
+    _pr('ENVIA EMAIL PARA EDITOR: tnb_email_messages_produtor_aceitou_contrato_inscricao');
+}
+
+// PRODUTOR RECUSOU CONTRATO
+add_action('tnb_produtor_recusou_contrato_inscricao', 'tnb_email_messages_produtor_recusou_contrato_inscricao',10,1);
+function tnb_email_messages_produtor_recusou_contrato_inscricao($evento_id){
+    _pr('ENVIA EMAIL PARA EDITOR: tnb_email_messages_produtor_recusou_contrato_inscricao');
+}
+
+///// EDITOR REVISOU UM EVENTO COM COBRANÇA 
+add_action('tnb_editor_revisou_evento_cobranca', 'tnb_email_messages_editor_revisou_evento_cobranca',10,1);
+function tnb_email_messages_editor_revisou_evento_cobranca($evento_id){
+    _pr('ENVIA EMAIL PARA PRODUTOR: tnb_email_messages_editor_revisou_evento_cobranca');
+}
+
+add_action('tnb_artista_inscreveu_em_um_evento_pago','tnb_email_messages_artista_inscreveu_em_um_evento_pago',10,2);
+function tnb_email_messages_artista_inscreveu_em_um_evento_pago($evento_id, $artista_id){
+	_pr('ENVIA EMAIL PARA PRODUTOR: tnb_email_messages_artista_inscreveu_em_um_evento_pago');
+}
+
+add_action('tnb_artista_desinscreveu_em_um_evento_em_que_estava_pendente','tnb_email_messages_artista_desinscreveu_em_um_evento_em_que_estava_pendente',10,2);
+function tnb_email_messages_artista_desinscreveu_em_um_evento_em_que_estava_pendente($evento_id, $artista_id){
+	_pr('ENVIA_EMAIL_PARA PRODUTOR: tnb_email_messages_artista_desinscreveu_em_um_evento_em_que_estava_pendente');
+}
+
+add_action('tnb_artista_inscricao_confirmada_em_evento_pago','tnb_email_messages_artista_inscricao_confirmada_em_evento_pago',10,1);
+function tnb_email_messages_artista_inscricao_confirmada_em_evento_pago($inscricao_id){
+	// $inscricao_id == meta_id do post_meta 'inscrito'
+	//_pr('ENVIA_EMAIL_PARA PRODUTOR: tnb_email_messages_artista_desinscreveu_em_um_evento_em_que_estava_pendente');
+}
+
+add_action('tnb_editor_efetuou_pagamento_inscricoes','tnb_email_messages_editor_efetuou_pagamento_inscricoes',10,1);
+function tnb_email_messages_editor_efetuou_pagamento_inscricoes($evento_id){
+	_pr('ENVIA_EMAIL_PARA PRODUTOR: tnb_email_messages_editor_efetuou_pagamento_inscricoes');
+}
+
+
 
 ////////////////// ARTISTA É DESINSCRITO DE EVENTO PQ PRODUTOR EDITOU AS RESTRICOES ////////
 
@@ -147,6 +195,5 @@ function tnb_sendmail_artista_desinscrito_pelo_filtro($evento, $artista_id) {
 
     wp_mail($artista->user_email, $subject,$message);
 }
-
 
 ?>

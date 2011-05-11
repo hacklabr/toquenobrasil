@@ -37,5 +37,26 @@ if (!get_option('tnb_sql_25')) {
     
 }
 
+if(!get_option('tnb_sql_27')){
+	update_option('tnb_sql_27', 1);
+	
+	global $wpdb;
+	$sql = "
+CREATE TABLE IF NOT EXISTS `pagseguro_transacoes` (
+  `insert_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `TransacaoID` varchar(255) NOT NULL,
+  `StatusTransacao` varchar(255) NOT NULL,
+  `DataTransacao` varchar(255) NOT NULL,
+  `Referencia` varchar(255) NOT NULL,
+  `ProdID` varchar(255) NOT NULL,
+  `ProdValor` varchar(255) NOT NULL,
+  `ProdDescricao` varchar(255) NOT NULL,
+  `CliNome` varchar(255) NOT NULL,
+  `CliEmail` varchar(255) NOT NULL,
+  `CliTelefone` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+	
+	$wpdb->query($sql);
+}
 
 ?>

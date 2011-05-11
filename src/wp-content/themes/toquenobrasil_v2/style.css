@@ -15,12 +15,12 @@ Version:1.1
  amarelo - #FCEA0D
  verde - #76B72A
  cinza claro- #999
- cinza mÃ©dio - #666
+ cinza mÃƒÂ©dio - #666
  cinza escuro - #333
 */
 
 
-/* para navegadores que não suportam estes elementos do html5 */
+/* para navegadores que nÃ£o suportam estes elementos do html5 */
 section, article, header, footer, nav, aside, hgroup { display:block; }
 
 
@@ -48,7 +48,7 @@ body { background:#fff url(img/pattern.jpg) fixed center center; }
 #institutional ul ul a { display:block; padding:3px 14px; }
 #institutional ul ul a:hover { background:#999; }
 
-/* =Menu Principal e Navegação do Usuário */
+/* =Menu Principal e NavegaÃ§Ã£o do UsuÃ¡rio */
 #main-menu, .user-nav { float:left; padding:8px 0; }
 
 /* =Menu Principal */
@@ -63,7 +63,7 @@ body { background:#fff url(img/pattern.jpg) fixed center center; }
 #main-menu ul ul a { background:#04BAEE; border-radius:0 !important; display:block; height:auto; line-height:14px; padding:3px 14px; text-transform:none; -moz-border-radius:0; }
 #main-menu ul ul a:hover { background:#0071BC; }
 
-/* =Formulário de Busca do header */
+/* =FormulÃ¡rio de Busca do header */
 #searchform { position:relative; width:124px; float:left; padding:8px; }
 #searchform #s { border-radius:4px 0 0 4px; float:left; width:98px; -moz-border-radius:4px 0 0 4px; }
 #searchform input[type=image] { background:#fff; border-radius:0 4px 4px 0; float:left; -moz-border-radius:0 4px 4px 0; }
@@ -74,7 +74,7 @@ body { background:#fff url(img/pattern.jpg) fixed center center; }
 #searchform:hover { background:#FCEA0D; }
 #searchform:hover #search-options { display:block; }
 
-/* =Navegação do Usuário */
+/* =NavegaÃ§Ã£o do UsuÃ¡rio */
 .user-nav { background:#04BAEE; float:right; line-height:1.4; padding:8px 10px; width:265px; }
 .user-nav li { float:left; }
 .user-nav li.username { height:18px; position:relative; }
@@ -89,7 +89,7 @@ body { background:#fff url(img/pattern.jpg) fixed center center; }
 .user-nav li.logout a { background:#0071BC; border-radius:4px; display:block; height:20px; line-height:20px; padding:0 6px; -moz-border-radius:4px; }
 .user-nav li.logout a:hover { background:#0071BC; }
 
-/* =Formulário de Login */
+/* =FormulÃ¡rio de Login */
 #loginform #login, #loginform #password { width:104px; }
 #loginform input[type=submit] { background:#0071BC; width:40px; }
 
@@ -106,7 +106,7 @@ body { background:#fff url(img/pattern.jpg) fixed center center; }
 #main-header.geral #main-menu ul ul li:first-child { border-top:1px dotted #fff; }
 #main-header.geral .user-nav ul ul, #main-header.geral #search-options { border-radius:0 0 4px 4px; top:28px; -moz-border-radius:0 0 4px 4px; }
 
-/* =perfil público */
+/* =perfil pÃºblico */
 #main-header.perfil-publico { bottom:0; margin-bottom:0; position:fixed; z-index:999999}
 #main-header.perfil-publico #institutional ul ul { bottom:36px; border-radius:4px 4px 0 0; -moz-border-radius:4px 4px 0 0; }
 #main-header.perfil-publico #main-menu ul ul { border-radius:4px 4px 0 0; bottom:-3px; -moz-border-radius:4px 4px 0 0; }
@@ -138,7 +138,7 @@ footer#main-footer #hacklab a { border:none; }
 .home-banner-bottom img { border-radius:0 0 6px 0; min-height:182px; width:502px; }
 
 /* =Sidebar */
-/* Está definido na Sidebar */
+/* EstÃ¡ definido na Sidebar */
 
 
 /* =HOME
@@ -180,12 +180,12 @@ section.comments .avatar { float:left; margin:3px 7px 7px 0; }
 /* =OPORTUNIDADES
     Oportunidades Home
     Resultado de busca de oportunidades
-    PÃ¡gina da oportunidade
+    PÃƒÂ¡gina da oportunidade
 ******************************************************************/
 /* Container */
 section#opportunities { border-radius:0 0 0 9px; }
 
-/* Formulário de busca de oportunidades */
+/* FormulÃ¡rio de busca de oportunidades */
 form#search-opportunities { border-color:#e6e6e6; border-style:solid; border-width:1px 0; margin:0 11px 28px 11px; padding:14px 45px; }
 form#search-opportunities div.clearfix { padding-bottom:9px; }
 form#search-opportunities label { display:block; float:left; margin-right:10px; padding:2px 0; text-align:right; width:150px; }
@@ -242,6 +242,13 @@ article.opportunity .content .conditions .content table td img { vertical-align:
 article.opportunity .content .sponsors { margin-bottom:22px; }
 article.opportunity .content .sponsors img { height:auto; max-width:528px; }
 
+article.opportunity .quero-tocar { margin-bottom:18px; padding-bottom:9px; }
+article.opportunity .quero-tocar > div { margin-left:9px; }
+article.opportunity .quero-tocar .pagseguro input[type=submit] { background:-webkit-gradient(linear, left bottom, left top, color-stop(.7, #8CC63F), color-stop(0, #69A325));background:-moz-linear-gradient(-90deg, #8CC63F, #69A325); border:none; border-radius:3px; color:#fff; cursor:pointer; font-family:"Arista"; font-size:18px; margin-top:-7px; padding:11px 22px 9px 22px; text-transform:uppercase; -webkit-box-shadow:2px 2px 4px #999; -moz-box-shadow:2px 2px 4px #999; }
+
+article.opportunity .valor-inscricao { background:#ccc; border-radius:4px; color:#fff; display:inline-block; font-size:18px; font-weight:bold; padding:6px 11px; zoom:1; *display:inline; }
+article.opportunity .valor-inscricao .label { color:#fff; font-size:14px; text-transform:uppercase; }
+
 article.opportunity .sub-opportunity img { height:autho; max-width:460px !important; }
 article.opportunity .sub-opportunity .sponsors img { height:autho; max-width:416px; }
 
@@ -266,18 +273,18 @@ article.opportunity table.artists tr:first-child td { border-top:1px dotted #ccc
 
 
 
-/* =USUÁRIOS
-    Listagem de usuários
-    Resultado de busca de usuários
+/* =USUÃ�RIOS
+    Listagem de usuÃ¡rios
+    Resultado de busca de usuÃ¡rios
     Gerenciar Perfil
-    Perfil Público
+    Perfil PÃºblico
 ******************************************************************/
 
-/* =LISTAGEM DE USUÁRIO E RESULTADO DA BUSCA DE USUÁRIOS
+/* =LISTAGEM DE USUÃ�RIO E RESULTADO DA BUSCA DE USUÃ�RIOS
 ******************************************************************/
 section#users { background:#FFF; border-radius:0 0 0 9px; -moz-border-radius:0 0 0 9px; }
 
-/* =FormulÃ¡rio de Busca */
+/* =FormulÃƒÂ¡rio de Busca */
 form#search-users { border-color:#e6e6e6; border-style:solid; border-width:1px 0; margin:0 11px 28px 11px; padding:14px 45px; }
 form#search-users div.clearfix { padding-bottom:9px; }
 form#search-users label { display:block; float:left; margin-right:10px; padding:2px 0; text-align:right; width:150px; }
@@ -291,7 +298,7 @@ form#search-users input[type="image"] { float:none; width:auto; }
 form#search-users .style { border:1px solid #bbb; border-radius:4px; height:168px; margin-left:160px; overflow:auto; padding:5px 11px; position:relative; width:342px; -moz-border-radius:4px; }
 form#search-users .style input[type="checkbox"] { margin:6px 6px 0 0; }
 
-/* =Lista de usuÃ¡rios tanto da home quanto do resultado da busca */
+/* =Lista de usuários tanto da home quanto do resultado da busca */
 section#users section#results .row .user:first-child { margin-left:11px; }
 section#users section#results .row .user:last-child { margin-right:10px; }
 section#users section#results .user { float:left; margin:5px; overflow:hidden; width:147px; }
@@ -312,7 +319,7 @@ section.profile h4 { border-radius:0 4px 4px 0; margin-bottom:18px; margin-left:
 section.profile h5 { background:#FCEA0D; border-radius:4px; color:#666; display:inline-block; font-family:"Arista"; font-size:14px; font-weight:normal; padding:3px 9px 0 9px; text-transform:uppercase; -moz-border-radius:4px; zoom:1;  *display:inline; }
 /* ARRRUMAAAAR!!!!! */
 section.profile a.btn-green { display:block; font-size:18px; margin-top:16px; padding:4px 11px 2px 11px; }
-/* NavegaÃ§Ã£o Principal */
+/* Navegação Principal */
 section.profile nav.user-nav { background:#fff; float:none; margin:0; padding:0; width:100%; }
 section.profile nav.user-nav ul { list-style:none; margin:0; padding:0 11px; }
 section.profile nav.user-nav ul li { float:left; }
@@ -351,10 +358,13 @@ section.profile .opportunity div.edit { float:right; text-align:right; width:100
 section.profile .opportunity div.sub-eventos { margin-top:5px; }
 section.profile .opportunity div.sub-eventos h4 { border-bottom:1px dotted #ccc; margin-bottom:3px; padding-bottom:3px; }
 section.profile .opportunity div.sub-eventos ul li { border-bottom:1px dotted #ccc; padding:6px 0; }
+section.profile .opportunity div.quero-tocar { margin-top:9px; }
+section.profile .opportunity input[type="submit"] { float:left; font-size:16px; padding-left:8px; padding-right:8px; }
+section.profile .opportunity form.pagseguro { float:left; font-size:16px; }
 /* User's Feedback:Error, Notice and Success */
 section.profile div.notice, section.profile div.error, section.profile div.success { margin:22px 22px 0 22px; }
 section.profile div.notice ul, section.profile div.error ul, section.profile div.success ul { margin-bottom:0; }
-/* FormulÃ¡rio geral */
+/* Formulário geral */
 section.profile form label { color:#76B72A; float:left; margin-right:10px; text-align:right; width:150px; }
 section.profile form input[type="text"],
 section.profile form input[type="password"],
@@ -549,7 +559,7 @@ aside .widget-banner { border-radius:0; height:95px; margin-bottom:17px; padding
 aside .widget-banner a { display:block; height:95px; width:262px; }
 aside .widget img, aside .widget-banner img { border-radius:0; }
 
-/* =próximos eventos */
+/* =prÃ³ximos eventos */
 #last-events h3 { font-size:16px; position:relative; padding-left:80px; min-height:70px;}
 #last-events h3 img { position:absolute; left:0; }
 
@@ -572,7 +582,7 @@ aside .banner_institucional h2 { background:none !important; color:#04BAEE !impo
 /* =TNB MODAL
 ******************************************************************/
 .tnb_modal { margin-top:-31px !important; max-height:500px; }
-.tnb_modal h2 { color:#76B72A !important; font-family:"Arista" !important; text-transform:uppercase; }
+.tnb_modal h2, .ui-dialog-title { color:#76B72A !important; font-family:"Arista" !important; font-size:2em; text-transform:uppercase; }
 .tnb_modal p { font-family:"Delicious"; font-size:14px; }
 .tnb_modal a { border-bottom:1px dotted #04BAEE; color:#04BAEE !important; text-decoration:none; }
 .tnb_modal a.btn-grey { color:#fff !important; }
@@ -624,7 +634,7 @@ h4.title { background:#04BAEE; color:#fff; float:left; font-family:"Arista"; pad
 
 a { cursor:pointer; }
 
-a.btn-green { background:-webkit-gradient(linear, left bottom, left top, color-stop(.7, #8CC63F), color-stop(0, #69A325));background:-moz-linear-gradient(-90deg, #8CC63F, #69A325); border:none; border-radius:3px; color:#fff; cursor:pointer; font-family:"Arista"; font-size:18px; padding:11px 33px 9px 33px; text-transform:uppercase; -webkit-box-shadow:2px 2px 4px #999; -moz-box-shadow:2px 2px 4px #999; }
+a.btn-green { background:-webkit-gradient(linear, left bottom, left top, color-stop(.7, #8CC63F), color-stop(0, #69A325));background:-moz-linear-gradient(-90deg, #8CC63F, #69A325); border:none; border-radius:3px; color:#fff; cursor:pointer; font-family:"Arista"; font-size:18px; padding:11px 22px 9px 22px; text-transform:uppercase; -webkit-box-shadow:2px 2px 4px #999; -moz-box-shadow:2px 2px 4px #999; }
 
 a.btn-yellow { background:#FCEA0D; border:none; border-radius:3px; color:#666; cursor:pointer; display:inline-block; font-family:"Arista"; font-size:14px; margin-bottom:17px; padding:6px 11px 3px 11px; text-transform:uppercase; -webkit-box-shadow:2px 2px 4px #999; -moz-box-shadow:2px 2px 4px #999; zoom:1; *display:inline; }
 

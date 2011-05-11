@@ -1,23 +1,71 @@
 <?php
-global $join_success, $unjoin_success;
-$join_success = $unjoin_success = false;
+global $join_success, $unjoin_success, $join_success_evento_pago;
+$join_success = $join_success_evento_pago = $unjoin_success = false;
 
 switch($_POST['action']) {
+	case 'confirmar-inscricao':
+		if(isset($_POST['_wpnonce']) && wp_verify_nonce($_POST['_wpnonce'], 'confirmar-inscricao' ) ) {
+			if(!in_postmeta(get_post_meta($_POST['evento_id'] , 'inscrito'), $_POST['banda_id']) &&
+            	in_postmeta(get_post_meta($_POST['evento_id'] , 'inscricao_pendente'), $_POST['banda_id'])) {
+                global $wpdb;
+                
+                $wpdb->query("
+                	UPDATE 
+                		$wpdb->postmeta 
+                	SET 
+                		meta_key = 'inscrito' 
+                	WHERE 
+                		post_id = '$_POST[evento_id]' AND 
+                		meta_key = 'inscricao_pendente' AND 
+                		meta_value = '$_POST[banda_id]'
+                ");
+                		
+                wp_cache_delete($_POST[evento_id],'post_meta');
+            }
+		}
+	break;
+	
     case 'select_band':
         
         if(isset($_POST['_wpnonce']) && wp_verify_nonce($_POST['_wpnonce'], 'select_band' ) ) {
-            delete_post_meta($_POST['evento_id'], 'inscrito', $_POST['banda_id']);
-            if(!in_postmeta(get_post_meta($_POST['evento_id'] , 'selecionado'), $_POST['banda_id'])) {
-                add_post_meta($_POST['evento_id'], 'selecionado', $_POST['banda_id']);
+            
+            if(!in_postmeta(get_post_meta($_POST['evento_id'] , 'selecionado'), $_POST['banda_id']) &&
+            	in_postmeta(get_post_meta($_POST['evento_id'] , 'inscrito'), $_POST['banda_id'])) {
+                global $wpdb;
+                
+                $wpdb->query("
+                	UPDATE 
+                		$wpdb->postmeta 
+                	SET 
+                		meta_key = 'selecionado' 
+                	WHERE 
+                		post_id = '$_POST[evento_id]' AND 
+                		meta_key = 'inscrito' AND 
+                		meta_value = '$_POST[banda_id]'
+                ");
+                		
+                wp_cache_delete($_POST[evento_id],'post_meta');
             }
         }
         break;
 
     case 'unselect_band':
         if(isset($_POST['_wpnonce']) && wp_verify_nonce($_POST['_wpnonce'], 'unselect_band' ) ) {
-            delete_post_meta($_POST['evento_id'], 'selecionado', $_POST['banda_id']);
-            if(!in_postmeta(get_post_meta($_POST['evento_id'] , 'inscrito'), $_POST['banda_id'])) {
-                add_post_meta($_POST['evento_id'], 'inscrito', $_POST['banda_id']);
+            if(!in_postmeta(get_post_meta($_POST['evento_id'] , 'inscrito'), $_POST['banda_id']) &&
+            	in_postmeta(get_post_meta($_POST['evento_id'] , 'selecionado'), $_POST['banda_id'])) {
+                 global $wpdb;
+                
+                $wpdb->query("
+                	UPDATE 
+                		$wpdb->postmeta 
+                	SET 
+                		meta_key = 'inscrito' 
+                	WHERE 
+                		post_id = '$_POST[evento_id]' AND 
+                		meta_key = 'selecionado' AND 
+                		meta_value = '$_POST[banda_id]'
+                ");
+                wp_cache_delete($_POST[evento_id],'post_meta');
             }
         }
         break;
@@ -40,6 +88,28 @@ switch($_POST['action']) {
                 }
             } else {
                 $GLOBALS['tnb_errors'] = array(__('Não existe artista inscrito.'));
+            }
+        }
+        break;
+        
+    case 'mail_pending_artists':
+        global $wpdb;
+        $post_id = sprintf("%d", $_POST['post_id']);
+        if($post_id) {
+            $emails = $wpdb->get_col("SELECT user_email FROM wp_users INNER JOIN wp_postmeta ".
+                                     "ON wp_postmeta.meta_value=wp_users.ID ".
+                                     "AND wp_postmeta.post_id = $post_id ".
+                                     "AND wp_postmeta.meta_key='inscricao_pendente';");
+            if($emails){
+                $user = get_currentuserinfo();
+                if(send_mail_to_artists($user->user_email,$emails,$_POST['subject'],$_POST['message'])) {
+                    wp_redirect($_SERVER["REDIRECT_URL"].'?message=sentforsigned');
+                    exit();
+                } else {
+                    $GLOBALS['tnb_errors'] = array(__('Seu e-mail não pode ser enviado. Entre em contato com o administrador do site.'));
+                }
+            } else {
+                $GLOBALS['tnb_errors'] = array(__('Não existe artista com inscrição pendente.'));
             }
         }
         break;
@@ -69,11 +139,19 @@ switch($_POST['action']) {
         case 'join':
             
             if(tnb_artista_can_join($_POST['evento_id']) && isset($_POST['_wpnonce']) &&  wp_verify_nonce($_POST['_wpnonce'], 'join_event' )){
-                if(!in_postmeta(get_post_meta($_POST['evento_id'], 'inscrito'), $_POST['banda_id'])){
-                    add_post_meta($_POST['evento_id'], 'inscrito', $_POST['banda_id']);
-                    $join_success = true;
-                    do_action('tnb_artista_inscreveu_em_um_evento', $_POST['evento_id'], $_POST['banda_id']);
-                }
+            	if(get_post_meta($_POST['evento_id'], 'evento_inscricao_cobrada', true)){
+            		if(!in_postmeta(get_post_meta($_POST['evento_id'], 'inscricao_pendente'), $_POST['banda_id'])){
+	                    add_post_meta($_POST['evento_id'], 'inscricao_pendente', $_POST['banda_id']);
+	                    $join_success_evento_pago = true;
+	                    do_action('tnb_artista_inscreveu_em_um_evento_pago', $_POST['evento_id'], $_POST['banda_id']);
+	                }
+            	}else{
+	                if(!in_postmeta(get_post_meta($_POST['evento_id'], 'inscrito'), $_POST['banda_id'])){
+	                    add_post_meta($_POST['evento_id'], 'inscrito', $_POST['banda_id']);
+	                    $join_success = true;
+	                    do_action('tnb_artista_inscreveu_em_um_evento', $_POST['evento_id'], $_POST['banda_id']);
+	                }
+            	}
             }
         
         break;
@@ -85,7 +163,13 @@ switch($_POST['action']) {
                     delete_post_meta($_POST['evento_id'], 'inscrito', $_POST['banda_id']);
                     $unjoin_success = true;
                     do_action('tnb_artista_desinscreveu_em_um_evento', $_POST['evento_id'], $_POST['banda_id']);
+                    
+                }elseif(in_postmeta(get_post_meta($_POST['evento_id'], 'inscricao_pendente'), $_POST['banda_id'])){
+                    delete_post_meta($_POST['evento_id'], 'inscricao_pendente', $_POST['banda_id']);
+                    $unjoin_success = true;
+                    do_action('tnb_artista_desinscreveu_em_um_evento_em_que_estava_pendente', $_POST['evento_id'], $_POST['banda_id']);
                 }
+                
             }
         
         break;

@@ -1,5 +1,5 @@
 <?php
-    
+
     add_action('wp_print_scripts', 'cadastro_de_evento_load_js');
     function cadastro_de_evento_load_js() {
         wp_enqueue_script('cadastro-de-evento', TNB_URL . '/js/cadastro-de-evento.js', array('jquery'));
@@ -46,6 +46,8 @@
 
         $_POST['evento_site'] = preg_replace('|^(https?://)*(.+)$|', 'http://$2', $_POST['evento_site']);
     }
+    
+    
 
     // é confrontado com $_POST
     $event_meta = array(
@@ -72,7 +74,11 @@
     	'evento_filtro_residencia_pais' => $_POST['evento_filtro_residencia_pais'],
     	'evento_filtro_origem_uf' => $_POST['evento_filtro_origem_uf'],
     	'evento_filtro_residencia_uf' => $_POST['evento_filtro_residencia_uf'],
-    	'evento_filtro_estilo' => $_POST['evento_filtro_estilo']
+    	'evento_filtro_estilo' => $_POST['evento_filtro_estilo'],
+    
+        'evento_inscricao_cobrada' => $_POST['evento_inscricao_cobrada'],
+        'evento_inscricao_valor' => $_POST['evento_inscricao_valor']
+        
     );
     
     
@@ -131,6 +137,7 @@
 
     // Se for para editar um evento
     if($event->ID) {
+    	
         if(!current_user_can('edit_post', $event->ID)){
             wp_redirect(get_author_posts_url($current_user->ID));
             exit();
@@ -215,9 +222,18 @@
             }
 
             if($event->ID) {
+            	if($_POST['evento_inscricao_cobrada'] && !(get_contrato_inscricao($event->ID)))
+                	$post['post_status'] = 'pay_pending_review';
                 $post['ID'] = $event->ID;
                 wp_update_post($post);
             } else {
+                if($_POST['evento_inscricao_cobrada']){
+                    // CRIANDO EVENTO COM COBRANÇA
+                    $post['post_status'] = 'pay_pending_review';
+                    
+                    do_action('tnb_produtor_cadastrou_evento_cobranca', $evento->ID);
+                }
+                     
                 $post['ID'] = wp_insert_post($post);
 
                 if($post['post_parent'] != 0) {
@@ -366,4 +382,4 @@
     if ($_GET['msg-success']){
         $msg['success'][] = __('Oportunidade Salva', 'tnb');
     }
-    
+

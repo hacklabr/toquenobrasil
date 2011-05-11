@@ -45,6 +45,11 @@ if ($header_data['sigla_pais']) {
     
 </ul>
 
+<?php if($header_data['inscricao_cobrada']):?>
+<p class="valor-inscricao bottom"><span class="label">Valor da inscrição:</span> <?php echo get_valor_monetario($header_data['inscricao_valor'])?></p>
+<?php endif; ?>
+
+
 <p>
      <?php 
         if(is_single())

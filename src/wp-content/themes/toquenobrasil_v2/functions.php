@@ -1,4 +1,5 @@
 <?php
+setlocale(LC_ALL, 'pt_BR');
 date_default_timezone_set('America/Sao_Paulo');
 define('TNB_URL', get_bloginfo('url') . strstr(dirname(__FILE__), '/wp-content') );
 define('TNB_USERS_COLS', 4);  // número de usuários a exibir a cada linha
@@ -783,7 +784,7 @@ function tnb_get_artista_videos($artista_id){
  * Enter description here ...
  */
 
-function get_oportunidades_search_results(){
+function get_oportunidades_search_results($status_do_evento = 'publish'){
 	global $wpdb;
 	$nome = $_GET['oportunidade_nome'];
 	$local = trim($_GET['oportunidade_local']);
@@ -897,7 +898,7 @@ function get_oportunidades_search_results(){
 		$wpdb->posts 
 	WHERE
 		post_type = 'eventos' AND
-        post_status = 'publish' AND
+        post_status = '$status_do_evento' AND
 		post_title LIKE '%$nome%'
         $query_data
 		$local_sql $query_inscricao $query_subevents_arovados";
@@ -1070,6 +1071,8 @@ function get_oportunidades_data($evento_list_item_id){
     $patrocinador_3 = get_post_meta($evento_list_item_id, "evento_patrocinador3", true) ;
     $subevento = $evento_list_item->post_parent != 0;
 	
+    $inscricao_cobrada = get_post_meta($evento_list_item_id, 'evento_inscricao_cobrada', true);
+    $inscricao_valor = get_post_meta($evento_list_item_id, 'evento_inscricao_valor', true);
     
     $filtro_origem_pais = get_post_meta($evento_list_item_id, 'evento_filtro_origem_pais', true);
     $filtro_residencia_pais = get_post_meta($evento_list_item_id, 'evento_filtro_residencia_pais', true);
@@ -1101,6 +1104,10 @@ function get_oportunidades_data($evento_list_item_id){
     	'patrocinador_2' => $patrocinador_2,
     	'patrocinador_3' => $patrocinador_3,
     	'subevento' => $subevento,
+    
+    	'inscricao_cobrada' => $inscricao_cobrada,
+    	'inscricao_valor' => $inscricao_valor,
+    
         'filtro_origem_pais' => $filtro_origem_pais,
         'filtro_residencia_pais' => $filtro_residencia_pais,
         'filtro_origem_uf' => $filtro_origem_uf,
@@ -1883,5 +1890,217 @@ function is_a_valid_cnpj($cnpj) {
         return true;
     }
     return false;
+}
+
+
+// ==================== SISTEMA DE PAGAMENTOS ======================= //
+
+// registrando os post_status de pagamentos
+
+// o produtor criou o evento com pagamento mas os editores ainda não revisaram
+register_post_status('pay_pending_review', array(
+	'label' => __('pagamentos não verificados','tnb'),
+	'show_in_admin_status_list' => true, 
+	'show_in_admin_all_list' => true, 
+    'exclude_from_search' => true,
+    'public' => true)); 
+
+// os editores já revisaram mas o produtor ainda não deu ok
+register_post_status('pay_pending_ok', array(
+    'label' => __('pagamentos já verificados','tnb'),
+	'show_in_admin_status_list' => true, 
+	'show_in_admin_all_list' => true, 
+    'exclude_from_search' => true,
+    'public' => true)); 
+
+function update_contrato_inscricao($evento_id, $valor, $porcentagem, $contrato){
+	
+	if(!update_post_meta($evento_id, 'inscricao_contrato_valor', $valor))
+		add_post_meta($evento_id, 'inscricao_contrato_valor', $valor);
+		
+	if(!update_post_meta($evento_id, 'inscricao_contrato_porcentagem', $porcentagem))
+		add_post_meta($evento_id, 'inscricao_contrato_porcentagem', $valor);
+		
+	if(!update_post_meta($evento_id, 'inscricao_contrato', $contrato))
+		add_post_meta($evento_id, 'inscricao_contrato', $contrato);
+}
+
+function get_contrato_inscricao($evento_id){
+	$evento = get_post($evento_id);
+	
+	if($evento->post_status == 'pay_pending_review' && !get_post_meta($evento_id, 'inscricao_contrato',true)){
+		$edata = get_oportunidades_data($evento_id);
+		$valor = $edata['inscricao_valor'];
+		$porcentagem = '0.00';
+		$contrato = get_option('evento-pagamento-modelo-contrato'); 
+		update_contrato_inscricao($evento_id, $valor, $porcentagem, $contrato);
+	}elseif($evento->post_status != 'pay_pending_review' && !get_post_meta($evento_id, 'inscricao_contrato',true)){
+		return null;
+	}
+	
+	$result['valor'] 		= get_post_meta($evento_id, 'inscricao_contrato_valor',true);
+	$result['porcentagem'] 	= get_post_meta($evento_id, 'inscricao_contrato_porcentagem',true);
+	$result['contrato'] 	= get_post_meta($evento_id, 'inscricao_contrato',true);
+	
+	return $result;
+}
+
+function set_contrato_inscricao_aceito($evento_id){
+	global $wpdb;
+	
+	$evento = get_post($evento_id);
+	$wpdb->query("UPDATE $wpdb->posts SET post_status = 'publish' WHERE ID = '$evento->ID'");
+	
+	add_post_meta($evento_id, 'inscricao_contrato_aceito', date('Y-m-d h:i:s'));
+	
+	$contrato = get_contrato_inscricao($evento_id);
+	
+	// atualiza o valor do campo valor da inscricao para o valor do contrato
+	update_post_meta($evento_id, 'evento_inscricao_valor', $contrato['valor']);
+	
+	// salva o contrato com os campos substituidos
+	update_post_meta($evento_id,'inscricao_contrato',get_contrato_inscricao_substituido($evento_id, $contrato['valor'], $contrato['porcentagem'], $contrato['contrato']));
+	
+	tnb_email_messages_produtor_aceitou_contrato_inscricao($evento_id);
+}
+
+function set_contrato_inscricao_recusado($evento_id){
+	global $wpdb;
+	$evento = get_post($evento_id);
+	
+	add_post_meta($evento_id, 'inscricao_contrato_recusado', date('Y-m-d h:i:s'));
+	
+	$wpdb->query("UPDATE $wpdb->posts SET post_status = 'pay_pending_review' WHERE ID = '$evento->ID'");
+	
+	tnb_email_messages_produtor_recusou_contrato_inscricao($evento_id);
+}
+
+function is_contrato_campos_locked($evento_id){
+	$evento = get_post($evento_id);
+	
+	// se está aguardando aceitação do contrato pelo produtor ou se o evento está publicado e existe um contrato 
+	return (  $evento->post_status == 'pay_pending_ok' || 
+	 		 (($evento->post_status == 'publish' || $evento->post_status == 'draft') && get_contrato_inscricao($evento_id))
+	 	   );
+	
+}
+
+
+function print_inscricao_pay_button($evento_id, $artista_id){
+	global $wpdb;
+	$inscricao = $wpdb->get_var("SELECT meta_id FROM $wpdb->postmeta WHERE post_id = '$evento_id' AND meta_key = 'inscricao_pendente' AND meta_value = '$artista_id'");
+	$edata = get_oportunidades_data($evento_id);
+	if($inscricao && $edata['inscricao_cobrada']){
+		$evento = get_post($evento_id);
+		
+		
+		$transacao = $wpdb->get_row("SELECT * FROM pagseguro_transacoes WHERE Referencia = '$inscricao' ORDER BY insert_timestamp DESC LIMIT 1");
+		?>
+		<?php if($transacao->StatusTransacao == 'Aguardando Pagto'):
+					$tipos_pagamentos['Boleto'] = __('Boleto Bancário','tnb');
+					$tipos_pagamentos['Pagamento Online'] = __('Pagamento Online','tnb');
+		?>
+            <p>
+                <strong><?php _e("INFORMAÇÕES DO PAGAMENTO", "tnb"); ?></strong>
+                <br/>
+    			<strong><?php _e('Status','tnb')?>:</strong> <?php _e('aguardando confirmação','tnb'); ?>.<br />
+    			<strong><?php _e('Código','tnb')?>:</strong> <?php echo $transacao->TransacaoID; ?>. <br />
+    			<strong><?php _e('Tipo','tnb')?>:</strong> <?php echo $tipos_pagamentos[$transacao->TipoPagamento]; ?>.
+            </p>
+			
+		<?php endif; ?>
+		
+		<form class="pagseguro" target="pagseguro" method="post" action="https://pagseguro.uol.com.br/checkout/checkout.jhtml" >
+		<input type="hidden" name="email_cobranca" value="bruno@toquenobrasil.com.br">
+		<input type="hidden" name="tipo" value="CP">
+		<input type="hidden" name="moeda" value="BRL">
+		<input type="hidden" name="encoding" value="UTF-8">
+		
+		<input type="hidden" name="item_id_1" value="<?php echo $evento_id; ?>">
+		<input type="hidden" name="item_descr_1" value="<?php echo $evento->post_title;?>">
+		<input type="hidden" name="item_quant_1" value="1">
+		<input type="hidden" name="item_valor_1" value="<?php echo  str_replace(',', '', str_replace('.', '', number_format($edata['inscricao_valor'],2))); ?>">
+		<input type="hidden" name="ref_transacao" value="<?php echo $inscricao; ?>">
+		<input type="submit" name="submit" value="<?php _e('pagar inscrição','tnb');?>" />
+		</form>
+		
+		
+		<?php
+	} 
+}
+
+function get_contrato_inscricao_substituicoes(){
+	return array(
+	'produtor-cadastro-id' 		=> 'id do produtor no sistema',
+	'produtor-cadastro-data' 	=> 'data de cadastro do produtor',
+	'produtor-nome'				=> 'nome do produtor',
+	'produtor-documento' 		=> 'CNPJ/CPF do produtor',
+	'produtor-email' 			=> 'email de cadastro do produtor',
+	'produtor-telefone' 		=> 'nome do produtor',
+	'produtor-pais' 			=> 'pais de residência do produtor',
+	'produtor-estado' 			=> 'estado de residência do produtor',
+	'produtor-cidade' 			=> 'cidade de residência do produtor',
+	'evento-nome' 				=> 'nome do evento',
+	'evento-descricao' 			=> 'descrição do evento',
+	'evento-inicio' 			=> 'data de início do evento',
+	'evento-fim' 				=> 'data de término do evento',
+	'evento-inscricao-inicio' 	=> 'data de início das inscrições',
+	'evento-inscricao-fim'		=> 'data de término das inscrições',
+	'evento-estabelecimento'	=> 'nome do estabelecimento onde ocorrerá o evento',
+	'evento-pais'				=> 'país onde ocorrerá o evento',
+	'evento-estado'				=> 'estado onde ocorrerá o evento',
+	'evento-cidade'				=> 'cidade onde ocorrerá o evento',
+	'contrato-valor'			=> 'valor das inscrições estabelecido no contrato',
+	'contrato-porcentagem'		=> 'porcentagem para o TNB estabelecida no contrato',
+	'contrato-valor-tnb'		=> 'valor que ficará para o TNB para cada inscrição (relativo à porcentagem)'
+	);
+}
+
+function get_contrato_inscricao_substituido($evento_id, $valor, $porcentagem, $contrato){
+	
+	$evento = get_post($evento_id);
+	$edata = get_oportunidades_data($evento_id);
+	$produtor = get_user_by('id', $evento->post_author);
+	
+	$paises = get_paises();
+	$estados = get_estados();
+	
+	$edata = (OBJECT) $edata;
+	
+	$substituicoes = array(
+	'{produtor-cadastro-id}' 	=> $produtor->ID,
+	'{produtor-cadastro-data}' 	=> $produtor->user_registered,
+	'{produtor-nome}'			=> $produtor->display_name,
+	'{produtor-documento}' 		=> ($produtor->cnpj ? $produtor->cnpj : $produtor->cpf),
+	'{produtor-email}' 			=> $produtor->user_email,
+	'{produtor-telefone}' 		=> $produtor->telefone,
+	'{produtor-pais}' 			=> $paises[$produtor->origem_pais],
+	'{produtor-estado}' 		=> ($produtor->origem_pais == 'BR' ? $estados[strtolower($produtor->origem_estado)] : $produtor->origem_estado),
+	'{produtor-cidade}' 		=> $produtor->origem_cidade,
+	
+	'{evento-nome}' 			=> $evento->post_title,
+	'{evento-descricao}' 		=> $evento->post_content,
+	'{evento-inicio}' 			=> $edata->br_inicio,
+	'{evento-fim}' 				=> $edata->br_fim,
+	'{evento-inscricao-inicio}' => $edata->br_insc_inicio,
+	'{evento-inscricao-fim}'	=> $edata->br_insc_fim,
+	'{evento-estabelecimento}'	=> $edata->local,
+	'{evento-pais}'				=> $paises[$edata->sigla_pais],
+	'{evento-estado}'			=> ($edata->sigla_pais == 'BR' ? $estados[strtolower($edata->estado)] : $edata->estado),
+	'{evento-cidade}'			=> $edata->cidade,
+	
+	'{contrato-valor}'			=> get_valor_monetario($valor),
+	'{contrato-porcentagem}'	=> $porcentagem.'%',
+	'{contrato-valor-tnb}'		=> get_valor_monetario($valor*$porcentagem/100)
+	);
+	
+	foreach ($substituicoes as $de=>$para)
+		$contrato = str_replace($de, $para, $contrato);
+		
+	return $contrato;
+}
+
+function get_valor_monetario($numero){
+	return money_format('%.2n', $numero);
 }
 ?>

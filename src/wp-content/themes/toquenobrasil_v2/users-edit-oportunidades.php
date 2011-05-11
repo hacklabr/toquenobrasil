@@ -1,4 +1,15 @@
-<?php $creatingSubEvent = is_numeric($_GET['post_parent']); ?>
+<?php 
+$creatingSubEvent = is_numeric($_GET['post_parent']);
+$contrato_lock = is_contrato_campos_locked($event->ID);
+
+?>
+
+<?php if($event->post_status == 'pay_pending_ok'): ?>
+	<form id='evento-contrato-form' method="post" action="../">
+		<input type='hidden' id='evento-contrato-form-action' name='tnb_user_action' value='' />
+		<input type='hidden' name='evento_id' value='<?php echo $event->ID?>' />
+	</form>
+<?php endif; ?>
 
 <section id="opportunity" class="content clearfix">
     <?php if (!is_artista($profileuser->ID)): ?>
@@ -10,7 +21,37 @@
         <?php endif; ?>
 
         <form id="opportunity-form" enctype="multipart/form-data" method="post" <?php if (!$event->ID && !$creatingSubEvent) echo 'style="display:none;"'; ?> >
-            <?php if ($event->ID): ?>
+        	<input type='hidden' name='tnb_user_action' value='oportunidade-save' />
+            <?php 
+            if ($event->ID): 
+             	
+				if($event->post_status == 'pay_pending_ok'):
+					$contrato = get_contrato_inscricao($event->ID); 
+			?>
+	    						<strong class='alignright'><a href='javascript:void(0);' onclick='jQuery("#<?php echo $event->ID?>-contrato").dialog({title: "<?php echo sprintf(__('Contrato para oportunidade %s','tnb'),$event->post_title); ?>",width: "900px"});'><?php _e('aguardando aceitação do contrato','tnb'); ?></a></strong>
+	                        	<div id='<?php echo $event->ID?>-contrato' style="display:none">
+	                        		<div style='max-height: 100%; overflow: auto;'>
+	                        		<?php echo nl2br(get_contrato_inscricao_substituido($event->ID, $contrato['valor'], $contrato['porcentagem'], $contrato['contrato'])); ?>
+	                        		</div>
+	                        		
+									<input type='button' onclick="jQuery('#evento-contrato-form-action').val('contrato-oportunidade-aceitar'); jQuery('#evento-contrato-form').submit();" value="<?php _e('aceitar e publicar este evento', 'tnb'); ?>" />
+	                        		<input type='button' onclick="jQuery('#evento-contrato-form-action').val('contrato-oportunidade-recusar'); jQuery('#evento-contrato-form').submit();" value="<?php _e('recusar', 'tnb'); ?>" />
+	                        	</div>
+	                        	
+				<?php 
+				elseif ($event->post_status == 'publish' && get_contrato_inscricao($event->ID)): 
+					$contrato = get_contrato_inscricao($event->ID);
+				?>                        	
+								<strong class='alignright'><a href='javascript:void(0);' onclick='jQuery("#<?php echo $event->ID?>-contrato").dialog({title: "<?php echo sprintf(__('Contrato para oportunidade %s','tnb'),$event->post_title); ?>",width: "900px"});'><?php _e('visualizar contrato','tnb'); ?></a></strong>
+	                        	<div id='<?php echo $event->ID?>-contrato' style="display:none">
+	                        		<div style='max-height: 100%; overflow: auto;'>
+	                        		<?php echo nl2br(get_contrato_inscricao_substituido($event->ID, $contrato['valor'], $contrato['porcentagem'], $contrato['contrato'])); ?>
+	                        		</div>
+	                        	</div>
+				<?php 
+				endif;
+				?>
+            
                 <h2 class="section-title">
                     <span class="bg-blue"><?php _e("Editar","tnb"); ?> <?php echo $event->post_title; ?></span>
                 </h2>
@@ -19,6 +60,7 @@
                     <span class="bg-blue"><?php _e("Nova Oportunidade","tnb"); ?></span>
                 </h2>
             <?php endif; ?>
+            
             
             <p><?php _e("Você tem que preencher pelo menos o nome e a descrição da sua oportunidade antes de criá-la.", "tnb"); ?></p>
             
@@ -40,7 +82,7 @@
             
             <div class="clearfix">
                 <label><?php _e("Oportunidade para:", "tnb"); ?></label>
-                <select id="superevento" name="superevento">
+                <select id="superevento" name="superevento" <?php if($contrato_lock) echo 'disabled="disabled"'; ?>>
                     <option value="no"><?php _e('Artistas', 'tnb');?></option>
                     <?php if($event_meta['superevento'] === 'yes'):?>
                         <option value="yes" selected="selected"><?php _e('Produtores', 'tnb');?></option>
@@ -52,6 +94,7 @@
                 Se você escolher “produtores”, artistas não poderão se inscrever, apenas produtores poderão cadastrar oportunidades dentro desta oportunidade. Caso você não esteja seguro de usar essa opção, entre em contato conosco via contato@toquenobrasil.com.br 
                 </span>
             </div>
+            
             <div id="evento_pai" class="clearfix">
                 <?php if($superevents): ?>
                     <label><?php _e("Cadastrar oportunidade em", "tnb"); ?></label>
@@ -85,11 +128,17 @@
                 <input type="text" class="text" name="evento_tipo" value="<?php echo stripslashes(htmlspecialchars($event_meta['evento_tipo']));?>"/>
             </div>
             
-            <div class="clearfix">
+            <div class="clearfix" id='status-div'>
                 <label><?php _e("Status", "tnb"); ?></label>
                 <input type="radio" name="post_status" value="publish" <?php if ($event->post_status == 'publish') echo "checked"; ?> /> <?php _e("Ativo", "tnb"); ?>
                 <input type="radio" name="post_status" value="draft" <?php if ($event->post_status == 'draft') echo "checked"; ?> /> <?php _e("Inativo (Uma oportunidade inativa não é divulgada no site)", "tnb"); ?>
+                
             </div>
+            <?php 	//este campo deve ficar fora da div #status-div
+            		if($event->post_status != 'publish' && $event->post_status != 'draft'): ?>
+            	<input type="radio" name="post_status" value="<?php echo $event->post_status?>" checked="checked" style='display:none'/>
+            <?php endif;?>
+                
             <div class="clearfix">
                 <label><?php _e("Site", "tnb"); ?></label>
                 <input id="evento_site" name="evento_site" type="text" value="<?php echo $event_meta['evento_site'];?>" />
@@ -117,7 +166,22 @@
             
 
             <hr/>
+            <h5 class="title"><?php _e("Pagamento", "tnb"); ?></h5>
+            <div class="clear"></div>
 
+            <div id='pagamento-enabled-div' class="clearfix">
+                <label class='reset-label'>
+                    <input type='checkbox' id='evento_inscricao_cobrada' <?php if($contrato_lock) echo 'class="contrato_lock" ';?>name='evento_inscricao_cobrada' value='1' <?php if($event_meta['evento_inscricao_cobrada']) echo 'checked="checked"';?> />
+                    <?php _e("Cobrar pela inscrição", "tnb"); ?>
+                </label>
+                <span id='evento_inscricao_valor_label' class='alignright'>
+                    R$&nbsp;<input type="text" id='evento_inscricao_valor' <?php if($contrato_lock) echo 'class="contrato_lock" ';?>name='evento_inscricao_valor' style='width:330px' value="<?php echo $event_meta['evento_inscricao_valor'];?>"/>
+                </span>
+            </div>
+			<div id='pagamento-disabled-div' class='clearfix' style='display:none'>
+				<?php _e("Esta opção só está disponível em oportunidades para artista")?>
+			</div>
+            <hr />
             <h5 class="title"><?php _e("Data da oportunidade", "tnb"); ?></h5>
             <div class="clear"></div>
 
@@ -158,35 +222,36 @@
                 <label><?php _e("Condições", "tnb"); ?></label>
                 
                 <?php if ($event->ID && ($event->post_parent == 0 || !$parent_event->forcar_condicoes) && is_string($event_meta['evento_condicoes']) ) : ?>
-                    <textarea <?php echo $parent_event->forcar_condicoes?'disabled="disabled" ':'';?>id="evento_condicoes" name="evento_condicoes"><?php echo htmlspecialchars($event_meta['evento_condicoes']);?></textarea>
+                    <textarea <?php if($contrato_lock) echo 'class="contrato_lock" ';?><?php echo $parent_event->forcar_condicoes?'disabled="disabled" ':'';?>id="evento_condicoes" name="evento_condicoes"><?php echo htmlspecialchars($event_meta['evento_condicoes']);?></textarea>
                 <?php else: ?>
+                	
                     <div class="conditions">
                         <table class="bottom">
                             <tr>
                                 <td>Hospedagem</td>
-                                <td><input type="radio" value="1" <?php if ($parent_event->forcar_condicoes) echo 'disabled '; if ($event_meta['evento_condicoes']['hospedagem'] == '1') echo 'checked'; ?> name="evento_condicoes[hospedagem]"> Sim</td>          
-                                <td><input type="radio" value="0" <?php if ($parent_event->forcar_condicoes) echo 'disabled '; if ($event_meta['evento_condicoes']['hospedagem'] == '0') echo 'checked'; ?> name="evento_condicoes[hospedagem]"> Não</td>
+                                <td><input type="radio" value="1" <?php if($contrato_lock) echo 'class="contrato_lock" ';?><?php if ($parent_event->forcar_condicoes) echo 'disabled="disabled" '; if ($event_meta['evento_condicoes']['hospedagem'] == '1') echo 'checked'; ?> name="evento_condicoes[hospedagem]"> Sim</td>          
+                                <td><input type="radio" value="0" <?php if($contrato_lock) echo 'class="contrato_lock" ';?><?php if ($parent_event->forcar_condicoes) echo 'disabled="disabled" '; if ($event_meta['evento_condicoes']['hospedagem'] == '0') echo 'checked'; ?> name="evento_condicoes[hospedagem]"> Não</td>
                             </tr>
                             
                             <tr>
                                 <td>Alimentação</td>
-                                <td><input type="radio" value="1" <?php if ($parent_event->forcar_condicoes) echo 'disabled '; if ($event_meta['evento_condicoes']['alimentacao'] == '1') echo 'checked'; ?> name="evento_condicoes[alimentacao]"> Sim</td>         
-                                <td><input type="radio" value="0" <?php if ($parent_event->forcar_condicoes) echo 'disabled '; if ($event_meta['evento_condicoes']['alimentacao'] == '0') echo 'checked'; ?> name="evento_condicoes[alimentacao]"> Não</td>
+                                <td><input type="radio" value="1" <?php if($contrato_lock) echo 'class="contrato_lock" ';?><?php if ($parent_event->forcar_condicoes) echo 'disabled="disabled" '; if ($event_meta['evento_condicoes']['alimentacao'] == '1') echo 'checked'; ?> name="evento_condicoes[alimentacao]"> Sim</td>         
+                                <td><input type="radio" value="0" <?php if($contrato_lock) echo 'class="contrato_lock" ';?><?php if ($parent_event->forcar_condicoes) echo 'disabled="disabled" '; if ($event_meta['evento_condicoes']['alimentacao'] == '0') echo 'checked'; ?> name="evento_condicoes[alimentacao]"> Não</td>
                             </tr>
                             <tr>
                                 <td>Transporte local</td>
-                                <td><input type="radio" value="1" <?php if ($parent_event->forcar_condicoes) echo 'disabled '; if ($event_meta['evento_condicoes']['transporte_local'] == '1') echo 'checked'; ?> name="evento_condicoes[transporte_local]"> Sim</td>
-                                <td><input type="radio" value="0" <?php if ($parent_event->forcar_condicoes) echo 'disabled '; if ($event_meta['evento_condicoes']['transporte_local'] == '0') echo 'checked'; ?> name="evento_condicoes[transporte_local]"> Não</td>
+                                <td><input type="radio" value="1" <?php if($contrato_lock) echo 'class="contrato_lock" ';?><?php if ($parent_event->forcar_condicoes) echo 'disabled="disabled" '; if ($event_meta['evento_condicoes']['transporte_local'] == '1') echo 'checked'; ?> name="evento_condicoes[transporte_local]"> Sim</td>
+                                <td><input type="radio" value="0" <?php if($contrato_lock) echo 'class="contrato_lock" ';?><?php if ($parent_event->forcar_condicoes) echo 'disabled="disabled" '; if ($event_meta['evento_condicoes']['transporte_local'] == '0') echo 'checked'; ?> name="evento_condicoes[transporte_local]"> Não</td>
                             </tr>
                             <tr>
                                 <td>Transporte entre cidades</td>
-                                <td><input type="radio" value="1" <?php if ($parent_event->forcar_condicoes) echo 'disabled '; if   ($event_meta['evento_condicoes']['transporte_cidades'] == '1') echo 'checked'; ?> name="evento_condicoes[transporte_cidades]"> Sim</td>
-                                <td><input type="radio" value="0" <?php if ($parent_event->forcar_condicoes) echo 'disabled '; if ($event_meta['evento_condicoes']['transporte_cidades'] == '0') echo 'checked'; ?> name="evento_condicoes[transporte_cidades]"> Não</td>
+                                <td><input type="radio" value="1" <?php if($contrato_lock) echo 'class="contrato_lock" ';?><?php if ($parent_event->forcar_condicoes) echo 'disabled="disabled" '; if   ($event_meta['evento_condicoes']['transporte_cidades'] == '1') echo 'checked'; ?> name="evento_condicoes[transporte_cidades]"> Sim</td>
+                                <td><input type="radio" value="0" <?php if($contrato_lock) echo 'class="contrato_lock" ';?><?php if ($parent_event->forcar_condicoes) echo 'disabled="disabled" '; if ($event_meta['evento_condicoes']['transporte_cidades'] == '0') echo 'checked'; ?> name="evento_condicoes[transporte_cidades]"> Não</td>
                             </tr>
                             <tr>
                                 <td>Cache</td>
-                                <td><input type="radio" value="1" <?php if ($parent_event->forcar_condicoes) echo 'disabled '; if ($event_meta['evento_condicoes']['cache'] == '1') echo 'checked'; ?> name="evento_condicoes[cache]"> Sim</td>
-                                <td><input type="radio" value="0" <?php if ($parent_event->forcar_condicoes) echo 'disabled '; if ($event_meta['evento_condicoes']['cache'] == '0') echo 'checked'; ?> name="evento_condicoes[cache]"> Não</td>
+                                <td><input type="radio" value="1" <?php if($contrato_lock) echo 'class="contrato_lock" ';?><?php if ($parent_event->forcar_condicoes) echo 'disabled="disabled" '; if ($event_meta['evento_condicoes']['cache'] == '1') echo 'checked'; ?> name="evento_condicoes[cache]"> Sim</td>
+                                <td><input type="radio" value="0" <?php if($contrato_lock) echo 'class="contrato_lock" ';?><?php if ($parent_event->forcar_condicoes) echo 'disabled="disabled" '; if ($event_meta['evento_condicoes']['cache'] == '0') echo 'checked'; ?> name="evento_condicoes[cache]"> Não</td>
                             </tr>
                         </table>
                     </div>
@@ -200,7 +265,7 @@
             </div>
             <div class="clearfix" id="evento_restricoes_div">
                 <label><?php _e("Restrições", "tnb"); ?></label>
-                <textarea <?php echo $parent_event->forcar_restricoes?'disabled="disabled" ':'';?>id="evento_restricoes" name="evento_restricoes"><?php echo htmlspecialchars($event_meta['evento_restricoes']);?></textarea>
+                <textarea <?php if($contrato_lock) echo 'class="contrato_lock" ';?><?php echo $parent_event->forcar_restricoes?'disabled="disabled" ':'';?>id="evento_restricoes" name="evento_restricoes"><?php echo htmlspecialchars($event_meta['evento_restricoes']);?></textarea>
                 <div class="checkbox">
                     <span class="forced" style="display:none">Usando Restrições do Evento pai</span>
                     <br />
@@ -211,7 +276,7 @@
             </div>
             <div class="clearfix" id="evento_tos_div">
                 <label><?php _e("Termos", "tnb"); ?></label>
-                <textarea <?php echo $parent_event->forcar_tos?'disabled="disabled" ':'';?>id="evento_tos" name="evento_tos"><?php echo $event_meta['evento_tos'];?></textarea>
+                <textarea <?php if($contrato_lock) echo 'class="contrato_lock" ';?><?php echo $parent_event->forcar_tos?'disabled="disabled" ':'';?>id="evento_tos" name="evento_tos"><?php echo $event_meta['evento_tos'];?></textarea>
                 <div class="checkbox">
                     <span class="forced" style="display:none">Usando Termos do Evento pai</span>
                     <br/>
@@ -228,7 +293,7 @@
             
             <div id="evento_filtro_origem_div" class='clearfix'>
                 <label><?php _e('Local de Origem','tnb'); ?></label>
-                <select id='evento_filtro_origem_pais' name='evento_filtro_origem_pais'>
+                <select id='evento_filtro_origem_pais' name='evento_filtro_origem_pais'  <?php if($contrato_lock) echo 'class="contrato_lock" ';?>>
                     <option value=''><?php _e('sem restrição', 'tnb'); ?></option>
                 <?php foreach(get_paises() as $sigla=>$pais):?>
                     <option value="<?php echo $sigla; ?>" <?php if($event_meta['evento_filtro_origem_pais'] == $sigla) echo 'selected="selected"'?>><?php echo $pais; ?></option>
@@ -236,14 +301,14 @@
                 </select>
                 <div class='oportunidade-filtro'>
                 <?php foreach($estados as $uf => $name): if($uf): ?>
-                    <label class='reset-label'><input type="checkbox" name="evento_filtro_origem_uf[]" value="<?php echo $uf?>" <?php if(in_array($uf, $event_meta['evento_filtro_origem_uf'])) echo 'checked="checked" ';?>/> <?php echo $name;?></label><br />
+                    <label class='reset-label'><input type="checkbox" name="evento_filtro_origem_uf[]" value="<?php echo $uf?>" <?php if(in_array($uf, $event_meta['evento_filtro_origem_uf'])) echo 'checked="checked" ';?>  <?php if($contrato_lock) echo 'class="contrato_lock" ';?>/> <?php echo $name;?></label><br />
                 <?php endif; endforeach;?>
                 </div>
             </div>
                 
             <div id="evento_filtro_residencia_div" class="clearfix">
                 <label><?php _e('Local de Residência','tnb'); ?></label>
-                <select id='evento_filtro_residencia_pais' name='evento_filtro_residencia_pais'>
+                <select id='evento_filtro_residencia_pais' name='evento_filtro_residencia_pais' <?php if($contrato_lock) echo 'class="contrato_lock" ';?>>
                     <option value=''><?php _e('sem restrição', 'tnb'); ?></option>
                 <?php foreach(get_paises() as $sigla=>$pais):?>
                     <option value="<?php echo $sigla; ?>" <?php if($event_meta['evento_filtro_residencia_pais'] == $sigla) echo 'selected="selected"'?>><?php echo $pais; ?></option>
@@ -251,7 +316,7 @@
                 </select>
                 <div class='oportunidade-filtro'>
                 <?php foreach($estados as $uf => $name): if($uf): ?>
-                    <label class='reset-label'><input type="checkbox" name="evento_filtro_residencia_uf[]" value="<?php echo $uf?>" <?php if(in_array($uf, $event_meta['evento_filtro_residencia_uf'])) echo 'checked="checked" ';?>/> <?php echo $name;?></label><br />
+                    <label class='reset-label'><input type="checkbox" name="evento_filtro_residencia_uf[]" value="<?php echo $uf?>" <?php if(in_array($uf, $event_meta['evento_filtro_residencia_uf'])) echo 'checked="checked" ';?> <?php if($contrato_lock) echo 'class="contrato_lock" ';?>/> <?php echo $name;?></label><br />
                 <?php endif; endforeach;?>
                 </div>
             </div>
@@ -260,7 +325,7 @@
                 <label><?php _e('Estilo Musical','tnb'); ?></label>
                 <div class='oportunidade-filtro'>
                 <?php foreach($estilos as $estilo): ?>
-                    <label class='reset-label'><input type="checkbox" name="evento_filtro_estilo[]" value="<?php echo htmlentities(utf8_decode($estilo)); ?>" <?php if(in_array($estilo, $event_meta['evento_filtro_estilo'])) echo 'checked="checked" ';?>/> <?php echo $estilo;?></label><br />
+                    <label class='reset-label'><input type="checkbox" name="evento_filtro_estilo[]" value="<?php echo htmlentities(utf8_decode($estilo)); ?>" <?php if(in_array($estilo, $event_meta['evento_filtro_estilo'])) echo 'checked="checked" ';?> <?php if($contrato_lock) echo 'class="contrato_lock" ';?>/> <?php echo $estilo;?></label><br />
                 <?php endforeach;?>
                 </div>
                 </div>
@@ -460,5 +525,55 @@
             
         }
     });
+
+    jQuery("#evento_inscricao_cobrada").click(function(){
+        if(jQuery(this).attr('checked')){
+        	jQuery('#status-div input:radio').attr('checked',false).attr('disabled','disabled');
+            jQuery('#evento_inscricao_valor_label').show();
+        }else{
+        	jQuery('#evento_inscricao_valor_label').hide();
+        	jQuery('#status-div input:radio').attr('disabled',false);
+            jQuery('#evento_inscricao_valor').val('');
+        }
+    });
     
+    if(jQuery("#evento_inscricao_cobrada").attr('checked')){
+    	if(jQuery('[name=post_status]:checked').val() != 'publish' && jQuery('[name=post_status]:checked').val() != 'draft') 
+        	jQuery('#status-div input:radio').attr('checked',false).attr('disabled','disabled');
+    	
+        jQuery('#evento_inscricao_valor_label').show();
+    }else{
+    	jQuery('#status-div input:radio').attr('disabled',false);
+    	jQuery('#evento_inscricao_valor_label').hide();
+        jQuery('#evento_inscricao_valor').val('');
+    }
+
+    if(jQuery("#superevento").val() == 'yes'){
+    	jQuery('#pagamentos-enabled-div').hide();
+    	jQuery('#pagamentos-disabled-div').show();
+    }
+    
+
+    jQuery("#superevento").change(function (){
+        if(jQuery(this).val() == 'yes'){
+        	jQuery('#pagamento-enabled-div').hide();
+        	jQuery('#pagamento-disabled-div').show();
+        	jQuery("#evento_inscricao_cobrada").attr('checked',false);
+        	jQuery('#evento_inscricao_valor_label').hide();
+        }else{
+        	jQuery('#pagamento-enabled-div').show();
+        	jQuery('#pagamento-disabled-div').hide();
+        }
+    });
+
+
+    jQuery("#opportunity-form").submit(function (){
+    	jQuery("#opportunity-form select:disabled").attr('disabled', false);
+        jQuery("#opportunity-form input:disabled").attr('disabled', false);
+        submiting_form = true;
+        jQuery("#evento_pai select").change();
+    });
+        
 </script>
+
+

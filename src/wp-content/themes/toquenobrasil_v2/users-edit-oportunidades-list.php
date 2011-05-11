@@ -1,7 +1,7 @@
 <?php
     /* Configura main loop para eventos normais */
     global $paged;
-    $list_status = $_GET['list_status'] == 'draft' ? 'draft' : 'publish';
+    $list_status = ($_GET['list_status'] == 'draft' || $_GET['list_status'] == 'pending') ? $_GET['list_status'] : 'publish';
     
     if (current_user_can('edit_others_posts')) {
         $query_args = array(
@@ -20,6 +20,9 @@
             'paged' => $paged
         );
     }   
+    if($list_status == 'pending')
+        $query_args['post_status'] = 'pay_pending_review,pay_pending_ok';
+    
     $normal_events = query_posts($query_args);
     global $wp_query, $post;
 ?>
@@ -32,8 +35,10 @@
 
     <div class="clear"></div>
 
-    <a href="<?php echo get_author_posts_url($profileuser->ID), '/editar/oportunidades/?list_status=publish'; ?>" class="<?php echo ($list_status == 'publish' || $list_status == "") ? 'btn-yellow ' : 'btn-grey'; ?>">oportunidades ativas</a>
-    <a href="<?php echo get_author_posts_url($profileuser->ID), '/editar/oportunidades/?list_status=draft'; ?>" class="btn-yellow <?php echo ($list_status == 'draft') ? 'btn-yellow' : 'btn-grey'; ?>">oportunidades inativas</a>
+    <a href="<?php echo get_author_posts_url($profileuser->ID), '/editar/oportunidades/?list_status=publish'; ?>" class="<?php echo ($list_status == 'publish' || $list_status == "") ? 'btn-yellow ' : 'btn-grey'; ?>"><?php _e('oportunidades ativas','tnb'); ?></a>
+    <a href="<?php echo get_author_posts_url($profileuser->ID), '/editar/oportunidades/?list_status=draft'; ?>" class="btn-yellow <?php echo ($list_status == 'draft') ? 'btn-yellow' : 'btn-grey'; ?>"><?php _e('oportunidades inativas','tnb'); ?></a>
+    <a href="<?php echo get_author_posts_url($profileuser->ID), '/editar/oportunidades/?list_status=pending'; ?>" class="btn-yellow <?php echo ($list_status == 'pending') ? 'btn-yellow' : 'btn-grey'; ?>"><?php _e('oportunidades pendentes','tnb'); ?></a>
+    
 
     <hr/>
 
@@ -63,12 +68,43 @@
                     <div class="edit text-right">
                         <a href="<?php echo get_author_posts_url($post->post_author), '/editar/oportunidades/', $post->post_name; ?>" title="<?php _e('Editar');?>" class="alignright">
                             <?php _e('Editar');?>
-                        </a>
+                        </a><br />
                     </div>
                     <!-- .edit -->
                 <?php endif; ?>
-
+                
                 <ul class="clear">
+                    <?php if($post->post_status == 'pay_pending_ok'): $contrato = get_contrato_inscricao($post->ID); ?>
+                    	<?php if(current_user_can('edit_post', get_the_ID())): ?> 
+	                        <li>
+	                        	<strong><a href='javascript:void(0);' onclick='jQuery("#<?php echo $post->ID?>-contrato").dialog({title: "<?php echo sprintf(__('Contrato para oportunidade %s','tnb'),$post->post_title); ?>",width: "900px"});'><?php _e('aguardando aceitação do contrato','tnb'); ?></a></strong>
+	                        	<div id='<?php echo $post->ID?>-contrato' style="display:none">
+	                        		<div style='max-height: 100%; overflow: auto;'>
+	                        			<?php echo nl2br(get_contrato_inscricao_substituido($post->ID, $contrato['valor'], $contrato['porcentagem'], $contrato['contrato'])); ?>
+	                        		</div>
+	                        		<form method="post" class="text-center">
+	                        			<input type='hidden' name='tnb_user_action' value='' />
+	                        			<input type='hidden' name='evento_id' value='<?php the_ID()?>' />
+	                        			<input type='button' value='aceitar e publicar evento' onclick="this.form.tnb_user_action.value = 'contrato-oportunidade-aceitar'; this.form.submit();" class="grey"/> 
+	                        			<input type='button' value='recusar'  onclick="this.form.tnb_user_action.value = 'contrato-oportunidade-recusar'; this.form.submit();" class="grey"/>
+									</form>
+	                        	</div>
+	                       	</li>
+	                    <?php else:?>
+	                    	<li><strong><?php _e('aguardando aceitação do contrato','tnb'); ?></strong></li>
+	                	<?php endif; ?>
+                    <?php elseif($post->post_status == 'pay_pending_review'):?>
+                        <li><strong><?php _e('aguardando a revisão do editor','tnb'); ?></strong></li>
+                    <?php elseif(get_contrato_inscricao($post->ID)):  $contrato = get_contrato_inscricao($post->ID);?>
+                    		<li>
+	                        	<strong><a href='javascript:void(0);' onclick='jQuery("#<?php echo $post->ID?>-contrato").dialog({title: "<?php echo sprintf(__('Contrato para oportunidade %s','tnb'),$post->post_title); ?>",width: "900px"});'><?php _e('visualizar contrato','tnb'); ?></a></strong>
+	                        	<div id='<?php echo $post->ID?>-contrato' style="display:none">
+	                        		<div style='max-height: 100%; overflow: auto;'>
+	                        		<?php echo nl2br(get_contrato_inscricao_substituido($post->ID, $contrato['valor'], $contrato['porcentagem'], $contrato['contrato'])); ?>
+	                        		</div>
+	                        	</div>
+	                       	</li>
+                    <?php endif;?>
                     <li><span class="label">Data:</span> <?php echo ($data['br_fim']==$data['br_inicio'] ? $data['br_inicio'] : "$data[br_inicio] - $data[br_fim]") ;?></li>                
                     <?php if(strtotime($data['inscricao_fim']) < strtotime(date('Y-m-d'))): ?>
                         <li><span class="label">Inscrições encerradas</span></li>
