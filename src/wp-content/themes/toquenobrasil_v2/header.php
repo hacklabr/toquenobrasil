@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php // teste ?>
+
+
+<?php // teste 2 ?>
 <html <?php language_attributes(); ?>>
     <head>
         <meta charset="<?php bloginfo( 'charset' ); ?>" />
@@ -35,6 +39,7 @@
     </head>
 
     <body <?php body_class(); ?>>
+BRANCH
         <div id="wrapper" class="container_16 clearfix">
             <?php get_template_part('header-nav'); ?>
             <?php if ( WPEB_countBanners('top') ) : ?>
