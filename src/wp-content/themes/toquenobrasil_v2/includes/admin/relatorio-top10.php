@@ -152,13 +152,20 @@ foreach ($pmetas as $m)
 
 $paises = get_paises();
 ?>
-
+<form method="get">
+	<input type="hidden" name='page' value='<?php echo $_GET['page']?>' />
+	exibir o top <select name='rel_perpage' onchange="this.form.submit();">
+		<?php for($i=10; $i <= 100; $i = $i + 10):?>
+		<option value="<?php echo $i?>" <?php if(isset($_GET['rel_perpage']) && $_GET['rel_perpage'] == $i) echo 'selected="selected"'?>><?php echo $i?></option>
+		<?php endfor;?>
+	</select>
+</form>
 <div id='top10-eventos'>
-    <h4><?php echo sprintf(__('Os %s eventos mais visitados'), $limit); ?></h4>
+    <h4><?php echo sprintf(__('As %s oportunidades mais visitados'), $limit); ?></h4>
     <table class='widefat'>
         <thead>
             <tr>
-                <th>evento</th>
+                <th>oportunidade</th>
                 <th width="40">visitas</th>
             </tr>
         </thead>
