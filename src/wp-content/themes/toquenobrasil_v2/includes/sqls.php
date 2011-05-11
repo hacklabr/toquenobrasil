@@ -59,12 +59,15 @@ CREATE TABLE IF NOT EXISTS `pagseguro_transacoes` (
 	$wpdb->query($sql);
 }
 
+
+
+
 if(!get_option('tnb_sql_28')){ 
 	update_option('tnb_sql_28', 1);
 	
 	global $wpdb;
 	$sql = "
-CREATE TABLE IF NOT EXISTS `tnbranch`.`{$wpdb->prefix}tnb_users_stats` (
+CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}tnb_users_stats` (
 	`id` INT NOT NULL AUTO_INCREMENT ,
 	`data` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 	`reg_type` VARCHAR( 10 ) NOT NULL ,
@@ -79,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `tnbranch`.`{$wpdb->prefix}tnb_users_stats` (
 		`id`
 	)
 )";
-	
+	_pr($sql);
 	$wpdb->query($sql); 
 	
 	$query = "
