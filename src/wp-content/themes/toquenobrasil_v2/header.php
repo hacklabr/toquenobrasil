@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <?php // teste ?>
+
+
+<?php // teste 2 ?>
 <html <?php language_attributes(); ?>>
     <head>
         <meta charset="<?php bloginfo( 'charset' ); ?>" />
