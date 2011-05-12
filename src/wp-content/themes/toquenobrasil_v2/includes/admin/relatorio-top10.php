@@ -161,11 +161,11 @@ $paises = get_paises();
 	</select>
 </form>
 <div id='top10-eventos'>
-    <h4><?php echo sprintf(__('Os %s eventos mais visitados'), $limit); ?></h4>
+    <h4><?php echo sprintf(__('As %s oportunidades mais visitados'), $limit); ?></h4>
     <table class='widefat'>
         <thead>
             <tr>
-                <th>evento</th>
+                <th>oportunidade</th>
                 <th width="40">visitas</th>
             </tr>
         </thead>
