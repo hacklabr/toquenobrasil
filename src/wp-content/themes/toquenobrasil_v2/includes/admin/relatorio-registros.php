@@ -51,6 +51,13 @@ $artistas_por_mes = array();
 $produtores_por_dia = array();
 $produtores_por_mes = array();
 
+$num_dias_media = 7;
+$ultimos_dias = array();
+$media_ultimos_dias = array();
+
+
+
+
 foreach ($users as $user){
 	
 	$dia = substr($user->data, 0, 10);
@@ -67,6 +74,7 @@ foreach ($users as $user){
 	}else{
 		die('error');
 	}
+	
 	if($user->capability == 'artista'){
 		if($user->reg_type == 'insert'){
 			$artistas_por_dia[$dia] = isset($artistas_por_dia[$dia]) ? $artistas_por_dia[$dia] + 1 : 1;
@@ -88,6 +96,42 @@ foreach ($users as $user){
 		$num_produtores++;
 	}
 }
+$i = 0;
+$tot = 0;
+foreach ($registros_por_dia as $num)
+	if($i < $num_dias_media){
+		$tot += $num;
+		$i++;
+	}else{
+		break;
+	}
+
+$med = $tot /  $num_dias_media;
+
+for($i=1; $i <= $num_dias_media; $i++)
+	$ultimos_dias[$i] = $med;
+
+ksort($registros_por_dia);
+//_pr($registros_por_dia);
+foreach ($registros_por_dia as $dia => $num){
+
+			
+	$media_ultimos_dias[$dia] = 0;
+	// obtendo média dos ultimos dias
+	for($i=1; $i <= $num_dias_media; $i++){
+		
+		if($i == $num_dias_media)
+			$ultimos_dias[$i] = $num;
+		else
+			$ultimos_dias[$i] = $ultimos_dias[$i+1];
+			
+		$media_ultimos_dias[$dia] += $ultimos_dias[$i]; 		
+	}
+	$media_ultimos_dias[$dia] = $media_ultimos_dias[$dia] / $num_dias_media;
+	
+	
+}
+//_pr($registros_por_dia);
 ?>
 <p>
 <form method="get" >
@@ -163,18 +207,24 @@ foreach ($produtores_por_dia as $dia => $num)
 
 ksort($artistas_por_dia);
 ksort($produtores_por_dia);
-ksort($registros_por_dia);
+ksort($media_ultimos_dias);
 
+$menor_data = 0; 
 
 $v = '';
-foreach ($registros_por_dia as $dia => $num){	
-	$dia = strtotime($dia);	
+foreach ($registros_por_dia as $dia => $num){
+	
+	$dia = strtotime($dia);
+	
+	if($menor_data == 0){
+		$menor_data = $dia;
+	}	
 	$data_total_por_dia .= $v."[{$dia}000, $num]";
 	$v = ',';
 }
 
 $v = '';
-foreach ($artistas_por_dia as $dia => $num){	
+foreach ($artistas_por_dia as $dia => $num){
 	$dia = strtotime($dia);	
 	$data_artistas_por_dia .= $v."[{$dia}000, $num]";
 	$v = ',';
@@ -187,6 +237,16 @@ foreach ($produtores_por_dia as $dia => $num){
 	$data_produtores_por_dia .= $v."[{$dia}000, $num]";
 	$v = ',';
 } 
+
+$v = '';
+foreach ($media_ultimos_dias as $dia => $num){
+	$dia = strtotime($dia);// - intval((86400 * $num_dias_media / 2));
+	if($dia >= $menor_data){
+		$data_media_por_dia .= $v."[{$dia}000, $num]";
+		$v = ',';
+	}
+}
+
 
 // gráfico de total acumulado no dia
 
@@ -213,14 +273,17 @@ foreach ($produtores_por_dia as $dia => $num){
 var total_data = [<?php echo $data_total_por_dia?>];
 var artistas_data = [<?php echo $data_artistas_por_dia?>];
 var produtores_data = [<?php echo $data_produtores_por_dia?>];
+var media_data = [<?php echo $data_media_por_dia?>];
 
 var acumulado_artistas = [<?php echo $data_acumulado_artistas?>];
 var acumulado_produtores = [<?php echo $data_acumulado_produtores?>];
 
 
-var data_dia = [	{data: total_data, label: 'total', color:2},
+var data_dia = [	{data: media_data, label:'media dos <?php echo $num_dias_media?> dias anteriores', color:3},
+					{data: total_data, label: 'total', color:2},
 					{data: artistas_data, label: 'artistas', color:0},
                 	{data: produtores_data, label:'produtores', color:1}
+                	
                 ];
                 
 jQuery.plot(jQuery("#registros-por-dia"), data_dia, { 
