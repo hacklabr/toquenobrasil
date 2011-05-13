@@ -1440,12 +1440,6 @@ if (!function_exists('tnb_login_head')) {
 
 // --------------------- EMAILS --------------------//
 
-if (!function_exists('tnb_mail_name')) {
-    function tnb_mail_name($from_name){
-        return __('Toque no Brasil', 'tnb');
-    }
-}
-
 
 function tnb_mail_email($from_email){
     return get_bloginfo('admin_email');
@@ -1989,12 +1983,14 @@ function is_contrato_campos_locked($evento_id){
 function print_inscricao_pay_button($evento_id, $artista_id){
 	global $wpdb;
 	$inscricao = $wpdb->get_var("SELECT meta_id FROM $wpdb->postmeta WHERE post_id = '$evento_id' AND meta_key = 'inscricao_pendente' AND meta_value = '$artista_id'");
+	
 	$edata = get_oportunidades_data($evento_id);
 	if($inscricao && $edata['inscricao_cobrada']){
 		$evento = get_post($evento_id);
 		
 		
-		$transacao = $wpdb->get_row("SELECT * FROM pagseguro_transacoes WHERE Referencia = '$inscricao' ORDER BY insert_timestamp DESC LIMIT 1");
+		$transacao = $wpdb->get_row("SELECT * FROM pagseguro_transacoes WHERE Referencia = '$inscricao' ORDER BY DataTransacao DESC, insert_timestamp DESC LIMIT 1");
+		
 		?>
 		<?php if($transacao->StatusTransacao == 'Aguardando Pagto'):
 					$tipos_pagamentos['Boleto'] = __('Boleto Bancário','tnb');
