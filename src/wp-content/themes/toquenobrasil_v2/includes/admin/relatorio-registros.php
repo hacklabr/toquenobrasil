@@ -27,13 +27,27 @@ if(isset($_GET['registros_ate']) && trim($_GET['registros_ate'])){
 $sql_capability = isset($_GET['user_type']) && $_GET['user_type'] ?	
 				  "AND capability = '".$_GET['user_type']."'" : ""; 
 
+$sql_pais = '';
+$sql_estado = '';
+$sql_cidade = '';
+
+if($_GET['pais'])
+	$sql_pais = " AND pais = '$_GET[pais]'";
+	 
+if($_GET['estado'])
+	$sql_estado = " AND estado = '$_GET[estado]'";
+	
+if($_GET['cidade'])
+	$sql_estado = " AND cidade = '$_GET[cidade]'";
+	
+	
 $query = "
 SELECT
 	* 
 FROM
 	{$wpdb->prefix}tnb_users_stats
 WHERE 1
-	$sql_de $sql_ate $sql_capability";
+	$sql_de $sql_ate $sql_capability $sql_pais $sql_estado $sql_cidade";
 	
 
 $users = $wpdb->get_results($query);
@@ -55,7 +69,11 @@ $num_dias_media = 7;
 $ultimos_dias = array();
 $media_ultimos_dias = array();
 
+$num_novos_artistas = 0;
+$num_artistas_deletados = 0;
 
+$num_novos_produtores = 0;
+$num_produtores_deletados = 0;
 
 
 foreach ($users as $user){
@@ -64,10 +82,12 @@ foreach ($users as $user){
 	$mes = substr($user->data, 0, 7);
 	
 	if($user->reg_type == 'insert'){
+		
 		$registros_por_dia[$dia] = isset($registros_por_dia[$dia]) ? $registros_por_dia[$dia] + 1 : 1;
 		$registros_por_mes[$mes] = isset($registros_por_mes[$mes]) ? $registros_por_mes[$mes] + 1 : 1;
 		
 	}elseif($user->reg_type == 'delete'){
+		
 		$registros_por_dia[$dia] = isset($registros_por_dia[$dia]) ? $registros_por_dia[$dia] - 1 : -1;
 		$registros_por_mes[$mes] = isset($registros_por_mes[$mes]) ? $registros_por_mes[$mes] - 1 : -1;
 		
@@ -77,25 +97,33 @@ foreach ($users as $user){
 	
 	if($user->capability == 'artista'){
 		if($user->reg_type == 'insert'){
+			$num_novos_artistas++;
 			$artistas_por_dia[$dia] = isset($artistas_por_dia[$dia]) ? $artistas_por_dia[$dia] + 1 : 1;
 			$artistas_por_mes[$mes] = isset($artistas_por_mes[$mes]) ? $artistas_por_mes[$mes] + 1 : 1;
 		}elseif($user->reg_type == 'delete'){
+			$num_artistas_deletados++;
 			$artistas_por_dia[$dia] = isset($artistas_por_dia[$dia]) ? $artistas_por_dia[$dia] - 1 : -1;
 			$artistas_por_mes[$mes] = isset($artistas_por_mes[$mes]) ? $artistas_por_mes[$mes] - 1 : -1;
 		}
-		$num_artistas++;
+		
 	}
 	if($user->capability == 'produtor'){
 		if($user->reg_type == 'insert'){
+			$num_novos_produtores++;
 			$produtores_por_dia[$dia] = isset($produtores_por_dia[$dia]) ? $produtores_por_dia[$dia] + 1 : 1;
 			$produtores_por_mes[$mes] = isset($produtores_por_mes[$mes]) ? $produtores_por_mes[$mes] + 1 : 1;
+			
 		}elseif($user->reg_type == 'delete'){
+			$num_produtores_deletados++;
 			$produtores_por_dia[$dia] = isset($produtores_por_dia[$dia]) ? $produtores_por_dia[$dia] - 1 : -1;
 			$produtores_por_mes[$mes] = isset($produtores_por_mes[$mes]) ? $produtores_por_mes[$mes] - 1 : -1;
 		}
-		$num_produtores++;
+		
 	}
 }
+ksort($registros_por_dia);
+
+// obtendo a média dos ultimos dias
 $i = 0;
 $tot = 0;
 foreach ($registros_por_dia as $num)
@@ -111,7 +139,7 @@ $med = $tot /  $num_dias_media;
 for($i=1; $i <= $num_dias_media; $i++)
 	$ultimos_dias[$i] = $med;
 
-ksort($registros_por_dia);
+
 //_pr($registros_por_dia);
 foreach ($registros_por_dia as $dia => $num){
 
@@ -131,24 +159,76 @@ foreach ($registros_por_dia as $dia => $num){
 	
 	
 }
-//_pr($registros_por_dia);
+
+
+$paises = get_paises();
+$estados = get_estados();
 ?>
 <p>
 <form method="get" >
 	<input type='hidden' name='page' value='<?php echo $_GET['page']?>'>
-	<select name='user_type' onchange="this.form.submit();">
-		<option value='' <?php if(!isset($_GET['user_type']) || $_GET['user_type'] == '') echo 'selected="selected"';?>>todos</option>
-		<option value='artista' <?php if(isset($_GET['user_type']) && $_GET['user_type'] == 'artista') echo 'selected="selected"';?>>artistas</option>
-		<option value='produtor' <?php if(isset($_GET['user_type']) && $_GET['user_type'] == 'produtor') echo 'selected="selected"';?>>produtores</option>
-	</select>
+	
+	<table>
+		<tr>
+			<td>
+				País<br />
+				<select name='pais'>
+					<option value="" <?php if(!isset($_GET['pais']) || $_GET['pais'] == '') echo 'selected="selected"';?>>TODOS</option>
+					<?php foreach($paises as $sigla=>$pais):?>
+						<option value='<?php echo $sigla?>' <?php if(isset($_GET['pais']) && $_GET['pais'] == $sigla) echo 'selected="selected"';?>><?php echo $pais?></option>
+					<?php endforeach;?>
+				</select>
+			</td>
+			
+			<td>
+				Estado<br />
+				<select name='estado'>
+					<option value="" <?php if(!isset($_GET['estado']) || $_GET['estado'] == '') echo 'selected="selected"';?>>TODOS</option>
+					<?php foreach($estados as $uf=>$estado): if($uf): ?>
+						<option value='<?php echo $uf?>' <?php if(isset($_GET['estado']) && $_GET['estado'] == $uf) echo 'selected="selected"';?>><?php echo $estado?></option>
+					<?php endif; endforeach;?>
+				</select>
+			</td>
+			
+			<td>
+				Cidade <br />
+				<input name='cidade' value='<?php echo $_GET['cidade'];?>' />
+			</td>
+			
+			<td>
+				Tipo de usuário
+				<select name='user_type' onchange="this.form.submit();">
+					<option value='' <?php if(!isset($_GET['user_type']) || $_GET['user_type'] == '') echo 'selected="selected"';?>>TODOS</option>
+					<option value='artista' <?php if(isset($_GET['user_type']) && $_GET['user_type'] == 'artista') echo 'selected="selected"';?>>artistas</option>
+					<option value='produtor' <?php if(isset($_GET['user_type']) && $_GET['user_type'] == 'produtor') echo 'selected="selected"';?>>produtores</option>
+				</select>
+							
+			</td>
+		</tr>
+	</table>
+	<br/>
+	
+	
 	de: <input id="registros_de" name='registros_de' type="text"  value="<?php echo $_GET['registros_de']; ?>" class="date bottom"/> à 
     <input id="registros_ate" name='registros_ate' type="text" value="<?php echo $_GET['registros_ate']; ?>" class="date bottom"/>
     <input type="submit" value="<?php _e('pesquisar','tnb')?>">
 </form>
 </p>
 
-<h3><?php echo $num_usuarios?> usuários encontrados</h3>
-<div id='registros-total-pie' class='graph' style='width:350px; height:150px;'></div>
+
+<table width="100%">
+	<tr>
+		<td>
+			<h3><?php echo $num_novos_artistas+$num_novos_produtores?> novos usuários</h3>
+			<div id='usuarios-novos-pie' class='graph' style='width:350px; height:150px;'></div>
+		</td>
+		<td>
+			<h3><?php echo $num_artistas_deletados+$num_produtores_deletados?> usuários deletados</h3>
+			<div id='usuarios-deletados-pie' class='graph' style='width:350px; height:150px;'>
+		</div>
+	</tr>
+</table>
+
 <h4>número de registros por dia</h4>
 <div id='registros-por-dia' class='graph' style='width:95%; height:250px;'></div>
 
@@ -173,10 +253,15 @@ jQuery('#registros_de').datepicker();
 jQuery('#registros_ate').datepicker();
 
 
-var data_pie = [{ label: "Artistas: <?php echo $num_artistas?>",  data: <?php echo $num_artistas?>},
-    		{ label: "Produtores: <?php echo $num_produtores?>",  data: <?php echo $num_produtores?>}];
+var data_novos_pie = [	{ label: "Artistas: <?php echo $num_novos_artistas?>",  data: <?php echo $num_novos_artistas?>},
+    					{ label: "Produtores: <?php echo $num_novos_produtores?>",  data: <?php echo $num_novos_produtores?>}
+    				 ];
+var data_deletados_pie = [	{ label: "Artistas: <?php echo $num_artistas_deletados?>",  data: <?php echo $num_artistas_deletados?>},
+    						{ label: "Produtores: <?php echo $num_produtores_deletados?>",  data: <?php echo $num_produtores_deletados?>}
+    					 ];
 
-jQuery.plot(jQuery("#registros-total-pie"), data_pie,
+<?php if($num_novos_artistas || $num_novos_produtores):?>
+jQuery.plot(jQuery("#usuarios-novos-pie"), data_novos_pie,
 		{
 		        series: {
 		            pie: {
@@ -193,8 +278,28 @@ jQuery.plot(jQuery("#registros-total-pie"), data_pie,
 		            }
 		        }
 		});
+<?php endif; ?>
 
+<?php if($num_artistas_deletados || $num_produtores_deletados):?>
 
+jQuery.plot(jQuery("#usuarios-deletados-pie"), data_deletados_pie,
+		{
+		        series: {
+		            pie: {
+		                show: true,
+		                radius: 1,
+		                label: {
+		                    show: true,
+		                    radius: 3/4,
+		                    formatter: function(label, series){
+			                    return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">'+Math.round(series.percent)+'%</div>';
+		                    },
+		                    background: { opacity: 0.5 }
+		                }
+		            }
+		        }
+		});
+<?php endif; ?>
 <?php 
 // gráficos de inscrições por dia
 foreach ($artistas_por_dia as $dia => $num)
@@ -252,6 +357,8 @@ foreach ($media_ultimos_dias as $dia => $num){
 
 $acumulado_artistas = 0;
 $acumulado_produtores = 0;
+$acumulado_total = 0;
+
 $v = '';
 foreach ($artistas_por_dia as $dia => $num){	
 	$dia = strtotime($dia);	
@@ -268,6 +375,14 @@ foreach ($produtores_por_dia as $dia => $num){
 	$v = ',';
 } 
 
+$v = '';
+foreach ($registros_por_dia as $dia => $num){
+	$dia = strtotime($dia);
+	$acumulado_total += $num;
+	$data_acumulado_total .= $v."[{$dia}000, $acumulado_total]";
+	$v = ',';
+} 
+
 ?>
 
 var total_data = [<?php echo $data_total_por_dia?>];
@@ -277,6 +392,7 @@ var media_data = [<?php echo $data_media_por_dia?>];
 
 var acumulado_artistas = [<?php echo $data_acumulado_artistas?>];
 var acumulado_produtores = [<?php echo $data_acumulado_produtores?>];
+var acumulado_total = [<?php echo $data_acumulado_total?>];
 
 
 var data_dia = [	{data: media_data, label:'media dos <?php echo $num_dias_media?> dias anteriores', color:3},
@@ -288,20 +404,21 @@ var data_dia = [	{data: media_data, label:'media dos <?php echo $num_dias_media?
                 
 jQuery.plot(jQuery("#registros-por-dia"), data_dia, { 
 	    xaxes: [ { mode: 'time' , timeformat: "%d/%m/%y" } ],
-	    yaxes: [ { min: 0 }],
+	    
 	    legend: { position: 'nw' }
     }
 );
 
 
 var data_acumulado = [
-            	{data: acumulado_artistas, label: 'artistas'},
-            	{data: acumulado_produtores, label:'produtores'}
+            	{data: acumulado_total, label: 'total', color:2},
+            	{data: acumulado_artistas, label: 'artistas', color:0},
+            	{data: acumulado_produtores, label:'produtores', color:1}
             ];
             
 jQuery.plot(jQuery("#acumulado-por-dia"), data_acumulado, { 
     xaxes: [ { mode: 'time' , timeformat: "%d/%m/%y" } ],
-    yaxes: [ { min: 0 }],
+    
     legend: { position: 'nw' }
 
 }
