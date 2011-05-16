@@ -1935,4 +1935,45 @@ function tnb_update_users_stats($user){
 		reg_type = 'insert' AND
 		user_id = '$user->ID'");
 }
+
+add_action('wp_login','tnb_count_login');
+	
+function tnb_count_login($user_login){
+	global $wpdb;
+	$day = date("Y-m-d"); 
+	$user_id = $wpdb->get_var("SELECT ID FROM $wpdb->users WHERE user_login = '$user_login'");
+	$stats_id = $wpdb->get_var("
+	SELECT 
+		ID
+	FROM 
+		{$wpdb->prefix}tnb_stats 
+	WHERE 
+		object_id = '$user_id' AND 
+		day = '$day' AND
+		type = 'user_logins'");
+		
+	if(!$stats_id){
+		$wpdb->query("
+			INSERT INTO {$wpdb->prefix}tnb_stats (
+				day, 
+				`count`, 
+				type, 
+				object_id
+			)VALUES(
+				'$day',
+				1,
+				'user_logins',
+				'$user_id'
+			)");
+	}else{
+		$wpdb->query("
+			UPDATE
+				{$wpdb->prefix}tnb_stats
+			SET
+				`count` = `count` + 1
+			WHERE
+				ID = $stats_id");
+		
+	}
+}
 ?>

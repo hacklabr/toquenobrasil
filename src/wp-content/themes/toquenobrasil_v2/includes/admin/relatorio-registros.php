@@ -387,6 +387,9 @@ foreach($users_metadata as $umeta){
 				$cidade = $udata->banda_cidade;
 			}else{
 				$capability = 'produtor';
+				$cidade = '';
+				$estado = '';
+				$pais = '';
 			}
 			
 			$origem_pais = $udata->origem_pais ? $paises[$udata->origem_pais] : '';
