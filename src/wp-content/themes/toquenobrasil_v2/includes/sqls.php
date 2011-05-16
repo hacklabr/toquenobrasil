@@ -62,8 +62,8 @@ CREATE TABLE IF NOT EXISTS `pagseguro_transacoes` (
 
 
 
-if(!get_option('tnb_sql_28')){ 
-	update_option('tnb_sql_28', 1);
+if(!get_option('tnb_sql_29')){ 
+	update_option('tnb_sql_29', 1);
 	
 	global $wpdb;
 	$sql = "
@@ -97,7 +97,8 @@ WHERE
 	$wpdb->users.ID = $wpdb->usermeta.user_id AND
 	$wpdb->usermeta.meta_key = '{$wpdb->prefix}capabilities' AND
 	($wpdb->usermeta.meta_value LIKE '%artista%' OR
-	 $wpdb->usermeta.meta_value LIKE '%produtor%')";
+	 $wpdb->usermeta.meta_value LIKE '%produtor%') AND
+	$wpdb->users.ID NOT INT (SELECT ID FROM $wpdb->users)";
 	 
 	 $users = $wpdb->get_results($query);
 	 
