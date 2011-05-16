@@ -86,7 +86,7 @@ foreach ($users as $user){
 	
 	for($i = 1; $i <= $num_dias_media; $i++){
 		// próximo dia
-		if(!isset($registros_por_dia[date('Y-m-d', strtotime($dia) + 86400 * $i)]))
+		if(!isset($registros_por_dia[date('Y-m-d', strtotime($dia) + 86400 * $i)]) && strtotime($dia) + 86400 * $i < strtotime(date('Y-m-d')))
 			$registros_por_dia[date('Y-m-d', strtotime($dia) + 86400 * $i)] = 0;
 			
 		// dia anterior
@@ -112,7 +112,7 @@ foreach ($users as $user){
 	if($user->capability == 'artista'){
 		for($i = 1; $i <= $num_dias_media; $i++){
 			// próximo dia
-			if(!isset($artistas_por_dia[date('Y-m-d', strtotime($dia) + 86400 * $i)]))
+			if(!isset($artistas_por_dia[date('Y-m-d', strtotime($dia) + 86400 * $i)]) && strtotime($dia) + 86400 * $i < strtotime(date('Y-m-d')))
 				$artistas_por_dia[date('Y-m-d', strtotime($dia) + 86400 * $i)] = 0;
 				
 			// dia anterior
@@ -133,7 +133,7 @@ foreach ($users as $user){
 	if($user->capability == 'produtor'){
 		for($i = 1; $i <= $num_dias_media; $i++){
 			// próximo dia
-			if(!isset($produtores_por_dia[date('Y-m-d', strtotime($dia) + 86400 * $i)]))
+			if(!isset($produtores_por_dia[date('Y-m-d', strtotime($dia) + 86400 * $i)]) && strtotime($dia) + 86400 * $i < strtotime(date('Y-m-d')))
 				$produtores_por_dia[date('Y-m-d', strtotime($dia) + 86400 * $i)] = 0;
 				
 			// dia anterior
@@ -228,7 +228,7 @@ $estados = get_estados();
 			</td>
 			
 			<td>
-				Tipo de usuário
+				Tipo de usuário<br />
 				<select name='user_type' onchange="this.form.submit();">
 					<option value='' <?php if(!isset($_GET['user_type']) || $_GET['user_type'] == '') echo 'selected="selected"';?>>TODOS</option>
 					<option value='artista' <?php if(isset($_GET['user_type']) && $_GET['user_type'] == 'artista') echo 'selected="selected"';?>>artistas</option>
