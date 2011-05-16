@@ -77,10 +77,9 @@ CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}tnb_users_stats` (
 	`pais` VARCHAR( 50 ) NOT NULL ,
 	`estado` VARCHAR( 50 ) NOT NULL ,
 	`cidade` VARCHAR( 50 ) NOT NULL ,
-	PRIMARY KEY ( `id` ) ,
-	UNIQUE (
-		`id`
-	)
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `id` (`id`),
+	KEY `user_id` (`user_id`)
 )";
 	_pr($sql);
 	$wpdb->query($sql); 

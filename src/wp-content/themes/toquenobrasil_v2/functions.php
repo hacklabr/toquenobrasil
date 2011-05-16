@@ -1884,4 +1884,55 @@ function is_a_valid_cnpj($cnpj) {
     }
     return false;
 }
+
+/* RELATÓRIOS GERENCIAIS */
+add_action('tnb_user_register', 'tnb_add_user_to_users_stats_table');
+function tnb_add_user_to_users_stats_table($user_id){
+	global $wpdb;
+	$user = get_user_by('id', $user_id);
+	
+	$capability = is_artista($user_id) ? 'artista' : 'produtor';
+	
+	$wpdb->query("
+	INSERT INTO {$wpdb->prefix}tnb_users_stats (
+		reg_type,
+		user_id,
+		login,
+		capability
+	)VALUES(
+		'insert',
+		'$user_id',
+		'$user->user_login',
+		'$capability'
+	)");
+}
+
+add_action('tnb_update_produtor','tnb_update_users_stats');
+add_action('tnb_update_artista','tnb_update_users_stats');
+function tnb_update_users_stats($user){
+	global $wpdb;
+	if(is_artista($user->ID)){
+		$pais = $user->banda_pais;
+		$estado = $user->banda_estado;
+		$cidade = $user->banda_cidade;
+	}else{
+		$pais = $user->origem_pais;
+		$estado = $user->origem_estado;
+		$cidade = $user->origem_cidade;
+	}
+	
+	$estado = addslashes($estado);
+	$cidade = addslashes($cidade);
+	
+	$wpdb->query("
+	UPDATE 
+		{$wpdb->prefix}tnb_users_stats 
+	SET
+		pais = '$pais',
+		estado = '$estado',
+		cidade = '$cidade'
+	WHERE
+		reg_type = 'insert' AND
+		user_id = '$user->ID'");
+}
 ?>

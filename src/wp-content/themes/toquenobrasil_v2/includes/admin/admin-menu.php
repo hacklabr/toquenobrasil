@@ -46,9 +46,7 @@ function tnb_admin_top10() {
 } 
 
 function tnb_admin_registros() { 
-
 	include 'relatorio-registros.php';
-
 } 
 
 function tnb_admin_usuarios() { 
@@ -94,6 +92,7 @@ function tnb_admin_contrato_pagamentos_efetuados(){
 }
 
 function tnb_admin_modelo_contrato(){
+	
 	include 'pagamento-actions.php';
 	include 'pagamento-modelo-contrato.php';
 }

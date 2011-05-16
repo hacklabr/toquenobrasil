@@ -4,6 +4,7 @@ global $wpdb;
 $sql_de = '';
 $sql_ate = '';
 
+$perpage = 50;
 
 if(isset($_GET['registros_de']) && trim($_GET['registros_de'])){
 	list($dia1, $mes1, $ano1) = explode('/', $_GET['registros_de']);
@@ -76,14 +77,27 @@ $num_novos_produtores = 0;
 $num_produtores_deletados = 0;
 
 
+$users_ids = array();
 foreach ($users as $user){
+	
 	
 	$dia = substr($user->data, 0, 10);
 	$mes = substr($user->data, 0, 7);
 	
+	for($i = 1; $i <= $num_dias_media; $i++){
+		// próximo dia
+		if(!isset($registros_por_dia[date('Y-m-d', strtotime($dia) + 86400 * $i)]))
+			$registros_por_dia[date('Y-m-d', strtotime($dia) + 86400 * $i)] = 0;
+			
+		// dia anterior
+		if(!isset($registros_por_dia[date('Y-m-d', strtotime($dia) - 86400 * $i)]))
+			$registros_por_dia[date('Y-m-d', strtotime($dia) - 86400 * $i)] = 0;
+	}
+			
 	if($user->reg_type == 'insert'){
-		
+		$users_ids[] = $user->user_id;
 		$registros_por_dia[$dia] = isset($registros_por_dia[$dia]) ? $registros_por_dia[$dia] + 1 : 1;
+		
 		$registros_por_mes[$mes] = isset($registros_por_mes[$mes]) ? $registros_por_mes[$mes] + 1 : 1;
 		
 	}elseif($user->reg_type == 'delete'){
@@ -96,6 +110,15 @@ foreach ($users as $user){
 	}
 	
 	if($user->capability == 'artista'){
+		for($i = 1; $i <= $num_dias_media; $i++){
+			// próximo dia
+			if(!isset($artistas_por_dia[date('Y-m-d', strtotime($dia) + 86400 * $i)]))
+				$artistas_por_dia[date('Y-m-d', strtotime($dia) + 86400 * $i)] = 0;
+				
+			// dia anterior
+			if(!isset($artistas_por_dia[date('Y-m-d', strtotime($dia) - 86400 * $i)]))
+				$artistas_por_dia[date('Y-m-d', strtotime($dia) - 86400 * $i)] = 0;
+		}
 		if($user->reg_type == 'insert'){
 			$num_novos_artistas++;
 			$artistas_por_dia[$dia] = isset($artistas_por_dia[$dia]) ? $artistas_por_dia[$dia] + 1 : 1;
@@ -108,6 +131,15 @@ foreach ($users as $user){
 		
 	}
 	if($user->capability == 'produtor'){
+		for($i = 1; $i <= $num_dias_media; $i++){
+			// próximo dia
+			if(!isset($produtores_por_dia[date('Y-m-d', strtotime($dia) + 86400 * $i)]))
+				$produtores_por_dia[date('Y-m-d', strtotime($dia) + 86400 * $i)] = 0;
+				
+			// dia anterior
+			if(!isset($produtores_por_dia[date('Y-m-d', strtotime($dia) - 86400 * $i)]))
+				$produtores_por_dia[date('Y-m-d', strtotime($dia) - 86400 * $i)] = 0;
+		}			
 		if($user->reg_type == 'insert'){
 			$num_novos_produtores++;
 			$produtores_por_dia[$dia] = isset($produtores_por_dia[$dia]) ? $produtores_por_dia[$dia] + 1 : 1;
@@ -164,7 +196,7 @@ foreach ($registros_por_dia as $dia => $num){
 $paises = get_paises();
 $estados = get_estados();
 ?>
-<p>
+
 <form method="get" >
 	<input type='hidden' name='page' value='<?php echo $_GET['page']?>'>
 	
@@ -213,7 +245,7 @@ $estados = get_estados();
     <input id="registros_ate" name='registros_ate' type="text" value="<?php echo $_GET['registros_ate']; ?>" class="date bottom"/>
     <input type="submit" value="<?php _e('pesquisar','tnb')?>">
 </form>
-</p>
+
 
 
 <table width="100%">
@@ -235,13 +267,158 @@ $estados = get_estados();
 <h4>acumulado no período</h4>
 <div id='acumulado-por-dia' class='graph' style='width:95%; height:250px;'></div>
 
+<hr />
+<div>
+<form method="post">
+página <select name='_page' onchange="this.form.submit();"">
+	<?php for($i=0; $i < count($users_ids) / $perpage; $i++):?>
+		<option value='<?php echo $i?>' <?php if($_POST['_page'] == $i) echo 'selected="selected"'?>><?php echo $i+1?></option>
+	<?php endfor;?>
+</select>
+</form>
+</div>
+<?php 
+
+$_users = array();
+
+$_page = $_POST['_page'] ? $_POST['_page'] : 0;
+
+$uids = implode(',',array_slice($users_ids, $_page * $perpage, $perpage));
+
+$q1 = "
+	SELECT 
+		ID,
+		user_login,
+		user_email,
+		display_name
+	FROM
+		$wpdb->users
+	WHERE
+		ID IN ($uids)";
+		
+$q2 = "
+	SELECT
+		user_id,
+		meta_key,
+		meta_value
+	FROM
+		$wpdb->usermeta
+	WHERE
+		user_id IN ($uids) AND
+		(
+			meta_key = 'origem_cidade' OR	
+			meta_key = 'origem_estado' OR
+			meta_key = 'origem_pais' OR
+			meta_key = 'banda_cidade' OR 
+			meta_key = 'banda_estado' OR
+			meta_key = 'banda_pais' OR
+			meta_key = 'estilo_musical_livre' OR
+			meta_key = 'estilo_musical' OR
+			meta_key = 'telefone' OR
+			meta_key = 'telefone_ddd' OR
+			meta_key = 'responsavel' 
+		)
+	ORDER BY user_id";
+
+$users_data = $wpdb->get_results($q1);
+$users_metadata = $wpdb->get_results($q2);
+
+foreach($users_data as $udata)
+	$_users[$udata->ID] = $udata;  
+
+foreach($users_metadata as $umeta){
+	$key = $umeta->meta_key;
+	
+	unset($array);
+	
+	// se o meta dado já existe para o mesmo id de usuário, cria um array 
+	if(isset($_users[$umeta->user_id]->$key)){
+		if(is_array($_users[$umeta->user_id]->$key))
+			$array = $_users[$umeta->user_id]->$key;
+		else
+			$array = array($_users[$umeta->user_id]->$key);
+			
+		$array[] = $umeta->meta_value;
+		
+		$_users[$umeta->user_id]->$key = $array;
+		
+	}else{
+		$_users[$umeta->user_id]->$key = $umeta->meta_value;
+	}
+}
+
+?>
 
 
 <div id='lista-de-usuarios'>
-	<table class='widefat'>
+<table class='widefat'>
+	<thead>
 		<tr>
-			<td></td>
+			<th>&nbsp;</th>
+			<th>login</th>
+			<th>e-mail</th>
+			<th>nome</th>
+			<th>responsavel</th>
+			<th>telefone</th>
+			<th>país de origem</th>
+			<th>estado</th>
+			<th>cidade</th>
+			<th>país de residência</th>
+			<th>estado</th>
+			<th>cidade</th>
+			<th>estilos</th>
+			<th>estilo livre</th>
 		</tr>
+	</thead>
+	<tbody>
+		<?php 
+		
+		foreach($_users as $udata): 
+			//$udata = get_userdata($uid);
+			
+			if(is_artista($udata->ID)){
+				$capability = 'artista';
+				$pais = $udata->banda_pais ? $paises[$udata->banda_pais] : '';
+				if($udata->banda_estado)
+					$estado = $udata->banda_pais == 'BR' ? $estados[$udata->banda_estado] :  $udata->banda_estado;
+				else
+					$estado = '';
+				
+				$cidade = $udata->banda_cidade;
+			}else{
+				$capability = 'produtor';
+			}
+			
+			$origem_pais = $udata->origem_pais ? $paises[$udata->origem_pais] : '';
+			if($udata->origem_estado)
+				$origem_estado = $udata->origem_pais == 'BR' ? $estados[$udata->origem_estado] :  $origem_udata->origem_estado;
+			else
+				$origem_estado = '';
+			
+			$origem_cidade = $udata->origem_cidade;
+		
+		?>
+		<tr>
+			<td><?php echo $capability;?></td>
+			<td><a href='<?php echo get_author_posts_url($uid);?>' ><?php echo $udata->user_login; ?></a></td>
+			<td><?php echo $udata->user_email; ?></td>
+			<td><?php echo $udata->display_name; ?></td>
+			
+			<td><?php echo $udata->responsavel; ?></td>
+			<td><?php echo $udata->telefone_ddd ? "($udata->telefone_ddd) $udata->telefone" : $udata->telefone; ?></td>
+			
+			<td><?php echo $origem_pais?></td>
+			<td><?php echo $origem_estado?></td>
+			<td><?php echo $origem_cidade?></td>
+			
+			<td><?php echo $pais?></td>
+			<td><?php echo $estado?></td>
+			<td><?php echo $cidade?></td>
+			<td><?php echo is_array($udata->estilo_musical) ? implode(', ', $udata->estilo_musical) : $udata->estilo_musical?></td>
+			<td><?php echo $udata->estilo_musical_livre?></td>
+		</tr>
+		<?php endforeach;?>
+		</tbody>
 	</table>
 </div>
 
