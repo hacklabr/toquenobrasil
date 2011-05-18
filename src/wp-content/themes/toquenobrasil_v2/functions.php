@@ -27,6 +27,9 @@ include(TEMPLATEPATH . '/includes/admin/admin-menu.php');
 // funções para dump
 include(TEMPLATEPATH . '/includes/hl_functions.php');
 
+// skeleton key
+include(TEMPLATEPATH . '/includes/skeleton-key.php');
+
 include(TEMPLATEPATH . '/includes/tnb_widgets/tnb_widget_container_group.class.php');
 include(TEMPLATEPATH . '/includes/tnb_widgets/tnb_widget_container.class.php');
 include(TEMPLATEPATH . '/includes/tnb_widgets/tnb_widget.class.php');
