@@ -780,8 +780,18 @@ jQuery(document).ready(function() {
         
         echo "";
         
-        if($this->css['link-color']) echo "\n.tnb_widget a{ color: ".$this->css['link-color'].'; text-decoration:none !important;}';
-        if($this->css['link-hover-color']) echo "\n.tnb_widget a:hover{ color: ".$this->css['link-hover-color'].'; text-decoration:none !important;}';
+        if($this->css['link-color']){
+            echo "\n.tnb_widget a{ color: ".$this->css['link-color'].'; text-decoration:none !important;}';
+            echo "\n.tnb_widget_body .jp-playlist a{ color: ".$this->css['link-color'].'; text-decoration:none !important;}';
+            echo "\ndiv.jp-type-playlist div.jp-playlist a { color: ".$this->css['link-color'].'; text-decoration:none !important;}';
+            echo "\n.tnb_widget_body .jp-playlist a.jp-playlist-current{color: ".$this->css['link-color'].'; font-weight:bold; text-decoration:none !important;}';
+            echo "\ndiv.jp-type-playlist div.jp-playlist a.jp-playlist-current{color: ".$this->css['link-color'].'; font-weight:bold; text-decoration:none !important;}';
+        }
+        if($this->css['link-hover-color']){
+            echo "\n.tnb_widget a:hover{ color: ".$this->css['link-hover-color'].'; text-decoration:none !important;}';
+            echo "\n.tnb_widget_body .jp-playlist a:hover{ color: ".$this->css['link-hover-color'].'; text-decoration:none !important;}';
+            echo "\ndiv.jp-type-playlist div.jp-playlist a:hover{ color: ".$this->css['link-hover-color'].'; text-decoration:none !important;}';
+        }
         
         
         if( $this->css['widget-header-font-color'] || $this->css['widget-header-background-color']){
