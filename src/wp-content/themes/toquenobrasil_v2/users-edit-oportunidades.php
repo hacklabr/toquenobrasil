@@ -130,8 +130,8 @@ $contrato_lock = is_contrato_campos_locked($event->ID);
             
             <div class="clearfix" id='status-div'>
                 <label><?php _e("Status", "tnb"); ?></label>
-                <input type="radio" name="post_status" value="publish" <?php if ($event->post_status == 'publish') echo "checked"; ?> /> <?php _e("Ativo", "tnb"); ?>
-                <input type="radio" name="post_status" value="draft" <?php if ($event->post_status == 'draft') echo "checked"; ?> /> <?php _e("Inativo (Uma oportunidade inativa não é divulgada no site)", "tnb"); ?>
+                <input type="radio" name="post_status" value="publish" <?php if($contrato_lock) echo 'class="contrato_lock" ';?> <?php if ($event->post_status == 'publish') echo "checked"; ?> /> <?php _e("Ativo", "tnb"); ?>
+                <input type="radio" name="post_status" value="draft" <?php if($contrato_lock) echo 'class="contrato_lock" ';?> <?php if ($event->post_status == 'draft') echo "checked"; ?> /> <?php _e("Inativo (Uma oportunidade inativa não é divulgada no site)", "tnb"); ?>
                 
             </div>
             <?php 	//este campo deve ficar fora da div #status-div
@@ -168,7 +168,7 @@ $contrato_lock = is_contrato_campos_locked($event->ID);
             <hr/>
             <h5 class="title"><?php _e("Pagamento", "tnb"); ?></h5>
             <div class="clear"></div>
-
+            
             <div id='pagamento-enabled-div' class="clearfix">
                 <label class='reset-label'>
                     <input type='checkbox' id='evento_inscricao_cobrada' <?php if($contrato_lock) echo 'class="contrato_lock" ';?>name='evento_inscricao_cobrada' value='1' <?php if($event_meta['evento_inscricao_cobrada']) echo 'checked="checked"';?> />
@@ -177,7 +177,10 @@ $contrato_lock = is_contrato_campos_locked($event->ID);
                 <span id='evento_inscricao_valor_label' class='alignright'>
                     R$&nbsp;<input type="text" id='evento_inscricao_valor' <?php if($contrato_lock) echo 'class="contrato_lock" ';?>name='evento_inscricao_valor' style='width:330px' value="<?php echo $event_meta['evento_inscricao_valor'];?>"/>
                 </span>
+                 <div class="clear"></div>
+                <p id='pagamento-msg-div'><?php _e('Para cobrar por inscrições de uma oportunidade, o admin do TNB precisa autorizar para que a oportunidade seja publicada. Você vai receber um email com as diretrizes sobre oportunidades que cobram inscrição. O valor de cada inscrição é dividido entre o produtor da oportunidade e o TNB, na proporção padrão 50%-50%.','tnb')?></p>
             </div>
+            
 			<div id='pagamento-disabled-div' class='clearfix' style='display:none'>
 				<?php _e("Esta opção só está disponível em oportunidades para artista")?>
 			</div>
@@ -530,8 +533,10 @@ $contrato_lock = is_contrato_campos_locked($event->ID);
         if(jQuery(this).attr('checked')){
         	jQuery('#status-div input:radio').attr('checked',false).attr('disabled','disabled');
             jQuery('#evento_inscricao_valor_label').show();
+            jQuery('#pagamento-msg-div').slideDown();
         }else{
         	jQuery('#evento_inscricao_valor_label').hide();
+        	jQuery('#pagamento-msg-div').slideUp();
         	jQuery('#status-div input:radio').attr('disabled',false);
             jQuery('#evento_inscricao_valor').val('');
         }
@@ -542,10 +547,12 @@ $contrato_lock = is_contrato_campos_locked($event->ID);
         	jQuery('#status-div input:radio').attr('checked',false).attr('disabled','disabled');
     	
         jQuery('#evento_inscricao_valor_label').show();
+        jQuery('#pagamento-msg-div').show();
     }else{
     	jQuery('#status-div input:radio').attr('disabled',false);
     	jQuery('#evento_inscricao_valor_label').hide();
         jQuery('#evento_inscricao_valor').val('');
+        jQuery('#pagamento-msg-div').hide();
     }
 
     if(jQuery("#superevento").val() == 'yes'){

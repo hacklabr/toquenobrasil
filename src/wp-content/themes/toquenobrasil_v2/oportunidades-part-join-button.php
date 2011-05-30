@@ -21,9 +21,13 @@ $can_join = tnb_artista_can_join($oportunidade_item->ID);
         <input type="hidden" name="action" value='unjoin' />
         <input type="hidden" name="evento_id" value='<?php echo $oportunidade_item->ID; ?>' />
     </form>
-
+    
     <p class="quero-tocar cancel-subscription text-right">
-        <a onclick="jQuery('#form_unjoin_event_<?php echo $oportunidade_item->ID; ?>').submit();" class="btn-green"><?php _e('Cancelar inscrição', 'tnb');?></a>
+        <?php if(isset($data['inscricao_cobrada']) && $data['inscricao_cobrada']):?>
+            <a onclick="if(confirm('<?php _e("Você está cancelando sua inscrição para uma oportunidade paga. O dinheiro da sua inscrição não será reembolsado. Tem certeza que deseja cancelar sua inscrição?", 'tnb')?>')) jQuery('#form_unjoin_event_<?php echo $oportunidade_item->ID; ?>').submit();" class="btn-green"><?php _e('Cancelar inscrição', 'tnb');?></a>
+        <?php else:?>
+            <a onclick="jQuery('#form_unjoin_event_<?php echo $oportunidade_item->ID; ?>').submit();" class="btn-green"><?php _e('Cancelar inscrição', 'tnb');?></a>
+        <?php endif;?>
     </p>
 
 <?php  elseif(is_artista() &&  in_postmeta(get_post_meta($oportunidade_item->ID, 'inscricao_pendente'), $current_user->ID) && strtotime($inscricao_inicio) <= strtotime(date('Y-m-d')) && strtotime($inscricao_fim) >= strtotime(date('Y-m-d'))): ?>
@@ -38,7 +42,7 @@ $can_join = tnb_artista_can_join($oportunidade_item->ID);
     <div class="quero-tocar cancel-subscription text-right append-bottom clearfix">
         <div class="alignright"><?php print_inscricao_pay_button($oportunidade_item->ID, $current_user->ID); ?></div>
         <div class="alignright">
-            <a onclick="jQuery('#form_unjoin_event_<?php echo $oportunidade_item->ID; ?>').submit();" class="btn-green"><?php _e('Cancelar inscrição', 'tnb');?></a>
+            <a onclick="jQuery('#form_unjoin_event_<?php echo $oportunidade_item->ID; ?>').submit();" class="btn-green"><?php _e('Cancelar inscrição 123', 'tnb');?></a>
         </div>
     </div>
     
