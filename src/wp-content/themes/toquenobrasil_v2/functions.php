@@ -545,7 +545,6 @@ add_action('delete_user', 'delete_user_from_events');
 // --------------------------- MADMINI ---------------------------//
 // New users to madmimi
 function tnb_madmimi_user_register($user_id) {
-    
     global $wpdb, $wp_query;
     
     $op = get_option('tnb_madmimi_user');
@@ -1440,6 +1439,11 @@ if (!function_exists('tnb_login_head')) {
 
 // --------------------- EMAILS --------------------//
 
+if (!function_exists('tnb_mail_name')) {
+    function tnb_mail_name($from_name){
+        return __('Toque no Brasil', 'tnb');
+    }
+}
 
 function tnb_mail_email($from_email){
     return get_bloginfo('admin_email');
