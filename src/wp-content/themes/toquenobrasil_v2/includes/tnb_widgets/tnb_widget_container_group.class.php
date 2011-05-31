@@ -218,8 +218,18 @@ jQuery(document).ready(function() {
     
     jQuery('#<?php echo $this->id; ?>_form').submit(function(){
     	<?php foreach ($this->containers as $container): ?>
-	        
-	        jQuery('#<?php echo $container->id; ?>_items').val(jQuery('#<?php echo $container->id;?>_ul').sortable('toArray'));
+	        //alert(jQuery('#<?php echo $container->id;?>_ul').sortable('toArray'));
+            var col;
+            col = '';
+	        jQuery('#<?php echo $container->id;?>_ul').find('li').each(function(){
+                var widget_id = jQuery(this).attr('id');
+                if(typeof widget_id == 'string' && widget_id != '')
+                    col = col ? col+','+widget_id : widget_id;
+                    
+            });
+            
+	        jQuery('#<?php echo $container->id; ?>_items').val(col);
+            
 	        
 	    <?php endforeach; ?>
     });
