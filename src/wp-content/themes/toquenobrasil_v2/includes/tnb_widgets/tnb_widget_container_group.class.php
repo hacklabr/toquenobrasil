@@ -77,28 +77,46 @@ class TNB_WidgetContainerGroup{
             if(isset($_POST['tnb_widget_action']) && isset($_POST['tnb_widget_group_id']) && $_POST['tnb_widget_group_id'] == $this->id){
                 switch($_POST['tnb_widget_action']){
                     case 'save':
+                        
+                        global $TNBug;
+                        
                         //_pr($_POST, true);
                         foreach($this->containers as $container){
                             $widgets_ids = $_POST[$container->id.'_items'];
                             
-                            // para a ordenação funcionar, primeiro crio o array com as chaves sendo o id do widget na ordem certa
-                            $ids = explode(',', $widgets_ids);
-                            $widgets = array();
-                            foreach($ids as $id)
-                                $widgets[$id] = null;
-                                 
-    
-                            $widgets_ids = str_replace(',', "','", $widgets_ids);
-                            $widgets_ids = "'$widgets_ids'";
-                            $widgets_rows = $wpdb->get_results("SELECT * FROM $wpdb->usermeta WHERE meta_key IN ($widgets_ids)");
                             
-                            foreach($widgets_rows as $row)
-                                if(is_serialized($row->meta_value))
-                                    $widgets[$row->meta_key] = unserialize($row->meta_value);
-                                else
-                                    $widgets[$row->meta_key] = unserialize(base64_decode($row->meta_value));
-                                    
-                            $container->setWidgets($widgets);
+                            /* 
+                             * se no lugar da lista de ids existir a string [object Object] significa que houve erro na hora de recuperar a ordem
+                             * dos widgets, então esta não será salva, o usuário será notificado e será gravado um log as seguintes informações:
+                             * * data
+                             * * nome do usuário
+                             * * posições atuais dos widgets
+                             * * navegador e versão
+                             * a lista de ids é recuperada em: jQuery('#<?php echo $this->id; ?>_form').submit(function(){
+                             */
+                            
+                            if($widgets_ids == '[object Object]'){
+                                $TNBug = true;
+                            }else{
+                                // para a ordenação funcionar, primeiro crio o array com as chaves sendo o id do widget na ordem certa
+                                $ids = explode(',', $widgets_ids);
+                                $widgets = array();
+                                foreach($ids as $id)
+                                    $widgets[$id] = null;
+                                     
+        
+                                $widgets_ids = str_replace(',', "','", $widgets_ids);
+                                $widgets_ids = "'$widgets_ids'";
+                                $widgets_rows = $wpdb->get_results("SELECT * FROM $wpdb->usermeta WHERE meta_key IN ($widgets_ids)");
+                                
+                                foreach($widgets_rows as $row)
+                                    if(is_serialized($row->meta_value))
+                                        $widgets[$row->meta_key] = unserialize($row->meta_value);
+                                    else
+                                        $widgets[$row->meta_key] = unserialize(base64_decode($row->meta_value));
+                                        
+                                $container->setWidgets($widgets);
+                            }
                             $container->save();
                         }
                         
@@ -208,6 +226,11 @@ class TNB_WidgetContainerGroup{
 var tnb_original_css = {};
 var _widget_open_menu_id;
 jQuery(document).ready(function() {
+    <?php 
+    global $TNBug;
+    if($TNBug):?>
+        alert('houve um TNBug!');
+    <?php endif; ?>
     
     jQuery( '<?php echo $containersIds; ?>' ).sortable({
 		connectWith: '.<?php echo $this->id; ?>',
