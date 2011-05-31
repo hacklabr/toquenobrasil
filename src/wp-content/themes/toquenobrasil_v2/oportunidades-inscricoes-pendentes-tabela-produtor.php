@@ -43,7 +43,7 @@
                             <input type="hidden" name="evento_id" value='<?php echo $oportunidade_item->ID; ?>' />
                         </form>
                         
-                        <?php if(is_admin()):?>
+                        <?php if(current_user_can('delete_users')):?>
                         <a class="button" onclick="jQuery('#form_join_event_<?php echo $banda->ID; ?>').submit();"><?php _e('Inscrever!','tnb'); ?></a>
                         <?php endif;?>
                     <?php endif; ?>
