@@ -156,7 +156,7 @@ if(!get_option('tnb_sql_32')){
 	}
 }
 
-if(get_option('tnb_sql_33')){
+if(!get_option('tnb_sql_33')){
     global $wpdb;
     update_option('tnb_sql_33', 1);
     
