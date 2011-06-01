@@ -1,4 +1,11 @@
 <?php
+if(isset($_FILES)){
+    foreach ($_FILES as $k => $n){
+        $_FILES[$k]['name'] = preg_replace('/\.[^\.]+$/', '-'.uniqid().'$0', $_FILES[$k]['name']);
+        echo $_FILES[$k]['name'].'<br/>';
+    }
+}
+
 date_default_timezone_set('America/Sao_Paulo');
 define('TNB_URL', get_bloginfo('url') . strstr(dirname(__FILE__), '/wp-content') );
 define('TNB_USERS_COLS', 4);  // número de usuários a exibir a cada linha
@@ -1978,5 +1985,49 @@ function tnb_count_login($user_login){
 				ID = $stats_id");
 		
 	}
+	
+	$login_data = $_SERVER['REMOTE_ADDR'].' | '.$_SERVER['HTTP_USER_AGENT'];
+	tnb_log('login-user-info', $login_data, $user_id);
+}
+
+/**
+ * 
+ * Salva um log do tipo $log_type com as informações contidas em $log_data
+ * @param string $log_type
+ * @param $log_data
+ */
+function tnb_log($log_type, $log_data, $user_id = null){
+    global $wpdb, $current_user;
+    
+    if(is_null($user_id))
+        $user_id = $current_user->ID;
+    
+    if(is_array($log_data) || is_object($log_data))
+        $log_data = addslashes(serialize($log_data));
+    
+    $log_type = addslashes($log_type);
+    $q = "
+    	INSERT INTO {$wpdb->prefix}tnb_logs (
+    		`user_id`, 
+    		`log_type`, 
+    		`log_data`
+    	) VALUES (
+    		'$user_id', 
+    		'$log_type', 
+    		'$log_data'
+    	)";
+    $wpdb->query($q);
+}
+
+add_action('init', 'log_referer');
+function log_referer(){
+    session_start();
+    if(!isset($_SESSION['referer_gravado'])){
+        $_SESSION['referer_gravado'] = true;
+        $referer = isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : "";
+        $uri = isset($_SERVER["REQUEST_URI"]) ? $_SERVER["REQUEST_URI"] : ""; 
+        
+        tnb_log('referer', addslashes($_SERVER['REMOTE_ADDR'].' | '."$referer => $uri"));
+    }
 }
 ?>

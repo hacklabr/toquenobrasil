@@ -130,9 +130,9 @@ class TNB_WidgetContainerGroup{
 
                             $bug_data['USER_AGENT'] = $_SERVER['HTTP_USER_AGENT'];
                             $bug_data['_POST'] = $_POST;
-                            $bug_data = addslashes(serialize($bug_data));
-                            $q = "INSERT INTO {$wpdb->prefix}tnbugs (`user_login`, `user_agent`, `bug_data`) VALUES ('$current_user->user_login', '$bug_user_agent', '$bug_data')";
-                            $wpdb->query($q);
+                             
+                            tnb_log('bug-perfil-tnbox', $bug_data);
+                            
                         }
                         
                         if(isset($_POST['css']) && is_array($_POST['css'])){
@@ -244,7 +244,7 @@ jQuery(document).ready(function() {
     <?php 
     global $TNBug;
     if($TNBug):?>
-        alert('houve um TNBug!');
+        alert('Ocorreu um erro conhecido e por este motivo os posicionametos dos TNBox não serão salvos. Por favor, tente fazer estas alterações utilizando outro navegador. Estamos trabalhando para solucionar este problema.');
     <?php endif; ?>
     
     jQuery( '<?php echo $containersIds; ?>' ).sortable({
@@ -266,9 +266,7 @@ jQuery(document).ready(function() {
                 
         });
         
-        //jQuery('#<?php echo $container->id; ?>_items').val(col);
-        jQuery('#<?php echo $container->id; ?>_items').val('[object Object]');
-        
+        jQuery('#<?php echo $container->id; ?>_items').val(col);
         
 	    <?php endforeach; ?>
     });

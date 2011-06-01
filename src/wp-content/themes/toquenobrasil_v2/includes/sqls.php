@@ -156,16 +156,19 @@ if(!get_option('tnb_sql_32')){
 	}
 }
 
-if(!get_option('tnb_sql_33')){
+if(get_option('tnb_sql_33')){
     global $wpdb;
     update_option('tnb_sql_33', 1);
     
-    $q = "CREATE TABLE  `wp_tnbugs` (
-    `ID` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-    `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `user_login` VARCHAR( 255 ) NOT NULL ,
-    `bug_data` TEXT NOT NULL
-    )";
+    $q = "
+CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}tnb_logs` (
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `log_type` varchar(50) NOT NULL,
+  `log_data` text NOT NULL,
+  PRIMARY KEY (`ID`)
+)";
     $wpdb->query($q);
 }
 ?>
