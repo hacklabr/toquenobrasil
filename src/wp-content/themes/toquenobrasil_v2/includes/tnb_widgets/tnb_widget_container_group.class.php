@@ -244,7 +244,7 @@ jQuery(document).ready(function() {
     <?php 
     global $TNBug;
     if($TNBug):?>
-        alert('Ocorreu um erro conhecido e por este motivo os posicionametos dos TNBox não serão salvos. Por favor, tente fazer estas alterações utilizando outro navegador. Estamos trabalhando para solucionar este problema.');
+        alert('Ocorreu um erro conhecido e por este motivo os posicionamentos dos TNBox não serão salvos. Por favor, tente fazer estas alterações utilizando outro navegador. Estamos trabalhando para solucionar este problema.');
     <?php endif; ?>
     
     jQuery( '<?php echo $containersIds; ?>' ).sortable({

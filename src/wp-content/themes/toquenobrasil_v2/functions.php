@@ -793,7 +793,7 @@ function tnb_get_artista_videos($artista_id){
  * Enter description here ...
  */
 
-function get_oportunidades_search_results(){
+function get_oportunidades_search_results($status = 'publish'){
 	global $wpdb;
 	$nome = $_GET['oportunidade_nome'];
 	$local = trim($_GET['oportunidade_local']);
@@ -907,7 +907,7 @@ function get_oportunidades_search_results(){
 		$wpdb->posts 
 	WHERE
 		post_type = 'eventos' AND
-        post_status = 'publish' AND
+        post_status = '$status' AND
 		post_title LIKE '%$nome%'
         $query_data
 		$local_sql $query_inscricao $query_subevents_arovados";

@@ -2,6 +2,7 @@
 require_once('../../../../wp-load.php');
 global $wpdb;
 
+
 $attas = $wpdb->get_results("
 SELECT 
 	`$wpdb->users`.user_login,
@@ -30,5 +31,10 @@ foreach ($attas as $atta){
     }
     $posts[$atta->guid] = $atta;
 }
-
-_pr($sobrescritos);
+$i = 0;
+foreach ($sobrescritos as $s){
+    echo $s['de']->post_date;
+    echo ",".$s['por']->post_date.',';
+    echo str_replace('http://localhost/tnb/', '', $s['de']->guid);
+    echo "<br/>";
+}

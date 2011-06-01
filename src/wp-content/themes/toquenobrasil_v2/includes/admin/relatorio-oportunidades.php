@@ -24,13 +24,25 @@ WHERE
 	$wpdb->postmeta.post_id = $wpdb->posts.ID AND
 	$wpdb->postmeta.meta_key = 'evento_inscricao_fim' AND
 	$wpdb->users.ID = $wpdb->posts.post_author
+	
 
 ORDER BY inscricao_fim DESC
 ";
 $eventos = $wpdb->get_results($query);
 
 ?>
+<style>
+.zero-selecionados{
+    background-color:#fbb;
+}
+.zero-selecionados .insc-inicio{
+    font-weight:bold;
+}
+.zero-selecionados .selecionados{
+    font-weight:bold;
+}
 
+</style>
 <form method="get">
     <input type='hidden' name='page' value='<?php echo $_GET['page']?>'>
     <label>
@@ -85,22 +97,42 @@ $eventos = $wpdb->get_results($query);
     
     <tbody>
         <?php 
+            $total_inscritos = 0;
+            $total_selecionados = 0;
+            
+            
             foreach($eventos as $evento): 
                 $evento_data = get_oportunidades_data($evento->ID);
                 $inscritos = $wpdb->get_var("SELECT count(meta_id) FROM $wpdb->postmeta WHERE meta_key = 'inscrito' AND post_id = $evento->ID");
-                $selecionados = $wpdb->get_var("SELECT count(meta_id) FROM $wpdb->postmeta WHERE meta_key = 'selecionado' AND post_id = $evento->ID")
+                $selecionados = $wpdb->get_var("SELECT count(meta_id) FROM $wpdb->postmeta WHERE meta_key = 'selecionado' AND post_id = $evento->ID");
+                
+                $total_selecionados += $selecionados;
+                $total_inscritos += $inscritos;
+                $classes = '';
+                // inscrições encerradas com zero inscritos
+                if(strtotime($evento_data['inscricao_fim']) < time() && $selecionados == 0)
+                    $classes = 'zero-selecionados';
+                    
+                
         ?>
-        <tr>
-            <td><a href='<?php echo get_permalink($evento->ID);?>'><?php echo $evento->post_title; ?></a></td>
-            <td><a href='<?php echo get_author_posts_url($evento->post_author);?>' ><?php echo $evento->produtor; ?></a><br /><?php echo $evento->email; ?></td>
-            <td><?php echo $evento_data['br_insc_inicio']; ?></td>
-            <td><?php echo $evento_data['br_insc_fim']; ?></td>
-            <td><?php echo $evento_data['br_inicio']; ?></td>
-            <td><?php echo $evento_data['br_fim']; ?></td>
-            <td align="center"><?php echo $evento_data['vagas']; ?></td>
-            <td align="center"><?php echo $inscritos;?></td>
-            <td align="center"><?php echo $selecionados; ?></td>
+        <tr style="<?php echo $style?>" class='<?php echo $classes?>'>
+            <td class='evento first'><a href='<?php echo get_permalink($evento->ID);?>'><?php echo $evento->post_title; ?></a></td>
+            <td class='produtor'><a href='<?php echo get_author_posts_url($evento->post_author);?>' ><?php echo $evento->produtor; ?></a><br /><?php echo $evento->email; ?></td>
+            <td class='insc-inicio'><?php echo $evento_data['br_insc_inicio']; ?></td>
+            <td class='insc-fim'><?php echo $evento_data['br_insc_fim']; ?></td>
+            <td class='evt-inicio'><?php echo $evento_data['br_inicio']; ?></td>
+            <td class='evt-fim'><?php echo $evento_data['br_fim']; ?></td>
+            <td class='vagas' align="center"><?php echo $evento_data['vagas']; ?></td>
+            <td class='inscritos' align="center"><?php echo $inscritos;?></td>
+            <td class='selecionados last' align="center"><?php echo $selecionados; ?></td>
         </tr>
         <?php endforeach;?>
     </tbody>
+    <tfoot style="font-weight:bold">
+        <tr>
+            <td colspan="7"><?php echo count($eventos); ?> oportunidades</td>
+            <td align="center"><?php echo $total_inscritos; ?></td>
+            <td align="center"><?php echo $total_selecionados; ?></td>
+        </tr>
+    </tfoot>
 </table>
