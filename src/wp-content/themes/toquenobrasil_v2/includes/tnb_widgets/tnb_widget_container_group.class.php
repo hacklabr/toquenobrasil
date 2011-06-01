@@ -82,12 +82,13 @@ class TNB_WidgetContainerGroup{
                         
                         //_pr($_POST, true);
                         foreach($this->containers as $container){
+                            
                             $widgets_ids = $_POST[$container->id.'_items'];
                             
                             
                             /* 
                              * se no lugar da lista de ids existir a string [object Object] significa que houve erro na hora de recuperar a ordem
-                             * dos widgets, então esta não será salva, o usuário será notificado e será gravado um log as seguintes informações:
+                             * dos widgets, então estas não serão salvas, o usuário será notificado e será gravado um log as seguintes informações:
                              * * data
                              * * nome do usuário
                              * * posições atuais dos widgets
@@ -118,6 +119,20 @@ class TNB_WidgetContainerGroup{
                                 $container->setWidgets($widgets);
                             }
                             $container->save();
+                        }
+                        
+                        if($TNBug){
+                            // salva o log
+                            
+                            $bug_data = null;
+                            foreach($this->containers as $container)
+                                $bug_data[$container->name] = $wpdb->get_var("SELECT meta_value FROM $wpdb->usermeta WHERE meta_key='$container->meta_key' AND user_id='$current_user->ID'");
+
+                            $bug_data['USER_AGENT'] = $_SERVER['HTTP_USER_AGENT'];
+                            $bug_data['_POST'] = $_POST;
+                            $bug_data = addslashes(serialize($bug_data));
+                            $q = "INSERT INTO {$wpdb->prefix}tnbugs (`user_login`, `user_agent`, `bug_data`) VALUES ('$current_user->user_login', '$bug_user_agent', '$bug_data')";
+                            $wpdb->query($q);
                         }
                         
                         if(isset($_POST['css']) && is_array($_POST['css'])){
@@ -241,9 +256,20 @@ jQuery(document).ready(function() {
     
     jQuery('#<?php echo $this->id; ?>_form').submit(function(){
     	<?php foreach ($this->containers as $container): ?>
-	        
-	        jQuery('#<?php echo $container->id; ?>_items').val(jQuery('#<?php echo $container->id;?>_ul').sortable('toArray'));
-	        
+    	//alert(jQuery('#<?php echo $container->id;?>_ul').sortable('toArray'));
+        var col;
+        col = '';
+        jQuery('#<?php echo $container->id;?>_ul').find('li').each(function(){
+            var widget_id = jQuery(this).attr('id');
+            if(typeof widget_id == 'string' && widget_id != '')
+                col = col ? col+','+widget_id : widget_id;
+                
+        });
+        
+        //jQuery('#<?php echo $container->id; ?>_items').val(col);
+        jQuery('#<?php echo $container->id; ?>_items').val('[object Object]');
+        
+        
 	    <?php endforeach; ?>
     });
     

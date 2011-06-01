@@ -155,4 +155,17 @@ if(!get_option('tnb_sql_32')){
 		$wpdb->query("UPDATE {$wpdb->prefix}tnb_users_stats SET pais = '$origem_pais', estado = '$origem_estado', cidade = '$origem_cidade' WHERE user_id = '$produtor->user_id'");
 	}
 }
+
+if(!get_option('tnb_sql_33')){
+    global $wpdb;
+    update_option('tnb_sql_33', 1);
+    
+    $q = "CREATE TABLE  `wp_tnbugs` (
+    `ID` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+    `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `user_login` VARCHAR( 255 ) NOT NULL ,
+    `bug_data` TEXT NOT NULL
+    )";
+    $wpdb->query($q);
+}
 ?>

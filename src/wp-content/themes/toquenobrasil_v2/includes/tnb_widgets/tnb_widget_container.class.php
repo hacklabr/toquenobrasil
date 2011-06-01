@@ -47,6 +47,10 @@ class TNB_WidgetContainer{
             case 'widgets':
                 return $this->widgets;
             break;
+            
+            case 'meta_key':
+                return $this->meta_key;
+            break;
         }
     }
     
