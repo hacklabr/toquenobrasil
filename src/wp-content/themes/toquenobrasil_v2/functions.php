@@ -2,7 +2,7 @@
 if(isset($_FILES)){
     foreach ($_FILES as $k => $n){
         $_FILES[$k]['name'] = preg_replace('/\.[^\.]+$/', '-'.uniqid().'$0', $_FILES[$k]['name']);
-        echo $_FILES[$k]['name'].'<br/>';
+        //echo $_FILES[$k]['name'].'<br/>';
     }
 }
 
@@ -383,7 +383,7 @@ function get_users_search_result(){
 	$local_sql = false;
 	$paises = get_paises();
 	$estados = get_estados();
-	
+	/* */
 	foreach($paises as $sigla => $pais)
 		if(trim(strtolower($local)) == strtolower($pais)){
 			$local = $sigla;
@@ -405,7 +405,75 @@ function get_users_search_result(){
 		}
 		
 	}
+    /* */
+	/*
+	
+	$paises_encontrados = array();
+	foreach($paises as $sigla => $pais){
+		$_pais = remove_accents(trim(strtolower($pais)));
+		if($local && ($_local ==  $_pais || substr_count($_pais, $_local))){
+			$paises_encontrados[] = $sigla;
+		}
+	}
+	
+	$estados_encontrados = array();
+	foreach($estados as $sigla => $estado){
+		$_estado = remove_accents(trim(strtolower($estado)));
+		if($local && ($_local ==  $_estado || substr_count($_estado, $_local))){
+			$estados_encontrados[] = $sigla;
+		}
+	}
+	
+	if($paises_encontrados){
+		foreach ($paises_encontrados as $sigla){
+			$valores_paises .= $valores_paises ? " OR 
+									meta_value = '$sigla'" : "
+									meta_value = '$sigla'";
+		}
+		
+		$sql_paises = sprintf("OR ID IN (SELECT 
+									DISTINCT post_id 
+								 FROM 
+									$wpdb->postmeta 
+								 WHERE
+								 	meta_key = 'evento_pais' AND (
+								 	%s
+								 	))", $valores_paises);
+	}
+	
+	if($estados_encontrados){
+		foreach ($estados_encontrados as $sigla){
+			$valores_estado .= $valores_estado ? " OR 
+									meta_value = '$sigla'" : "
+									meta_value = '$sigla'";
+		}
+		$sql_estados = sprintf("OR ID IN (SELECT 
+									DISTINCT post_id 
+								 FROM 
+									$wpdb->postmeta 
+								 WHERE
+								 	meta_key = 'evento_estado' AND (
+								 	%s
+								 	))", $valores_estado);
+	}
+	
+	if($local){
+		
+		$local_sql = "AND (ID IN (SELECT 
+									DISTINCT post_id 
+								 FROM 
+									$wpdb->postmeta 
+								 WHERE(	meta_key = 'evento_cidade' OR
+										meta_key = 'evento_local' ) AND
+									meta_value LIKE '%$local%')
+						   	$sql_paises
+							$sql_estados
+						   )";
+	}
     
+		
+	
+	/* */
     if (is_array($estilo) && sizeof($estilo) > 0) {
         $estilo_sql = " {$wpdb->users}.ID IN (SELECT user_id FROM $wpdb->usermeta WHERE meta_key = 'estilo_musical' AND meta_value IN ('" . implode("','", $estilo) . "') ) ";
         if ($local_sql) $estilo_sql = " AND $estilo_sql";
