@@ -7,12 +7,76 @@ class TNB_WidgetContainerGroup{
     private $css;
     
     public function __construct($name, array $containers_names, $user_id, $widget_classes, $default_widgets){
+        global $wpdb;
         $this->name = $name;
         $this->user_id = $user_id;
         
         foreach ($containers_names as $container_name)
             $this->containers[$container_name] = new TNB_WidgetContainer($this, $container_name, $user_id, $widget_classes, isset($default_widgets[$container_name]) && is_array($default_widgets[$container_name]) ? $default_widgets[$container_name] : array());
+
+        /* 
+         * TNB - tratamento sintomático (seria melhor prevenir, mas como não se sabe a causa... )
+         * 
+         * por algum motivo os containers de widgets as vezes são salvos como um array vazio, se isso acontecer com os dois containers,
+         * recuperarei todos os widgets deste usuário os dividirei entre os container right e left
+         */
+        $left_widgets = array();
+        $right_widgets = array();
+        
+        $left_container_broken = (!is_array($this->containers['left']->widgets) or count($this->containers['left']->widgets) == 0 or (count($this->containers['left']->widgets) == 1 && is_null(array_pop($this->containers['left']->widgets))));
+        $right_container_broken = (!is_array($this->containers['right']->widgets) or count($this->containers['right']->widgets) == 0 or (count($this->containers['right']->widgets) == 1 && is_null(array_pop($this->containers['right']->widgets))));
+        global $TNBug_Perfil;
+        
+        if($left_container_broken && $right_container_broken){
             
+            $all_widgets = $wpdb->get_results("SELECT * FROM $wpdb->usermeta WHERE user_id = $this->user_id AND meta_key LIKE '_widget_Widget%'");
+            
+            foreach($all_widgets as $i => $_wid){
+                if($i < count($all_widgets) / 2)
+                    $left_widgets[$_wid->meta_key] = unserialize(base64_decode($_wid->meta_value));
+                else
+                    $right_widgets[$_wid->meta_key] = unserialize(base64_decode($_wid->meta_value));
+            }
+            
+            $this->containers['left']->setWidgets($left_widgets);
+            $this->containers['right']->setWidgets($right_widgets);
+            $TNBug_Perfil = 'ambos';
+            
+        }
+        
+        /* TNB - tratamento sintomático (seria melhor prevenir, mas como não se sabe a causa... )
+         * 
+         * se acontecer somente com um dos containers, seleciona todos os widgets que não estejam no container que não está vazio e os coloca
+         * no container que está vazio
+         */
+        
+        // somente o container da esquerda vazio
+        elseif($left_container_broken && !$right_container_broken){
+            
+            $all_widgets = $wpdb->get_results("SELECT * FROM $wpdb->usermeta WHERE user_id = $this->user_id AND meta_key LIKE '_widget_Widget%'");
+            
+            foreach($all_widgets as $i => $_wid){
+                if(!isset($this->containers['right']->widgets[$_wid->meta_key]))
+                    $left_widgets[$_wid->meta_key] = unserialize(base64_decode($_wid->meta_value));
+            }
+            
+            $this->containers['left']->setWidgets($left_widgets);
+            $TNBug_Perfil = 'left';
+        }
+        
+        // somente o container da direita vazio        
+        elseif(!$left_container_broken && $right_container_broken){
+            
+            $all_widgets = $wpdb->get_results("SELECT * FROM $wpdb->usermeta WHERE user_id = $this->user_id AND meta_key LIKE '_widget_Widget%'");
+            
+            foreach($all_widgets as $i => $_wid){
+                if(!isset($this->containers['left']->widgets[$_wid->meta_key]))
+                    $right_widgets[$_wid->meta_key] = unserialize(base64_decode($_wid->meta_value));
+            }
+            
+            $this->containers['right']->setWidgets($right_widgets);
+            $TNBug_Perfil = 'right';
+        }
         $this->css = get_user_meta($user_id, "_widgets_{$name}_css",true);
         
         if(!$this->css){
@@ -75,14 +139,20 @@ class TNB_WidgetContainerGroup{
         if($this->editable()){
             
             if(isset($_POST['tnb_widget_action']) && isset($_POST['tnb_widget_group_id']) && $_POST['tnb_widget_group_id'] == $this->id){
+                global $TNBug_Perfil;
+                if($TNBug_Perfil){
+                    $log_data['_POST'] = $_POST;
+                    $log_data['_FILES'] = $_FILES;
+                    tnb_log('bug-perfil-container-'.$TNBug_Perfil, $log_data);
+                }
                 switch($_POST['tnb_widget_action']){
                     case 'save':
                         
-                        global $TNBug;
-                        
+                        global $TNBug, $container_post;
+                        $container_post = array();
                         //_pr($_POST, true);
                         foreach($this->containers as $container){
-                            
+                            $container_post[$container->id] = $_POST[$container->id.'_items'];
                             $widgets_ids = $_POST[$container->id.'_items'];
                             
                             
@@ -120,6 +190,7 @@ class TNB_WidgetContainerGroup{
                             }
                             $container->save();
                         }
+                        
                         
                         if($TNBug){
                             // salva o log
