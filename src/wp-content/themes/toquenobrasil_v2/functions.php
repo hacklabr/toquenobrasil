@@ -1,7 +1,10 @@
 <?php
 if(isset($_FILES)){
     foreach ($_FILES as $k => $n){
+        $old = $_FILES[$k]['name'];
         $_FILES[$k]['name'] = preg_replace('/\.[^\.]+$/', '-'.uniqid().'$0', $_FILES[$k]['name']);
+        if($old == $_FILES[$k]['name'])
+            $_FILES[$k]['name'] = uniqid().'-'.$_FILES[$k]['name'];
         //echo $_FILES[$k]['name'].'<br/>';
     }
 }
