@@ -4,3 +4,4 @@ wp-config.php
 svn_uploads
 *~
 src/wp-content/uploads
+db/base_bkp_last_reset.sql
