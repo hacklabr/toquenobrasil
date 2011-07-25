@@ -371,6 +371,7 @@ function tnb_artista_can_join($oportunidade_id, $user_id = null){
 }
 
 function get_users_search_result(){
+    //get_oportunidades_search_results()
 	global $wp_query, $wpdb;
 	$wp_query->get('paged');
 	
@@ -386,7 +387,7 @@ function get_users_search_result(){
 	$local_sql = false;
 	$paises = get_paises();
 	$estados = get_estados();
-	/* */
+	/* 
 	foreach($paises as $sigla => $pais)
 		if(trim(strtolower($local)) == strtolower($pais)){
 			$local = $sigla;
@@ -409,8 +410,8 @@ function get_users_search_result(){
 		
 	}
     /* */
-	/*
-	
+	//*
+	$_local = remove_accents(strtolower($local));
 	$paises_encontrados = array();
 	foreach($paises as $sigla => $pais){
 		$_pais = remove_accents(trim(strtolower($pais)));
@@ -434,14 +435,13 @@ function get_users_search_result(){
 									meta_value = '$sigla'";
 		}
 		
-		$sql_paises = sprintf("OR ID IN (SELECT 
-									DISTINCT post_id 
-								 FROM 
-									$wpdb->postmeta 
-								 WHERE
-								 	meta_key = 'evento_pais' AND (
-								 	%s
-								 	))", $valores_paises);
+		$sql_paises = sprintf("OR {$wpdb->users}.ID IN (SELECT 
+                        									DISTINCT user_id 
+                        								 FROM 
+                        									$wpdb->usermeta 
+                        								 WHERE
+                        								 	(meta_key = 'banda_pais' OR meta_key = 'origem_pais') AND (%s)
+                        								 )", $valores_paises);
 	}
 	
 	if($estados_encontrados){
@@ -450,28 +450,30 @@ function get_users_search_result(){
 									meta_value = '$sigla'" : "
 									meta_value = '$sigla'";
 		}
-		$sql_estados = sprintf("OR ID IN (SELECT 
-									DISTINCT post_id 
-								 FROM 
-									$wpdb->postmeta 
-								 WHERE
-								 	meta_key = 'evento_estado' AND (
-								 	%s
-								 	))", $valores_estado);
+		$sql_estados = sprintf("OR {$wpdb->users}.ID IN (SELECT 
+                        									DISTINCT user_id 
+                        								 FROM 
+                        									$wpdb->usermeta 
+                        								 WHERE
+                        								 	(meta_key = 'banda_estado' OR meta_key = 'origem_estado') AND ( %s )
+                        								 )", $valores_estado);
 	}
 	
 	if($local){
 		
-		$local_sql = "AND (ID IN (SELECT 
-									DISTINCT post_id 
-								 FROM 
-									$wpdb->postmeta 
-								 WHERE(	meta_key = 'evento_cidade' OR
-										meta_key = 'evento_local' ) AND
-									meta_value LIKE '%$local%')
+		$local_sql = "{$wpdb->users}.ID IN (SELECT 
+                									DISTINCT user_id 
+                								 FROM 
+                									$wpdb->usermeta 
+                								 WHERE
+                								 	(meta_key = 'banda_cidade' OR meta_key = 'origem_cidade') AND
+                									meta_value LIKE '%$local%'
+                								)
 						   	$sql_paises
 							$sql_estados
-						   )";
+						   ";
+							
+		//_pr($local_sql);
 	}
     
 		
@@ -483,7 +485,7 @@ function get_users_search_result(){
     }
     
     $query_inc = $local_sql . $estilo_sql;
-    
+    //_pr($query_inc);
     if (strlen($query_inc) == 0) $query_inc = false;
     
 	return tnb_get_users($role, false, false, $nome, $query_inc);
@@ -524,6 +526,7 @@ function tnb_get_users( $role = "", $limit = false, $order=false, $search = fals
     $not_q = "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = 'tnb_inactive' AND meta_value = 1";
     //$query = "SELECT * FROM {$wpdb->users} WHERE ID IN($q) AND ID NOT IN ($not_q) $searchQuery ORDER BY $order $limit";
 	$query = "SELECT {$wpdb->users}.*, {$wpdb->usermeta}.meta_value AS wp_capabilities FROM {$wpdb->users}, {$wpdb->usermeta} WHERE $inc_sql {$wpdb->users}.ID IN($q) AND {$wpdb->users}.ID NOT IN ($not_q) AND {$wpdb->usermeta}.user_id = {$wpdb->users}.ID AND {$wpdb->usermeta}.meta_key = '{$prefix}capabilities' $searchQuery ORDER BY $order $limit";
+	//_pr($query);
     $users = $wpdb->get_results($query);
     return $users;
 
@@ -865,6 +868,7 @@ function tnb_get_artista_videos($artista_id){
  */
 
 function get_oportunidades_search_results($status = 'publish'){
+    //get_users_search_result()
 	global $wpdb;
 	$nome = $_GET['oportunidade_nome'];
 	$local = trim($_GET['oportunidade_local']);
@@ -983,7 +987,7 @@ function get_oportunidades_search_results($status = 'publish'){
         $query_data
 		$local_sql $query_inscricao $query_subevents_arovados";
 	
-	
+	_pr($query);
 	$ids = $wpdb->get_results($query);
 	$result = array();
 	foreach($ids as $oid)
