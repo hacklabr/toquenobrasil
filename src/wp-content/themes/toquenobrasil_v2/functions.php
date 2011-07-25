@@ -987,7 +987,7 @@ function get_oportunidades_search_results($status = 'publish'){
         $query_data
 		$local_sql $query_inscricao $query_subevents_arovados";
 	
-	_pr($query);
+	//_pr($query);
 	$ids = $wpdb->get_results($query);
 	$result = array();
 	foreach($ids as $oid)
