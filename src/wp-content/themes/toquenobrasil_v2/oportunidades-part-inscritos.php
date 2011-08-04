@@ -5,9 +5,9 @@ $inscritos = get_post_meta( $oportunidade_item->ID, 'inscrito') ;
 $num_inscritos = count($inscritos);
 
 ?>
-
+<?php if(count($inscritos)): ?> 
 <div class="signedup-artists clearfix">
-    <?php if(count($inscritos)): ?>	
+    
         <h2 class="title">
             <?php _e("Artistas Inscritos", "tnb"); ?>
             <?php
@@ -15,7 +15,7 @@ $num_inscritos = count($inscritos);
                 echo "($num_inscritos)";
             endif; ?>
         </h2>
-    <?php endif;?>
+    
     <div class="clear"></div>         
                     
     <?php if (current_user_can('edit_post', $oportunidade_item->ID)): ?>
@@ -60,10 +60,11 @@ $num_inscritos = count($inscritos);
     
     <?php if(current_user_can('select_other_artists') || current_user_can('select_artists', $oportunidade_item->ID) ): ?>
         <?php include 'oportunidades-inscritos-tabela-produtor.php'; ?>
-    <?php elseif(count($inscritos)): ?>
+    <?php else: ?>
         <div class="artists clearfix" style='height:410px;'>
             <?php include 'ajax-oportunidades-inscritos.php'; ?>
     	</div>
     <?php endif; ?>
             
 </div>
+<?php endif;?>

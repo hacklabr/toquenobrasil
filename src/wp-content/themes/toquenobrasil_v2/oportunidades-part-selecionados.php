@@ -6,7 +6,7 @@ $num_selecionados = count($selecionados);
 
 
 ?>
-
+<?php if(count($selecionados)):?>
 <div class="selected-artists clearfix" >
     <?php if(count($selecionados)):?>
         <h2 class="title">
@@ -17,7 +17,8 @@ $num_selecionados = count($selecionados);
             endif; ?>
         </h2>
     <?php endif; ?>
-    <?php if (current_user_can('edit_post', $oportunidade_item->ID)): ?>
+    <?php if (current_user_can('edit_post', $oportunidade_item->ID) && count($selecionados)): ?>
+        
         <p>
             <a class="button" href="<?php echo add_query_arg('exportar','selecionado');?>">Exportar planilha</a>
             <a class="button" onclick="jQuery('#selected-artists-mailbox').dialog('open');">Enviar email</a>
@@ -38,7 +39,7 @@ $num_selecionados = count($selecionados);
                 <label for="message-for-selected" class="clearfix"><?php echo _e("Mensagem");?></label>
                 <textarea id="message-for-selected" name="message"></textarea>
                 <p class="text-right">
-                    <input type="submit" class="button" value="<?php _e("Enviar");?>"</input>
+                    <input type="submit" class="button" value="<?php _e("Enviar");?>"/>
                 </p>
             </form>
         </div>
@@ -57,9 +58,10 @@ $num_selecionados = count($selecionados);
         <?php endif;?>
 
     <?php endif; ?>
-    <?php if(count($selecionados)):?>
+    
     <div class="artists clearfix">
         <?php include 'ajax-oportunidades-selecionados.php'; ?>
     </div>
-    <?php endif;?>
+    
 </div>
+<?php endif;?>

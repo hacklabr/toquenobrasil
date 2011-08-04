@@ -41,8 +41,9 @@ $tipo_evento = get_post_meta($oportunidade_item->ID, 'evento_tipo', true);
         
         <?php get_template_part('oportunidades-part-selecionados'); ?>
         <?php get_template_part('oportunidades-part-inscritos'); ?>
-        
+        <?php if(can_create_oportunidade_paga()):?>
         <?php get_template_part('oportunidades-part-inscricoes-pendentes'); ?>
+        <?php endif;?>
     </div>
     <!-- .content -->
 </article>

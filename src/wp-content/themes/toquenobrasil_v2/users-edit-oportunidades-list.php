@@ -37,8 +37,9 @@
 
     <a href="<?php echo get_author_posts_url($profileuser->ID), '/editar/oportunidades/?list_status=publish'; ?>" class="<?php echo ($list_status == 'publish' || $list_status == "") ? 'btn-yellow ' : 'btn-grey'; ?>"><?php _e('oportunidades ativas','tnb'); ?></a>
     <a href="<?php echo get_author_posts_url($profileuser->ID), '/editar/oportunidades/?list_status=draft'; ?>" class="btn-yellow <?php echo ($list_status == 'draft') ? 'btn-yellow' : 'btn-grey'; ?>"><?php _e('oportunidades inativas','tnb'); ?></a>
+    <?php if(can_create_oportunidade_paga()):?>
     <a href="<?php echo get_author_posts_url($profileuser->ID), '/editar/oportunidades/?list_status=pending'; ?>" class="btn-yellow <?php echo ($list_status == 'pending') ? 'btn-yellow' : 'btn-grey'; ?>"><?php _e('oportunidades pendentes','tnb'); ?></a>
-    
+    <?php endif;?>
 
     <hr/>
 

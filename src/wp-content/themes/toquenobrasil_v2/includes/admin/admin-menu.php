@@ -90,4 +90,9 @@ function tnb_admin_contrato_pagamentos_efetuados(){
 	include 'pagamento-actions.php';
 	include 'pagamento-pagamentos-efetuados.php';
 }
+
+function tnb_admin_modelo_contrato(){
+    include 'pagamento-actions.php';
+	include 'pagamento-modelo-contrato.php';
+}
 ?>

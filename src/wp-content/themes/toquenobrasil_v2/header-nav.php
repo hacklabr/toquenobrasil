@@ -1,5 +1,5 @@
 <?php global $vendo_perfil; ?>
-<?php _pr('ESTE É O TNBRANCH');?>
+<?php _pr('ESTE É O TNBRANCH PAGAMENTOS');?>
 <header id="main-header" class="<?php if($vendo_perfil): ?>perfil-publico<?php else: ?>geral<?php endif; ?> grid_16 clearfix">
     <nav id="institutional">
         <ul>

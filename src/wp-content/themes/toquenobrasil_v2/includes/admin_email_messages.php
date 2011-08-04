@@ -102,6 +102,7 @@ function custom_email_notices() {
                     {{INFORMACOES}} será substituído pelos dados da oportunidade da qual o artista foi desinscrito.
                     </small>
                 </div>
+                
 
                 <p class="submit">
                     <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>"/>

@@ -1978,7 +1978,6 @@ function is_a_valid_cnpj($cnpj) {
 
 
 // ==================== SISTEMA DE PAGAMENTOS ======================= //
-
 // registrando os post_status de pagamentos
 
 // o produtor criou o evento com pagamento mas os editores ainda não revisaram
@@ -1996,6 +1995,12 @@ register_post_status('pay_pending_ok', array(
 	'show_in_admin_all_list' => true, 
     'exclude_from_search' => true,
     'public' => true)); 
+
+function can_create_oportunidade_paga(){
+    global $current_user;
+    return isset($current_user->can_create_oportunidade_paga) && $current_user->can_create_oportunidade_paga == 'sim'; 
+}
+
 
 function update_contrato_inscricao($evento_id, $valor, $porcentagem, $contrato){
 	

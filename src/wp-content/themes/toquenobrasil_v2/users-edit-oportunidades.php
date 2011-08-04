@@ -164,7 +164,7 @@ $contrato_lock = is_contrato_campos_locked($event->ID);
                 </span>
             </div>
             
-
+            <?php if(can_create_oportunidade_paga()):?>
             <hr/>
             <h5 class="title"><?php _e("Pagamento", "tnb"); ?></h5>
             <div class="clear"></div>
@@ -184,6 +184,8 @@ $contrato_lock = is_contrato_campos_locked($event->ID);
 			<div id='pagamento-disabled-div' class='clearfix' style='display:none'>
 				<?php _e("Esta opção só está disponível em oportunidades para artista")?>
 			</div>
+            <?php endif; ?>
+            
             <hr />
             <h5 class="title"><?php _e("Data da oportunidade", "tnb"); ?></h5>
             <div class="clear"></div>
