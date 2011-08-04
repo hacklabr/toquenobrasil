@@ -79,7 +79,7 @@ if ($header_data['sigla_pais']) {
                         <td class="text-center"><?php if($header_data['condicoes']['transporte_local']) theme_image("yes.png", array("alt" => "Sim", "title" => "Sim")); else theme_image("no.png", array("alt" => "Não", "title" => "Não")); ?></td>
                     </tr>
                     <tr>
-                        <td>Transporte enre cidades</td>
+                        <td>Transporte entre cidades</td>
                         <td class="text-center"><?php if($header_data['condicoes']['transporte_cidades']) theme_image("yes.png", array("alt" => "Sim", "title" => "Sim")); else theme_image("no.png", array("alt" => "Não", "title" => "Não")); ?></td>
                     </tr>
                     <tr>

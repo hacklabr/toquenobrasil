@@ -45,4 +45,3 @@
                 </div>
                 <!-- #header-banner -->
             <?php endif; ?>        
-            

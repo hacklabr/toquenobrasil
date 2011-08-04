@@ -1,7 +1,7 @@
 <?php
 $section = get_query_var('section') ? get_query_var('section') : 'login';
 $currentSection = array($section => 'class="current"');
-global $current_user, $profileuser; 
+global $current_user, $profileuser, $wpdb; 
 
 $profileuser = get_user_by( 'slug', get_query_var('author_name') );
 
@@ -9,15 +9,53 @@ $itsMe = $current_user->ID == $profileuser->ID;
 
 if(!current_user_can('edit_users') && !$itsMe )
     wp_redirect(get_bloginfo('url'));
+    
+//_pr($profileuser);
 
 if ( $_GET['delete_profile'] && wp_verify_nonce($_GET['delete_profile'], 'delete_profile_' . $profileuser->ID ) ) {
+	// salva infos do usuário na tabela {prefix}tnb_users_stats
+	$capability = '';
+	if(is_artista($profileuser->ID))
+		$capability = 'artista';
+	elseif(is_produtor($profileuser->ID))
+		$capability = 'produtor';
+		
+	$cidade = $profileuser->banda_cidade;
+	$estado = $profileuser->banda_estado;
+	$pais = $profileuser->banda_pais;
+	
+	$q = "
+INSERT INTO {$wpdb->prefix}tnb_users_stats(
+	reg_type,
+	user_id,
+	login,
+	capability,
+	pais,
+	estado,
+	cidade
+)VALUES(
+	'delete',
+	'$profileuser->ID',
+	'$profileuser->user_login',
+	'$capability',
+	'$pais',
+	'$estado',
+	'$cidade'
+)";
+	
+	$wpdb->query($q);
+	
     include(ABSPATH . '/wp-admin/includes/user.php');
     
     $to = get_bloginfo('admin_email');
     wp_mail($to, '[Toquenobrasil] Perfil apagado', "O usuário $profileuser->display_name acabou de apagar seu perfil", 'Content-Type: text/html');
     
     wp_delete_user($profileuser->ID);
+    
+    
     wp_redirect(get_bloginfo('siteurl'));
+    
+    
     exit;
 
 }

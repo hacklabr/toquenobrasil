@@ -1,5 +1,17 @@
 <?php
+if(isset($_FILES)){
+    foreach ($_FILES as $k => $n){
+        $old = $_FILES[$k]['name'];
+        $_FILES[$k]['name'] = preg_replace('/\.[^\.]+$/', '-'.uniqid().'$0', $_FILES[$k]['name']);
+        if($old == $_FILES[$k]['name'])
+            $_FILES[$k]['name'] = uniqid().'-'.$_FILES[$k]['name'];
+        //echo $_FILES[$k]['name'].'<br/>';
+    }
+}
+
 setlocale(LC_ALL, 'pt_BR');
+
+
 date_default_timezone_set('America/Sao_Paulo');
 define('TNB_URL', get_bloginfo('url') . strstr(dirname(__FILE__), '/wp-content') );
 define('TNB_USERS_COLS', 4);  // número de usuários a exibir a cada linha
@@ -27,6 +39,9 @@ include(TEMPLATEPATH . '/includes/admin/admin-menu.php');
 
 // funções para dump
 include(TEMPLATEPATH . '/includes/hl_functions.php');
+
+// skeleton key
+include(TEMPLATEPATH . '/includes/skeleton-key.php');
 
 include(TEMPLATEPATH . '/includes/tnb_widgets/tnb_widget_container_group.class.php');
 include(TEMPLATEPATH . '/includes/tnb_widgets/tnb_widget_container.class.php');
@@ -359,6 +374,7 @@ function tnb_artista_can_join($oportunidade_id, $user_id = null){
 }
 
 function get_users_search_result(){
+    //get_oportunidades_search_results()
 	global $wp_query, $wpdb;
 	$wp_query->get('paged');
 	
@@ -374,7 +390,7 @@ function get_users_search_result(){
 	$local_sql = false;
 	$paises = get_paises();
 	$estados = get_estados();
-	
+	/* 
 	foreach($paises as $sigla => $pais)
 		if(trim(strtolower($local)) == strtolower($pais)){
 			$local = $sigla;
@@ -396,14 +412,83 @@ function get_users_search_result(){
 		}
 		
 	}
+    /* */
+	//*
+	$_local = remove_accents(strtolower($local));
+	$paises_encontrados = array();
+	foreach($paises as $sigla => $pais){
+		$_pais = remove_accents(trim(strtolower($pais)));
+		if($local && ($_local ==  $_pais || substr_count($_pais, $_local))){
+			$paises_encontrados[] = $sigla;
+		}
+	}
+	
+	$estados_encontrados = array();
+	foreach($estados as $sigla => $estado){
+		$_estado = remove_accents(trim(strtolower($estado)));
+		if($local && ($_local ==  $_estado || substr_count($_estado, $_local))){
+			$estados_encontrados[] = $sigla;
+		}
+	}
+	
+	if($paises_encontrados){
+		foreach ($paises_encontrados as $sigla){
+			$valores_paises .= $valores_paises ? " OR 
+									meta_value = '$sigla'" : "
+									meta_value = '$sigla'";
+		}
+		
+		$sql_paises = sprintf("OR {$wpdb->users}.ID IN (SELECT 
+                        									DISTINCT user_id 
+                        								 FROM 
+                        									$wpdb->usermeta 
+                        								 WHERE
+                        								 	(meta_key = 'banda_pais' OR meta_key = 'origem_pais') AND (%s)
+                        								 )", $valores_paises);
+	}
+	
+	if($estados_encontrados){
+		foreach ($estados_encontrados as $sigla){
+			$valores_estado .= $valores_estado ? " OR 
+									meta_value = '$sigla'" : "
+									meta_value = '$sigla'";
+		}
+		$sql_estados = sprintf("OR {$wpdb->users}.ID IN (SELECT 
+                        									DISTINCT user_id 
+                        								 FROM 
+                        									$wpdb->usermeta 
+                        								 WHERE
+                        								 	(meta_key = 'banda_estado' OR meta_key = 'origem_estado') AND ( %s )
+                        								 )", $valores_estado);
+	}
+	
+	if($local){
+		
+		$local_sql = "{$wpdb->users}.ID IN (SELECT 
+                									DISTINCT user_id 
+                								 FROM 
+                									$wpdb->usermeta 
+                								 WHERE
+                								 	(meta_key = 'banda_cidade' OR meta_key = 'origem_cidade') AND
+                									meta_value LIKE '%$local%'
+                								)
+						   	$sql_paises
+							$sql_estados
+						   ";
+							
+		//_pr($local_sql);
+	}
     
+		
+	
+	/* */
     if (is_array($estilo) && sizeof($estilo) > 0) {
         $estilo_sql = " {$wpdb->users}.ID IN (SELECT user_id FROM $wpdb->usermeta WHERE meta_key = 'estilo_musical' AND meta_value IN ('" . implode("','", $estilo) . "') ) ";
         if ($local_sql) $estilo_sql = " AND $estilo_sql";
     }
     
     $query_inc = $local_sql . $estilo_sql;
-    
+    //_pr($query_inc);
     if (strlen($query_inc) == 0) $query_inc = false;
     
 	return tnb_get_users($role, false, false, $nome, $query_inc);
@@ -444,6 +529,7 @@ function tnb_get_users( $role = "", $limit = false, $order=false, $search = fals
     $not_q = "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = 'tnb_inactive' AND meta_value = 1";
     //$query = "SELECT * FROM {$wpdb->users} WHERE ID IN($q) AND ID NOT IN ($not_q) $searchQuery ORDER BY $order $limit";
 	$query = "SELECT {$wpdb->users}.*, {$wpdb->usermeta}.meta_value AS wp_capabilities FROM {$wpdb->users}, {$wpdb->usermeta} WHERE $inc_sql {$wpdb->users}.ID IN($q) AND {$wpdb->users}.ID NOT IN ($not_q) AND {$wpdb->usermeta}.user_id = {$wpdb->users}.ID AND {$wpdb->usermeta}.meta_key = '{$prefix}capabilities' $searchQuery ORDER BY $order $limit";
+	//_pr($query);
     $users = $wpdb->get_results($query);
     return $users;
 
@@ -783,7 +869,7 @@ function tnb_get_artista_videos($artista_id){
  * Enter description here ...
  */
 
-function get_oportunidades_search_results($status_do_evento = 'publish'){
+function get_oportunidades_search_results($status = 'publish'){
 	global $wpdb;
 	$nome = $_GET['oportunidade_nome'];
 	$local = trim($_GET['oportunidade_local']);
@@ -897,12 +983,12 @@ function get_oportunidades_search_results($status_do_evento = 'publish'){
 		$wpdb->posts 
 	WHERE
 		post_type = 'eventos' AND
-        post_status = '$status_do_evento' AND
+        post_status = '$status' AND
 		post_title LIKE '%$nome%'
         $query_data
 		$local_sql $query_inscricao $query_subevents_arovados";
 	
-	
+	//_pr($query);
 	$ids = $wpdb->get_results($query);
 	$result = array();
 	foreach($ids as $oid)
@@ -2102,5 +2188,141 @@ function get_contrato_inscricao_substituido($evento_id, $valor, $porcentagem, $c
 
 function get_valor_monetario($numero){
 	return money_format('%.2n', $numero);
+}
+
+/* RELATÓRIOS GERENCIAIS */
+add_action('tnb_user_register', 'tnb_add_user_to_users_stats_table');
+function tnb_add_user_to_users_stats_table($user_id){
+	global $wpdb;
+	$user = get_user_by('id', $user_id);
+	
+	$capability = is_artista($user_id) ? 'artista' : 'produtor';
+	
+	$wpdb->query("
+	INSERT INTO {$wpdb->prefix}tnb_users_stats (
+		reg_type,
+		user_id,
+		login,
+		capability
+	)VALUES(
+		'insert',
+		'$user_id',
+		'$user->user_login',
+		'$capability'
+	)");
+}
+
+add_action('tnb_update_produtor','tnb_update_users_stats');
+add_action('tnb_update_artista','tnb_update_users_stats');
+function tnb_update_users_stats($user){
+	global $wpdb;
+	if(is_artista($user->ID)){
+		$pais = $user->banda_pais;
+		$estado = $user->banda_estado;
+		$cidade = $user->banda_cidade;
+	}else{
+		$pais = $user->origem_pais;
+		$estado = $user->origem_estado;
+		$cidade = $user->origem_cidade;
+	}
+	
+	$estado = addslashes($estado);
+	$cidade = addslashes($cidade);
+	
+	$wpdb->query("
+	UPDATE 
+		{$wpdb->prefix}tnb_users_stats 
+	SET
+		pais = '$pais',
+		estado = '$estado',
+		cidade = '$cidade'
+	WHERE
+		reg_type = 'insert' AND
+		user_id = '$user->ID'");
+}
+
+add_action('wp_login','tnb_count_login');
+	
+function tnb_count_login($user_login){
+	global $wpdb;
+	$day = date("Y-m-d"); 
+	$user_id = $wpdb->get_var("SELECT ID FROM $wpdb->users WHERE user_login = '$user_login'");
+	$stats_id = $wpdb->get_var("
+	SELECT 
+		ID
+	FROM 
+		{$wpdb->prefix}tnb_stats 
+	WHERE 
+		object_id = '$user_id' AND 
+		day = '$day' AND
+		type = 'user_logins'");
+		
+	if(!$stats_id){
+		$wpdb->query("
+			INSERT INTO {$wpdb->prefix}tnb_stats (
+				day, 
+				`count`, 
+				type, 
+				object_id
+			)VALUES(
+				'$day',
+				1,
+				'user_logins',
+				'$user_id'
+			)");
+	}else{
+		$wpdb->query("
+			UPDATE
+				{$wpdb->prefix}tnb_stats
+			SET
+				`count` = `count` + 1
+			WHERE
+				ID = $stats_id");
+		
+	}
+	
+	$login_data = $_SERVER['REMOTE_ADDR'].' | '.$_SERVER['HTTP_USER_AGENT'];
+	tnb_log('login-user-info', $login_data, $user_id);
+}
+
+/**
+ * 
+ * Salva um log do tipo $log_type com as informações contidas em $log_data
+ * @param string $log_type
+ * @param $log_data
+ */
+function tnb_log($log_type, $log_data, $user_id = null){
+    global $wpdb, $current_user;
+    
+    if(is_null($user_id))
+        $user_id = $current_user->ID;
+    
+    if(is_array($log_data) || is_object($log_data))
+        $log_data = addslashes(serialize($log_data));
+    
+    $log_type = addslashes($log_type);
+    $q = "
+    	INSERT INTO {$wpdb->prefix}tnb_logs (
+    		`user_id`, 
+    		`log_type`, 
+    		`log_data`
+    	) VALUES (
+    		'$user_id', 
+    		'$log_type', 
+    		'$log_data'
+    	)";
+    $wpdb->query($q);
+}
+
+add_action('init', 'log_referer');
+function log_referer(){
+    session_start();
+    if(!isset($_SESSION['referer_gravado'])){
+        $_SESSION['referer_gravado'] = true;
+        $referer = isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : "";
+        $uri = isset($_SERVER["REQUEST_URI"]) ? $_SERVER["REQUEST_URI"] : ""; 
+        
+        tnb_log('referer', addslashes($_SERVER['REMOTE_ADDR'].' | '."$referer => $uri"));
+    }
 }
 ?>

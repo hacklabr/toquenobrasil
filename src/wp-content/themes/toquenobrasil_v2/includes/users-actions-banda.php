@@ -155,6 +155,8 @@ if(isset($_REQUEST['tnb_user_action']) && $_REQUEST['tnb_user_action'] == 'edit-
     
     if ($_FILES && !$msg['error']) {
         do_action('tnb_user_update', $profileuser->ID);
+        do_action('tnb_update_artista',$profileuser);
+        
         if(!$msg['error']){
             require_once(ABSPATH . '/wp-admin/includes/media.php');
             require_once(ABSPATH . '/wp-admin/includes/file.php');

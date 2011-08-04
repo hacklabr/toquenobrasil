@@ -7,12 +7,76 @@ class TNB_WidgetContainerGroup{
     private $css;
     
     public function __construct($name, array $containers_names, $user_id, $widget_classes, $default_widgets){
+        global $wpdb;
         $this->name = $name;
         $this->user_id = $user_id;
         
         foreach ($containers_names as $container_name)
             $this->containers[$container_name] = new TNB_WidgetContainer($this, $container_name, $user_id, $widget_classes, isset($default_widgets[$container_name]) && is_array($default_widgets[$container_name]) ? $default_widgets[$container_name] : array());
+
+        /* 
+         * TNB - tratamento sintomático (seria melhor prevenir, mas como não se sabe a causa... )
+         * 
+         * por algum motivo os containers de widgets as vezes são salvos como um array vazio, se isso acontecer com os dois containers,
+         * recuperarei todos os widgets deste usuário os dividirei entre os container right e left
+         */
+        $left_widgets = array();
+        $right_widgets = array();
+        
+        $left_container_broken = (!is_array($this->containers['left']->widgets) or count($this->containers['left']->widgets) == 0 or (count($this->containers['left']->widgets) == 1 && is_null(array_pop($this->containers['left']->widgets))));
+        $right_container_broken = (!is_array($this->containers['right']->widgets) or count($this->containers['right']->widgets) == 0 or (count($this->containers['right']->widgets) == 1 && is_null(array_pop($this->containers['right']->widgets))));
+        global $TNBug_Perfil;
+        
+        if($left_container_broken && $right_container_broken){
             
+            $all_widgets = $wpdb->get_results("SELECT * FROM $wpdb->usermeta WHERE user_id = $this->user_id AND meta_key LIKE '_widget_Widget%'");
+            
+            foreach($all_widgets as $i => $_wid){
+                if($i < count($all_widgets) / 2)
+                    $left_widgets[$_wid->meta_key] = unserialize(base64_decode($_wid->meta_value));
+                else
+                    $right_widgets[$_wid->meta_key] = unserialize(base64_decode($_wid->meta_value));
+            }
+            
+            $this->containers['left']->setWidgets($left_widgets);
+            $this->containers['right']->setWidgets($right_widgets);
+            $TNBug_Perfil = 'ambos';
+            
+        }
+        
+        /* TNB - tratamento sintomático (seria melhor prevenir, mas como não se sabe a causa... )
+         * 
+         * se acontecer somente com um dos containers, seleciona todos os widgets que não estejam no container que não está vazio e os coloca
+         * no container que está vazio
+         */
+        
+        // somente o container da esquerda vazio
+        elseif($left_container_broken && !$right_container_broken){
+            
+            $all_widgets = $wpdb->get_results("SELECT * FROM $wpdb->usermeta WHERE user_id = $this->user_id AND meta_key LIKE '_widget_Widget%'");
+            
+            foreach($all_widgets as $i => $_wid){
+                if(!isset($this->containers['right']->widgets[$_wid->meta_key]))
+                    $left_widgets[$_wid->meta_key] = unserialize(base64_decode($_wid->meta_value));
+            }
+            
+            $this->containers['left']->setWidgets($left_widgets);
+            $TNBug_Perfil = 'left';
+        }
+        
+        // somente o container da direita vazio        
+        elseif(!$left_container_broken && $right_container_broken){
+            
+            $all_widgets = $wpdb->get_results("SELECT * FROM $wpdb->usermeta WHERE user_id = $this->user_id AND meta_key LIKE '_widget_Widget%'");
+            
+            foreach($all_widgets as $i => $_wid){
+                if(!isset($this->containers['left']->widgets[$_wid->meta_key]))
+                    $right_widgets[$_wid->meta_key] = unserialize(base64_decode($_wid->meta_value));
+            }
+            
+            $this->containers['right']->setWidgets($right_widgets);
+            $TNBug_Perfil = 'right';
+        }
         $this->css = get_user_meta($user_id, "_widgets_{$name}_css",true);
         
         if(!$this->css){
@@ -75,31 +139,71 @@ class TNB_WidgetContainerGroup{
         if($this->editable()){
             
             if(isset($_POST['tnb_widget_action']) && isset($_POST['tnb_widget_group_id']) && $_POST['tnb_widget_group_id'] == $this->id){
+                global $TNBug_Perfil;
+                if($TNBug_Perfil){
+                    $log_data['_POST'] = $_POST;
+                    $log_data['_FILES'] = $_FILES;
+                    tnb_log('bug-perfil-container-'.$TNBug_Perfil, $log_data);
+                }
                 switch($_POST['tnb_widget_action']){
                     case 'save':
+                        
+                        global $TNBug, $container_post;
+                        $container_post = array();
                         //_pr($_POST, true);
                         foreach($this->containers as $container){
+                            $container_post[$container->id] = $_POST[$container->id.'_items'];
                             $widgets_ids = $_POST[$container->id.'_items'];
                             
-                            // para a ordenação funcionar, primeiro crio o array com as chaves sendo o id do widget na ordem certa
-                            $ids = explode(',', $widgets_ids);
-                            $widgets = array();
-                            foreach($ids as $id)
-                                $widgets[$id] = null;
-                                 
-    
-                            $widgets_ids = str_replace(',', "','", $widgets_ids);
-                            $widgets_ids = "'$widgets_ids'";
-                            $widgets_rows = $wpdb->get_results("SELECT * FROM $wpdb->usermeta WHERE meta_key IN ($widgets_ids)");
                             
-                            foreach($widgets_rows as $row)
-                                if(is_serialized($row->meta_value))
-                                    $widgets[$row->meta_key] = unserialize($row->meta_value);
-                                else
-                                    $widgets[$row->meta_key] = unserialize(base64_decode($row->meta_value));
-                                    
-                            $container->setWidgets($widgets);
+                            /* 
+                             * se no lugar da lista de ids existir a string [object Object] significa que houve erro na hora de recuperar a ordem
+                             * dos widgets, então estas não serão salvas, o usuário será notificado e será gravado um log as seguintes informações:
+                             * * data
+                             * * nome do usuário
+                             * * posições atuais dos widgets
+                             * * navegador e versão
+                             * a lista de ids é recuperada em: jQuery('#<?php echo $this->id; ?>_form').submit(function(){
+                             */
+                            
+                            if($widgets_ids == '[object Object]'){
+                                $TNBug = true;
+                            }else{
+                                // para a ordenação funcionar, primeiro crio o array com as chaves sendo o id do widget na ordem certa
+                                $ids = explode(',', $widgets_ids);
+                                $widgets = array();
+                                foreach($ids as $id)
+                                    $widgets[$id] = null;
+                                     
+        
+                                $widgets_ids = str_replace(',', "','", $widgets_ids);
+                                $widgets_ids = "'$widgets_ids'";
+                                $widgets_rows = $wpdb->get_results("SELECT * FROM $wpdb->usermeta WHERE meta_key IN ($widgets_ids)");
+                                
+                                foreach($widgets_rows as $row)
+                                    if(is_serialized($row->meta_value))
+                                        $widgets[$row->meta_key] = unserialize($row->meta_value);
+                                    else
+                                        $widgets[$row->meta_key] = unserialize(base64_decode($row->meta_value));
+                                        
+                                $container->setWidgets($widgets);
+                            }
                             $container->save();
+                        }
+                        
+                        
+                        if($TNBug){
+                            // salva o log
+                            
+                            $bug_data = null;
+                            foreach($this->containers as $container)
+                                $bug_data[$container->name] = $wpdb->get_var("SELECT meta_value FROM $wpdb->usermeta WHERE meta_key='$container->meta_key' AND user_id='$current_user->ID'");
+
+                            $bug_data['USER_AGENT'] = $_SERVER['HTTP_USER_AGENT'];
+                            $bug_data['_POST'] = $_POST;
+                             
+                            tnb_log('bug-perfil-tnbox', $bug_data);
+                            
                         }
                         
                         if(isset($_POST['css']) && is_array($_POST['css'])){
@@ -208,6 +312,11 @@ class TNB_WidgetContainerGroup{
 var tnb_original_css = {};
 var _widget_open_menu_id;
 jQuery(document).ready(function() {
+    <?php 
+    global $TNBug;
+    if($TNBug):?>
+        alert('Ocorreu um erro conhecido e por este motivo os posicionamentos dos TNBox não serão salvos. Por favor, tente fazer estas alterações utilizando outro navegador. Estamos trabalhando para solucionar este problema.');
+    <?php endif; ?>
     
     jQuery( '<?php echo $containersIds; ?>' ).sortable({
 		connectWith: '.<?php echo $this->id; ?>',
@@ -218,19 +327,18 @@ jQuery(document).ready(function() {
     
     jQuery('#<?php echo $this->id; ?>_form').submit(function(){
     	<?php foreach ($this->containers as $container): ?>
-	        //alert(jQuery('#<?php echo $container->id;?>_ul').sortable('toArray'));
-            var col;
-            col = '';
-	        jQuery('#<?php echo $container->id;?>_ul').find('li').each(function(){
-                var widget_id = jQuery(this).attr('id');
-                if(typeof widget_id == 'string' && widget_id != '')
-                    col = col ? col+','+widget_id : widget_id;
-                    
-            });
-            
-	        jQuery('#<?php echo $container->id; ?>_items').val(col);
-            
-	        
+    	//alert(jQuery('#<?php echo $container->id;?>_ul').sortable('toArray'));
+        var col;
+        col = '';
+        jQuery('#<?php echo $container->id;?>_ul').find('li').each(function(){
+            var widget_id = jQuery(this).attr('id');
+            if(typeof widget_id == 'string' && widget_id != '')
+                col = col ? col+','+widget_id : widget_id;
+                
+        });
+        
+        jQuery('#<?php echo $container->id; ?>_items').val(col);
+        
 	    <?php endforeach; ?>
     });
     
@@ -790,8 +898,18 @@ jQuery(document).ready(function() {
         
         echo "";
         
-        if($this->css['link-color']) echo "\n.tnb_widget a{ color: ".$this->css['link-color'].'; text-decoration:none !important;}';
-        if($this->css['link-hover-color']) echo "\n.tnb_widget a:hover{ color: ".$this->css['link-hover-color'].'; text-decoration:none !important;}';
+        if($this->css['link-color']){
+            echo "\n.tnb_widget a{ color: ".$this->css['link-color'].'; text-decoration:none !important;}';
+            echo "\n.tnb_widget_body .jp-playlist a{ color: ".$this->css['link-color'].'; text-decoration:none !important;}';
+            echo "\ndiv.jp-type-playlist div.jp-playlist a { color: ".$this->css['link-color'].'; text-decoration:none !important;}';
+            echo "\n.tnb_widget_body .jp-playlist a.jp-playlist-current{color: ".$this->css['link-color'].'; font-weight:bold; text-decoration:none !important;}';
+            echo "\ndiv.jp-type-playlist div.jp-playlist a.jp-playlist-current{color: ".$this->css['link-color'].'; font-weight:bold; text-decoration:none !important;}';
+        }
+        if($this->css['link-hover-color']){
+            echo "\n.tnb_widget a:hover{ color: ".$this->css['link-hover-color'].'; text-decoration:none !important;}';
+            echo "\n.tnb_widget_body .jp-playlist a:hover{ color: ".$this->css['link-hover-color'].'; text-decoration:none !important;}';
+            echo "\ndiv.jp-type-playlist div.jp-playlist a:hover{ color: ".$this->css['link-hover-color'].'; text-decoration:none !important;}';
+        }
         
         
         if( $this->css['widget-header-font-color'] || $this->css['widget-header-background-color']){

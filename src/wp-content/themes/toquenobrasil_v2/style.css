@@ -634,7 +634,7 @@ h4.title { background:#04BAEE; color:#fff; float:left; font-family:"Arista"; pad
 
 a { cursor:pointer; }
 
-a.btn-green { background:-webkit-gradient(linear, left bottom, left top, color-stop(.7, #8CC63F), color-stop(0, #69A325));background:-moz-linear-gradient(-90deg, #8CC63F, #69A325); border:none; border-radius:3px; color:#fff; cursor:pointer; font-family:"Arista"; font-size:18px; padding:11px 22px 9px 22px; text-transform:uppercase; -webkit-box-shadow:2px 2px 4px #999; -moz-box-shadow:2px 2px 4px #999; }
+a.btn-green { background:#69A325; background:-webkit-gradient(linear, left bottom, left top, color-stop(.7, #8CC63F), color-stop(0, #69A325));background:-moz-linear-gradient(-90deg, #8CC63F, #69A325); border:none; border-radius:3px; color:#fff; cursor:pointer; font-family:"Arista"; font-size:18px; padding:11px 33px 9px 33px; text-transform:uppercase; -webkit-box-shadow:2px 2px 4px #999; -moz-box-shadow:2px 2px 4px #999; }
 
 a.btn-yellow { background:#FCEA0D; border:none; border-radius:3px; color:#666; cursor:pointer; display:inline-block; font-family:"Arista"; font-size:14px; margin-bottom:17px; padding:6px 11px 3px 11px; text-transform:uppercase; -webkit-box-shadow:2px 2px 4px #999; -moz-box-shadow:2px 2px 4px #999; zoom:1; *display:inline; }
 

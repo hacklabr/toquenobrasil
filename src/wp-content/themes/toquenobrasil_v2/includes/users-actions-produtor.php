@@ -60,6 +60,7 @@ if(isset($_REQUEST['tnb_user_action']) && $_REQUEST['tnb_user_action'] == 'edit-
         $msg['success'][] = __('Dados Atualizados', 'tnb');
         //$profileuser = get_userdata( $user_ID );
         
+        do_action('tnb_update_produtor', $profileuser);
     }else{
 
         foreach($_POST as $n=>$v)

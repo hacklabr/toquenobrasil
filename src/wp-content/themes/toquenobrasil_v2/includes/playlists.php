@@ -41,7 +41,8 @@ function printFullPlayer($playlist) {
                 jQuery(this).jPlayer("pauseOthers");
             },
             swfPath: tnb.baseurl+'/lib/jQuery.jPlayer.2.0.0/',
-            supplied: "mp3"
+            supplied: "mp3",
+            preload: 'none'
         });
         
 
@@ -138,7 +139,8 @@ function printCompactPlayer($playlist) {
                 jQuery(this).jPlayer("pauseOthers");
             },
             swfPath: tnb.baseurl+'/lib/jQuery.jPlayer.2.0.0/',
-            supplied: "mp3"
+            supplied: "mp3",
+            preload: 'none'
         });
         
     });
@@ -247,7 +249,8 @@ function printSinglePlayer($playlist) {
                 jQuery(this).jPlayer("pauseOthers");
             },
             swfPath: tnb.baseurl+'/lib/jQuery.jPlayer.2.0.0/',
-            supplied: "mp3"
+            supplied: "mp3",
+            preload: 'none'
         });
         
 
