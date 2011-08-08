@@ -124,48 +124,78 @@ function tnb_subevento_desativado_por_superevento($superevento, $subevento) {
 ////// PRODUTOR CADASTROU UM EVENTO COM COBRANÇA //////
 add_action('tnb_produtor_cadastrou_evento_cobranca', 'tnb_email_messages_produtor_cadastrou_evento_cobranca',10,1);
 function tnb_email_messages_produtor_cadastrou_evento_cobranca($evento_id){
-    _pr('ENVIA EMAIL PARA EDITOR: tnb_email_messages_produtor_cadastrou_evento_cobranca');
+    tnb_envia_email_pagamento('artista_inscreveu_em_um_evento_pago', $evento_id);
 }
 
 // PRODUTOR ACEITOU CONTRATO
 add_action('tnb_produtor_aceitou_contrato_inscricao', 'tnb_email_messages_produtor_aceitou_contrato_inscricao',10,1);
 function tnb_email_messages_produtor_aceitou_contrato_inscricao($evento_id){
-    _pr('ENVIA EMAIL PARA EDITOR: tnb_email_messages_produtor_aceitou_contrato_inscricao');
+    tnb_envia_email_pagamento('artista_inscreveu_em_um_evento_pago', $evento_id);
+    
 }
 
 // PRODUTOR RECUSOU CONTRATO
 add_action('tnb_produtor_recusou_contrato_inscricao', 'tnb_email_messages_produtor_recusou_contrato_inscricao',10,1);
 function tnb_email_messages_produtor_recusou_contrato_inscricao($evento_id){
-    _pr('ENVIA EMAIL PARA EDITOR: tnb_email_messages_produtor_recusou_contrato_inscricao');
+    tnb_envia_email_pagamento('artista_inscreveu_em_um_evento_pago', $evento_id);
 }
 
 ///// EDITOR REVISOU UM EVENTO COM COBRANÇA 
 add_action('tnb_editor_revisou_evento_cobranca', 'tnb_email_messages_editor_revisou_evento_cobranca',10,1);
 function tnb_email_messages_editor_revisou_evento_cobranca($evento_id){
-    _pr('ENVIA EMAIL PARA PRODUTOR: tnb_email_messages_editor_revisou_evento_cobranca');
+    tnb_envia_email_pagamento('artista_inscreveu_em_um_evento_pago', $evento_id);
 }
 
 add_action('tnb_artista_inscreveu_em_um_evento_pago','tnb_email_messages_artista_inscreveu_em_um_evento_pago',10,2);
 function tnb_email_messages_artista_inscreveu_em_um_evento_pago($evento_id, $artista_id){
-	_pr('ENVIA EMAIL PARA PRODUTOR: tnb_email_messages_artista_inscreveu_em_um_evento_pago');
+	tnb_envia_email_pagamento('artista_inscreveu_em_um_evento_pago', $evento_id, $artista_id);
+	
 }
 
 add_action('tnb_artista_desinscreveu_em_um_evento_em_que_estava_pendente','tnb_email_messages_artista_desinscreveu_em_um_evento_em_que_estava_pendente',10,2);
 function tnb_email_messages_artista_desinscreveu_em_um_evento_em_que_estava_pendente($evento_id, $artista_id){
-	_pr('ENVIA_EMAIL_PARA PRODUTOR: tnb_email_messages_artista_desinscreveu_em_um_evento_em_que_estava_pendente');
+	tnb_envia_email_pagamento('artista_desinscreveu_em_um_evento_em_que_estava_pendente', $evento_id, $artista_id);
 }
 
 add_action('tnb_artista_inscricao_confirmada_em_evento_pago','tnb_email_messages_artista_inscricao_confirmada_em_evento_pago',10,1);
 function tnb_email_messages_artista_inscricao_confirmada_em_evento_pago($inscricao_id){
 	// $inscricao_id == meta_id do post_meta 'inscrito'
-	//_pr('ENVIA_EMAIL_PARA PRODUTOR: tnb_email_messages_artista_desinscreveu_em_um_evento_em_que_estava_pendente');
+	$meta = get_post_meta_by_id($inscricao_id);
+	$evento_id = $meta->post_id;
+	$artista_id = $meta->meta_value;
+	
+	tnb_envia_email_pagamento('artista_inscricao_confirmada_em_evento_pago', $evento_id, $artista_id);
+	
 }
 
 add_action('tnb_editor_efetuou_pagamento_inscricoes','tnb_email_messages_editor_efetuou_pagamento_inscricoes',10,1);
 function tnb_email_messages_editor_efetuou_pagamento_inscricoes($evento_id){
 	_pr('ENVIA_EMAIL_PARA PRODUTOR: tnb_email_messages_editor_efetuou_pagamento_inscricoes');
+	tnb_envia_email_pagamento('editor_efetuou_pagamento_inscricoes', $evento_id);
 }
 
+function tnb_envia_email_pagamento($type, $evento_id, $artista_id = null){
+	$op = get_option('emails_pagamento');
+	$evento = get_post($evento_id);
+	$produtor  = get_user_by('id', $evento->post_author);
+	$artista = $artista_id ? get_user_by('id', $artista_id) : null;
+	
+	foreach ($op['editor_efetuou_pagamento_inscricoes'] as $utype => $email){
+		
+		$title = pagamento_substitui_substituicoes($email['title'], $evento_id);
+		$message = pagamento_substitui_substituicoes($email['message'], $evento_id);
+	
+		if($utype == 'editor') $address = 'admin@tnb.art.br'; // TODO: substituir
+		if($utype == 'produtor') $address = $produtor->user_email;
+		if($utype == 'artista' && $artista) $address = $artista->user_email;
+		
+		_pr(array(
+			'type' => $type,
+			'title' => $title,
+			'message' => $message
+		));
+	}
+}
 
 
 ////////////////// ARTISTA É DESINSCRITO DE EVENTO PQ PRODUTOR EDITOU AS RESTRICOES ////////

@@ -2120,8 +2120,8 @@ function print_inscricao_pay_button($evento_id, $artista_id){
 	} 
 }
 
-function get_contrato_inscricao_substituicoes(){
-	return array(
+function get_contrato_inscricao_substituicoes($include_artista = false){
+	$result = array(
 	'produtor-cadastro-id' 		=> 'id do produtor no sistema',
 	'produtor-cadastro-data' 	=> 'data de cadastro do produtor',
 	'produtor-nome'				=> 'nome do produtor',
@@ -2131,6 +2131,7 @@ function get_contrato_inscricao_substituicoes(){
 	'produtor-pais' 			=> 'pais de residência do produtor',
 	'produtor-estado' 			=> 'estado de residência do produtor',
 	'produtor-cidade' 			=> 'cidade de residência do produtor',
+	'produtor-url'				=> 'url do perfil do produtor',
 	'evento-nome' 				=> 'nome do evento',
 	'evento-descricao' 			=> 'descrição do evento',
 	'evento-inicio' 			=> 'data de início do evento',
@@ -2141,14 +2142,27 @@ function get_contrato_inscricao_substituicoes(){
 	'evento-pais'				=> 'país onde ocorrerá o evento',
 	'evento-estado'				=> 'estado onde ocorrerá o evento',
 	'evento-cidade'				=> 'cidade onde ocorrerá o evento',
+	'evento-url'				=> 'url da oportunidade', 
 	'contrato-valor'			=> 'valor das inscrições estabelecido no contrato',
-	'contrato-porcentagem'		=> 'porcentagem para o TNB estabelecida no contrato',
-	'contrato-valor-tnb'		=> 'valor que ficará para o TNB para cada inscrição (relativo à porcentagem)'
+	'contrato-porcentagem'			=> 'porcentagem para o TNB estabelecida no contrato',
+	'contrato-porcentagem-produtor'		=> 'porcentagem para o Produtor estabelecida no contrato (100% - porcentagem TNB)',
+	'contrato-valor-tnb'			=> 'valor que ficará para o TNB para cada inscrição (relativo à porcentagem)'
 	);
+	
+	if($include_artista)
+		$result = $result + array(
+			'artista-nome' => 'nome do artista',
+			'artista-url' => 'url do perfil do artista'
+		);
+	
+	return $result;
 }
 
 function get_contrato_inscricao_substituido($evento_id, $valor, $porcentagem, $contrato){
-	
+	return pagamento_substitui_substituicoes($texto, $evento_id, $valor, $porcentagem);
+}
+
+function pagamento_substitui_substituicoes($texto, $evento_id, $valor = null, $porcentagem = null, $artista = null){
 	$evento = get_post($evento_id);
 	$edata = get_oportunidades_data($evento_id);
 	$produtor = get_user_by('id', $evento->post_author);
@@ -2158,37 +2172,61 @@ function get_contrato_inscricao_substituido($evento_id, $valor, $porcentagem, $c
 	
 	$edata = (OBJECT) $edata;
 	
+	if(is_null($valor) || is_null($porcentagem)){
+		$contrato = get_contrato_inscricao($evento_id);
+		if(is_null($valor)) 
+			$valor = $contrato['valor'];
+		
+		if(is_null($porcentagem)) 
+			$porcentagem = $contrato['porcentagem'];
+	}
+	
 	$substituicoes = array(
-	'{produtor-cadastro-id}' 	=> $produtor->ID,
-	'{produtor-cadastro-data}' 	=> $produtor->user_registered,
-	'{produtor-nome}'			=> $produtor->display_name,
-	'{produtor-documento}' 		=> ($produtor->cnpj ? $produtor->cnpj : $produtor->cpf),
-	'{produtor-email}' 			=> $produtor->user_email,
-	'{produtor-telefone}' 		=> $produtor->telefone,
-	'{produtor-pais}' 			=> $paises[$produtor->origem_pais],
-	'{produtor-estado}' 		=> ($produtor->origem_pais == 'BR' ? $estados[strtolower($produtor->origem_estado)] : $produtor->origem_estado),
-	'{produtor-cidade}' 		=> $produtor->origem_cidade,
-	
-	'{evento-nome}' 			=> $evento->post_title,
-	'{evento-descricao}' 		=> $evento->post_content,
-	'{evento-inicio}' 			=> $edata->br_inicio,
-	'{evento-fim}' 				=> $edata->br_fim,
-	'{evento-inscricao-inicio}' => $edata->br_insc_inicio,
-	'{evento-inscricao-fim}'	=> $edata->br_insc_fim,
-	'{evento-estabelecimento}'	=> $edata->local,
-	'{evento-pais}'				=> $paises[$edata->sigla_pais],
-	'{evento-estado}'			=> ($edata->sigla_pais == 'BR' ? $estados[strtolower($edata->estado)] : $edata->estado),
-	'{evento-cidade}'			=> $edata->cidade,
-	
-	'{contrato-valor}'			=> get_valor_monetario($valor),
-	'{contrato-porcentagem}'	=> $porcentagem.'%',
-	'{contrato-valor-tnb}'		=> get_valor_monetario($valor*$porcentagem/100)
+		'{produtor-cadastro-id}' 	=> $produtor->ID,
+		'{produtor-cadastro-data}' 	=> $produtor->user_registered,
+		'{produtor-nome}'			=> $produtor->display_name,
+		'{produtor-documento}' 		=> ($produtor->cnpj ? $produtor->cnpj : $produtor->cpf),
+		'{produtor-email}' 			=> $produtor->user_email,
+		'{produtor-telefone}' 		=> $produtor->telefone,
+		'{produtor-pais}' 			=> $paises[$produtor->origem_pais],
+		'{produtor-estado}' 		=> ($produtor->origem_pais == 'BR' ? $estados[strtolower($produtor->origem_estado)] : $produtor->origem_estado),
+		'{produtor-cidade}' 		=> $produtor->origem_cidade,
+		'{produtor-url}'			=> get_author_posts_url($evento->post_author), 
+		
+		'{evento-nome}' 			=> $evento->post_title,
+		'{evento-descricao}' 		=> $evento->post_content,
+		'{evento-inicio}' 			=> $edata->br_inicio,
+		'{evento-fim}' 				=> $edata->br_fim,
+		'{evento-inscricao-inicio}' => $edata->br_insc_inicio,
+		'{evento-inscricao-fim}'	=> $edata->br_insc_fim,
+		'{evento-estabelecimento}'	=> $edata->local,
+		'{evento-pais}'				=> $paises[$edata->sigla_pais],
+		'{evento-estado}'			=> ($edata->sigla_pais == 'BR' ? $estados[strtolower($edata->estado)] : $edata->estado),
+		'{evento-cidade}'			=> $edata->cidade,
+		'{evento-url}'				=> get_permalink($evento_id),
+		
+		'{contrato-valor}'			=> get_valor_monetario($valor),
+		'{contrato-porcentagem}'	=> $porcentagem.'%',
+		'{contrato-porcentagem-produtor}'	=> (100-$porcentagem).'%',
+		'{contrato-valor-tnb}'		=> get_valor_monetario($valor*$porcentagem/100)
 	);
 	
+	if($artista)
+		$substituicoes += array(
+			'{artista-nome}' => $artista->display_name,
+			'{artista-url}' => get_author_posts_url($artista->ID)
+		);
+	else
+	$substituicoes += array(
+			'{artista-nome}' => '',
+			'{artista-url}' => ''
+	);
+	
+	
 	foreach ($substituicoes as $de=>$para)
-		$contrato = str_replace($de, $para, $contrato);
+		$texto = str_replace($de, $para, $texto);
 		
-	return $contrato;
+	return $texto;
 }
 
 function get_valor_monetario($numero){

@@ -26,6 +26,19 @@ if(isset($_POST['pagamento_action'])){
 				add_post_meta($_POST['evento_id'], 'inscricao_pagamento_efetuado', true);
 				do_action('tnb_editor_efetuou_pagamento_inscricoes',$_POST['evento_id']);
 			break;
+			
+			case 'save-emails-pagamento': echo "AQUI";
+				_pr($_POST);
+				if(!get_option('emails_pagamento'))
+					add_option('emails_pagamento', $_POST['pagamentos_emails']);
+				else
+					update_option('emails_pagamento', $_POST['pagamentos_emails']);
+			break;
 		}
+	}elseif($_POST['pagamento_action'] == 'save-emails-pagamento'){
+		if(!get_option('emails_pagamento'))
+			add_option('emails_pagamento', $_POST['pagamentos_emails']);
+		else
+			update_option('emails_pagamento', $_POST['pagamentos_emails']);
 	}
 }

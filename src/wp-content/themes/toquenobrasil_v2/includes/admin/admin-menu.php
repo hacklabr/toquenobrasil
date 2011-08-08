@@ -12,6 +12,7 @@ function tnb_admin_menu() {
     add_submenu_page('tnb_admin_pagamentos', 'Pagamentos pendentes', 'Pagamentos pendentes', 'manage_options', 'tnb_admin_contrato_pagamentos_pendentes', 'tnb_admin_contrato_pagamentos_pendentes');
     add_submenu_page('tnb_admin_pagamentos', 'Pagamentos efetuados', 'Pagamentos efetuados', 'manage_options', 'tnb_admin_contrato_pagamentos_efetuados', 'tnb_admin_contrato_pagamentos_efetuados');
     add_submenu_page('tnb_admin_pagamentos', 'Modelo de contrato', 'Modelo de contrato', 'manage_options', 'tnb_admin_modelo_contrato', 'tnb_admin_modelo_contrato');
+    add_submenu_page('tnb_admin_pagamentos', 'Emails', 'Emails', 'manage_options', 'tnb_admin_pagamentos_email', 'tnb_admin_pagamentos_email');
     
     
     add_submenu_page('tnb_admin_pagamentos', 'revisão de contrato', null, 'manage_options', 'tnb_admin_vesisao_contrato','tnb_admin_vesisao_contrato');
@@ -94,5 +95,10 @@ function tnb_admin_contrato_pagamentos_efetuados(){
 function tnb_admin_modelo_contrato(){
     include 'pagamento-actions.php';
 	include 'pagamento-modelo-contrato.php';
+}
+
+function tnb_admin_pagamentos_email(){
+    include 'pagamento-actions.php';
+	include 'pagamento-emails.php';
 }
 ?>
