@@ -1,5 +1,4 @@
 <?php
-
 if(isset($_GET['evento_id']) && ($evento = get_post($_GET['evento_id'])) && $evento->post_status == 'pay_pending_review'): 
 	$cdata = get_contrato_inscricao($evento->ID);
 	$valor = $cdata['valor'];
@@ -8,7 +7,6 @@ if(isset($_GET['evento_id']) && ($evento = get_post($_GET['evento_id'])) && $eve
 	
 	$total_tnb = (is_numeric($valor) && is_numeric($porcentagem)) ? $valor * $porcentagem / 100 : 0;
 	$total_tnb = number_format($total_tnb, 2);
-	
 ?>
 
 <script type="text/javascript">

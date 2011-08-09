@@ -39,6 +39,8 @@ function add_substituicao_to_textarea(substituicao){
 
 <form method="post">
 	<input type='hidden' name='pagamento_action' value='save-emails-pagamento' />
+	
+	email do editor: <input name='pagamentos_emails[email_editor]' class="para-substituir" style="width:400px" value="<?php echo stripslashes(htmlentities(utf8_decode($pagamentos_emails['email_editor']))); ?>"><br />
     <div class='email-tipo'>
         <h4><strong>produtor</strong> cadastrou evento com cobrança</h4>
         <div class='substituicoes-lista-div'>

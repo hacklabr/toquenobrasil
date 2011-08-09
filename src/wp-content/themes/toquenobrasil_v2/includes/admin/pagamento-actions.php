@@ -2,7 +2,6 @@
 global $wpdb;
 
 if(isset($_POST['pagamento_action'])){
-	_pr('pagamento_action');
 	$evento_id = $_POST['evento_id'];
 	if(get_post($evento_id)){
 		switch ($_POST['pagamento_action']){

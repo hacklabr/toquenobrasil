@@ -2020,8 +2020,9 @@ function get_contrato_inscricao($evento_id){
 	if($evento->post_status == 'pay_pending_review' && !get_post_meta($evento_id, 'inscricao_contrato',true)){
 		$edata = get_oportunidades_data($evento_id);
 		$valor = $edata['inscricao_valor'];
-		$porcentagem = '0.00';
-		$contrato = get_option('evento-pagamento-modelo-contrato'); 
+		$porcentagem = '50';
+		$contrato = get_option('evento-pagamento-modelo-contrato');
+		 
 		update_contrato_inscricao($evento_id, $valor, $porcentagem, $contrato);
 	}elseif($evento->post_status != 'pay_pending_review' && !get_post_meta($evento_id, 'inscricao_contrato',true)){
 		return null;
@@ -2132,6 +2133,8 @@ function get_contrato_inscricao_substituicoes($include_artista = false){
 	'produtor-estado' 			=> 'estado de residência do produtor',
 	'produtor-cidade' 			=> 'cidade de residência do produtor',
 	'produtor-url'				=> 'url do perfil do produtor',
+	'produtor-link'				=> 'link com o nome do produtor para o perfil do mesmo',
+	
 	'evento-nome' 				=> 'nome do evento',
 	'evento-descricao' 			=> 'descrição do evento',
 	'evento-inicio' 			=> 'data de início do evento',
@@ -2143,23 +2146,27 @@ function get_contrato_inscricao_substituicoes($include_artista = false){
 	'evento-estado'				=> 'estado onde ocorrerá o evento',
 	'evento-cidade'				=> 'cidade onde ocorrerá o evento',
 	'evento-url'				=> 'url da oportunidade', 
+	'evento-link'				=> 'link com o nome da oportunidade para o endereço da mesma',
+	
 	'contrato-valor'			=> 'valor das inscrições estabelecido no contrato',
-	'contrato-porcentagem'			=> 'porcentagem para o TNB estabelecida no contrato',
-	'contrato-porcentagem-produtor'		=> 'porcentagem para o Produtor estabelecida no contrato (100% - porcentagem TNB)',
-	'contrato-valor-tnb'			=> 'valor que ficará para o TNB para cada inscrição (relativo à porcentagem)'
+	'contrato-porcentagem'		=> 'porcentagem para o TNB estabelecida no contrato',
+	'contrato-porcentagem-produtor'	=> 'porcentagem para o Produtor estabelecida no contrato (100% - porcentagem TNB)',
+	'contrato-valor-tnb'		=> 'valor que ficará para o TNB para cada inscrição (relativo à porcentagem)'
 	);
 	
 	if($include_artista)
 		$result = $result + array(
 			'artista-nome' => 'nome do artista',
-			'artista-url' => 'url do perfil do artista'
+			'artista-url' => 'url do perfil do artista',
+			'artista-link' => 'link com o nome do artista para perfil do mesmo'
 		);
 	
 	return $result;
 }
 
 function get_contrato_inscricao_substituido($evento_id, $valor, $porcentagem, $contrato){
-	return pagamento_substitui_substituicoes($texto, $evento_id, $valor, $porcentagem);
+	$result = pagamento_substitui_substituicoes($contrato, $evento_id, $valor, $porcentagem);
+	return $result;
 }
 
 function pagamento_substitui_substituicoes($texto, $evento_id, $valor = null, $porcentagem = null, $artista = null){
@@ -2191,7 +2198,8 @@ function pagamento_substitui_substituicoes($texto, $evento_id, $valor = null, $p
 		'{produtor-pais}' 			=> $paises[$produtor->origem_pais],
 		'{produtor-estado}' 		=> ($produtor->origem_pais == 'BR' ? $estados[strtolower($produtor->origem_estado)] : $produtor->origem_estado),
 		'{produtor-cidade}' 		=> $produtor->origem_cidade,
-		'{produtor-url}'			=> get_author_posts_url($evento->post_author), 
+		'{produtor-url}'			=> get_author_posts_url($evento->post_author),
+		'{produtor-link}'			=> '<a href="'.get_author_posts_url($evento->post_author).'">'.$produtor->display_name.'</a>',
 		
 		'{evento-nome}' 			=> $evento->post_title,
 		'{evento-descricao}' 		=> $evento->post_content,
@@ -2204,6 +2212,7 @@ function pagamento_substitui_substituicoes($texto, $evento_id, $valor = null, $p
 		'{evento-estado}'			=> ($edata->sigla_pais == 'BR' ? $estados[strtolower($edata->estado)] : $edata->estado),
 		'{evento-cidade}'			=> $edata->cidade,
 		'{evento-url}'				=> get_permalink($evento_id),
+		'{evento-link}'				=> '<a href="'.get_permalink($evento_id).'">'.$evento->post_title.'</a>',
 		
 		'{contrato-valor}'			=> get_valor_monetario($valor),
 		'{contrato-porcentagem}'	=> $porcentagem.'%',
@@ -2214,12 +2223,15 @@ function pagamento_substitui_substituicoes($texto, $evento_id, $valor = null, $p
 	if($artista)
 		$substituicoes += array(
 			'{artista-nome}' => $artista->display_name,
-			'{artista-url}' => get_author_posts_url($artista->ID)
+			'{artista-url}' => get_author_posts_url($artista->ID),
+			'{artista-link}' => '<a href="'.get_author_posts_url($artista->ID).'">'.$artista->display_name.'</a>'
 		);
 	else
 	$substituicoes += array(
 			'{artista-nome}' => '',
-			'{artista-url}' => ''
+			'{artista-url}' => '',
+			'{artista-link}' => ''
+			
 	);
 	
 	
@@ -2230,6 +2242,7 @@ function pagamento_substitui_substituicoes($texto, $evento_id, $valor = null, $p
 }
 
 function get_valor_monetario($numero){
+	$numero = is_numeric($numero) ? $numero : 0;
 	return money_format('%.2n', $numero);
 }
 

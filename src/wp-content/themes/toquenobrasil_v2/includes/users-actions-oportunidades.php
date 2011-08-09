@@ -228,14 +228,16 @@
                 wp_update_post($post);
             } else {
                 if($_POST['evento_inscricao_cobrada']){
-                    // CRIANDO EVENTO COM COBRANÇA
-                    $post['post_status'] = 'pay_pending_review';
-                    
-                    do_action('tnb_produtor_cadastrou_evento_cobranca', $evento->ID);
+                	// CRIANDO EVENTO COM COBRANÇA
+                	$post['post_status'] = 'pay_pending_review';
+                	$post['ID'] = wp_insert_post($post);
+                	$novo_evento_cobranca = true;
+                	
+                }else{
+                	// CRIANDO EVENTO SEM COBRANÇA
+                	$post['ID'] = wp_insert_post($post);
                 }
-                     
-                $post['ID'] = wp_insert_post($post);
-
+                
                 if($post['post_parent'] != 0) {
                     do_action('tnb_superevento_recebe_um_subevento', $post['ID']);
                 }
@@ -269,8 +271,10 @@
                         $event_meta[$key] = $value;
                     }
                 }
-
+				
                 
+                if(isset($novo_evento_cobranca))
+                	do_action('tnb_produtor_cadastrou_evento_cobranca', $post['ID']);
             
                 /**
                  * REMOVE OS INSCRITOS QUE NÃO SE ENQUADRAM NOS FILTROS 
