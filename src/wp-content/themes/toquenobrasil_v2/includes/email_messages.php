@@ -173,7 +173,7 @@ function tnb_email_messages_artista_inscricao_confirmada_em_evento_pago($inscric
 	$meta = get_post_meta_by_id($inscricao_id);
 	$evento_id = $meta->post_id;
 	$artista_id = $meta->meta_value;
-	
+	var_dump(array('$inscricao_id' => $inscricao_id,'$meta' => $meta, '$evento_id' => $evento_id, '$artista_id'=> $artista_id));
 	tnb_envia_email_pagamento('artista_inscricao_confirmada_em_evento_pago', $evento_id, $artista_id);
 	
 }
