@@ -176,7 +176,7 @@ function tnb_email_messages_artista_inscricao_confirmada_em_evento_pago($inscric
 	
 	$evento_id = $meta->post_id;
 	$artista_id = $meta->meta_value;
-	var_dump(array('$inscricao_id' => $inscricao_id,'$meta' => $meta, '$evento_id' => $evento_id, '$artista_id'=> $artista_id));
+	//var_dump(array('$inscricao_id' => $inscricao_id,'$meta' => $meta, '$evento_id' => $evento_id, '$artista_id'=> $artista_id));
 	tnb_envia_email_pagamento('artista_inscricao_confirmada_em_evento_pago', $evento_id, $artista_id);
 	
 }
@@ -196,9 +196,8 @@ function tnb_envia_email_pagamento($type, $evento_id, $artista_id = null){
 	$artista = $artista_id ? get_user_by('id', $artista_id) : null;
 	
 	foreach ($op[$type] as $utype => $email){
-		
-		$title = nl2br(stripslashes(pagamento_substitui_substituicoes($email['title'], $evento_id)));
-		$message = nl2br(stripslashes(pagamento_substitui_substituicoes($email['message'], $evento_id)));
+		$title = nl2br(stripslashes(pagamento_substitui_substituicoes($email['title'], $evento_id,null,null,$artista)));
+		$message = nl2br(stripslashes(pagamento_substitui_substituicoes($email['message'], $evento_id,null,null,$artista)));
 	
 		if($utype == 'editor') $address = $op['email_editor']; // TODO: substituir
 		if($utype == 'produtor') $address = $produtor->user_email;
