@@ -41,8 +41,7 @@ function tnb_email_messages_artista_inscreveu_em_evento($evento_id, $artista_id)
     $message = $options['msg_insc_artista']?$options['msg_insc_artista']:'';
     $message = str_replace('{{INFORMACOES}}', $event_name, $message);
     // To send HTML mail, the Content-type header must be set
-    $headers  = 'MIME-Version: 1.0' . "\r\n";
-    $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+    $headers = array('Content-type: text/html; charset=UTF-8');
     
     wp_mail($banda->user_email, $subject,$message,$headers);
 }
