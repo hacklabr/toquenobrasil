@@ -41,9 +41,9 @@ function tnb_email_messages_artista_inscreveu_em_evento($evento_id, $artista_id)
     $message = $options['msg_insc_artista']?$options['msg_insc_artista']:'';
     $message = str_replace('{{INFORMACOES}}', $event_name, $message);
     // To send HTML mail, the Content-type header must be set
-    $headers = array('Content-type: text/html');
     
-    wp_mail($banda->user_email, $subject,$message,$headers);
+    
+    wp_mail($banda->user_email, $subject,$message);
 }
 
 ////////////////// UM SUBEVENTO É ADICIONADO A UM SUPEREVENTO ///////
@@ -204,8 +204,8 @@ function tnb_envia_email_pagamento($type, $evento_id, $artista_id = null){
 		if($utype == 'editor') $address = $op['email_editor']; // TODO: substituir
 		if($utype == 'produtor') $address = $produtor->user_email;
 		if($utype == 'artista' && $artista) $address = $artista->user_email;
-		
-		wp_mail($address, $title, $message);
+		$headers = array('Content-type: text/html');
+		wp_mail($address, $title, $message,$headers);
 	}
 	
 }
