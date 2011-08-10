@@ -40,8 +40,11 @@ function tnb_email_messages_artista_inscreveu_em_evento($evento_id, $artista_id)
     $subject = 'Inscrição TNB | ' . $event_name ;
     $message = $options['msg_insc_artista']?$options['msg_insc_artista']:'';
     $message = str_replace('{{INFORMACOES}}', $event_name, $message);
-
-    wp_mail($banda->user_email, $subject,$message);
+    // To send HTML mail, the Content-type header must be set
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+    
+    wp_mail($banda->user_email, $subject,$message,$headers);
 }
 
 ////////////////// UM SUBEVENTO É ADICIONADO A UM SUPEREVENTO ///////
