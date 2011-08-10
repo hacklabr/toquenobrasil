@@ -56,6 +56,29 @@ if (count($_POST) > 0) {
 	$npi = new PagSeguroNpi();
 	$result = $npi->notificationPost();
 	
+	
+	
+	ob_start();
+	echo "
+	========================
+	";
+	print_r($_POST);
+	echo "
+	- - - - - - - - - - - - - - - - - - - - - - - - - 
+	";
+	print_r($result);
+	
+	echo "
+	- - - - - - - - - - - - - - - - - - - - - - - - -
+	";
+	
+	$fc = ob_get_clean();
+	$log_file = dirname(__FILE__).'/retornos_pagseguro/retornos-'.date('Ymd').'.serial';
+	if(is_writable($log_file) || (!file_exists($log_file) && is_writable(dirname($log_file))))
+		file_put_contents($log_file, $fc, FILE_APPEND);
+	
+	
+	
 	$transacaoID = isset($_POST['TransacaoID']) ? $_POST['TransacaoID'] : '';
 	
 	if ($result == "VERIFICADO") {

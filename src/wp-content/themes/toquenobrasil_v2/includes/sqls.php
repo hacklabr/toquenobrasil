@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS `pagseguro_transacoes` (
   `TransacaoID` varchar(255) NOT NULL,
   `StatusTransacao` varchar(255) NOT NULL,
   `DataTransacao` varchar(255) NOT NULL,
+  `TipoPagamento` varchar(255) NOT NULL,
   `Referencia` varchar(255) NOT NULL,
   `ProdID` varchar(255) NOT NULL,
   `ProdValor` varchar(255) NOT NULL,

@@ -42,7 +42,7 @@ $can_join = tnb_artista_can_join($oportunidade_item->ID);
     <div class="quero-tocar cancel-subscription text-right append-bottom clearfix">
         <div class="alignright"><?php print_inscricao_pay_button($oportunidade_item->ID, $current_user->ID); ?></div>
         <div class="alignright">
-            <a onclick="jQuery('#form_unjoin_event_<?php echo $oportunidade_item->ID; ?>').submit();" class="btn-green"><?php _e('Cancelar inscrição 123', 'tnb');?></a>
+            <a onclick="jQuery('#form_unjoin_event_<?php echo $oportunidade_item->ID; ?>').submit();" class="btn-green"><?php _e('Cancelar inscrição', 'tnb');?></a>
         </div>
     </div>
     
