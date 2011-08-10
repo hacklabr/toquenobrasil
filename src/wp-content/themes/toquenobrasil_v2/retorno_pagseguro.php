@@ -73,7 +73,7 @@ if (count($_POST) > 0) {
 	";
 	
 	$fc = ob_get_clean();
-	$log_file = dirname(__FILE__).'/retornos_pagseguro/retornos-'.date('Ymd').'.serial';
+	$log_file = $path.'retornos-'.date('Ymd').'.serial';
 	if(is_writable($log_file) || (!file_exists($log_file) && is_writable(dirname($log_file))))
 		file_put_contents($log_file, $fc, FILE_APPEND);
 	
@@ -125,4 +125,5 @@ VALUES (
 	?>
     <h3>Obrigado por efetuar a compra.</h3>
     <?php
+    do_action('tnb_artista_inscricao_confirmada_em_evento_pago',1386);
 }
