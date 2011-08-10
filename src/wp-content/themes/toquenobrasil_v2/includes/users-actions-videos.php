@@ -20,7 +20,7 @@ switch($_REQUEST['tnb_user_action']){
             
             if($_POST['video_principal'] || $menu_order == 0)
                 tnb_set_artista_video_principal($profileuser->ID, $post_id);
-                
+            
             tnb_cache_unset("ARTISTAS_VIDEOS", $profileuser->ID);
         } else {
             $msg['error'][] = __('URL do vídeo inválida. Use o endereço de um vídeo no youtube ou vimeo', 'tnb');
@@ -43,6 +43,7 @@ switch($_REQUEST['tnb_user_action']){
     case 'edit-video-save':
     
         if(strlen($_POST['video_url'])>0 && ( preg_match("/\/watch\?v=/", $_POST['video_url']) || preg_match("/vimeo.com\/\d+$/", $_POST['video_url'])  ) ) {
+            
             $update = array(
                 'ID' => $_POST['mid'],
                 'post_title' => $_POST['video_title'],
@@ -51,6 +52,10 @@ switch($_REQUEST['tnb_user_action']){
             ); 
             
             wp_update_post($update);
+            if($_POST['video_principal'])
+            	tnb_set_artista_video_principal($profileuser->ID, $_POST['mid']);
+            
+            
         } else {
             $msg['error'][] = __('URL do vídeo inválida. Use o endereço de um vídeo no youtube ou vimeo', 'tnb');
         }

@@ -784,7 +784,7 @@ function tnb_get_artista_musica_principal($artista_id){
 }
 
 function tnb_set_artista_video_principal($artista_id, $media_id){
-    update_user_meta($artista_id, '_video_principal', $media_id);
+	update_user_meta($artista_id, '_video_principal', $media_id);
 }
 
 function tnb_get_artista_video_principal($artista_id){
