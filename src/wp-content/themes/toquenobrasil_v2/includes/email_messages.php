@@ -170,7 +170,10 @@ function tnb_email_messages_artista_desinscreveu_em_um_evento_em_que_estava_pend
 add_action('tnb_artista_inscricao_confirmada_em_evento_pago','tnb_email_messages_artista_inscricao_confirmada_em_evento_pago',10,1);
 function tnb_email_messages_artista_inscricao_confirmada_em_evento_pago($inscricao_id){
 	// $inscricao_id == meta_id do post_meta 'inscrito'
-	$meta = get_post_meta_by_id($inscricao_id);
+	global $wpdb;
+	
+	$meta = $wpdb->get_row("SELECT * FROM $wpdb->postmeta WHERE meta_id = '$inscricao_id'");
+	
 	$evento_id = $meta->post_id;
 	$artista_id = $meta->meta_value;
 	var_dump(array('$inscricao_id' => $inscricao_id,'$meta' => $meta, '$evento_id' => $evento_id, '$artista_id'=> $artista_id));
