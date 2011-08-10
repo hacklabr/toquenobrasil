@@ -126,4 +126,5 @@ VALUES (
     <h3>Obrigado por efetuar a compra.</h3>
     <?php
     do_action('tnb_artista_inscricao_confirmada_em_evento_pago',1386);
+    echo 1386;
 }
