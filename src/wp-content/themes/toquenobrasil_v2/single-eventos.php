@@ -140,7 +140,7 @@ switch($_POST['action']) {
             
             if(tnb_artista_can_join($_POST['evento_id']) && isset($_POST['_wpnonce']) &&  wp_verify_nonce($_POST['_wpnonce'], 'join_event' )){
             	if(get_post_meta($_POST['evento_id'], 'evento_inscricao_cobrada', true)){
-            		if(!in_postmeta(get_post_meta($_POST['evento_id'], 'inscricao_pendente'), $_POST['banda_id'])){
+            		if(!in_postmeta(get_post_meta($_POST['evento_id'], 'inscricao_pendente'), $_POST['banda_id']) && !in_postmeta(get_post_meta($_POST['evento_id'], 'inscrito'), $_POST['banda_id']) ){
 	                    add_post_meta($_POST['evento_id'], 'inscricao_pendente', $_POST['banda_id']);
 	                    $join_success_evento_pago = true;
 	                    do_action('tnb_artista_inscreveu_em_um_evento_pago', $_POST['evento_id'], $_POST['banda_id']);
