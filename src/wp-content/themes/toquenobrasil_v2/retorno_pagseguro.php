@@ -123,7 +123,22 @@ VALUES (
 	// POST não recebido, indica que a requisição é o retorno do Checkout PagSeguro.
 	// No término do checkout o usuário é redirecionado para este bloco.
 	?>
-    <h3>Obrigado por efetuar a compra.</h3>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>TNB</title>
+        <link rel="stylesheet" href="http://tnb.art.br/wp-content/themes/toquenobrasil_v2/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    </head>
+    <body>
+        <div class="container_16 text-center" style="margin-top:15%;">
+            <a href="http://tnb.art.br" title="TNB" style="border:none;">
+                <img src="http://tnb.art.br/wp-content/themes/toquenobrasil_v2/img/tnb-big.png" alt="TNB" style="margin-bottom:36px;" />
+            </a>
+            <h2>Obrigado por se inscrever</h2>
+        </div>
+    </body>
+</html>
     <?php
     
 }
