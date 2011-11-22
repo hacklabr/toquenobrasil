@@ -1998,6 +1998,7 @@ register_post_status('pay_pending_ok', array(
 
 function can_create_oportunidade_paga(){
     global $current_user;
+    return true;
     return isset($current_user->can_create_oportunidade_paga) && $current_user->can_create_oportunidade_paga == 'sim'; 
 }
 
