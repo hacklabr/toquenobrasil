@@ -98,7 +98,7 @@
 						$data['TransacaoID'] = $data_pagamento->TransacaoID;
 				    	$data['DataTransacao'] = $data_pagamento->DataTransacao;
 				    	$data['TipoPagamento'] = $data_pagamento->TipoPagamento;
-				    	$data['ProdValor'] = get_valor_monetario($data_pagamento->ProdValor);
+				    	$data['ProdValor'] = $data_pagamento->ProdValor;
 				    	
 	    			}
                         

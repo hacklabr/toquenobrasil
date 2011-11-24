@@ -62,10 +62,10 @@ $contrato_lock = is_contrato_campos_locked($event->ID);
             <?php endif; ?>
             
             
-            <p><?php _e("Você tem que preencher pelo menos o nome e a descrição da sua oportunidade antes de criá-la.", "tnb"); ?></p>
+            <p><?php _oi("Você tem que preencher pelo menos o nome e a descrição da sua oportunidade antes de criá-la.", "[formulário oportunidade] texto de explicação do topo do formulário",true); ?></p>
             
             <?php if ($creatingSubEvent): ?>
-                <p><?php _e('Para cadastrar uma oportunidade dentro desta oportunidade, você precisa apenas inserir um nome e uma descrição e salvar. Ela precisa ser aprovada pelo produtor da oportunidade a qual pertence. As demais informações podem ser completadas depois que sua oportunidade for aprovada.', 'tnb'); ?></p>
+                <p><?php _oi('Para cadastrar uma oportunidade dentro desta oportunidade, você precisa apenas inserir um nome e uma descrição e salvar. Ela precisa ser aprovada pelo produtor da oportunidade a qual pertence. As demais informações podem ser completadas depois que sua oportunidade for aprovada.', '[formulário sub-oportunidade] texto de explicação do topo do formulário de oportunidade quando o produtor está cadastrando uma sub-oportunidade',true); ?></p>
             <?php endif; ?>
             
             <h5 class="title"><?php _e("Informações Gerais", "tnb"); ?></h5>
@@ -91,7 +91,7 @@ $contrato_lock = is_contrato_campos_locked($event->ID);
                     <?php endif;?>
                 </select>
                 <span class="info">
-                Se você escolher “produtores”, artistas não poderão se inscrever, apenas produtores poderão cadastrar oportunidades dentro desta oportunidade. Caso você não esteja seguro de usar essa opção, entre em contato conosco via contato@toquenobrasil.com.br 
+                 <?php _oi('Se você escolher “produtores”, artistas não poderão se inscrever, apenas produtores poderão cadastrar oportunidades dentro desta oportunidade. Caso você não esteja seguro de usar essa opção, entre em contato conosco via contato@toquenobrasil.com.br','[formulário oportunidade] texto de explicação do campo "oportunidade para',true); ?>
                 </span>
             </div>
             
@@ -110,7 +110,7 @@ $contrato_lock = is_contrato_campos_locked($event->ID);
                 <input id="evento_produtores_selecionam" name="evento_produtores_selecionam" type="checkbox" value="1" <?php if ($event_meta['evento_produtores_selecionam'] == 1) echo 'checked' ?>/>
                 <label><?php _e("Curadoria compartilhada", "tnb"); ?></label>
                 <br />
-                <span class="info"><?php _e("Selecionando essa opção os produtores cadastrados também poderão selecionar artistas para suas oportunidades. Se ela não for marcada, toda curadoria ficará sob sua responsabilidade", "tnb"); ?></span>
+                <span class="info"><?php _oi("Selecionando essa opção os produtores cadastrados também poderão selecionar artistas para suas oportunidades. Se ela não for marcada, toda curadoria ficará sob sua responsabilidade", '[formulário oportunidade] texto de explicação do campo "curadoria compartilhada"',true); ?></span>
             </div>
 
             <div class="clearfix evento_tipo">
@@ -166,7 +166,7 @@ $contrato_lock = is_contrato_campos_locked($event->ID);
             
             <?php if(can_create_oportunidade_paga()):?>
             <hr/>
-            <h5 class="title"><?php _e("Pagamento", "tnb"); ?></h5>
+            <h5 class="title"><?php _e("Inscrição", "tnb"); ?></h5>
             <div class="clear"></div>
             
             <div id='pagamento-enabled-div' class="clearfix">
@@ -178,12 +178,12 @@ $contrato_lock = is_contrato_campos_locked($event->ID);
                     R$&nbsp;<input type="text" id='evento_inscricao_valor' <?php if($contrato_lock) echo 'class="contrato_lock" ';?>name='evento_inscricao_valor' style='width:330px' value="<?php echo $event_meta['evento_inscricao_valor'];?>"/>
                 </span>
                  <div class="clear"></div>
-                <p id='pagamento-msg-div'><?php _e('Para cobrar por inscrições de uma oportunidade, o admin do TNB precisa autorizar para que a oportunidade seja publicada. Você vai receber um email com as diretrizes sobre oportunidades que cobram inscrição. O valor de cada inscrição é dividido entre o produtor da oportunidade e o TNB, na proporção padrão 50%-50%.','tnb')?></p>
+                <p id='pagamento-msg-div'><?php _oi('Em breve você receberá e-mail com instruções para validar e publicar  a sua oportunidade com inscrição paga. Em até 30 dias após o término das inscrições você receberá 50% do valor total arrecadado (número de inscrições x valor em R$ de cada inscriçao).','[formulário - oportunidade] - texto de explicação do campo cobrar pela inscrição', true)?></p>
             </div>
             
-			<div id='pagamento-disabled-div' class='clearfix' style='display:none'>
-				<?php _e("Esta opção só está disponível em oportunidades para artista")?>
-			</div>
+            <div id='pagamento-disabled-div' class='clearfix' style='display:none'>
+                    <?php _e("Esta opção só está disponível em oportunidades para artista")?>
+            </div>
             <?php endif; ?>
             
             <hr />
@@ -294,7 +294,7 @@ $contrato_lock = is_contrato_campos_locked($event->ID);
             <h5 class="title"><?php _e("Filtro", "tnb"); ?></h5><br />
             <?php $estilos = get_estilos_musicais(); ?>
             
-            <p><?php _e('Utilize estes campos para restringir as inscrições às bandas que se enquadrem aos itens selecionados abaixo. Para permitir todos, não selecione nada.','tnb');?></p>
+            <p><?php _oi('Utilize estes campos para restringir as inscrições às bandas que se enquadrem aos itens selecionados abaixo. Para permitir todos, não selecione nada.','[formulário - oportunidade] - texto de explicação dos filtros', true);?></p>
             
             <div id="evento_filtro_origem_div" class='clearfix'>
                 <label><?php _e('Local de Origem','tnb'); ?></label>

@@ -1,5 +1,4 @@
 <?php
-    //_pr($post);
     
     $filename = "artists_in_{$post->post_name}.xls";
 
@@ -26,7 +25,7 @@
     	$fields['ProdValor'] = __("Valor do Pagamento");
 	    				
     }
-// /*
+ //*
     header('Pragma: public'); 
     header('Cache-Control: no-store, no-cache, must-revalidate');     // HTTP/1.1 
     header("Pragma: no-cache"); 
@@ -63,7 +62,9 @@
                     $data['profile_link'] = get_author_posts_url($candidate);
                     
                     /** SISTEMA PAGAMENTO **/
+                    
 	    			if(get_post_meta($post->ID, 'evento_inscricao_cobrada', true)){
+                                    
 	    				$st = $_GET['exportar'] == 'inscricao_pendente' ? '<>' : '=';
 	    				
 	    				
@@ -88,7 +89,7 @@
 						$data['TransacaoID'] = $data_pagamento->TransacaoID;
 				    	$data['DataTransacao'] = $data_pagamento->DataTransacao;
 				    	$data['TipoPagamento'] = $data_pagamento->TipoPagamento;
-				    	$data['ProdValor'] = get_valor_monetario($data_pagamento->ProdValor);
+				    	$data['ProdValor'] = $data_pagamento->ProdValor;
 				    	
 	    			}
                     ?>
