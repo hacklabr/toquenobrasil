@@ -33,10 +33,9 @@ $_GET['evento_id'] = $_GET['evento_id'] ? $_GET['evento_id'] : null;
 $cols = array(
     'insert_timestamp'=>'Data Retorno',
     'TransacaoID' => 'TransacaoID',
-    'StatusTransacao' => 'Status',
     'DataTransacao' => 'Data Transação',
     'TipoPagamento' => 'Tipo de Pagamento',
-    'Referencia' => 'Referência',
+    'Referencia' => 'Ref.',
     'ProdValor' => "Valor",
     'CliNome' => "Cliente",
     'CliEmail' => "E-Mail",
@@ -78,9 +77,12 @@ $cols = array(
 
 <style>
     .verificar { background: #fcefa1; }
+    .aguardando { background: #ffc; }
+    .aprovadas { background: #E8FFE8; }
+    .canceladas { background: #FFEFEF; }
     
-    .legenda {margin-bottom: 11px;}
-    .legenda .verificar {width: 20px; height: 20px; float:left; }
+    .legenda {margin-bottom: 11px}
+    .legenda .color-box {width: 20px; height: 20px; float:left; border:1px solid #DFDFDF; }
     
     #extrato table tbody 
 </style>
@@ -109,8 +111,10 @@ $cols = array(
         
         ?>
         <h3>retornos da oportunidade: <?php echo $selected_evento->post_title; ?></h3>
-        <div class="legenda">
-            <div class="verificar">&nbsp;</div> &nbsp; <small>Pagamentos que estão aguardando a mais de uma semana um retorno do PagSeguro. Verificar no PagSeguro pela TransaçãoID e atualizar status se necessário.</small>
+        <div class="legenda"><div class="verificar color-box">&nbsp;</div> &nbsp; <small>Transações que estão aguardando ha mais de uma semana um retorno do PagSeguro. Verificar no PagSeguro pela TransaçãoID e atualizar status se necessário.</small></div>
+        <div class="legenda"><div class="aguardando color-box">&nbsp;</div> &nbsp; <small>Transações que estão aguardando ha menos de uma semana um retorno do PagSeguro. </small></div>
+        <div class="legenda"><div class="aprovadas color-box">&nbsp;</div> &nbsp; <small>Transações aprovadas.</small></div>
+        <div class="legenda"><div class="canceladas color-box">&nbsp;</div> &nbsp; <small>Transações canceladas ou não aprovadas.</small></div>
         </div>
         <table class="widefat">
             <thead>
@@ -123,7 +127,7 @@ $cols = array(
             
             <?php if($aguardando): ?>
                 <tbody class='aguardando'>
-                    <tr><th colspan="<?php echo count($cols); ?>"><br/>Aguardando</th></tr>
+                    <tr><th colspan="<?php echo count($cols); ?>">Aguardando</th></tr>
                 <?php foreach($aguardando as $trans): ?>
                     <tr <?php if($trans->verificar) echo 'class="verificar"'?>>
                     <?php foreach($cols as $col => $label): ?>
@@ -145,7 +149,7 @@ $cols = array(
                 
             <?php if($aprovadas): ?>
                 <tbody class='aprovadas'>
-                    <tr><th colspan="<?php echo count($cols); ?>"><br/>Aprovadas</th></tr>
+                    <tr><th colspan="<?php echo count($cols); ?>">Aprovadas</th></tr>
                 <?php foreach($aprovadas as $trans): ?>
                     <tr>
                     <?php foreach($cols as $col => $label): ?>
@@ -158,7 +162,7 @@ $cols = array(
                 
             <?php if($canceladas): ?>
                 <tbody class='canceladas'>
-                    <tr><th colspan="<?php echo count($cols); ?>"><br/>Canceladas</th></tr>
+                    <tr><th colspan="<?php echo count($cols); ?>">Canceladas</th></tr>
                 <?php foreach($canceladas as $trans): ?>
                     <tr>
                     <?php foreach($cols as $col => $label): ?>
