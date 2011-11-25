@@ -111,8 +111,8 @@ $cols = array(
         
         ?>
         <h3>retornos da oportunidade: <?php echo $selected_evento->post_title; ?></h3>
-        <div class="legenda"><div class="verificar color-box">&nbsp;</div> &nbsp; <small>Transações que estão aguardando ha mais de uma semana um retorno do PagSeguro. Verificar no PagSeguro pela TransaçãoID e atualizar status se necessário.</small></div>
-        <div class="legenda"><div class="aguardando color-box">&nbsp;</div> &nbsp; <small>Transações que estão aguardando ha menos de uma semana um retorno do PagSeguro. </small></div>
+        <div class="legenda"><div class="verificar color-box">&nbsp;</div> &nbsp; <small>Transações que estão aguardando há mais de uma semana o retorno de confirmação. Verificar no PagSeguro pela TransaçãoID e atualizar status se necessário.</small></div>
+        <div class="legenda"><div class="aguardando color-box">&nbsp;</div> &nbsp; <small>Transações que estão aguardando há menos de uma semana o retorno de confirmação. </small></div>
         <div class="legenda"><div class="aprovadas color-box">&nbsp;</div> &nbsp; <small>Transações aprovadas.</small></div>
         <div class="legenda"><div class="canceladas color-box">&nbsp;</div> &nbsp; <small>Transações canceladas ou não aprovadas.</small></div>
         </div>
