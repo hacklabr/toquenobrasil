@@ -121,47 +121,53 @@ $cols = array(
                 </tr>
             </thead>
             
-            <tbody class='aguardando'>
-                <tr><th colspan="<?php echo count($cols); ?>"><br/>Aguardando</th></tr>
-            <?php foreach($aguardando as $trans): ?>
-                <tr <?php if($trans->verificar) echo 'class="verificar"'?>>
-                <?php foreach($cols as $col => $label): ?>
-                    <?php if($col === 'TransacaoID'): ?>
-                        <td>
-                            <?php echo $trans->$col; ?><br/>
-                            <a href="#" class='confirmar' transacaoid="<?php echo $trans->TransacaoID; ?>" acao="confirmar">confirmar</a>
-                            <a href="#" class='cancelar' transacaoid="<?php echo $trans->TransacaoID; ?>" acao="cancelar">cancelar</a>
-                            
-                        </td>
-                    <?php else: ?>
+            <?php if($aguardando): ?>
+                <tbody class='aguardando'>
+                    <tr><th colspan="<?php echo count($cols); ?>"><br/>Aguardando</th></tr>
+                <?php foreach($aguardando as $trans): ?>
+                    <tr <?php if($trans->verificar) echo 'class="verificar"'?>>
+                    <?php foreach($cols as $col => $label): ?>
+                        <?php if($col === 'TransacaoID'): ?>
+                            <td>
+                                <?php echo $trans->$col; ?><br/>
+                                <a href="#" class='confirmar' transacaoid="<?php echo $trans->TransacaoID; ?>" acao="confirmar">confirmar</a>
+                                <a href="#" class='cancelar' transacaoid="<?php echo $trans->TransacaoID; ?>" acao="cancelar">cancelar</a>
+
+                            </td>
+                        <?php else: ?>
+                            <td><?php echo $trans->$col; ?></td>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            <?php endif; ?>
+                
+            <?php if($aprovadas): ?>
+                <tbody class='aprovadas'>
+                    <tr><th colspan="<?php echo count($cols); ?>"><br/>Aprovadas</th></tr>
+                <?php foreach($aprovadas as $trans): ?>
+                    <tr>
+                    <?php foreach($cols as $col => $label): ?>
                         <td><?php echo $trans->$col; ?></td>
-                    <?php endif; ?>
+                    <?php endforeach; ?>
+                    </tr>
                 <?php endforeach; ?>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-            
-            <tbody class='aprovadas'>
-                <tr><th colspan="<?php echo count($cols); ?>"><br/>Aprovadas</th></tr>
-            <?php foreach($aprovadas as $trans): ?>
-                <tr>
-                <?php foreach($cols as $col => $label): ?>
-                    <td><?php echo $trans->$col; ?></td>
+                </tbody>
+            <?php endif; ?>
+                
+            <?php if($canceladas): ?>
+                <tbody class='canceladas'>
+                    <tr><th colspan="<?php echo count($cols); ?>"><br/>Canceladas</th></tr>
+                <?php foreach($canceladas as $trans): ?>
+                    <tr>
+                    <?php foreach($cols as $col => $label): ?>
+                        <td><?php echo $trans->$col; ?></td>
+                    <?php endforeach; ?>
+                    </tr>
                 <?php endforeach; ?>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-            
-            <tbody class='canceladas'>
-                <tr><th colspan="<?php echo count($cols); ?>"><br/>Canceladas</th></tr>
-            <?php foreach($canceladas as $trans): ?>
-                <tr>
-                <?php foreach($cols as $col => $label): ?>
-                    <td><?php echo $trans->$col; ?></td>
-                <?php endforeach; ?>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
+                </tbody>
+            <?php endif; ?>
         </table>
     <?php endif; ?>
     </div>
