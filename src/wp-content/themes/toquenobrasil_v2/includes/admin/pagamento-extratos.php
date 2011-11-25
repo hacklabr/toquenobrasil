@@ -130,7 +130,7 @@ $cols = array(
                         <?php if($col === 'TransacaoID'): ?>
                             <td>
                                 <?php echo $trans->$col; ?><br/>
-                                <a href="#" class='confirmar' transacaoid="<?php echo $trans->TransacaoID; ?>" acao="confirmar">confirmar</a>
+                                <a href="#" class='confirmar' transacaoid="<?php echo $trans->TransacaoID; ?>" acao="confirmar">confirmar</a> - 
                                 <a href="#" class='cancelar' transacaoid="<?php echo $trans->TransacaoID; ?>" acao="cancelar">cancelar</a>
 
                             </td>
