@@ -27,7 +27,7 @@ if(isset($_POST['action']) && ($_POST['action'] == 'cancelar-transacao'  || $_PO
     }
 }
 
-$eventos = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE $wpdb->posts.ID IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'evento_inscricao_cobrada') AND post_status = 'publish'");
+$eventos = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE $wpdb->posts.ID IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'evento_inscricao_cobrada') AND post_status = 'publish' ORDER BY post_title");
 $_GET['evento_id'] = $_GET['evento_id'] ? $_GET['evento_id'] : null;
 
 $cols = array(
@@ -96,7 +96,7 @@ $cols = array(
         <option value="">Selecione uma oportunidade</option>
         <option value="todas" <?php if('todas' == $_GET['evento_id']) echo 'selected="selected"' ?>>Todas</option>
     <?php foreach($eventos as $evento): if($evento->ID == $_GET['evento_id']) $selected_evento = $evento;?>
-        <option value = "<?php echo $evento->ID; ?>" <?php if($evento->ID == $_GET['evento_id']) echo 'selected="selected"' ?>><?php echo htmlentities($evento->post_title); ?></option>
+        <option value = "<?php echo $evento->ID; ?>" <?php if($evento->ID == $_GET['evento_id']) echo 'selected="selected"' ?>><?php echo htmlentities(utf8_decode($evento->post_title)); ?></option>
     <?php endforeach; ?>
     <select>
     <hr/>
