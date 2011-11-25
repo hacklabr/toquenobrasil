@@ -622,8 +622,7 @@ function tnb_current_user_can_select_artist($caps, $cap, $user_id, $args) {
 
 function delete_user_from_events($user_id){
     global $wpdb;
-    $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_value = {$user_id} AND meta_key='inscrito'");
-    $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_value = {$user_id} AND meta_key='selecionado'");
+    $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_value = {$user_id} AND meta_key IN ('inscrito', 'inscricao_pendente', 'selecionado')");
 }
 add_action('delete_user', 'delete_user_from_events');
 

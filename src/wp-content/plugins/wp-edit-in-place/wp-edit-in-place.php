@@ -409,10 +409,25 @@ function _oi($term, $description = '') {
  * 
  * @param string $term the default value for this string
  * @param string $description the description of this string, will show on the admin screen
+ * @param bool/string $param3 wether to have a frontend form (bool) or language code (string)
+ * @param bool/string $param4 wether to have a frontend form (bool) or language code (string)
  * 
  * @return string the text you asked for 
  */
-function __i($term, $description = '', $lcode = WPLANG, $frontend_form = false) {
+function __i($term, $description = '') {
+    //default values
+    $lcode = WPLANG;
+    $frontend_form = true;
+    
+    for ($i = 2; $i < max(3, func_num_args()); $i++) {
+
+        $arg = func_get_arg($i);
+        if (is_bool($arg))
+            $frontend_form = $arg;
+
+        if (is_string($arg))
+            $lcode = $arg;
+    }
     global $WPEIP;
     $source = $WPEIP->source();
     return $source->getTerm($term, $description, $lcode, $frontend_form);

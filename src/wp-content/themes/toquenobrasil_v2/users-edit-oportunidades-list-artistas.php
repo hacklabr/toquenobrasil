@@ -91,9 +91,15 @@
                     <input type="hidden" name="evento_id" value='<?php echo $post->ID; ?>' />
                 </form>
 
-                <p class="quero-tocar cancel-subscription">
-                    <a onclick="jQuery('#form_unjoin_event_<?php echo $post->ID; ?>').submit();"><?php _e('Cancelar inscrição', 'tnb');?></a>
-                </p>
+                <?php if($data['inscricao_cobrada']):?>
+                    <p class="quero-tocar cancel-subscription">
+                        <a onclick="if(confirm('<?php echo addslashes(__i("Você está cancelando sua inscrição para uma oportunidade paga. O dinheiro da sua inscrição não será reembolsado. Tem certeza que deseja cancelar sua inscrição?", '[gerenciar oportunidades - artista] - mensagem que avisa ao usuário que ele está cancelando a inscrição em uma oportunidade paga', false))?>')) jQuery('#form_unjoin_event_<?php echo $post->ID; ?>').submit();"><?php _e('Cancelar inscrição', 'tnb');?></a>
+                    </p>
+                <?php else: ?>
+                    <p class="quero-tocar cancel-subscription">
+                        <a onclick="jQuery('#form_unjoin_event_<?php echo $post->ID; ?>').submit();"><?php _e('Cancelar inscrição', 'tnb');?></a>
+                    </p>
+                <?php endif; ?>
             
             <?php  elseif(is_artista($profileuser->ID) &&  in_postmeta(get_post_meta($post->ID, 'inscricao_pendente'), $profileuser->ID) && strtotime($data['inscricao_inicio']) <= strtotime(date('Y-m-d')) && strtotime($data['inscricao_fim']) >= strtotime(date('Y-m-d'))): ?>
 

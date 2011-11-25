@@ -24,7 +24,7 @@ $can_join = tnb_artista_can_join($oportunidade_item->ID);
     
     <p class="quero-tocar cancel-subscription text-right">
         <?php if(isset($data['inscricao_cobrada']) && $data['inscricao_cobrada']):?>
-            <a onclick="if(confirm('<?php _e("Você está cancelando sua inscrição para uma oportunidade paga. O dinheiro da sua inscrição não será reembolsado. Tem certeza que deseja cancelar sua inscrição?", 'tnb')?>')) jQuery('#form_unjoin_event_<?php echo $oportunidade_item->ID; ?>').submit();" class="btn-green"><?php _e('Cancelar inscrição', 'tnb');?></a>
+            <a onclick="if(confirm('<?php echo addslashes(__i("Você está cancelando sua inscrição para uma oportunidade paga. O dinheiro da sua inscrição não será reembolsado. Tem certeza que deseja cancelar sua inscrição?", '[gerenciar oportunidades - artista] - mensagem que avisa ao usuário que ele está cancelando a inscrição em uma oportunidade paga', false))?>')) jQuery('#form_unjoin_event_<?php echo $oportunidade_item->ID; ?>').submit();" class="btn-green"><?php _e('Cancelar inscrição', 'tnb');?></a>
         <?php else:?>
             <a onclick="jQuery('#form_unjoin_event_<?php echo $oportunidade_item->ID; ?>').submit();" class="btn-green"><?php _e('Cancelar inscrição', 'tnb');?></a>
         <?php endif;?>

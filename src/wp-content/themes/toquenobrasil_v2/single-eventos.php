@@ -140,7 +140,36 @@ switch($_POST['action']) {
             
             if(tnb_artista_can_join($_POST['evento_id']) && isset($_POST['_wpnonce']) &&  wp_verify_nonce($_POST['_wpnonce'], 'join_event' )){
             	if(get_post_meta($_POST['evento_id'], 'evento_inscricao_cobrada', true)){
-            		if(!in_postmeta(get_post_meta($_POST['evento_id'], 'inscricao_pendente'), $_POST['banda_id']) && !in_postmeta(get_post_meta($_POST['evento_id'], 'inscrito'), $_POST['banda_id']) ){
+                        if(in_postmeta(get_post_meta($_POST['evento_id'], 'inscricao_cancelada'), $_POST['banda_id'])){
+                             $meta_id = $wpdb->get_var("
+                                 SELECT 
+                                     meta_id 
+                                 FROM 
+                                     $wpdb->postmeta 
+                                 WHERE 
+                                    post_id = '$_POST[evento_id]' AND 
+                                    meta_key = 'inscricao_cancelada' AND 
+                                    meta_value = '$_POST[banda_id]'");
+                             
+                             if(get_post_meta($_POST['evento_id'], 'transacao_inscricao-'.$meta_id,true)){
+                                 $meta_key = 'inscrito';
+                                 $join_success = true;
+                             }else{
+                                 $meta_key = 'inscricao_pendente';
+                                 $join_success_evento_pago = true;
+                             }
+                             $wpdb->query("
+                                UPDATE 
+                                        $wpdb->postmeta 
+                                SET 
+                                        meta_key = '$meta_key' 
+                                WHERE 
+                                        post_id = '$_POST[evento_id]' AND 
+                                        meta_key = 'inscricao_cancelada' AND 
+                                        meta_value = '$_POST[banda_id]'
+                             ");
+                            
+                        }elseif(!in_postmeta(get_post_meta($_POST['evento_id'], 'inscricao_pendente'), $_POST['banda_id']) && !in_postmeta(get_post_meta($_POST['evento_id'], 'inscrito'), $_POST['banda_id']) ){
 	                    add_post_meta($_POST['evento_id'], 'inscricao_pendente', $_POST['banda_id']);
 	                    $join_success_evento_pago = true;
 	                    do_action('tnb_artista_inscreveu_em_um_evento_pago', $_POST['evento_id'], $_POST['banda_id']);
@@ -157,12 +186,27 @@ switch($_POST['action']) {
         break;
         
         case 'unjoin':
-        
+            //die(get_post_meta($_POST['evento_id'], 'evento_inscricao_cobrada', true));
             if(isset($_POST['_wpnonce']) &&  wp_verify_nonce($_POST['_wpnonce'], 'unjoin_event' )){
                 if(in_postmeta(get_post_meta($_POST['evento_id'], 'inscrito'), $_POST['banda_id'])){
-                    delete_post_meta($_POST['evento_id'], 'inscrito', $_POST['banda_id']);
-                    $unjoin_success = true;
-                    do_action('tnb_artista_desinscreveu_em_um_evento', $_POST['evento_id'], $_POST['banda_id']);
+                    if(get_post_meta($_POST['evento_id'], 'evento_inscricao_cobrada', true)){
+                        $wpdb->query("
+                                UPDATE 
+                                        $wpdb->postmeta 
+                                SET 
+                                        meta_key = 'inscricao_cancelada' 
+                                WHERE 
+                                        post_id = '$_POST[evento_id]' AND 
+                                        meta_key = 'inscrito' AND 
+                                        meta_value = '$_POST[banda_id]'
+                        ");
+                        $unjoin_success = true;
+                        do_action('tnb_artista_desinscreveu_em_um_evento', $_POST['evento_id'], $_POST['banda_id']);
+                    }else{
+                        delete_post_meta($_POST['evento_id'], 'inscrito', $_POST['banda_id']);
+                        $unjoin_success = true;
+                        do_action('tnb_artista_desinscreveu_em_um_evento', $_POST['evento_id'], $_POST['banda_id']);
+                    }
                     
                 }elseif(in_postmeta(get_post_meta($_POST['evento_id'], 'inscricao_pendente'), $_POST['banda_id'])){
                     delete_post_meta($_POST['evento_id'], 'inscricao_pendente', $_POST['banda_id']);
