@@ -27,7 +27,7 @@ if(isset($_POST['action']) && ($_POST['action'] == 'cancelar-transacao'  || $_PO
     }
 }
 
-$eventos = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE $wpdb->posts.ID IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'evento_inscricao_cobrada') AND post_status = 'publish' ORDER BY post_title");
+$eventos = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE $wpdb->posts.ID IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'evento_inscricao_cobrada' AND meta_value = 1) AND post_status = 'publish' ORDER BY post_title");
 $_GET['evento_id'] = $_GET['evento_id'] ? $_GET['evento_id'] : null;
 
 $cols = array(
