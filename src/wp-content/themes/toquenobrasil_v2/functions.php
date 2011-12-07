@@ -190,6 +190,8 @@ function custom_url_rewrites($wp_rewrite) {
         "play/?$" => "index.php?tpl=play",
         "download/?$" => "index.php?tpl=download",
         
+        "rede/([^/]+)/estatisticas/?$" => "index.php?author_name=" . $wp_rewrite->preg_index(1) . "&tpl=estatisticas",
+        
         "rede/([^/]+)/eventos/?$" => "index.php?author_name=" . $wp_rewrite->preg_index(1) . "&tpl=gerenciar-eventos",
         "rede/([^/]+)/fotos/?$" => "index.php?author_name=" . $wp_rewrite->preg_index(1) . "&tpl=fotos-do-artista",
         "rede/([^/]+)/eventos/novo/?$" => "index.php?author_name=" . $wp_rewrite->preg_index(1) . "&tpl=cadastro-de-evento",
@@ -300,6 +302,10 @@ function template_redirect_intercept(){
                 include( TEMPLATEPATH . "/users-list.php" );
                 exit;
             }
+        break;
+        
+        case 'estatisticas':
+            include TEMPLATEPATH."/rede/estatisticas.php";
         break;
         
     }
