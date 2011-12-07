@@ -190,15 +190,14 @@ function custom_url_rewrites($wp_rewrite) {
         "play/?$" => "index.php?tpl=play",
         "download/?$" => "index.php?tpl=download",
         
-        "rede/([^/]+)/estatisticas/?$" => "index.php?author_name=" . $wp_rewrite->preg_index(1) . "&tpl=estatisticas",
-        
         "rede/([^/]+)/eventos/?$" => "index.php?author_name=" . $wp_rewrite->preg_index(1) . "&tpl=gerenciar-eventos",
         "rede/([^/]+)/fotos/?$" => "index.php?author_name=" . $wp_rewrite->preg_index(1) . "&tpl=fotos-do-artista",
         "rede/([^/]+)/eventos/novo/?$" => "index.php?author_name=" . $wp_rewrite->preg_index(1) . "&tpl=cadastro-de-evento",
         
         "rede/([^/]+)/eventos/([^/]+)/editar/?$" => "index.php?author_name=" . $wp_rewrite->preg_index(1) . "&tpl=cadastro-de-evento" . "&event_name=" . $wp_rewrite->preg_index(2),
         
-    	"rede/([^/]+)/editar/?$" => "index.php?author_name=" . $wp_rewrite->preg_index(1) . "&tpl=editprofile",
+    	"rede/([^/]+)/stats/?$" => "index.php?author_name=" . $wp_rewrite->preg_index(1) . "&tpl=stats",
+        "rede/([^/]+)/editar/?$" => "index.php?author_name=" . $wp_rewrite->preg_index(1) . "&tpl=editprofile",
         "rede/([^/]+)/editar/([^/]+)/?$" => "index.php?author_name=" . $wp_rewrite->preg_index(1) . "&tpl=editprofile&section=" . $wp_rewrite->preg_index(2),
         
         "rede/([^/]+)/editar/oportunidades/page/?([0-9]{1,})/?$" => "index.php?author_name=" . $wp_rewrite->preg_index(1) . "&tpl=editprofile&section=oportunidades&paged=" . $wp_rewrite->preg_index(2),
@@ -244,7 +243,7 @@ remove_action('template_redirect', 'redirect_canonical');
 
 add_action('template_redirect', 'template_redirect_intercept');
 function template_redirect_intercept(){
-
+    
 
     if( $_GET['action'] ==  'register'){
        die;
@@ -252,15 +251,20 @@ function template_redirect_intercept(){
 
     global $wp_query;
     $reg_type = $wp_query->get('reg_type');
-
+    
     switch ( $wp_query->get('tpl') ) {
-
         case 'list':
         if ($wp_query->get('post_type') == 'eventos') {
             include( TEMPLATEPATH . '/oportunidades-list.php' );
         }
         exit;
         break;
+        
+        case 'stats':
+            include TEMPLATEPATH."/users-stats.php";
+            exit;
+        break;
+        
 
         case 'cadastro':
         include( TEMPLATEPATH . '/cadastro.php' );
@@ -304,9 +308,6 @@ function template_redirect_intercept(){
             }
         break;
         
-        case 'estatisticas':
-            include TEMPLATEPATH."/rede/estatisticas.php";
-        break;
         
     }
 }

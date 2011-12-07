@@ -51,7 +51,7 @@
                         <li><a href="<?php echo get_author_posts_url($current_user->ID)?>/editar/fotos/"><?php _e("Carregar Fotos", "tnb"); ?></a></li>
                         <li><a href="<?php echo get_author_posts_url($current_user->ID)?>/editar/videos/"><?php _e("Carregar Vídeos", "tnb"); ?></a></li>
                         <li><a href="<?php echo get_author_posts_url($current_user->ID)?>/editar/oportunidades"><?php _e("Gerenciar Oportunidades", "box"); ?></a></li>
-                        <li><a href="<?php echo get_author_posts_url($current_user->ID)?>/estatisticas"><?php _e("Estatísticas", "box"); ?></a></li>
+                        <li><a href="<?php echo get_author_posts_url($current_user->ID)?>/stats"><?php _e("Estatísticas", "box"); ?></a></li>
                     </ul>
                 </li>
                 <li class="logout"><a href="<?php echo wp_logout_url(get_bloginfo('url')) ; ?>"><?php _e("Sair", "tnb"); ?></a></li>
