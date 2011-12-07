@@ -165,13 +165,15 @@ $paises = get_paises();
     <table class='widefat'>
         <thead>
             <tr>
+                <th><?php _e('posição', 'tnb'); ?></th>
                 <th>oportunidade</th>
                 <th width="40">visitas</th>
             </tr>
         </thead>
         <tbody>
-        <?php foreach($eventos as $evento):?>
+        <?php foreach($eventos as $i => $evento):?>
             <tr>
+                <td><?php echo $i+1; ?></td>
                 <td><a href='<?php echo get_permalink($evento->ID);?>'><?php echo $evento->post_title?></a></td>
                 <td align="center"><?php echo $evento->_views; ?></td>
             </tr>
@@ -185,6 +187,7 @@ $paises = get_paises();
     <table class='widefat'>
         <thead>
             <tr>
+                <th><?php _e('posição', 'tnb'); ?></th>
                 <th><?php _e('artista', 'tnb'); ?></th>
                 <th><?php _e('email', 'tnb'); ?></th>
                 <th><?php _e('endereço (residência)', 'tnb')?></th>
@@ -193,8 +196,9 @@ $paises = get_paises();
             </tr>
         </thead>
         <tbody>
-        <?php foreach($artistas as $user):?>
+        <?php foreach($artistas as $i => $user):?>
             <tr>
+                <td><?php echo $i+1; ?></td>
                 <td><a href='<?php echo get_author_posts_url($user->ID);?>' ><?php echo $user->display_name?></a></td>
                 <td>
                     <?php echo $user->user_email; ?>
@@ -212,7 +216,7 @@ $paises = get_paises();
                     <?php echo $artistas_metas[$user->ID]['origem_pais'] ? $paises[$artistas_metas[$user->ID]['origem_pais']] : ''; ?> 
                 </td>
                 
-                <td align="center"><?php echo $user->_views; ?></td>
+                <td align="center"><a href='<?php echo get_author_posts_url($user->ID);?>/stats?sdate=01/04/2011' title="página de estatísticas" target="_blank" ><?php echo $user->_views; ?></a></td>
             </tr>
         <?php endforeach;?>
         </tbody>
@@ -224,6 +228,7 @@ $paises = get_paises();
     <table class='widefat'>
         <thead>
            <tr>
+                <th><?php _e('posição', 'tnb'); ?></th>
                 <th><?php _e('produtor', 'tnb'); ?></th>
                 <th><?php _e('email', 'tnb'); ?></th>
                 <th><?php _e('telefone', 'tnb'); ?></th>
@@ -232,8 +237,9 @@ $paises = get_paises();
             </tr>
         </thead>
         <tbody>
-        <?php foreach($produtores as $user):?>
+        <?php foreach($produtores as $i => $user): ?>
             <tr>
+                <td><?php echo $i+1; ?></td>
                 <td><a href='<?php echo get_author_posts_url($user->ID);?>' ><?php echo $user->display_name?></a></td>
                 <td>
                     <?php echo $user->user_email; ?>
@@ -246,7 +252,7 @@ $paises = get_paises();
                     <?php echo $produtores_metas[$user->ID]['origem_estado']?>, 
                     <?php echo $produtores_metas[$user->ID]['origem_pais'] ? $paises[$produtores_metas[$user->ID]['origem_pais']] : ''; ?> 
                 </td>
-                <td align="center"><?php echo $user->_views; ?></td>
+                <td align="center"><a href='<?php echo get_author_posts_url($user->ID);?>/stats?sdate=01/04/2011' title="página de estatísticas" target="_blank" ><?php echo $user->_views; ?></a></td>
             </tr>
         <?php endforeach;?>
         </tbody>
@@ -258,14 +264,16 @@ $paises = get_paises();
     <table class='widefat'>
         <thead>
             <tr>
+                <th><?php _e('posição', 'tnb'); ?></th>
                 <th><?php _e('música','tnb')?></th>
                 <th><?php _e('autor','tnb')?></th>
                 <th width="40"><?php _e('plays','tnb')?></th>
             </tr>
         </thead>
         <tbody>
-        <?php foreach($mplays as $m):?>
+        <?php foreach($mplays as $i=>$m):?>
             <tr>
+                <td><?php echo $i+1; ?></td>
                 <td><?php echo $m->post_title?></td>
                 <td><a href='<?php echo get_author_posts_url($m->post_author);?>' ><?php echo $m->display_name;?></a> <?php if(is_produtor($m->post_author)):?> (<?php _e('produtor', 'tnb')?>) <?php endif;?></td>
                 <td align="center"><?php echo $m->_plays; ?></td>
@@ -280,14 +288,16 @@ $paises = get_paises();
     <table class='widefat'>
         <thead>
             <tr>
+                <th><?php _e('posição', 'tnb'); ?></th>
                 <th><?php _e('música','tnb')?></th>
                 <th><?php _e('autor','tnb')?></th>
                 <th width="40">downloads</th>
             </tr>
         </thead>
         <tbody>
-        <?php foreach($mdownloads as $m):?>
+        <?php foreach($mdownloads as $i => $m):?>
             <tr>
+                <td><?php echo $i+1; ?></td>
                 <td><?php echo $m->post_title?></td>
                 <td><a href='<?php echo get_author_posts_url($m->post_author);?>' ><?php echo $m->display_name;?></a> <?php if(is_produtor($m->post_author)):?> (<?php _e('produtor', 'tnb')?>) <?php endif;?></td>
                 <td align="center"><?php echo $m->_downloads; ?></td>
