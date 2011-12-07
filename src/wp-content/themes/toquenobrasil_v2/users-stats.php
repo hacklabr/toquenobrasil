@@ -16,16 +16,17 @@ $music_ids = implode(',', $musicas);
 
 $where = '';
 $fdate = 'CURRENT_DATE()';
-if(isset($_GET['fdate']) && preg_match('/[0-9]{4}-[0-9]{2}-[0-9]{2}/', $_GET['fdate'])){
-    $fdate = "'".$_GET['fdate']."'";
-    $where .= " AND day <= '".$_GET['fdate']."'";
+if(isset($_GET['fdate']) && preg_match('/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/', $_GET['fdate'])){
+    $fdate = preg_replace("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/","'$3-$2-$1'",$_GET['fdate']);
+    $where .= " AND day <= $fdate";
 }else{
     $where .= " AND day <= CURRENT_DATE()";
 }
 
 
-if(isset($_GET['sdate']) && preg_match('/[0-9]{4}-[0-9]{2}-[0-9]{2}/', $_GET['sdate'])){
-    $where .= " AND day >= '".$_GET['sdate']."'";
+if(isset($_GET['sdate']) && preg_match('/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/', $_GET['sdate'])){
+    $sdate = preg_replace("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/","'$3-$2-$1'",$_GET['sdate']);
+    $where .= " AND day >= $sdate";
 }else{
     $where .= " AND day >= $fdate - INTERVAL 1 MONTH";
 }
@@ -133,6 +134,9 @@ jQuery(document).ready(function(){
     jQuery(".music-choice").change(plotAccordingToChoices)
     plotAccordingToChoices();
     
+    jQuery('#sdate').datepicker();
+    jQuery('#fdate').datepicker();
+    
 });
 </script>
 <section id="users" class="profile grid_16 box-shadow clearfix">
@@ -140,6 +144,10 @@ jQuery(document).ready(function(){
         <h1 class="profile-name">
             <span class="bg-yellow"><?php echo $profileuser->display_name; ?></span>
         </h1>
+        <form>
+            data inicial: <input name="sdate" id='sdate' value="<?php echo isset($_GET['sdate']) ? $_GET['sdate'] : '' ?>" /> data final: <input name="fdate" id='fdate' value="<?php echo isset($_GET['fdate']) ? $_GET['fdate'] : '' ?>" />
+            <input type="submit" value="filtrar"/>
+        </form>
     </header>
     
     <section class="content">
@@ -147,15 +155,16 @@ jQuery(document).ready(function(){
         <div id='profile-views' class='graph' style='width:100%; height:250px;'></div>
     </section>
     <div class="grid_3">
-            <?php foreach($_musicas as $m): ?>
-            <label><input type="checkbox" class="music-choice" checked="checked" name="mus_<?php echo $m->ID; ?>"> <?php echo $m->post_title; ?></label><br/>
-            <?php endforeach; ?>
-        </div>
-        <div class="grid_12 last">
-            <h4>total de plays</h4>
-            <div id='music-plays' class='graph' style='width:100%; height:250px;'></div>
-            <h4>total de downloads</h4>
-            <div id='music-downloads' class='graph' style='width:100%; height:250px;'></div>
-        </div>
+        <h4>músicas</h4>
+        <?php foreach($_musicas as $m): ?>
+        <label><input type="checkbox" class="music-choice" checked="checked" name="mus_<?php echo $m->ID; ?>"> <?php echo $m->post_title; ?></label><br/>
+        <?php endforeach; ?>
+    </div>
+    <div class="grid_12 last">
+        <h4>total de plays</h4>
+        <div id='music-plays' class='graph' style='width:100%; height:250px;'></div>
+        <h4>total de downloads</h4>
+        <div id='music-downloads' class='graph' style='width:100%; height:250px;'></div>
+    </div>
 </section>
 <?php get_footer(); ?>
