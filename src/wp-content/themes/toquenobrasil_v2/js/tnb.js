@@ -287,6 +287,7 @@ jQuery(document).ready(function() {
         resizable: false
     });
     
+    hl.tip.init();
 });
 
 function tnbCarregaCidadesOptions(campoId, uf){
@@ -294,3 +295,68 @@ function tnbCarregaCidadesOptions(campoId, uf){
 	  selected = encodeURI(selected);
 	  jQuery('#'+campoId+'_select').load(tnb.baseurl+'/cidades-options.php?uf='+uf+'&selected='+selected,function(result){jQuery('#'+campoId+'_select').html(result)});
 	}
+
+
+
+var hl = {
+    tip:{
+        init: function(){
+            jQuery(".hltip").live('mouseenter, mousemove',function(e){
+                var tip = jQuery(this).data('tip');
+                var _left = e.clientX + jQuery(document).scrollLeft() - 45;
+                var _top = jQuery(this).offset().top ;
+                var _height = jQuery(this).height();
+                
+                if(!tip){
+                    var content = jQuery(this).attr('title');
+                    
+                    if(content.indexOf(':') > 0){
+                        content = '<div class="hltip-title">'+(content.substr(0, content.indexOf(':')))+'</div>'+(content.substr(content.indexOf(':')+1));
+                    }
+                    tip = jQuery('<div class="hltip-box"><div class="hltip-arrow-top"></div><div class="hltip-text">'+content+'</div><div class="hltip-arrow-bottom"></div></div><').hide();
+                    tip.css({position:'absolute', zIndex: 9999});
+                    jQuery(document.body).append(tip);
+                    tip.css('width', tip.width());
+                    jQuery(this).data('tip',tip);
+                    jQuery(this).attr('title','');
+                }
+                if(_left+tip.width() - jQuery(document).scrollLeft() > jQuery(window).width() - 11)
+                    tip.css('left', jQuery(window).width() - 11 - tip.width() + jQuery(document).scrollLeft());
+                else if(_left - jQuery(document).scrollLeft() < 6)
+                    tip.css('left',jQuery(document).scrollLeft()+6);
+                else
+                    tip.css('left', _left);
+
+                var diff = e.clientX + jQuery(document).scrollLeft() - parseInt(tip.css('left'));
+                
+                if(diff < 1)
+                    diff = 1;
+                else if (diff > parseInt(tip.outerWidth()) -11)
+                    diff = parseInt(tip.outerWidth()) -11;
+                
+                if(jQuery(window).height() + jQuery(document).scrollTop() - 11 < _top + _height + tip.height()){
+                    tip.find('.hltip-arrow-top').hide();
+                    tip.find('.hltip-arrow-bottom').show();
+                    tip.css('top', _top - tip.height() - 6);
+
+                    tip.find('.hltip-arrow-bottom').css('margin-left',diff);
+                }else{
+                    tip.find('.hltip-arrow-top').show();
+                    tip.find('.hltip-arrow-bottom').hide();
+                    tip.find('.hltip-arrow-top').css('margin-left',diff);
+                    tip.css('top', _top + _height + 6);
+                }
+
+                if(!tip.is(':visible')){
+                    tip.fadeIn('fast');
+                }
+            });
+            
+            jQuery(".hltip").live('mouseleave',function(e){
+                jQuery(this).data('tip').fadeOut('fast');
+                
+            });
+        }
+        
+    }
+}

@@ -701,3 +701,10 @@ span.info, .field-hint { -webkit-box-shadow:none !important; -moz-box-shadow:non
 /* reset labels */
 .reset-label{color:inherit !important; float:none !important; }
 .oportunidade-filtro{max-height: 200px; overflow:auto; padding:0px; border:1px solid #666; }
+
+
+
+/* tooltip */
+.hltip-box { min-width: 150px; max-width: 350px; border-color: black black black black; margin-top:10px;}
+.hltip-box .hltip-title { color:black; font-size:20px; margin-bottom:6px; border-bottom:1px solid #ddd}
+.hltip-box .hltip-text { background-color: white; padding: 6px 11px 6px 11px; -moz-box-shadow: 3px 3px 10px #aaa; -webkit-box-shadow: 3px 3px 10px #aaa; box-shadow: 3px 3px 10px #aaa; }
