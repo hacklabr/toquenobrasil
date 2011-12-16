@@ -387,6 +387,7 @@ jQuery(document).ready(function(){
     plotAccordingToChoices();
     
     jQuery('#sdate').datepicker({
+        defaultDate: '-30d',
         maxDate: "-1d",
         onSelect: function(dateText, inst){
             var d = jQuery('#sdate').datepicker('getDate');
@@ -397,7 +398,7 @@ jQuery(document).ready(function(){
     
     jQuery('#fdate').datepicker({
         maxDate: new Date(),
-        minDate: new Date(),
+        minDate: '-29d',
         onSelect: function(dateText, inst){
             jQuery('#sdate').datepicker('option', 'maxDate', new Date(jQuery('#fdate').datepicker('getDate')-1));
         }
