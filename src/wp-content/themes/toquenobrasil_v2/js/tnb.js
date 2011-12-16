@@ -353,7 +353,7 @@ var hl = {
             });
             
             jQuery(".hltip").live('mouseleave',function(e){
-                jQuery(this).data('tip').fadeOut('fast');
+                jQuery(this).data('tip').hide();
                 
             });
         }

@@ -1,4 +1,137 @@
 <?php 
+$colors =array(
+    'rgb(0,0,0)',
+    'rgb(187,0,0)',
+    'rgb(0,187,0)',
+    'rgb(0,0,187)',
+    'rgb(187,187,0)',
+    'rgb(0,187,187)',
+    'rgb(187,0,187)',
+    'rgb(187,187,187)',
+    'rgb(255,187,187)',
+    'rgb(187,255,187)',
+    'rgb(187,187,255)',
+    'rgb(255,255,187)',
+    'rgb(187,255,255)',
+    'rgb(255,187,255)',
+    'rgb(255,136,0)',
+    'rgb(136,255,0)',
+    'rgb(136,0,255)',
+    'rgb(255,0,136)',
+    'rgb(0,255,136)',
+    'rgb(0,136,255)',
+    'rgb(255,136,136)',
+    'rgb(170,170,255)',
+    'rgb(255,255,136)',
+    'rgb(255,136,255)',
+    'rgb(136,255,255)',
+    'rgb(255,68,68)',
+    'rgb(68,255,68)',
+    'rgb(68,68,255)',
+    'rgb(255,255,68)',
+    'rgb(255,68,255)',
+    'rgb(102,0,0)',
+    'rgb(0,102,0)',
+    'rgb(0,0,102)',
+    'rgb(102,102,0)',
+    'rgb(0,102,102)',
+    'rgb(102,0,102)',
+    'rgb(102,102,102)',
+    'rgb(255,221,221)',
+    'rgb(221,255,221)',
+    'rgb(221,221,255)',
+    'rgb(255,255,221)',
+    'rgb(221,255,255)',
+    
+    'rgb(0,0,0)',
+    'rgb(187,0,0)',
+    'rgb(0,187,0)',
+    'rgb(0,0,187)',
+    'rgb(187,187,0)',
+    'rgb(0,187,187)',
+    'rgb(187,0,187)',
+    'rgb(187,187,187)',
+    'rgb(255,187,187)',
+    'rgb(187,255,187)',
+    'rgb(187,187,255)',
+    'rgb(255,255,187)',
+    'rgb(187,255,255)',
+    'rgb(255,187,255)',
+    'rgb(255,136,0)',
+    'rgb(136,255,0)',
+    'rgb(136,0,255)',
+    'rgb(255,0,136)',
+    'rgb(0,255,136)',
+    'rgb(0,136,255)',
+    'rgb(255,136,136)',
+    'rgb(170,170,255)',
+    'rgb(255,255,136)',
+    'rgb(255,136,255)',
+    'rgb(136,255,255)',
+    'rgb(255,68,68)',
+    'rgb(68,255,68)',
+    'rgb(68,68,255)',
+    'rgb(255,255,68)',
+    'rgb(255,68,255)',
+    'rgb(102,0,0)',
+    'rgb(0,102,0)',
+    'rgb(0,0,102)',
+    'rgb(102,102,0)',
+    'rgb(0,102,102)',
+    'rgb(102,0,102)',
+    'rgb(102,102,102)',
+    'rgb(255,221,221)',
+    'rgb(221,255,221)',
+    'rgb(221,221,255)',
+    'rgb(255,255,221)',
+    'rgb(221,255,255)',
+    
+    'rgb(0,0,0)',
+    'rgb(187,0,0)',
+    'rgb(0,187,0)',
+    'rgb(0,0,187)',
+    'rgb(187,187,0)',
+    'rgb(0,187,187)',
+    'rgb(187,0,187)',
+    'rgb(187,187,187)',
+    'rgb(255,187,187)',
+    'rgb(187,255,187)',
+    'rgb(187,187,255)',
+    'rgb(255,255,187)',
+    'rgb(187,255,255)',
+    'rgb(255,187,255)',
+    'rgb(255,136,0)',
+    'rgb(136,255,0)',
+    'rgb(136,0,255)',
+    'rgb(255,0,136)',
+    'rgb(0,255,136)',
+    'rgb(0,136,255)',
+    'rgb(255,136,136)',
+    'rgb(170,170,255)',
+    'rgb(255,255,136)',
+    'rgb(255,136,255)',
+    'rgb(136,255,255)',
+    'rgb(255,68,68)',
+    'rgb(68,255,68)',
+    'rgb(68,68,255)',
+    'rgb(255,255,68)',
+    'rgb(255,68,255)',
+    'rgb(102,0,0)',
+    'rgb(0,102,0)',
+    'rgb(0,0,102)',
+    'rgb(102,102,0)',
+    'rgb(0,102,102)',
+    'rgb(102,0,102)',
+    'rgb(102,102,102)',
+    'rgb(255,221,221)',
+    'rgb(221,255,221)',
+    'rgb(221,221,255)',
+    'rgb(255,255,221)',
+    'rgb(221,255,255)'
+);
+
+
+
 
 function getEmptyObjectsWithDaysAsIndex($sdate, $fdate = null, $format = 'Y-m-d'){
     
@@ -43,6 +176,7 @@ $plays = $downloads = array();
 $totais = array();
 
 $_musicas = tnb_get_artista_musicas($profileuser->ID);
+
 $musicas = array();
 foreach($_musicas as $mus)
     $musicas[] = $mus->ID;
@@ -91,8 +225,8 @@ if($music_ids){
     $_plays = $wpdb->get_results($SQL_plays);
     $_downloads = $wpdb->get_results($SQL_downloads);
     
-    $plays['total'] = $__new_array;
-    $downloads['total'] = $__new_array;
+    $plays['total'] = getEmptyObjectsWithDaysAsIndex ($__sdate, $__fdate);;
+    $downloads['total'] = getEmptyObjectsWithDaysAsIndex ($__sdate, $__fdate);;
     foreach($_plays as $r){
         $plays['total'][$r->day]->count += $r->count;
         
@@ -140,12 +274,33 @@ foreach ($profile_views as $data) {
 
 var plays = {
 <?php
-// criando o array de dias, views
-foreach ($plays as $mid => $data) {
-    echo "
-    'mus_$mid': {'data': [";
+$ci = 0;
+$mid = 'total';
+$data = $plays[$mid];
+
+$color = $colors[$ci];
+
+echo "
+'mus_$mid': {'color': '$color', 'data': [";
+if(is_array($data))
     foreach($data as $m)
         echo '[' . strtotime($m->day) . '000,' . $m->count . '],';
+echo '
+]},';
+
+
+// criando o array de dias, views
+foreach ($_musicas as $ci => $mus) {
+    $mid = $mus->ID;
+    $data = $plays[$mid];
+    $ci++;
+    $color = $colors[$ci];
+    
+    echo "
+    'mus_$mid': {'color': '$color', 'data': [";
+    if(is_array($data))
+        foreach($data as $m)
+            echo '[' . strtotime($m->day) . '000,' . $m->count . '],';
     echo '
     ]},';
 }
@@ -155,16 +310,37 @@ foreach ($plays as $mid => $data) {
 
 var downloads = {
 <?php
+$ci = 0;
+$mid = 'total';
+$data = $downloads[$mid];
+
+$color = $colors[$ci];
+
+echo "
+'mus_$mid': {'color': '$color', 'data': [";
+foreach($data as $m)
+    echo '[' . strtotime($m->day) . '000,' . $m->count . '],';
+echo '
+]},';
+
+
+
 // criando o array de dias, views
-foreach ($downloads as $mid => $data) {
+foreach ($_musicas as $ci => $mus) {
+    $mid = $mus->ID;
+    $data = $downloads[$mid];
+    $ci++;
+    $color = $colors[$ci];
+    
     echo "
-    'mus_$mid': {'data': [";
-    foreach($data as $m)
-        echo '[' . strtotime($m->day) . '000,' . $m->count . '],';
+    'mus_$mid': {'color': '$color', 'data': [";
+    if(is_array($data))
+        foreach($data as $m)
+            echo '[' . strtotime($m->day) . '000,' . $m->count . '],';
     echo '
     ]},';
 }
-?>    
+?>      
 };
 
 
@@ -176,9 +352,15 @@ jQuery(document).ready(function(){
     function plotAccordingToChoices() {
         var data_plays = [];
         var data_downloads = [];
-
+        jQuery(".music-choice").parent().find('span').removeClass('selected');
+        
+        if(!jQuery(".music-choice:checked").length){
+            //jQuery("#mus_total").click();
+        }
+        
         jQuery(".music-choice:checked").each(function () {
-            
+            //jQuery(this).parent().find('span').css('background-color','red');
+            jQuery(this).parent().find('span').addClass('selected');
             var key = jQuery(this).attr("name");
             
             if (key && plays[key])
@@ -189,13 +371,13 @@ jQuery(document).ready(function(){
         });
 
         
-        if (data_plays.length > 0)
+        //if (data_plays.length > 0)
             jQuery.plot(jQuery("#music-plays"), data_plays, {
                 xaxis: { mode: 'time' , timeformat: "%d/%m/%y" }
             });
         
         
-        if(data_downloads.length > 0)
+        //if(data_downloads.length > 0)
             jQuery.plot(jQuery("#music-downloads"), data_downloads, {
                 xaxis: { mode: 'time' , timeformat: "%d/%m/%y" }
             });
@@ -204,12 +386,35 @@ jQuery(document).ready(function(){
     jQuery(".music-choice").change(plotAccordingToChoices)
     plotAccordingToChoices();
     
-    jQuery('#sdate').datepicker();
-    jQuery('#fdate').datepicker();
+    jQuery('#sdate').datepicker({
+        maxDate: "-1d",
+        onSelect: function(dateText, inst){
+            var d = jQuery('#sdate').datepicker('getDate');
+            d.setDate(d.getDate()+1);
+            jQuery('#fdate').datepicker('option', 'minDate', d);
+        }
+    });
+    
+    jQuery('#fdate').datepicker({
+        maxDate: new Date(),
+        minDate: new Date(),
+        onSelect: function(dateText, inst){
+            jQuery('#sdate').datepicker('option', 'maxDate', new Date(jQuery('#fdate').datepicker('getDate')-1));
+        }
+    });
     
 });
 </script>
-
+<style>
+ .mcolor-0.selected { background: <?php echo $colors[0]; ?> !important; }
+ <?php foreach($_musicas as $ci => $m): $ci++;?>
+ 
+ .mcolor-<?php echo $ci; ?>.selected { background: <?php echo $colors[$ci]; ?> !important; }
+ 
+ <?php endforeach; ?>
+    
+    
+</style>
 
 <section id="users" class="profile profile-stats grid_16 box-shadow clearfix">
     <header class="clearfix">
@@ -220,7 +425,7 @@ jQuery(document).ready(function(){
             Estatísticas
         </h4>
         <form class="clear">
-            data inicial: <input name="sdate" id='sdate' value="<?php echo isset($_GET['sdate']) ? $_GET['sdate'] : '' ?>" /> data final: <input name="fdate" id='fdate' value="<?php echo isset($_GET['fdate']) ? $_GET['fdate'] : '' ?>" />
+            data inicial: <input name="sdate" id='sdate' value="<?php echo isset($_GET['sdate']) ? $_GET['sdate'] : '' ?>" autocomplete="off" /> data final: <input name="fdate" id='fdate' value="<?php echo isset($_GET['fdate']) ? $_GET['fdate'] : '' ?>"  autocomplete="off"/>
             <input type="submit" value="filtrar"/>
         </form>
     </header>
@@ -231,14 +436,14 @@ jQuery(document).ready(function(){
         <div class="music-list grid_3">
             <h4>músicas</h4>
             <label title="Total:plays: <?php echo $totais['plays']?><br/> downloads: <?php echo $totais['downloads'] ?>" class="hltip">
-                <input type="checkbox" class="music-choice" checked="checked" name="mus_total">
-                <span></span>Total
+                <input type="checkbox" class="music-choice" checked="checked" name="mus_total" id="mus_total">
+                <span class="mcolor-0"></span>Total
             </label>
             <br/>
-            <?php foreach($_musicas as $m): ?>
+            <?php foreach($_musicas as $ci => $m): ?>
                 <label title="<?php echo $m->post_title; ?>:plays: <?php echo $totais['musicas'][$m->ID]['plays'] ?><br/> downloads: <?php echo $totais['musicas'][$m->ID]['downloads'] ?>" class="hltip">
                     <input type="checkbox" class="music-choice" name="mus_<?php echo $m->ID; ?>">
-                    <span></span> <?php echo $m->post_title; ?>
+                    <span class="mcolor-<?php echo $ci+1 ?>"></span> <?php echo $m->post_title; ?>
                 </label>
                 <br/>
             <?php endforeach; ?>
