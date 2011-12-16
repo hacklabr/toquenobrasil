@@ -211,12 +211,15 @@ jQuery(document).ready(function(){
 </script>
 
 
-<section id="users" class="profile grid_16 box-shadow clearfix">
+<section id="users" class="profile profile-stats grid_16 box-shadow clearfix">
     <header class="clearfix">
         <h1 class="profile-name">
             <span class="bg-yellow"><?php echo $profileuser->display_name; ?></span>
         </h1>
-        <form>
+        <h4 class="title">
+            Estatísticas
+        </h4>
+        <form class="clear">
             data inicial: <input name="sdate" id='sdate' value="<?php echo isset($_GET['sdate']) ? $_GET['sdate'] : '' ?>" /> data final: <input name="fdate" id='fdate' value="<?php echo isset($_GET['fdate']) ? $_GET['fdate'] : '' ?>" />
             <input type="submit" value="filtrar"/>
         </form>
@@ -225,19 +228,28 @@ jQuery(document).ready(function(){
     <section class="content">
         <h4><?php echo $total_views.' '. __('visualizações do perfil no período','tnb'); ?> </h4>
         <div id='profile-views' class='graph' style='width:100%; height:250px;'></div>
+        <div class="music-list grid_3">
+            <h4>músicas</h4>
+            <label title="Total:plays: <?php echo $totais['plays']?><br/> downloads: <?php echo $totais['downloads'] ?>" class="hltip">
+                <input type="checkbox" class="music-choice" checked="checked" name="mus_total">
+                <span></span>Total
+            </label>
+            <br/>
+            <?php foreach($_musicas as $m): ?>
+                <label title="<?php echo $m->post_title; ?>:plays: <?php echo $totais['musicas'][$m->ID]['plays'] ?><br/> downloads: <?php echo $totais['musicas'][$m->ID]['downloads'] ?>" class="hltip">
+                    <input type="checkbox" class="music-choice" name="mus_<?php echo $m->ID; ?>">
+                    <span></span> <?php echo $m->post_title; ?>
+                </label>
+                <br/>
+            <?php endforeach; ?>
+        </div>
+        <div class="grid_11 last">
+            <h4>total de plays no período: <?php echo $totais['plays']?></h4>
+            <div id='music-plays' class='graph' style='width:100%; height:250px;'></div>
+            <h4>total de downloads no período: <?php echo $totais['downloads']?></h4>
+            <div id='music-downloads' class='graph' style='width:100%; height:250px;'></div>
+        </div>
     </section>
-    <div class="grid_3">
-        <h4>músicas</h4>
-        <label title="Total:plays: <?php echo $totais['plays']?><br/> downloads: <?php echo $totais['downloads'] ?>" class="hltip"><input type="checkbox" class="music-choice" checked="checked" name="mus_total"> Total</label><br/>
-        <?php foreach($_musicas as $m): ?>
-        <label title="<?php echo $m->post_title; ?>:plays: <?php echo $totais['musicas'][$m->ID]['plays'] ?><br/> downloads: <?php echo $totais['musicas'][$m->ID]['downloads'] ?>" class="hltip"><input type="checkbox" class="music-choice" name="mus_<?php echo $m->ID; ?>"> <?php echo $m->post_title; ?></label><br/>
-        <?php endforeach; ?>
-    </div>
-    <div class="grid_12 last">
-        <h4>total de plays no período: <?php echo $totais['plays']?></h4>
-        <div id='music-plays' class='graph' style='width:100%; height:250px;'></div>
-        <h4>total de downloads no período: <?php echo $totais['downloads']?></h4>
-        <div id='music-downloads' class='graph' style='width:100%; height:250px;'></div>
-    </div>
+
 </section>
 <?php get_footer(); ?>
