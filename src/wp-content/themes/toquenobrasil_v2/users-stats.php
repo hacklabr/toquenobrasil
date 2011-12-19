@@ -1,5 +1,6 @@
 <?php 
-global $current_user; 
+global $current_user, $wp_query, $wpdb;
+$profileuser = $wp_query->queried_object;
 
 $itsMe = $current_user->ID == $profileuser->ID;
 
@@ -176,8 +177,7 @@ function getEmptyObjectsWithDaysAsIndex($sdate, $fdate = null, $format = 'Y-m-d'
 wp_enqueue_script('jquery-flot',TNB_URL.'/js/flot/jquery.flot.js', array('jquery'));
     
 get_header(); 
-global $wp_query, $wpdb;
-$profileuser = $wp_query->queried_object;
+
 
 $plays = $downloads = array();
 $totais = array();
@@ -325,8 +325,9 @@ $color = $colors[$ci];
 
 echo "
 'mus_$mid': {'color': '$color', 'data': [";
-foreach($data as $m)
-    echo '[' . strtotime($m->day) . '000,' . $m->count . '],';
+if(is_array($data))
+    foreach($data as $m)
+        echo '[' . strtotime($m->day) . '000,' . $m->count . '],';
 echo '
 ]},';
 
@@ -355,44 +356,46 @@ jQuery(document).ready(function(){
     jQuery.plot(jQuery("#profile-views"), [{data: views, color:3}], { 
         xaxes: [ { mode: 'time' , timeformat: "%d/%m/%y" } ]
     });
-    
-    function plotAccordingToChoices() {
-        var data_plays = [];
-        var data_downloads = [];
-        jQuery(".music-choice").parent().find('span').removeClass('selected');
-        
-        if(!jQuery(".music-choice:checked").length){
-            //jQuery("#mus_total").click();
+    <?php if(is_array($_musicas) && count($_musicas)): ?>
+        function plotAccordingToChoices() {
+            var data_plays = [];
+            var data_downloads = [];
+            jQuery(".music-choice").parent().find('span').removeClass('selected');
+
+            if(!jQuery(".music-choice:checked").length){
+                //jQuery("#mus_total").click();
+            }
+
+            jQuery(".music-choice:checked").each(function () {
+                //jQuery(this).parent().find('span').css('background-color','red');
+                jQuery(this).parent().find('span').addClass('selected');
+                var key = jQuery(this).attr("name");
+
+                if (key && plays[key])
+                    data_plays.push(plays[key]);
+
+                if (key && downloads[key])
+                    data_downloads.push(downloads[key]);
+            });
+
+
+            //if (data_plays.length > 0)
+                jQuery.plot(jQuery("#music-plays"), data_plays, {
+                    xaxis: { mode: 'time' , timeformat: "%d/%m/%y" }
+                });
+
+
+            //if(data_downloads.length > 0)
+                jQuery.plot(jQuery("#music-downloads"), data_downloads, {
+                    xaxis: { mode: 'time' , timeformat: "%d/%m/%y" }
+                });
         }
-        
-        jQuery(".music-choice:checked").each(function () {
-            //jQuery(this).parent().find('span').css('background-color','red');
-            jQuery(this).parent().find('span').addClass('selected');
-            var key = jQuery(this).attr("name");
-            
-            if (key && plays[key])
-                data_plays.push(plays[key]);
-            
-            if (key && downloads[key])
-                data_downloads.push(downloads[key]);
-        });
 
-        
-        //if (data_plays.length > 0)
-            jQuery.plot(jQuery("#music-plays"), data_plays, {
-                xaxis: { mode: 'time' , timeformat: "%d/%m/%y" }
-            });
-        
-        
-        //if(data_downloads.length > 0)
-            jQuery.plot(jQuery("#music-downloads"), data_downloads, {
-                xaxis: { mode: 'time' , timeformat: "%d/%m/%y" }
-            });
-    }
+        jQuery(".music-choice").change(plotAccordingToChoices);
 
-    jQuery(".music-choice").change(plotAccordingToChoices)
-    plotAccordingToChoices();
-    
+        plotAccordingToChoices();
+    <?php endif; ?>
+        
     jQuery('#sdate').datepicker({
         defaultDate: '-30d',
         maxDate: "-1d",
@@ -441,27 +444,29 @@ jQuery(document).ready(function(){
     <section class="content">
         <h4><?php echo $total_views.' '. __('visualizações do perfil no período','tnb'); ?> </h4>
         <div id='profile-views' class='graph' style='width:100%; height:250px;'></div>
-        <div class="music-list grid_3">
-            <h4>músicas</h4>
-            <label title="Total:plays: <?php echo $totais['plays']?><br/> downloads: <?php echo $totais['downloads'] ?>" class="hltip">
-                <input type="checkbox" class="music-choice" checked="checked" name="mus_total" id="mus_total">
-                <span class="mcolor-0"></span>Total
-            </label>
-            <br/>
-            <?php foreach($_musicas as $ci => $m): ?>
-                <label title="<?php echo $m->post_title; ?>:plays: <?php echo $totais['musicas'][$m->ID]['plays'] ?><br/> downloads: <?php echo $totais['musicas'][$m->ID]['downloads'] ?>" class="hltip">
-                    <input type="checkbox" class="music-choice" name="mus_<?php echo $m->ID; ?>">
-                    <span class="mcolor-<?php echo $ci+1 ?>"></span> <?php echo $m->post_title; ?>
+        <?php if(is_array($_musicas) && count($_musicas)): ?>
+            <div class="music-list grid_3">
+                <h4>músicas</h4>
+                <label title="Total:plays: <?php echo $totais['plays']?><br/> downloads: <?php echo $totais['downloads'] ?>" class="hltip">
+                    <input type="checkbox" class="music-choice" checked="checked" name="mus_total" id="mus_total">
+                    <span class="mcolor-0"></span>Total
                 </label>
                 <br/>
-            <?php endforeach; ?>
-        </div>
-        <div class="grid_11 last">
-            <h4>total de plays no período: <?php echo $totais['plays']?></h4>
-            <div id='music-plays' class='graph' style='width:100%; height:250px;'></div>
-            <h4>total de downloads no período: <?php echo $totais['downloads']?></h4>
-            <div id='music-downloads' class='graph' style='width:100%; height:250px;'></div>
-        </div>
+                <?php foreach($_musicas as $ci => $m): ?>
+                    <label title="<?php echo $m->post_title; ?>:plays: <?php echo $totais['musicas'][$m->ID]['plays'] ?><br/> downloads: <?php echo $totais['musicas'][$m->ID]['downloads'] ?>" class="hltip">
+                        <input type="checkbox" class="music-choice" name="mus_<?php echo $m->ID; ?>">
+                        <span class="mcolor-<?php echo $ci+1 ?>"></span> <?php echo $m->post_title; ?>
+                    </label>
+                    <br/>
+                <?php endforeach; ?>
+            </div>
+            <div class="grid_11 last">
+                <h4>total de plays no período: <?php echo $totais['plays']?></h4>
+                <div id='music-plays' class='graph' style='width:100%; height:250px;'></div>
+                <h4>total de downloads no período: <?php echo $totais['downloads']?></h4>
+                <div id='music-downloads' class='graph' style='width:100%; height:250px;'></div>
+            </div>
+        <?php endif; ?>
     </section>
 
 </section>
