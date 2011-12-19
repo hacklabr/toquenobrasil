@@ -1,4 +1,11 @@
 <?php 
+global $current_user; 
+
+$itsMe = $current_user->ID == $profileuser->ID;
+
+if(!current_user_can('edit_users') && !$itsMe )
+    wp_redirect(get_bloginfo('url'));
+
 $colors =array(
     'rgb(0,0,0)',
     'rgb(187,0,0)',
