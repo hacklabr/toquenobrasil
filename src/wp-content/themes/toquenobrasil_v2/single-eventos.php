@@ -79,7 +79,7 @@ switch($_POST['action']) {
                                      "AND wp_postmeta.post_id = $post_id ".
                                      "AND wp_postmeta.meta_key='inscrito';");
             if($emails){
-                $user = get_currentuserinfo();
+                $user = wp_get_current_user();
                 if(send_mail_to_artists($user->user_email,$emails,$_POST['subject'],$_POST['message'])) {
                     wp_redirect($_SERVER["REDIRECT_URL"].'?message=sentforsigned');
                     exit();
@@ -101,7 +101,7 @@ switch($_POST['action']) {
                                      "AND wp_postmeta.post_id = $post_id ".
                                      "AND wp_postmeta.meta_key='inscricao_pendente';");
             if($emails){
-                $user = get_currentuserinfo();
+                $user = wp_get_current_user();
                 if(send_mail_to_artists($user->user_email,$emails,$_POST['subject'],$_POST['message'])) {
                     wp_redirect($_SERVER["REDIRECT_URL"].'?message=sentforsigned');
                     exit();
@@ -123,7 +123,7 @@ switch($_POST['action']) {
                                      "AND wp_postmeta.post_id = $post_id ".
                                      "AND wp_postmeta.meta_key='selecionado';");
             if($emails){
-                $user = get_currentuserinfo();
+                $user = wp_get_current_user();
                 if(send_mail_to_artists($user->user_email,$emails,$_POST['subject'],$_POST['message'])) {
                     wp_redirect($_SERVER["REDIRECT_URL"].'?message=sentforselected');
                     exit();
