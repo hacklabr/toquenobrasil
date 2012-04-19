@@ -2249,6 +2249,7 @@ function pagamento_substitui_substituicoes($texto, $evento_id, $valor = null, $p
 }
 
 function get_valor_monetario($numero){
+    $numero = str_replace(',', '.', $numero);
     $numero = is_numeric($numero) ? $numero : 0;
     return money_format('%.2n', $numero);
 }
