@@ -54,7 +54,12 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
         $data['user_pass'] = $user_pass;
         $data['user_email'] =  $user_email;
         
-        $data['role'] = $_POST['user_type'] ;
+		if (isset($_POST['user_type']) && $_POST['user_type'] == 'produtor') {
+			$data['role'] = 'produtor';
+		} else {
+			$data['role'] = 'artista';
+		}
+        
         $user_id = wp_insert_user($data);
 
         if ( ! $user_id ) {
