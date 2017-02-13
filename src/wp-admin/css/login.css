@@ -1,1 +1,262 @@
-*{margin:0;padding:0;}body{padding-top:30px;font:11px "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;}form{margin-left:8px;padding:16px 16px 40px 16px;font-weight:normal;-moz-border-radius:11px;-khtml-border-radius:11px;-webkit-border-radius:11px;border-radius:5px;background:#fff;border:1px solid #e5e5e5;-moz-box-shadow:rgba(200,200,200,1) 0 4px 18px;-webkit-box-shadow:rgba(200,200,200,1) 0 4px 18px;-khtml-box-shadow:rgba(200,200,200,1) 0 4px 18px;box-shadow:rgba(200,200,200,1) 0 4px 18px;}form .forgetmenot{font-weight:normal;float:left;margin-bottom:0;}.button-primary{font-family:"Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;padding:3px 10px;border:none;font-size:12px;border-width:1px;border-style:solid;-moz-border-radius:11px;-khtml-border-radius:11px;-webkit-border-radius:11px;border-radius:11px;cursor:pointer;text-decoration:none;margin-top:-3px;}#login form p{margin-bottom:0;}label{color:#777;font-size:13px;}form .forgetmenot label{font-size:11px;line-height:19px;}form .submit,.alignright{float:right;}form p{margin-bottom:24px;}h1 a{background:url(../images/logo-login.gif) no-repeat top center;width:326px;height:67px;text-indent:-9999px;overflow:hidden;padding-bottom:15px;display:block;}#nav{text-shadow:rgba(255,255,255,1) 0 1px 0;}#backtoblog{position:absolute;top:0;left:0;border-bottom:#c6c6c6 1px solid;background:#d9d9d9;background:-moz-linear-gradient(bottom,#d7d7d7,#e4e4e4);background:-webkit-gradient(linear,left bottom,left top,from(#d7d7d7),to(#e4e4e4));height:30px;width:100%;}#backtoblog a{text-decoration:none;display:block;padding:8px 0 0 15px;}#login{width:320px;margin:7em auto;}#login_error,.message{margin:0 0 16px 8px;border-width:1px;border-style:solid;padding:12px;-moz-border-radius:3px;-khtml-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}#nav{margin:0 0 0 8px;padding:16px;}#user_pass,#user_login,#user_email{font-size:24px;width:97%;padding:3px;margin-top:2px;margin-right:6px;margin-bottom:16px;border:1px solid #e5e5e5;background:#fbfbfb;}input{color:#555;}.clear{clear:both;}
+@import url(forms.css);
+@import url(l10n.css);
+
+html,
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #f1f1f1;
+	min-width: 0;
+	color: #444;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	font-size: 13px;
+	line-height: 1.4em;
+}
+
+a {
+	color: #0073aa;
+	-webkit-transition-property: border, background, color;
+	transition-property: border, background, color;
+	-webkit-transition-duration: .05s;
+	transition-duration: .05s;
+	-webkit-transition-timing-function: ease-in-out;
+	transition-timing-function: ease-in-out;
+}
+
+a {
+	outline: 0;
+}
+
+a:hover,
+a:active {
+	color: #00a0d2;
+}
+
+a:focus {
+	color: #124964;
+	-webkit-box-shadow:
+		0 0 0 1px #5b9dd9,
+		0 0 2px 1px rgba(30, 140, 190, .8);
+	box-shadow:
+		0 0 0 1px #5b9dd9,
+		0 0 2px 1px rgba(30, 140, 190, .8);
+}
+
+.ie8 a:focus {
+	outline: #5b9dd9 solid 1px;
+}
+
+p {
+	line-height: 1.5;
+}
+
+.login .message,
+.login #login_error {
+	border-left: 4px solid #00a0d2;
+	padding: 12px;
+	margin-left: 0;
+	background-color: #fff;
+	-webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1);
+	box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1);
+}
+
+.login #login_error {
+	border-left-color: #dc3232;
+}
+
+#loginform p.submit,
+.login-action-lostpassword p.submit {
+	border: none;
+	margin: -10px 0 20px; /* May want to revisit this */
+}
+
+.login * {
+	margin: 0;
+	padding: 0;
+}
+
+.login form {
+	margin-top: 20px;
+	margin-left: 0;
+	padding: 26px 24px 46px;
+	font-weight: 400;
+	overflow: hidden;
+	background: #fff;
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.13);
+	box-shadow: 0 1px 3px rgba(0,0,0,0.13);
+}
+
+.login form .forgetmenot {
+	font-weight: 400;
+	float: left;
+	margin-bottom: 0;
+}
+
+.login .button-primary {
+	float: right;
+}
+
+#login form p {
+	margin-bottom: 0;
+}
+
+#login form p.submit {
+	margin: 0;
+	padding: 0;
+}
+
+.login label {
+	color: #72777c;
+	font-size: 14px;
+}
+
+.login form .forgetmenot label {
+	font-size: 12px;
+	line-height: 19px;
+}
+
+.login h1 {
+	text-align: center;
+}
+
+.login h1 a {
+	background-image: url(../images/w-logo-blue.png?ver=20131202);
+	background-image: none, url(../images/wordpress-logo.svg?ver=20131107);
+	-webkit-background-size: 84px;
+	background-size: 84px;
+	background-position: center top;
+	background-repeat: no-repeat;
+	color: #444;
+	height: 84px;
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 1.3em;
+	margin: 0 auto 25px;
+	padding: 0;
+	text-decoration: none;
+	width: 84px;
+	text-indent: -9999px;
+	outline: none;
+	overflow: hidden;
+	display: block;
+}
+
+#login {
+	width: 320px;
+	padding: 8% 0 0;
+	margin: auto;
+}
+
+.login #nav,
+.login #backtoblog {
+	font-size: 13px;
+	padding: 0 24px 0;
+}
+
+.login #nav {
+	margin: 24px 0 0 0;
+}
+
+#backtoblog {
+	margin: 16px 0;
+}
+
+.login #nav a,
+.login #backtoblog a {
+	text-decoration: none;
+	color: #555d66;
+}
+
+.login #nav a:hover,
+.login #backtoblog a:hover,
+.login h1 a:hover {
+	color: #00a0d2;
+}
+
+.login #nav a:focus,
+.login #backtoblog a:focus,
+.login h1 a:focus {
+	color: #124964;
+}
+
+.login form .input,
+.login input[type="text"] {
+	font-size: 24px;
+	width: 100%;
+	padding: 3px;
+	margin: 2px 6px 16px 0;
+}
+
+.login form .input,
+.login input[type="text"],
+.login form input[type="checkbox"] {
+	background: #fbfbfb;
+}
+
+.ie7 .login form .input,
+.ie8 .login form .input {
+	font-family: sans-serif;
+}
+
+.login-action-rp input[type="text"] {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	margin: 0;
+}
+
+.login #pass-strength-result {
+	font-weight: 600;
+	margin: -1px 5px 16px 0;
+	padding: 6px 5px;
+	text-align: center;
+	width: 100%;
+}
+
+body.interim-login {
+	height: auto;
+}
+
+.interim-login #login {
+	padding: 0;
+	margin: 5px auto 20px;
+}
+
+.interim-login.login h1 a {
+	width: auto;
+}
+
+.interim-login #login_error,
+.interim-login.login .message {
+	margin: 0 0 16px;
+}
+
+.interim-login.login form {
+	margin: 0;
+}
+
+@-ms-viewport {
+	width: device-width;
+}
+
+@media screen and ( max-height: 550px ) {
+	#login {
+		padding: 20px 0;
+	}
+}
+
+@media screen and ( max-width: 782px ) {
+	.interim-login input[type=checkbox] {
+		height: 16px;
+		width: 16px;
+	}
+
+	.interim-login input[type=checkbox]:checked:before {
+		width: 16px;
+		font: normal 21px/1 dashicons;
+		margin: -3px 0 0 -4px;
+	}
+}

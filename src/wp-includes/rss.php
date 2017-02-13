@@ -10,17 +10,21 @@
  *
  * @package External
  * @subpackage MagpieRSS
+ * @deprecated 3.0.0 Use SimplePie instead.
  */
 
 /**
  * Deprecated. Use SimplePie (class-simplepie.php) instead.
  */
-_deprecated_file( basename( __FILE__ ), '3.0', WPINC . '/class-simplepie.php' );
+_deprecated_file( basename( __FILE__ ), '3.0.0', WPINC . '/class-simplepie.php' );
 
-/*
- * Hook to use another RSS object instead of MagpieRSS
+/**
+ * Fires before MagpieRSS is loaded, to optionally replace it.
+ *
+ * @since 2.3.0
+ * @deprecated 3.0.0
  */
-do_action('load_feed_engine');
+do_action( 'load_feed_engine' );
 
 /** RSS feed constant. */
 define('RSS', 'RSS');
@@ -51,18 +55,18 @@ class MagpieRSS {
 
 	var $_CONTENT_CONSTRUCTS = array('content', 'summary', 'info', 'title', 'tagline', 'copyright');
 
-	function MagpieRSS ($source) {
+	/**
+	 * PHP5 constructor.
+	 */
+	function __construct( $source ) {
 
-		# if PHP xml isn't compiled in, die
+		# Check if PHP xml isn't compiled
 		#
-		if ( !function_exists('xml_parser_create') )
-			trigger_error( "Failed to load PHP's XML Extension. http://www.php.net/manual/en/ref.xml.php" );
+		if ( ! function_exists('xml_parser_create') ) {
+			return trigger_error( "PHP's XML extension is not available. Please contact your hosting provider to enable PHP's XML extension." );
+		}
 
-		$parser = @xml_parser_create();
-
-		if ( !is_resource($parser) )
-			trigger_error( "Failed to create an instance of PHP's XML parser. http://www.php.net/manual/en/ref.xml.php");
-
+		$parser = xml_parser_create();
 
 		$this->parser = $parser;
 
@@ -94,6 +98,13 @@ class MagpieRSS {
 		$this->normalize();
 	}
 
+	/**
+	 * PHP4 constructor.
+	 */
+	public function MagpieRSS( $source ) {
+		self::__construct( $source );
+	}
+
 	function feed_start_element($p, $element, &$attrs) {
 		$el = $element = strtolower($element);
 		$attrs = array_change_key_case($attrs, CASE_LOWER);
@@ -101,7 +112,7 @@ class MagpieRSS {
 		// check for a namespace, and split if found
 		$ns	= false;
 		if ( strpos( $element, ':' ) ) {
-			list($ns, $el) = split( ':', $element, 2);
+			list($ns, $el) = explode( ':', $element, 2);
 		}
 		if ( $ns and $ns != 'rdf' ) {
 			$this->current_namespace = $ns;
@@ -167,7 +178,6 @@ class MagpieRSS {
 
 			$this->incontent = $el;
 
-
 		}
 
 		// if inside an Atom content construct (e.g. content or summary) field treat tags as text
@@ -205,8 +215,6 @@ class MagpieRSS {
 			array_unshift($this->stack, $el);
 		}
 	}
-
-
 
 	function feed_cdata ($p, $text) {
 
@@ -247,7 +255,7 @@ class MagpieRSS {
 		}
 		elseif ($this->feed_type == ATOM and $this->incontent  ) {
 			// balance tags properly
-			// note:  i don't think this is actually neccessary
+			// note: This may not actually be necessary
 			if ( $this->stack[0] == $el )
 			{
 				$this->append_content("</$el>");
@@ -394,7 +402,7 @@ if ( !function_exists('fetch_rss') ) :
 /**
  * Build Magpie object based on RSS from URL.
  *
- * @since unknown
+ * @since 1.5.0
  * @package External
  * @subpackage MagpieRSS
  *
@@ -426,7 +434,7 @@ function fetch_rss ($url) {
 	else {
 		// Flow
 		// 1. check cache
-		// 2. if there is a hit, make sure its fresh
+		// 2. if there is a hit, make sure it's fresh
 		// 3. if cached obj fails freshness check, fetch remote
 		// 4. if remote fails, return stale object, or error
 
@@ -435,7 +443,6 @@ function fetch_rss ($url) {
 		if (MAGPIE_DEBUG and $cache->ERROR) {
 			debug($cache->ERROR, E_USER_WARNING);
 		}
-
 
 		$cache_status 	 = 0;		// response of check_cache
 		$request_headers = array(); // HTTP headers to send with fetch
@@ -532,7 +539,7 @@ endif;
 /**
  * Retrieve URL headers and content using WP HTTP Request API.
  *
- * @since unknown
+ * @since 1.5.0
  * @package External
  * @subpackage MagpieRSS
  *
@@ -541,7 +548,7 @@ endif;
  * @return Snoopy style response
  */
 function _fetch_remote_file($url, $headers = "" ) {
-	$resp = wp_remote_request($url, array('headers' => $headers, 'timeout' => MAGPIE_FETCH_TIME_OUT));
+	$resp = wp_safe_remote_request( $url, array( 'headers' => $headers, 'timeout' => MAGPIE_FETCH_TIME_OUT ) );
 	if ( is_wp_error($resp) ) {
 		$error = array_shift($resp->errors);
 
@@ -555,7 +562,7 @@ function _fetch_remote_file($url, $headers = "" ) {
 	// Snoopy returns headers unprocessed.
 	// Also note, WP_HTTP lowercases all keys, Snoopy did not.
 	$return_headers = array();
-	foreach ( $resp['headers'] as $key => $value ) {
+	foreach ( wp_remote_retrieve_headers( $resp ) as $key => $value ) {
 		if ( !is_array($value) ) {
 			$return_headers[] = "$key: $value";
 		} else {
@@ -565,10 +572,10 @@ function _fetch_remote_file($url, $headers = "" ) {
 	}
 
 	$response = new stdClass;
-	$response->status = $resp['response']['code'];
-	$response->response_code = $resp['response']['code'];
+	$response->status = wp_remote_retrieve_response_code( $resp );
+	$response->response_code = wp_remote_retrieve_response_code( $resp );
 	$response->headers = $return_headers;
-	$response->results = $resp['body'];
+	$response->results = wp_remote_retrieve_body( $resp );
 
 	return $response;
 }
@@ -576,12 +583,12 @@ function _fetch_remote_file($url, $headers = "" ) {
 /**
  * Retrieve
  *
- * @since unknown
+ * @since 1.5.0
  * @package External
  * @subpackage MagpieRSS
  *
- * @param unknown_type $resp
- * @return unknown
+ * @param array $resp
+ * @return MagpieRSS|bool
  */
 function _response_to_rss ($resp) {
 	$rss = new MagpieRSS( $resp->results );
@@ -590,7 +597,7 @@ function _response_to_rss ($resp) {
 	if ( $rss && (!isset($rss->ERROR) || !$rss->ERROR) ) {
 
 		// find Etag, and Last-Modified
-		foreach( (array) $resp->headers as $h) {
+		foreach ( (array) $resp->headers as $h) {
 			// 2003-03-02 - Nicola Asuni (www.tecnick.com) - fixed bug "Undefined offset: 1"
 			if (strpos($h, ": ")) {
 				list($field, $val) = explode(": ", $h, 2);
@@ -626,7 +633,7 @@ function _response_to_rss ($resp) {
 /**
  * Set up constants with default values, unless user overrides.
  *
- * @since unknown
+ * @since 1.5.0
  * @package External
  * @subpackage MagpieRSS
  */
@@ -710,7 +717,10 @@ class RSSCache {
 	var $MAX_AGE	= 43200;  		// when are files stale, default twelve hours
 	var $ERROR 		= '';			// accumulate error messages
 
-	function RSSCache ($base='', $age='') {
+	/**
+	 * PHP5 constructor.
+	 */
+	function __construct( $base = '', $age = '' ) {
 		$this->BASE_CACHE = WP_CONTENT_DIR . '/cache';
 		if ( $base ) {
 			$this->BASE_CACHE = $base;
@@ -721,11 +731,18 @@ class RSSCache {
 
 	}
 
+	/**
+	 * PHP4 constructor.
+	 */
+	public function RSSCache( $base = '', $age = '' ) {
+		self::__construct( $base, $age );
+	}
+
 /*=======================================================================*\
 	Function:	set
 	Purpose:	add an item to the cache, keyed on url
-	Input:		url from wich the rss file was fetched
-	Output:		true on sucess
+	Input:		url from which the rss file was fetched
+	Output:		true on success
 \*=======================================================================*/
 	function set ($url, $rss) {
 		$cache_option = 'rss_' . $this->file_name( $url );
@@ -738,7 +755,7 @@ class RSSCache {
 /*=======================================================================*\
 	Function:	get
 	Purpose:	fetch an item from the cache
-	Input:		url from wich the rss file was fetched
+	Input:		url from which the rss file was fetched
 	Output:		cached object on HIT, false on MISS
 \*=======================================================================*/
 	function get ($url) {
@@ -759,7 +776,7 @@ class RSSCache {
 	Function:	check_cache
 	Purpose:	check a url for membership in the cache
 				and whether the object is older then MAX_AGE (ie. STALE)
-	Input:		url from wich the rss file was fetched
+	Input:		url from which the rss file was fetched
 	Output:		cached object on HIT, false on MISS
 \*=======================================================================*/
 	function check_cache ( $url ) {
@@ -792,7 +809,7 @@ class RSSCache {
 /*=======================================================================*\
 	Function:	file_name
 	Purpose:	map url to location in cache
-	Input:		url from wich the rss file was fetched
+	Input:		url from which the rss file was fetched
 	Output:		a file name
 \*=======================================================================*/
 	function file_name ($url) {
@@ -871,7 +888,7 @@ if ( !function_exists('wp_rss') ) :
 /**
  * Display all RSS items in a HTML ordered list.
  *
- * @since unknown
+ * @since 1.5.0
  * @package External
  * @subpackage MagpieRSS
  *
@@ -891,7 +908,7 @@ function wp_rss( $url, $num_items = -1 ) {
 				'<li><a href="%1$s" title="%2$s">%3$s</a></li>',
 				esc_url( $item['link'] ),
 				esc_attr( strip_tags( $item['description'] ) ),
-				htmlentities( $item['title'] )
+				esc_html( $item['title'] )
 			);
 		}
 
@@ -911,7 +928,7 @@ if ( !function_exists('get_rss') ) :
  * to display. You can't display all of them like you can with wp_rss()
  * function.
  *
- * @since unknown
+ * @since 1.5.0
  * @package External
  * @subpackage MagpieRSS
  *
@@ -926,7 +943,7 @@ function get_rss ($url, $num_items = 5) { // Like get posts, but for RSS
 		foreach ( (array) $rss->items as $item ) {
 			echo "<li>\n";
 			echo "<a href='$item[link]' title='$item[description]'>";
-			echo htmlentities($item['title']);
+			echo esc_html($item['title']);
 			echo "</a><br />\n";
 			echo "</li>\n";
 		}
@@ -935,5 +952,3 @@ function get_rss ($url, $num_items = 5) { // Like get posts, but for RSS
 	}
 }
 endif;
-
-?>
